@@ -197,3 +197,4 @@
 - {glyph: ⟡, ascii: Dx, class: keyword, labels: {en: Discover}, oracle: Discover}
 - {glyph: ⊄, ascii: Pd, class: action, labels: {en: prevent}}
 - {glyph: ▼, ascii: Fw, class: logic, labels: {en: face down}}
+- {glyph: ∞, ascii: Gm, class: time, labels: {en: this game}}

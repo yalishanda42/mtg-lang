@@ -133,7 +133,7 @@ Every rules-relevant distinction in the Oracle text must survive (spec §5.5a):
 | until end of turn / this turn | `⧗` / `◷` |
 | sorcery speed, once per turn | `≡✎`, `≤1◷` |
 | replacement / trigger | `⤳` / `⇒` |
-| intervening if / effect if | `∧` before `⇒` / `⊃` inside the effect |
+| intervening if / effect if / trigger-time "while" | `∧` before `⇒` / `⊃` inside the effect / `∵` before `⇒` ("Whenever you attack while …") |
 | another | `≠◈` |
 | if you do / if you can't | `✓ ⊃` / `✗ ⊃` |
 
