@@ -27,3 +27,8 @@ def test_strip_reminder_midline():
 def test_normalize_short_name():
     assert normalize_for_consistency("When Hoshi Sato enters, draw a card.", "Hoshi Sato, Exolinguist") == "When ~ enters, draw a card."
     assert normalize_for_consistency("When Hoshi Sato, Exolinguist  enters, draw.", "Hoshi Sato, Exolinguist") == "When ~ enters, draw."
+
+
+def test_reminder_spanning_lines_is_dropped():
+    f = face("(As this Saga enters and after your draw\nstep, add a lore counter. Sacrifice after III.)\nI — Draw two cards.")
+    assert oracle_lines(f) == ["I — Draw two cards."]

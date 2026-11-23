@@ -192,3 +192,8 @@
 - {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter)}}
 - {glyph: ⋮, ascii: Dv, class: action, labels: {en: distribute among}}
 - {glyph: ⇅, ascii: Ay, class: logic, labels: {en: in any order}}
+- {glyph: ⦸, ascii: Ph, class: action, labels: {en: phase out}}
+- {glyph: ⦶, ascii: Pi, class: action, labels: {en: phase in}}
+- {glyph: ⟡, ascii: Dx, class: keyword, labels: {en: Discover}, oracle: Discover}
+- {glyph: ⊄, ascii: Pd, class: action, labels: {en: prevent}}
+- {glyph: ▼, ascii: Fw, class: logic, labels: {en: face down}}

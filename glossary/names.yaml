@@ -791,3 +791,11 @@
 - {key: Kill, class: flavor, labels: {en: Kill}}
 - {key: Battle Stations, class: flavor, labels: {en: Battle Stations}}
 - {key: Begin Negotiations, class: flavor, labels: {en: Begin Negotiations}}
+- {key: Alter the Past, class: flavor, labels: {en: Alter the Past}}
+- {key: Obliterate the Transwarp Network, class: flavor, labels: {en: Obliterate the Transwarp Network}}
+- {key: I Am Klingon, class: flavor, labels: {en: I Am Klingon}}
+- {key: I Am Starfleet, class: flavor, labels: {en: I Am Starfleet}}
+- {key: "Plain, Simple Garak", class: flavor, labels: {en: "Plain, Simple Garak"}}
+- {key: Of the Obsidian Order, class: flavor, labels: {en: Of the Obsidian Order}}
+- {key: Power to Engines, class: flavor, labels: {en: Power to Engines}}
+- {key: Power to Life Support, class: flavor, labels: {en: Power to Life Support}}

@@ -6,6 +6,7 @@ import re
 from mtglang.scryfall import ScryFace
 
 _REMINDER = re.compile(r"\s*\([^()]*\)")
+_REMINDER_MULTILINE = re.compile(r"\([^()]*\n[^()]*\)")  # Scryfall data quirk: reminder split across lines
 
 
 def strip_reminder(text: str) -> str:
@@ -16,7 +17,8 @@ def strip_reminder(text: str) -> str:
 
 
 def oracle_lines(face: ScryFace) -> list[str]:
-    lines = (strip_reminder(l) for l in face.oracle_text.split("\n"))
+    text = _REMINDER_MULTILINE.sub("", face.oracle_text)
+    lines = (strip_reminder(l) for l in text.split("\n"))
     return [l for l in lines if l]
 
 
