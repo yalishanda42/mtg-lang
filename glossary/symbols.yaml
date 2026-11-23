@@ -174,3 +174,6 @@
 - {glyph: ⦰, ascii: Fr, class: action, labels: {en: without paying its mana cost}}
 - {glyph: ⧖, ascii: SS, class: keyword, labels: {en: Split second}, oracle: Split second}
 - {glyph: ◍, ascii: Mc, class: characteristic, labels: {en: mana cost}}
+- {glyph: ⨁, ascii: Rs, class: action, labels: {en: costs more}}
+- {glyph: Σ, ascii: Sm, class: comparison, labels: {en: total}}
+- {glyph: ⁺, ascii: Xs, class: comparison, labels: {en: excess}}

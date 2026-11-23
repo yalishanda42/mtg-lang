@@ -758,3 +758,5 @@
 - {key: Mowu, class: token, labels: {en: Mowu}}
 - {key: Leviathan, class: subtype, labels: {en: Leviathan}}
 - {key: Thopter, class: subtype, labels: {en: Thopter}}
+- {key: Tentacle, class: subtype, labels: {en: Tentacle}}
+- {key: Sculpture, class: subtype, labels: {en: Sculpture}}
