@@ -97,11 +97,11 @@
 - {glyph: ⧗, ascii: Ue, class: time, labels: {en: until end of turn}}
 - {glyph: ◷, ascii: Tn, class: time, labels: {en: 'turn (◷ this turn, ◷● your turn)'}}
 - {glyph: ≡, ascii: ==, class: time, labels: {en: only as (≡✎ = only as a sorcery)}}
-- {glyph: ✈, ascii: F, class: keyword, labels: {en: Flying}, oracle: Flying, definition: '♞[¬(✈ ∨ ⇞)] ¬⛉ ◈'}
+- {glyph: 🪽, ascii: F, class: keyword, labels: {en: Flying}, oracle: Flying, definition: '♞[¬(🪽 ∨ ⇞)] ¬⛉ ◈'}
 - {glyph: ⊙, ascii: V, class: keyword, labels: {en: Vigilance}, oracle: Vigilance, definition: ◈➹ ¬↷}
 - {glyph: ♡, ascii: LL, class: keyword, labels: {en: Lifelink}, oracle: Lifelink, definition: ◈ ✸X ⇒ ◈⚑ ♥+X}
 - {glyph: ⊠, ascii: Wd, class: keyword, labels: {en: Ward}, oracle: Ward, definition: ◈ ∈ ◎ ○ ⇒ ⊗ ☞}
-- {glyph: ⇞, ascii: Rh, class: keyword, labels: {en: Reach}, oracle: Reach, definition: '◈ ? ⛉ ♞[✈]'}
+- {glyph: ⇞, ascii: Rh, class: keyword, labels: {en: Reach}, oracle: Reach, definition: '◈ ? ⛉ ♞[🪽]'}
 - {glyph: ☣, ascii: DT, class: keyword, labels: {en: Deathtouch}, oracle: Deathtouch, definition: ◈ ✸ → ♞ ⇒ ✖ ☞}
 - {glyph: ↟, ascii: FS, class: keyword, labels: {en: First strike}, oracle: First strike}
 - {glyph: ⇈, ascii: DS, class: keyword, labels: {en: Double strike}, oracle: Double strike}

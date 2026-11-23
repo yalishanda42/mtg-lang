@@ -10,7 +10,7 @@ Every token on a card is exactly one of:
 
 | Kind | Examples | Notes |
 |---|---|---|
-| glossary symbol | `◈ ⇒ ♞ ✈ ⧗` | closed vocabulary, `glossary/symbols.yaml`; each has an ASCII alias |
+| glossary symbol | `◈ ⇒ ♞ 🪽 ⧗` | closed vocabulary, `glossary/symbols.yaml`; each has an ASCII alias |
 | number / variable | `3`, `X`, `Y`, `Z` | |
 | mana / game symbol | `{G}`, `{2}`, `{T}`, `{U/B}` | Magic's own symbols, unchanged |
 | fixed punctuation | `[ ] ( ) , / + - − —` | `−` is the minus sign in loyalty costs |
@@ -41,7 +41,7 @@ One file per card, `cards/<set>/<slug>.mtgl`:
 
 | Shape | Form | Example | Reads |
 |---|---|---|---|
-| keyword(s) | `K, K` | `✈, ⊙, ♡, ⊠{2}` | Flying, vigilance, lifelink, ward {2} |
+| keyword(s) | `K, K` | `🪽, ⊙, ♡, ⊠{2}` | Flying, vigilance, lifelink, ward {2} |
 | triggered | `event ⇒ effect` | `◈↥ ⇒ ● ♥+1` | When this enters, you gain 1 life. |
 | intervening if | `event ∧ cond ⇒ effect` | `◈↥ ∧ #⛰[⚑●] ≥ 6 ⇒ …` | When this enters, if you control six or more lands, … |
 | activated | `cost : effect` | `{T} : ⊕ {U} ∨ {R}` | {T}: Add {U} or {R}. |
@@ -50,7 +50,7 @@ One file per card, `cards/<set>/<slug>.mtgl`:
 | labelled | `label ▸ ability` | `⛶ ▸ …`, `«Open a Channel» ▸ …` | ability word / flavor word |
 | modal | `⊻n` line, then `• …` lines | `⊻1` / `• ♞[⚑●] +2/+0 ⧗` | Choose one — • … |
 | saga chapter | `§n ▸ effect` (`§1,2 ▸` for several) | `§2 ▸ ● ♥+3` | II — You gain 3 life. |
-| station threshold | `n+ \| ability` | `12+ \| ⚙♞[⚑●] ∋ ✈` | 12+ \| Artifact creatures you control have flying. |
+| station threshold | `n+ \| ability` | `12+ \| ⚙♞[⚑●] ∋ 🪽` | 12+ \| Artifact creatures you control have flying. |
 
 Formal structure (`mtglang/grammar.lark`):
 
