@@ -32,3 +32,42 @@ def test_issue_str():
     from mtglang.issues import Issue
     assert str(Issue("error", "V-X", "bad", "a.mtgl", 3, 5)) == "a.mtgl:3:5: error V-X: bad"
     assert str(Issue("warning", "V-Y", "meh")) == "warning V-Y: meh"
+
+
+from conftest import FIXTURES
+from mtglang.scryfall import fetch_set, load_snapshot, load_subtypes, split_subtypes
+
+
+def test_fetch_set_paginates():
+    pages = {"https://api.scryfall.com/cards/search?q=e%3Atrk&unique=cards":
+                 {"data": [{"name": "A"}], "has_more": True, "next_page": "P2"},
+             "P2": {"data": [{"name": "B"}], "has_more": False}}
+    assert [c["name"] for c in fetch_set("trk", pages.__getitem__)] == ["A", "B"]
+
+
+def test_split_subtypes_multiword():
+    assert split_subtypes("Time Lord Scientist", ["Time Lord", "Scientist", "Lord"]) == ["Time Lord", "Scientist"]
+    assert split_subtypes("Unknownling", []) == ["Unknownling"]
+
+
+def test_load_snapshot_fixture():
+    snap = load_snapshot(FIXTURES / "data")
+    assert ("trk", "dal-rel-augment-orphan") in snap and len(snap) == 1
+    assert load_subtypes(FIXTURES / "data") == ["Human", "Mutant", "Rogue"]
+
+
+def test_fetch_catalogs_union():
+    from mtglang.scryfall import fetch_catalogs, CATALOGS
+    data = {f"https://api.scryfall.com/catalog/{c}": {"data": ["Human"] if c == "creature-types" else ["Cave"] if c == "land-types" else []} for c in CATALOGS}
+    assert fetch_catalogs(data.__getitem__) == {"subtypes": ["Cave", "Human"]}
+
+
+def test_cli_fetch_writes_files(tmp_path, monkeypatch):
+    import mtglang.scryfall as sf
+    from mtglang.cli import main
+    monkeypatch.setattr(sf, "fetch_set", lambda code, get_json=None: [{"name": code}])
+    monkeypatch.setattr(sf, "fetch_catalogs", lambda get_json=None: {"subtypes": []})
+    assert main(["fetch", "--root", str(tmp_path)]) == 0
+    import json
+    assert json.loads((tmp_path / "data/trk.json").read_text()) == [{"name": "trk"}]
+    assert (tmp_path / "data/catalogs.json").exists()
