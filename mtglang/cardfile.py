@@ -51,11 +51,22 @@ def _is_stats(line: str, parser: LineParser) -> bool:
     return False
 
 
+def read_card_text(path: Path) -> str | None:
+    """Read a card file as UTF-8 (a leading BOM is ignored); None if it isn't valid UTF-8."""
+    try:
+        return Path(path).read_bytes().decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return None
+
+
 def parse_card_file(path: Path, parser: LineParser) -> tuple[CardDoc | None, list[Issue]]:
     path = Path(path)
     file = str(path)
     issues: list[Issue] = []
-    raw = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    text = read_card_text(path)
+    if text is None:
+        return None, [Issue("error", "C-ENCODING", "file is not valid UTF-8", file)]
+    raw = text.replace("\r\n", "\n").replace("\r", "\n")
     numbered = [(i, l.rstrip()) for i, l in enumerate(raw.split("\n"), start=1)]
     numbered = [(i, l) for i, l in numbered if l.strip() and not l.lstrip().startswith("#")]
     if not numbered:

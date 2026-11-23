@@ -9,7 +9,7 @@ from pathlib import Path
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from mtglang.cardfile import parse_card_file
+from mtglang.cardfile import parse_card_file, read_card_text
 from mtglang.glossary import Glossary, load_glossary
 from mtglang.lineparser import LineParser
 from mtglang.oracle import oracle_lines
@@ -107,7 +107,9 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
         files = sorted((root / "cards" / code).glob("*.mtgl"))
         cards, ascii_parts = [], []
         for path in files:
-            ascii_parts.append(ascii_file(path.read_text(encoding="utf-8"), g))
+            text = read_card_text(path)
+            if text is not None:
+                ascii_parts.append(ascii_file(text, g))
             doc, _ = parse_card_file(path, parser)
             card = snap.get((code, path.stem))
             entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])]}

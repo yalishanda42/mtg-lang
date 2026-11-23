@@ -103,3 +103,25 @@ def test_cli_validate_exit_codes(fx_copy, capsys):
 def test_ascii_type_line_validates(fx_copy):
     edit(fx_copy, "⚜☺ — «Human» «Mutant» «Rogue»", "LgCr - <<Human>> <<Mutant>> <<Rogue>>")
     assert errors(validate_all(fx_copy)) == []
+
+
+def test_unknown_mana_symbol_in_ability(fx_copy):
+    edit(fx_copy, "✋1", "{Draw}")
+    issue = only(validate_all(fx_copy), "V-MANA-UNKNOWN")
+    assert (issue.line, issue.col) == (7, 11)
+
+
+def test_non_utf8_file_is_issue_not_crash(fx_copy):
+    (fx_copy / "cards/trk/dal-rel-augment-orphan.mtgl").write_bytes(b"\xff\xfe\x00bad")
+    assert "C-ENCODING" in codes_of(validate_all(fx_copy))
+
+
+def test_utf8_bom_is_accepted(fx_copy):
+    p = fx_copy / "cards/trk/dal-rel-augment-orphan.mtgl"
+    p.write_bytes(b"\xef\xbb\xbf" + p.read_bytes())
+    assert errors(validate_all(fx_copy)) == []
+
+
+def test_consistency_ignores_unicode_vs_ascii_minus(fx_glossary):
+    from mtglang.validate import canonical
+    assert canonical("−4 : ✋1", fx_glossary) == canonical("-4 : ✋1", fx_glossary)

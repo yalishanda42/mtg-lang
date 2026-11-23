@@ -14,9 +14,10 @@ from mtglang.issues import Issue
 from mtglang.lineparser import LineParser
 from mtglang.oracle import normalize_for_consistency, oracle_lines
 from mtglang.scryfall import ScryCard, ScryFace, load_snapshot
-from mtglang.tokenizer import TokenizeError, tokenize
+from mtglang.tokenizer import ASCII_PUNCT, TokenizeError, tokenize
 
 EFFECT_RATE_LIMIT = 0.05
+MANA_SYMBOL = re.compile(r"^\{(\d+|[WUBRGCXYZSTQE]|[WUBRGC2]/[WUBRGP]|[WUBRG]/[WUBRG]/P|½|∞)\}$")
 
 
 def _err(code, msg, file=None, line=None, col=None, severity="error"):
@@ -49,6 +50,8 @@ def check_refs(doc: CardDoc, g: Glossary, known_names: set[str]) -> list[Issue]:
             for t in toks:
                 if t.type == "NAME" and t.value not in known_names:
                     out.append(_err("V-NAME-UNKNOWN", f"name «{t.value}» is not in the glossary", file, ln, t.col))
+                if t.type == "MANA" and not MANA_SYMBOL.match(t.value):
+                    out.append(_err("V-MANA-UNKNOWN", f"{t.value} is not a Magic mana/game symbol", file, ln, t.col))
                 if t.type == "EFFECT" and t.value not in g.effects:
                     out.append(_err("V-EFFECT-UNKNOWN", f"named effect ⟨{t.value}⟩ is not defined", file, ln, t.col))
     return out
@@ -108,7 +111,7 @@ def check_against_scryfall(doc: CardDoc, card: ScryCard, g: Glossary) -> list[Is
 
 
 def canonical(text: str, g: Glossary) -> tuple:
-    return tuple((t.type, t.value) for t in tokenize(text, g))
+    return tuple((t.type, ASCII_PUNCT.get(t.value, t.value)) for t in tokenize(text, g))
 
 
 def check_consistency(pairs: list[tuple[str, str, str, int]], g: Glossary) -> list[Issue]:

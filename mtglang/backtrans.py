@@ -4,6 +4,7 @@ from __future__ import annotations
 import random
 from pathlib import Path
 
+from mtglang.cardfile import read_card_text
 from mtglang.glossary import Glossary, load_glossary
 from mtglang.scryfall import load_snapshot
 
@@ -32,7 +33,7 @@ def backtrans_bundle(root: Path, n: int, seed: int) -> tuple[str, str]:
               "For each card #k, write its rules text in English, Oracle style. Use only the legend above.", ""]
     key = ["# Answer key", ""]
     for k, path in enumerate(picked, start=1):
-        bundle += [f"## #{k}", "```", _strip_comments(path.read_text(encoding="utf-8")), "```", ""]
+        bundle += [f"## #{k}", "```", _strip_comments(read_card_text(path) or ""), "```", ""]
         card = snap.get((path.parent.name, path.stem))
         oracle = "\n//\n".join(f.oracle_text for f in card.faces) if card else "(no Scryfall card)"
         key += [f"## #{k} — {card.name if card else path.stem}", "```", oracle, "```", ""]

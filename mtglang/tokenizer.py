@@ -65,13 +65,16 @@ def _vocab(g: Glossary) -> _Vocab:
     return v
 
 
-def _segmentable(run: str, v: _Vocab) -> bool:
-    """Can a run of letters be split entirely into glossary codes / variables?"""
-    i = 0
-    while i < len(run):
-        s = v.longest(run, i)
-        if s is None or not s.isalpha():
-            if run[i] in "XYZ":
+def _segmentable(text: str, pos: int, run_len: int, v: _Vocab) -> bool:
+    """Can the letter run at text[pos:pos+run_len] be covered by glossary codes / variables?
+
+    Codes are matched against the full text, so an alias may extend past the letters (e.g. ``c.``).
+    """
+    i, end = pos, pos + run_len
+    while i < end:
+        s = v.longest(text, i)
+        if s is None or not s[0].isalpha():
+            if text[i] in "XYZ":
                 i += 1
                 continue
             return False
@@ -92,7 +95,7 @@ def tokenize(text: str, g: Glossary) -> list[Tok]:
         # natural-language word check at the start of each letter run
         if ch.isascii() and ch.isalpha() and (pos == 0 or not (text[pos - 1].isascii() and text[pos - 1].isalpha())):
             run = _LETTERS.match(text, pos).group()
-            if len(run) >= 3 and not _segmentable(run, v):
+            if len(run) >= 3 and not _segmentable(text, pos, len(run), v):
                 raise TokenizeError(col, f"natural-language word {run!r} outside a name")
         # delimited names / effects
         matched = False
@@ -138,22 +141,43 @@ def tokenize(text: str, g: Glossary) -> list[Tok]:
     return toks
 
 
+def _ascii_of(t: Tok, g: Glossary) -> str:
+    if t.symbol is not None:
+        return t.symbol.ascii
+    if t.type == "NAME":
+        return g.role("name_open").ascii + t.value + g.role("name_close").ascii
+    if t.type == "EFFECT":
+        return g.role("effect_open").ascii + t.value + g.role("effect_close").ascii
+    return ASCII_PUNCT.get(t.text, t.text)
+
+
+def _key(t: Tok) -> tuple:
+    """Identity of a token independent of glyph/ASCII spelling (— and − both count as '-')."""
+    typ = "MINUS" if t.type == "DASH" else t.type
+    return (typ, t.symbol.glyph if t.symbol else ASCII_PUNCT.get(t.value, t.value))
+
+
 def to_ascii(text: str, g: Glossary) -> str:
+    """ASCII form of a line; adjacent aliases that would merge into another symbol get a space."""
+    toks = tokenize(text, g)
     out: list[str] = []
     last = 0
-    for t in tokenize(text, g):
+    prev: Tok | None = None
+    for t in toks:
         start = t.col - 1
-        out.append(text[last:start])
-        if t.symbol is not None:
-            out.append(t.symbol.ascii)
-        elif t.type == "NAME":
-            out.append(g.role("name_open").ascii + t.value + g.role("name_close").ascii)
-        elif t.type == "EFFECT":
-            out.append(g.role("effect_open").ascii + t.value + g.role("effect_close").ascii)
-        elif t.text in ASCII_PUNCT:
-            out.append(ASCII_PUNCT[t.text])
-        else:
-            out.append(t.text)
+        gap = text[last:start]
+        piece = _ascii_of(t, g)
+        if not gap and prev is not None:
+            joined = _ascii_of(prev, g) + piece
+            try:
+                same = [_key(x) for x in tokenize(joined, g)] == [_key(prev), _key(t)]
+            except TokenizeError:
+                same = False
+            if not same:
+                gap = " "
+        out.append(gap)
+        out.append(piece)
         last = t.end
+        prev = t
     out.append(text[last:])
     return "".join(out)

@@ -52,3 +52,9 @@ def test_render_site_copies_symbols_and_uses_icons(tmp_path):
     s = (tmp_path / "trk.html").read_text()
     assert 'src="symbols/1.svg"' in s and 'alt="{3}"' in s
     assert s.count('class="ms"') >= 6   # header {1}{R}{G}, ability {R} {G} {3}, oracle icons
+
+
+def test_render_survives_non_utf8_card(fx_copy, tmp_path):
+    (fx_copy / "cards/trk/dal-rel-augment-orphan.mtgl").write_bytes(b"\xff\xfe\x00bad")
+    render_site(fx_copy, tmp_path / "out")
+    assert "C-ENCODING" in (tmp_path / "out/trk.html").read_text()

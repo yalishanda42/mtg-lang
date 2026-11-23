@@ -48,3 +48,21 @@ def test_to_ascii_roundtrip(fx_glossary):
 def test_to_ascii_unicode_minus_and_dash(fx_glossary):
     assert to_ascii("−4 : ✋1", fx_glossary) == "-4 : Dr1"
     assert to_ascii("⚜☺ — «Human»", fx_glossary) == "LgCr - <<Human>>"
+
+
+def _with(fx_glossary, *extra):
+    from mtglang.glossary import Glossary, Symbol
+    syms = [Symbol(g, a, "other", {"en": g}) for g, a in extra]
+    return Glossary(fx_glossary.symbols + syms, fx_glossary.names, fx_glossary.effects)
+
+
+def test_segmentable_alias_extending_past_letters(fx_glossary):
+    g = _with(fx_glossary, ("⊻", "Ch"), ("♦", "c."))
+    assert [t.value for t in tokenize("Chc.", g)] == ["⊻", "♦"]
+
+
+def test_to_ascii_separates_aliases_that_would_merge(fx_glossary):
+    g = _with(fx_glossary, ("¬", "~"), ("→", "~>"), ("⤳", "~~>"))
+    a = to_ascii("¬→ ⤳", g)
+    assert [t.symbol.glyph for t in tokenize(a, g)] == ["¬", "→", "⤳"]
+    assert a == "~ ~> ~~>"
