@@ -785,3 +785,9 @@
 - {key: Use the Relic, class: flavor, labels: {en: Use the Relic}}
 - {key: Destroy the Relic, class: flavor, labels: {en: Destroy the Relic}}
 - {key: Slug, class: subtype, labels: {en: Slug}}
+- {key: Rewrite the Past, class: flavor, labels: {en: Rewrite the Past}}
+- {key: Repair the Timeline, class: flavor, labels: {en: Repair the Timeline}}
+- {key: Stun, class: flavor, labels: {en: Stun}}
+- {key: Kill, class: flavor, labels: {en: Kill}}
+- {key: Battle Stations, class: flavor, labels: {en: Battle Stations}}
+- {key: Begin Negotiations, class: flavor, labels: {en: Begin Negotiations}}

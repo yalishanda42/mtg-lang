@@ -191,3 +191,4 @@
 - {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to}}
 - {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter)}}
 - {glyph: ⋮, ascii: Dv, class: action, labels: {en: distribute among}}
+- {glyph: ⇅, ascii: Ay, class: logic, labels: {en: in any order}}
