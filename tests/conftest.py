@@ -39,3 +39,9 @@ def vigorbloom_raw():
 def fx_glossary():
     from mtglang.glossary import load_glossary
     return load_glossary(FIXTURES / "glossary")
+
+
+@pytest.fixture
+def lp(fx_glossary):
+    from mtglang.lineparser import LineParser
+    return LineParser(fx_glossary)

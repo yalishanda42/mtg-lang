@@ -1,0 +1,23 @@
+// Structural grammar for one MTG-Lang line. Terminals come from mtglang.tokenizer.
+%declare IMPLIES COST_SEP LABEL_SEP MODE_BULLET THRESHOLD_SEP CHAPTER SYMBOL NAME EFFECT MANA NUMBER VAR LSQB RSQB LPAR RPAR COMMA PLUS MINUS SLASH DASH
+
+ability: prefix? label? body
+
+prefix: CHAPTER NUMBER (COMMA NUMBER)* LABEL_SEP  -> chapter
+      | NUMBER PLUS THRESHOLD_SEP                -> threshold
+      | MODE_BULLET                              -> mode
+
+label: term+ LABEL_SEP
+
+body: expr                                       -> statement
+    | expr IMPLIES expr                          -> triggered
+    | expr COST_SEP expr                         -> activated
+
+expr: (term | COMMA)+
+
+term: SYMBOL | MANA | NUMBER | VAR | NAME | EFFECT | PLUS | MINUS | SLASH
+    | LSQB (term | COMMA)* RSQB                  -> filter
+    | LPAR expr ((IMPLIES | COST_SEP) expr)? RPAR -> group
+
+type_line: tterm+ (DASH tterm+)?
+tterm: SYMBOL | NAME
