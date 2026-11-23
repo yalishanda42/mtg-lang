@@ -1,6 +1,6 @@
 # MTG-Lang — language specification
 
-Version 0.1-draft (symbol-heavy style). The vocabulary lives in `glossary/`, and the legend page
+Version 0.1 (symbol-heavy style), frozen 2026-11-23 after sample review. The vocabulary lives in `glossary/`, and the legend page
 (`mtglang render` → `build/legend.html`) lists every symbol with its meaning. This document covers
 the *structure*.
 
