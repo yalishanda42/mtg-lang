@@ -23,12 +23,24 @@ def cmd_fetch(args) -> int:
     return 0
 
 
+def cmd_sample(args) -> int:
+    from mtglang.sample import pick_sample
+    snap = scryfall.load_snapshot(Path(args.root) / "data")
+    for c in pick_sample(snap.values(), k=args.k):
+        print(f"{c.set_code}/{c.slug}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="mtglang")
     sub = p.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("fetch", help="download the Scryfall snapshot into data/")
     f.add_argument("--root", default=".")
     f.set_defaults(func=cmd_fetch)
+    s = sub.add_parser("sample", help="print a feature-covering sample of cards")
+    s.add_argument("--root", default=".")
+    s.add_argument("--k", type=int, default=30)
+    s.set_defaults(func=cmd_sample)
     return p
 
 
