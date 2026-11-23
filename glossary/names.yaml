@@ -754,3 +754,4 @@
 - {key: 'Zefram Cochrane, Warp Pioneer', class: card, labels: {en: 'Zefram Cochrane, Warp Pioneer'}}
 - {key: 'Zero, Incorporeal Sensate', class: card, labels: {en: 'Zero, Incorporeal Sensate'}}
 - {key: Medusan, class: subtype, labels: {en: Medusan}}
+- {key: Heartwood, class: token, labels: {en: Heartwood}}

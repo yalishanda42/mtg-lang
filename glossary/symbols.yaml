@@ -137,3 +137,22 @@
 - {glyph: ☍, ascii: Fd, class: ability_word, labels: {en: Federation}, oracle: Federation}
 - {glyph: ✺, ascii: SN, class: ability_word, labels: {en: Strange new worlds}, oracle: Strange new worlds}
 - {glyph: ⬡, ascii: Do, class: ability_word, labels: {en: Domain}, oracle: Domain}
+- {glyph: ⌫, ascii: Dc, class: action, labels: {en: discard}}
+- {glyph: ⌃, ascii: Tc, class: zone, labels: {en: top (of library)}}
+- {glyph: ⌄, ascii: Bc, class: zone, labels: {en: bottom (of library)}}
+- {glyph: ▷, ascii: Nx, class: time, labels: {en: next}}
+- {glyph: ◁, ascii: Lt, class: time, labels: {en: last / previous}}
+- {glyph: ⊢, ascii: Bg, class: time, labels: {en: at the beginning of}}
+- {glyph: ☼, ascii: Uk, class: time, labels: {en: upkeep}}
+- {glyph: ☾, ascii: Es, class: time, labels: {en: end step}}
+- {glyph: ⨯, ascii: Cb, class: time, labels: {en: combat}}
+- {glyph: ⊣, ascii: Ut, class: time, labels: {en: until}}
+- {glyph: ⇑, ascii: Gr, class: comparison, labels: {en: greatest}}
+- {glyph: ÷, ascii: Pe, class: comparison, labels: {en: for every (divided by)}}
+- {glyph: ∃, ascii: E., class: logic, labels: {en: there is / you have a}}
+- {glyph: ⊸, ascii: Sn, class: action, labels: {en: spend this mana only to}}
+- {glyph: ⊳, ascii: Av, class: action, labels: {en: activate}}
+- {glyph: ❐, ascii: Cp, class: action, labels: {en: copy}}
+- {glyph: ↻, ascii: Nw, class: action, labels: {en: choose new / change}}
+- {glyph: ⚂, ascii: Rn, class: logic, labels: {en: at random}}
+- {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter)}}
