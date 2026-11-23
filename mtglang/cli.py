@@ -23,6 +23,12 @@ def cmd_fetch(args) -> int:
     return 0
 
 
+def cmd_fetch_symbols(args) -> int:
+    n = scryfall.fetch_symbols(Path(args.root) / "data" / "symbols")
+    print(f"{n} symbol(s) saved to data/symbols/")
+    return 0
+
+
 def cmd_sample(args) -> int:
     from mtglang.sample import pick_sample
     snap = scryfall.load_snapshot(Path(args.root) / "data")
@@ -73,6 +79,9 @@ def build_parser() -> argparse.ArgumentParser:
     f = sub.add_parser("fetch", help="download the Scryfall snapshot into data/")
     f.add_argument("--root", default=".")
     f.set_defaults(func=cmd_fetch)
+    fs = sub.add_parser("fetch-symbols", help="download Scryfall mana/tap symbol SVGs into data/symbols/")
+    fs.add_argument("--root", default=".")
+    fs.set_defaults(func=cmd_fetch_symbols)
     s = sub.add_parser("sample", help="print a feature-covering sample of cards")
     s.add_argument("--root", default=".")
     s.add_argument("--k", type=int, default=30)

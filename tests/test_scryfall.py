@@ -1,3 +1,4 @@
+import json
 from mtglang.scryfall import parse_card, slugify
 
 
@@ -71,3 +72,33 @@ def test_cli_fetch_writes_files(tmp_path, monkeypatch):
     import json
     assert json.loads((tmp_path / "data/trk.json").read_text()) == [{"name": "trk"}]
     assert (tmp_path / "data/catalogs.json").exists()
+
+
+def test_fetch_symbols_writes_svgs_and_index(tmp_path):
+    from mtglang.scryfall import fetch_symbols
+    pages = {"https://api.scryfall.com/symbology": {"data": [
+        {"symbol": "{T}", "svg_uri": "https://svgs.scryfall.io/card-symbols/T.svg", "english": "tap this permanent"},
+        {"symbol": "{G/W}", "svg_uri": "https://svgs.scryfall.io/card-symbols/GW.svg", "english": "one green or white mana"},
+        {"symbol": "{HALF}", "svg_uri": None, "english": "no svg"}]}}
+    blobs = {"https://svgs.scryfall.io/card-symbols/T.svg": b"<svg>T</svg>",
+             "https://svgs.scryfall.io/card-symbols/GW.svg": b"<svg>GW</svg>"}
+    n = fetch_symbols(tmp_path, pages.__getitem__, blobs.__getitem__)
+    assert n == 2
+    assert (tmp_path / "GW.svg").read_bytes() == b"<svg>GW</svg>"
+    index = json.loads((tmp_path / "index.json").read_text())
+    assert index["{G/W}"] == {"file": "GW.svg", "english": "one green or white mana"} and "{HALF}" not in index
+
+
+def test_load_symbols_missing_dir_is_empty(tmp_path):
+    from mtglang.scryfall import load_symbols
+    assert load_symbols(tmp_path / "nope") == {}
+    assert load_symbols(FIXTURES / "data" / "symbols")["{T}"]["file"] == "T.svg"
+
+
+def test_cli_fetch_symbols(tmp_path, monkeypatch):
+    import mtglang.scryfall as sf
+    from mtglang.cli import main
+    seen = {}
+    monkeypatch.setattr(sf, "fetch_symbols", lambda out_dir, *a, **k: seen.setdefault("dir", out_dir) and 7)
+    assert main(["fetch-symbols", "--root", str(tmp_path)]) == 0
+    assert seen["dir"] == tmp_path / "data" / "symbols"

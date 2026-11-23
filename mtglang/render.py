@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import html
+import re
+import shutil
 from collections import defaultdict
 from pathlib import Path
 
@@ -11,7 +13,7 @@ from mtglang.cardfile import parse_card_file
 from mtglang.glossary import Glossary, load_glossary
 from mtglang.lineparser import LineParser
 from mtglang.oracle import oracle_lines
-from mtglang.scryfall import SETS, load_snapshot
+from mtglang.scryfall import SETS, load_snapshot, load_symbols
 from mtglang.tokenizer import TokenizeError, to_ascii, tokenize
 from mtglang.validate import validate_all
 
@@ -20,7 +22,29 @@ def _e(s: str) -> str:
     return html.escape(s, quote=True)
 
 
-def notation_html(text: str, g: Glossary, lang: str = "en") -> str:
+_MANA_IN_TEXT = re.compile(r"\{[^{}\s]+\}")
+
+
+def mana_html(sym: str, symbols: dict | None) -> str:
+    info = (symbols or {}).get(sym)
+    if info:
+        return f'<img class="ms" src="symbols/{_e(info["file"])}" alt="{_e(sym)}" title="{_e(info["english"])}">'
+    return f'<span class="mana">{_e(sym)}</span>'
+
+
+def oracle_html(text: str, symbols: dict | None) -> str:
+    out, last = [], 0
+    for m in _MANA_IN_TEXT.finditer(text):
+        info = (symbols or {}).get(m.group())
+        if info:
+            out.append(_e(text[last:m.start()]))
+            out.append(mana_html(m.group(), symbols))
+            last = m.end()
+    out.append(_e(text[last:]))
+    return "".join(out)
+
+
+def notation_html(text: str, g: Glossary, lang: str = "en", symbols: dict | None = None) -> str:
     try:
         toks = tokenize(text, g)
     except TokenizeError:
@@ -39,7 +63,7 @@ def notation_html(text: str, g: Glossary, lang: str = "en") -> str:
             o, c = g.role("effect_open").glyph, g.role("effect_close").glyph
             out.append(f'<span class="effect" title="{_e(label)}">{_e(o + t.value + c)}</span>')
         elif t.type == "MANA":
-            out.append(f'<span class="mana">{_e(t.text)}</span>')
+            out.append(mana_html(t.text, symbols))
         else:
             out.append(_e(t.text))
         last = t.end
@@ -67,6 +91,9 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
     g = load_glossary(root / "glossary")
     parser = LineParser(g)
     snap = load_snapshot(root / "data")
+    symbols = load_symbols(root / "data" / "symbols")
+    if symbols:
+        shutil.copytree(root / "data" / "symbols", out / "symbols", dirs_exist_ok=True)
     issues, _ = validate_all(root)
     by_file = defaultdict(list)
     for i in issues:
@@ -92,10 +119,10 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
                     rows = []
                     for k in range(n):
                         a = f.abilities[k].text if k < len(f.abilities) else ""
-                        rows.append({"notation": notation_html(a, g, lang), "ascii": _safe_ascii(a, g),
-                                     "oracle": olines[k] if k < len(olines) else ""})
+                        rows.append({"notation": notation_html(a, g, lang, symbols), "ascii": _safe_ascii(a, g),
+                                     "oracle": oracle_html(olines[k], symbols) if k < len(olines) else ""})
                     o, c = g.role("name_open").glyph, g.role("name_close").glyph
-                    header = notation_html(f"{o}{f.name}{c} {f.mana}".strip(), g, lang)
+                    header = notation_html(f"{o}{f.name}{c} {f.mana}".strip(), g, lang, symbols)
                     entry["faces"].append({"header": header, "type_line": notation_html(f.type_line, g, lang),
                                            "stats": notation_html(f.stats, g, lang) if f.stats else None,
                                            "rows": rows})

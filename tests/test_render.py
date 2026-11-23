@@ -30,3 +30,25 @@ def test_render_shows_issues(fx_copy, tmp_path):
     drop_last_line(fx_copy)
     render_site(fx_copy, tmp_path / "out")
     assert "V-ALIGN" in (tmp_path / "out/trk.html").read_text()
+
+
+def test_notation_html_uses_symbol_images(fx_glossary):
+    from mtglang.scryfall import load_symbols
+    syms = load_symbols(FX / "data" / "symbols")
+    h = notation_html("{3}, ✝⛰ : {U}", fx_glossary, symbols=syms)
+    assert '<img class="ms" src="symbols/3.svg" alt="{3}" title="three generic mana">' in h
+    assert '<span class="mana">{U}</span>' in h  # no svg known → text fallback
+
+
+def test_oracle_html_icons_and_escaping():
+    from mtglang.render import oracle_html
+    h = oracle_html("{T}: Add {R} <b>.", {"{T}": {"file": "T.svg", "english": "tap"}})
+    assert h == '<img class="ms" src="symbols/T.svg" alt="{T}" title="tap">: Add {R} &lt;b&gt;.'
+
+
+def test_render_site_copies_symbols_and_uses_icons(tmp_path):
+    render_site(FX, tmp_path)
+    assert (tmp_path / "symbols/T.svg").exists()
+    s = (tmp_path / "trk.html").read_text()
+    assert 'src="symbols/1.svg"' in s and 'alt="{3}"' in s
+    assert s.count('class="ms"') >= 6   # header {1}{R}{G}, ability {R} {G} {3}, oracle icons

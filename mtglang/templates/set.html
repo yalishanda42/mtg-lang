@@ -12,7 +12,7 @@
   {% if f.rows %}
   <table>
     <tr><th>Notation</th><th>ASCII</th><th>Oracle</th></tr>
-    {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii }}</td><td class="o">{{ r.oracle }}</td></tr>{% endfor %}
+    {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii }}</td><td class="o">{{ r.oracle|safe }}</td></tr>{% endfor %}
   </table>
   {% endif %}
   {% endfor %}

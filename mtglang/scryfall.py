@@ -139,3 +139,35 @@ def split_subtypes(text: str, known: Sequence[str]) -> list[str]:
                 i += n
                 break
     return out
+
+
+# --- symbology (mana / tap symbol SVGs) -------------------------------------
+
+def http_get_bytes(url: str) -> bytes:
+    req = urllib.request.Request(url, headers={"User-Agent": HEADERS["User-Agent"]})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        data = r.read()
+    time.sleep(0.1)
+    return data
+
+
+def fetch_symbols(out_dir: Path, get_json: Callable[[str], dict] = http_get_json,
+                  get_bytes: Callable[[str], bytes] = http_get_bytes) -> int:
+    """Download every Scryfall symbol SVG into out_dir and write out_dir/index.json."""
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    index: dict[str, dict] = {}
+    for s in get_json(f"{API}/symbology").get("data", []):
+        uri = s.get("svg_uri")
+        if not uri:
+            continue
+        file = uri.rsplit("/", 1)[-1]
+        (out_dir / file).write_bytes(get_bytes(uri))
+        index[s["symbol"]] = {"file": file, "english": s.get("english", "")}
+    (out_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return len(index)
+
+
+def load_symbols(symbols_dir: Path) -> dict[str, dict]:
+    path = Path(symbols_dir) / "index.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}

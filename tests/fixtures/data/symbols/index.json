@@ -1,0 +1,5 @@
+{"{R}": {"file": "R.svg", "english": "one red mana"},
+ "{G}": {"file": "G.svg", "english": "one green mana"},
+ "{1}": {"file": "1.svg", "english": "one generic mana"},
+ "{3}": {"file": "3.svg", "english": "three generic mana"},
+ "{T}": {"file": "T.svg", "english": "tap this permanent"}}
