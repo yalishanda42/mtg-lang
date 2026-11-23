@@ -1,0 +1,4 @@
+- {key: "Dal R'El, Augment Orphan", class: card, labels: {en: "Dal R'El, Augment Orphan"}}
+- {key: "Human",  class: subtype, labels: {en: "Human"}}
+- {key: "Mutant", class: subtype, labels: {en: "Mutant"}}
+- {key: "Rogue",  class: subtype, labels: {en: "Rogue"}}

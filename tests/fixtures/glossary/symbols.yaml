@@ -1,0 +1,26 @@
+- {glyph: "⇒", ascii: "=>", role: implies,       class: structural, labels: {en: "then"}}
+- {glyph: ":", ascii: ":",  role: cost_sep,      class: structural, labels: {en: "cost"}}
+- {glyph: "▸", ascii: "|>", role: label_sep,     class: structural, labels: {en: "ability word"}}
+- {glyph: "•", ascii: "*",  role: mode_bullet,   class: structural, labels: {en: "mode"}}
+- {glyph: "|", ascii: "!",  role: threshold_sep, class: structural, labels: {en: "station threshold"}}
+- {glyph: "§", ascii: "ch", role: chapter,       class: structural, labels: {en: "chapter"}}
+- {glyph: "«", ascii: "<<", role: name_open,     class: structural, labels: {en: "name start"}}
+- {glyph: "»", ascii: ">>", role: name_close,    class: structural, labels: {en: "name end"}}
+- {glyph: "⟨", ascii: "<:", role: effect_open,   class: structural, labels: {en: "effect start"}}
+- {glyph: "⟩", ascii: ":>", role: effect_close,  class: structural, labels: {en: "effect end"}}
+- {glyph: "◈", ascii: "@",  role: self,          class: player,     labels: {en: "this object"}}
+- {glyph: "◇", ascii: "Lo", role: loyalty,       class: stat,       labels: {en: "Loyalty"}}
+- {glyph: "⛨", ascii: "De", role: defense,       class: stat,       labels: {en: "Defense"}}
+- {glyph: "⚜", ascii: "Lg", class: type,    labels: {en: "Legendary"}}
+- {glyph: "☺", ascii: "Cr", class: type,    labels: {en: "Creature"}}
+- {glyph: "✎", ascii: "So", class: type,    labels: {en: "Sorcery"}}
+- {glyph: "⛰", ascii: "Ld", class: type,    labels: {en: "Land"}}
+- {glyph: "◉", ascii: "Me", class: player,  labels: {en: "you"}}
+- {glyph: "↑", ascii: "^",  class: action,  labels: {en: "enters"}}
+- {glyph: "✋", ascii: "Dr", class: action,  labels: {en: "draw"}}
+- {glyph: "✝", ascii: "Sa", class: action,  labels: {en: "sacrifice"}}
+- {glyph: "⊕", ascii: "Ad", class: action,  labels: {en: "add mana"}}
+- {glyph: "∨", ascii: "vv", class: logic,   labels: {en: "or"}}
+- {glyph: "≤", ascii: "<=", class: comparison, labels: {en: "at most"}}
+- {glyph: "⛰⇡", ascii: "LF", class: ability_word, labels: {en: "Landfall"}}
+- {glyph: "F", ascii: "F",  class: keyword, labels: {en: "Flying"}, oracle: "Flying", definition: "◈ ≤ [☺ F]"}

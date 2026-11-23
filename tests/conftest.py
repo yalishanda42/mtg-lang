@@ -33,3 +33,9 @@ def dal_raw():
 @pytest.fixture
 def vigorbloom_raw():
     return dict(VIGORBLOOM_RAW)
+
+
+@pytest.fixture
+def fx_glossary():
+    from mtglang.glossary import load_glossary
+    return load_glossary(FIXTURES / "glossary")

@@ -1,0 +1,156 @@
+"""Longest-match tokenizer driven by the glossary."""
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+
+from mtglang.glossary import GRAMMAR_ROLES, Glossary, Symbol
+
+FIXED = {"[": "LSQB", "]": "RSQB", "(": "LPAR", ")": "RPAR", ",": "COMMA", "/": "SLASH",
+         "+": "PLUS", "-": "MINUS", "−": "MINUS", "—": "DASH"}
+_MANA = re.compile(r"\{[^{}\s]+\}")
+_NUMBER = re.compile(r"\d+")
+_LETTERS = re.compile(r"[A-Za-z]+")
+
+
+@dataclass(frozen=True)
+class Tok:
+    type: str
+    value: str
+    col: int
+    symbol: Symbol | None = None
+    text: str = ""          # exact source text of the token
+
+    @property
+    def end(self) -> int:   # 0-based exclusive end offset
+        return self.col - 1 + len(self.text)
+
+
+class TokenizeError(Exception):
+    def __init__(self, col: int, message: str):
+        super().__init__(f"col {col}: {message}")
+        self.col = col
+        self.message = message
+
+
+class _Vocab:
+    def __init__(self, g: Glossary):
+        self.g = g
+        strings = {s: g.lookup[s] for s in g.lookup}
+        self.by_len = sorted(set(strings) | set(FIXED), key=len, reverse=True)
+        self.delims = []  # (open, close, kind)
+        for kind, o, c in (("NAME", "name_open", "name_close"), ("EFFECT", "effect_open", "effect_close")):
+            so, sc = g.role(o), g.role(c)
+            self.delims.append((so.glyph, sc.glyph, kind))
+            if so.ascii != so.glyph:
+                self.delims.append((so.ascii, sc.ascii, kind))
+        self.delims.sort(key=lambda d: len(d[0]), reverse=True)
+        self.delim_roles = {"name_open", "name_close", "effect_open", "effect_close"}
+
+    def longest(self, text: str, pos: int) -> str | None:
+        for s in self.by_len:
+            if text.startswith(s, pos):
+                return s
+        return None
+
+
+_VOCAB_CACHE: dict[int, _Vocab] = {}
+
+
+def _vocab(g: Glossary) -> _Vocab:
+    v = _VOCAB_CACHE.get(id(g))
+    if v is None or v.g is not g:
+        v = _VOCAB_CACHE[id(g)] = _Vocab(g)
+    return v
+
+
+def _segmentable(run: str, v: _Vocab) -> bool:
+    """Can a run of letters be split entirely into glossary codes / variables?"""
+    i = 0
+    while i < len(run):
+        s = v.longest(run, i)
+        if s is None or not s.isalpha():
+            if run[i] in "XYZ":
+                i += 1
+                continue
+            return False
+        i += len(s)
+    return True
+
+
+def tokenize(text: str, g: Glossary) -> list[Tok]:
+    v = _vocab(g)
+    toks: list[Tok] = []
+    pos, n = 0, len(text)
+    while pos < n:
+        ch = text[pos]
+        if ch.isspace():
+            pos += 1
+            continue
+        col = pos + 1
+        # natural-language word check at the start of each letter run
+        if ch.isascii() and ch.isalpha() and (pos == 0 or not (text[pos - 1].isascii() and text[pos - 1].isalpha())):
+            run = _LETTERS.match(text, pos).group()
+            if len(run) >= 3 and not _segmentable(run, v):
+                raise TokenizeError(col, f"natural-language word {run!r} outside a name")
+        # delimited names / effects
+        matched = False
+        for o, c, kind in v.delims:
+            if text.startswith(o, pos):
+                end = text.find(c, pos + len(o))
+                if end == -1 or "\n" in text[pos:end]:
+                    raise TokenizeError(col, f"unclosed {kind.lower()} delimiter {o!r}")
+                inner = text[pos + len(o):end]
+                toks.append(Tok(kind, inner, col, None, text[pos:end + len(c)]))
+                pos = end + len(c)
+                matched = True
+                break
+        if matched:
+            continue
+        m = _MANA.match(text, pos)
+        if m:
+            toks.append(Tok("MANA", m.group(), col, None, m.group()))
+            pos = m.end()
+            continue
+        m = _NUMBER.match(text, pos)
+        if m:
+            toks.append(Tok("NUMBER", m.group(), col, None, m.group()))
+            pos = m.end()
+            continue
+        s = v.longest(text, pos)
+        if s is not None:
+            if s in FIXED:
+                toks.append(Tok(FIXED[s], s, col, None, s))
+            else:
+                sym = g.lookup[s]
+                if sym.role in v.delim_roles:
+                    raise TokenizeError(col, f"unmatched delimiter {s!r}")
+                typ = sym.role.upper() if sym.role in GRAMMAR_ROLES else "SYMBOL"
+                toks.append(Tok(typ, sym.glyph, col, sym, s))
+            pos += len(s)
+            continue
+        if ch in "XYZ":
+            toks.append(Tok("VAR", ch, col, None, ch))
+            pos += 1
+            continue
+        raise TokenizeError(col, f"unknown symbol {ch!r}")
+    return toks
+
+
+def to_ascii(text: str, g: Glossary) -> str:
+    out: list[str] = []
+    last = 0
+    for t in tokenize(text, g):
+        start = t.col - 1
+        out.append(text[last:start])
+        if t.symbol is not None:
+            out.append(t.symbol.ascii)
+        elif t.type == "NAME":
+            out.append(g.role("name_open").ascii + t.value + g.role("name_close").ascii)
+        elif t.type == "EFFECT":
+            out.append(g.role("effect_open").ascii + t.value + g.role("effect_close").ascii)
+        else:
+            out.append(t.text)
+        last = t.end
+    out.append(text[last:])
+    return "".join(out)
