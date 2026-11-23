@@ -755,3 +755,6 @@
 - {key: 'Zero, Incorporeal Sensate', class: card, labels: {en: 'Zero, Incorporeal Sensate'}}
 - {key: Medusan, class: subtype, labels: {en: Medusan}}
 - {key: Heartwood, class: token, labels: {en: Heartwood}}
+- {key: Mowu, class: token, labels: {en: Mowu}}
+- {key: Leviathan, class: subtype, labels: {en: Leviathan}}
+- {key: Thopter, class: subtype, labels: {en: Thopter}}

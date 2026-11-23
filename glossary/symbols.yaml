@@ -167,3 +167,8 @@
 - {glyph: ◒, ascii: Us, class: time, labels: {en: untap step}}
 - {glyph: '>', ascii: '>', class: comparison, labels: {en: greater than}}
 - {glyph: '<', ascii: '<', class: comparison, labels: {en: less than}}
+- {glyph: ∘, ascii: Ao, class: logic, labels: {en: alone}}
+- {glyph: ⇢, ascii: Tt, class: action, labels: {en: triggered ability / trigger}}
+- {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (the battlefield)}}
+- {glyph: ⊥, ascii: Ba, class: characteristic, labels: {en: base power and toughness}}
+- {glyph: ⦰, ascii: Fr, class: action, labels: {en: without paying its mana cost}}
