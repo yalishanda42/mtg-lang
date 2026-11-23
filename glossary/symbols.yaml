@@ -156,3 +156,14 @@
 - {glyph: ↻, ascii: Nw, class: action, labels: {en: choose new / change}}
 - {glyph: ⚂, ascii: Rn, class: logic, labels: {en: at random}}
 - {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter)}}
+- {glyph: ⬢, ascii: Id, class: keyword, labels: {en: Indestructible}, oracle: Indestructible}
+- {glyph: ⊝, ascii: Hx, class: keyword, labels: {en: Hexproof}, oracle: Hexproof}
+- {glyph: ∌, ascii: Ls, class: action, labels: {en: loses / doesn't have}}
+- {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game}}
+- {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game}}
+- {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter)}}
+- {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter)}}
+- {glyph: ☉, ascii: Mp, class: time, labels: {en: main phase}}
+- {glyph: ◒, ascii: Us, class: time, labels: {en: untap step}}
+- {glyph: '>', ascii: '>', class: comparison, labels: {en: greater than}}
+- {glyph: '<', ascii: '<', class: comparison, labels: {en: less than}}
