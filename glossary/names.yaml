@@ -764,3 +764,8 @@
 - {key: Interfere, class: flavor, labels: {en: Interfere}}
 - {key: Observe, class: flavor, labels: {en: Observe}}
 - {key: Worm, class: subtype, labels: {en: Worm}}
+- {key: Salamander, class: subtype, labels: {en: Salamander}}
+- {key: Come in Peace, class: flavor, labels: {en: Come in Peace}}
+- {key: Shoot to Kill, class: flavor, labels: {en: Shoot to Kill}}
+- {key: "Temba, His Arms Wide", class: flavor, labels: {en: "Temba, His Arms Wide"}}
+- {key: "Shaka, When the Walls Fell", class: flavor, labels: {en: "Shaka, When the Walls Fell"}}

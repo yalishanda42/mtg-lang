@@ -1,2 +1,4 @@
 - {key: no-legend-rule, card: Hall of Echoes, labels: {en: "The \"legend rule\" doesn't apply to these permanents."}}
 - {key: any-number, card: Sphinx's Approach, labels: {en: "A deck can have any number of cards with this name."}}
+- {key: extra-lifegain-trigger, card: Dr. Beverly Crusher, labels: {en: "If you gaining life causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time."}}
+- {key: no-max-hand, card: Deep Space Scan, labels: {en: "has no maximum hand size"}}

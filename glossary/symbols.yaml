@@ -182,3 +182,6 @@
 - {glyph: ◓, ascii: Lk, class: action, labels: {en: look at}}
 - {glyph: ←, ascii: By, class: logic, labels: {en: "passive: is …-ed (¬⛉← can't be blocked)"}}
 - {glyph: ⊷, ascii: Py, class: action, labels: {en: pay}}
+- {glyph: ⁂, ascii: Cl, class: keyword, labels: {en: Changeling}, oracle: Changeling}
+- {glyph: ⊺, ascii: Kk, class: keyword, labels: {en: Kicker (◈⊺ = this spell was kicked)}, oracle: Kicker}
+- {glyph: ☀, ascii: Sb, class: keyword, labels: {en: Sunburst}, oracle: Sunburst}
