@@ -107,3 +107,38 @@ def check_glossary(g: Glossary) -> list[Issue]:
             if not o.labels.get("en"):
                 issues.append(Issue("error", "G-LABEL", f"{o.key!r} has no 'en' label"))
     return issues
+
+
+def sync_names(root: Path) -> int:
+    """Append missing card names, face names and subtypes from the snapshot to glossary/names.yaml."""
+    from mtglang.scryfall import load_snapshot, load_subtypes, split_subtypes
+
+    root = Path(root)
+    path = root / "glossary" / "names.yaml"
+    entries = _read_yaml(path)
+    have = {str(e["key"]) for e in entries}
+    known = load_subtypes(root / "data")
+    added = 0
+
+    def add(key: str, cls: str) -> None:
+        nonlocal added
+        if key and key not in have:
+            entries.append({"key": key, "class": cls, "labels": {"en": key}})
+            have.add(key)
+            added += 1
+
+    for card in sorted(load_snapshot(root / "data").values(), key=lambda c: (c.set_code, c.slug)):
+        for face in card.faces:
+            add(face.name, "card")
+        for face in card.faces:
+            if " — " in face.type_line:
+                for sub in split_subtypes(face.type_line.split(" — ", 1)[1], known):
+                    add(sub, "subtype")
+    if added:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        lines = []
+        for e in entries:
+            lines.append("- " + yaml.safe_dump(e, allow_unicode=True, sort_keys=False, default_flow_style=True,
+                                               width=10_000).strip())
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return added

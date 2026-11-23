@@ -45,3 +45,61 @@ def fx_glossary():
 def lp(fx_glossary):
     from mtglang.lineparser import LineParser
     return LineParser(fx_glossary)
+
+
+import json
+import shutil
+
+DAL_FILE = "cards/trk/dal-rel-augment-orphan.mtgl"
+
+
+@pytest.fixture
+def fx_copy(tmp_path):
+    dst = tmp_path / "proj"
+    shutil.copytree(FIXTURES, dst)
+    return dst
+
+
+def edit(root, old, new, rel=DAL_FILE):
+    p = root / rel
+    s = p.read_text()
+    assert old in s, old
+    p.write_text(s.replace(old, new, 1))
+
+
+def drop_last_line(root, rel=DAL_FILE):
+    p = root / rel
+    p.write_text("\n".join(p.read_text().rstrip("\n").split("\n")[:-1]) + "\n")
+
+
+def add_raw_card(root, set_code, raw):
+    p = root / "data" / f"{set_code}.json"
+    data = json.loads(p.read_text())
+    data.append(dict(raw, set=set_code))
+    p.write_text(json.dumps(data, ensure_ascii=False))
+
+
+def write_card(root, rel, text):
+    p = root / "cards" / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(text)
+
+
+def add_name(root, key, cls="subtype"):
+    p = root / "glossary" / "names.yaml"
+    p.write_text(p.read_text() + f'- {{key: "{key}", class: {cls}, labels: {{en: "{key}"}}}}\n')
+
+
+def codes_of(result):
+    issues, _ = result
+    return {i.code for i in issues}
+
+
+def only(result, code):
+    found = [i for i in result[0] if i.code == code]
+    assert len(found) == 1, found
+    return found[0]
+
+
+BEAR_RAW = {"name": "Test Bear", "layout": "normal", "mana_cost": "{1}{G}", "type_line": "Creature — Bear",
+            "oracle_text": None, "power": "2", "toughness": "2", "keywords": []}
