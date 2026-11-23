@@ -108,7 +108,7 @@
 - {glyph: ⇶, ascii: Tr, class: keyword, labels: {en: Trample}, oracle: Trample}
 - {glyph: ↯, ascii: H, class: keyword, labels: {en: Haste}, oracle: Haste, definition: '◈ ? ➹ ∧ ? {T}'}
 - {glyph: ⌁, ascii: Fl, class: keyword, labels: {en: Flash}, oracle: Flash, definition: '◈ ? ✷ ≡ ϟ'}
-- {glyph: ⚠, ascii: Mn, class: keyword, labels: {en: Menace}, oracle: Menace, definition: ◈ ¬⛉ ≤ 1 ♞}
+- {glyph: ⚠, ascii: Mn, class: keyword, labels: {en: Menace}, oracle: Menace, definition: ◈ ¬⛉← ≤1 ♞}
 - {glyph: ⛊, ascii: Df, class: keyword, labels: {en: Defender}, oracle: Defender, definition: ◈ ¬➹}
 - {glyph: ❂, ascii: Pw, class: keyword, labels: {en: Prowess}, oracle: Prowess, definition: '● ✷ ✦[¬♞] ⇒ ◈ +1/+1 ⧗'}
 - {glyph: ⚭, ascii: En, class: keyword, labels: {en: Enchant}, oracle: Enchant}
@@ -169,7 +169,7 @@
 - {glyph: '<', ascii: '<', class: comparison, labels: {en: less than}}
 - {glyph: ∘, ascii: Ao, class: logic, labels: {en: alone}}
 - {glyph: ⇢, ascii: Tt, class: action, labels: {en: triggered ability / trigger}}
-- {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (the battlefield)}}
+- {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (a zone; the battlefield by default)}}
 - {glyph: ⊥, ascii: Ba, class: characteristic, labels: {en: base power and toughness}}
 - {glyph: ⦰, ascii: Fr, class: action, labels: {en: without paying its mana cost}}
 - {glyph: ⧖, ascii: SS, class: keyword, labels: {en: Split second}, oracle: Split second}
@@ -177,3 +177,8 @@
 - {glyph: ⨁, ascii: Rs, class: action, labels: {en: costs more}}
 - {glyph: Σ, ascii: Sm, class: comparison, labels: {en: total}}
 - {glyph: ⁺, ascii: Xs, class: comparison, labels: {en: excess}}
+- {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter)}}
+- {glyph: ∩, ascii: Cm, class: comparison, labels: {en: shared / in common}}
+- {glyph: ◓, ascii: Lk, class: action, labels: {en: look at}}
+- {glyph: ←, ascii: By, class: logic, labels: {en: "passive: is …-ed (¬⛉← can't be blocked)"}}
+- {glyph: ⊷, ascii: Py, class: action, labels: {en: pay}}

@@ -760,3 +760,7 @@
 - {key: Thopter, class: subtype, labels: {en: Thopter}}
 - {key: Tentacle, class: subtype, labels: {en: Tentacle}}
 - {key: Sculpture, class: subtype, labels: {en: Sculpture}}
+- {key: New Planet, class: token, labels: {en: New Planet}}
+- {key: Interfere, class: flavor, labels: {en: Interfere}}
+- {key: Observe, class: flavor, labels: {en: Observe}}
+- {key: Worm, class: subtype, labels: {en: Worm}}
