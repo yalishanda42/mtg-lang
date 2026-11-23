@@ -151,3 +151,25 @@ filter: `♲[⊡⛰] {2}` is basic landcycling {2}.
 Every glyph has an ASCII alias, so `mtglang render` also writes `build/ascii/<set>.txt`. Example:
 `⛶ ▸ ⛰[⚑●]↥ ⇒ ◈ ✸1 → ∀○` becomes `Lf |> Ld[Ct Yu]^ => @ Dg1 ~> Al Op`. The parser accepts both
 forms, even mixed.
+
+## 11. Constructs added during full translation (v0.1, all 596 cards)
+
+| Construct | Example | Meaning |
+|---|---|---|
+| passive `←` | `◈ ¬⛉←` vs `◈ ¬⛉` | can't **be** blocked vs can't block |
+| pay `⊷` | `● ? ⊷{2} ; ✓ ⊃ …`, `⊷♥2` | you may pay {2} / pay 2 life (≠ lose life `♥-2`) |
+| unless `¬⊃` | `◈ ↥↷ ¬⊃ ∃⚝[⚑●]` | enters tapped unless you control a planeswalker |
+| exists `∃` | `∃♞[➹ → ●] ⊃ ◈ ⊖{2}` | if a creature is attacking you, this costs {2} less |
+| becomes `≔` | `◈ ≔ «Ferengi» «Scout»` | becomes (replacing subtypes); `∈` = is also |
+| reflexive trigger | `● ? ⌫1 ; (✓ ⇒ ◈ ✸2 → ◎)` | "When you do, …" — a triggered ability in a group |
+| delayed trigger | `(⊢▷☾ ⇒ ✝☞)` | "Sacrifice it at the beginning of the next end step" |
+| bounded ability | `(♞➹ → ○ ⇒ …) ⊣▷◷●` | "Until your next turn, whenever …" |
+| per player | `(∀○) ✖ ≤1◎♞[⚑☞]` | "For each opponent, destroy up to one target creature that player controls" |
+| activation limit | `; ≡✎`, `; ≡ ≤1◷`, `; ≡(cond)`, `; ≡◷●` | only as a sorcery / once each turn / only if … / only during your turn |
+| cost change | `◈ ⊖{X}`, `✦[¬♞ ✷○] ⨁{1}`, `⊳ ⊖{X}` | spell costs less / more; ability costs less |
+| any target | `◈ ✸3 → ◎` | a bare `◎` is "any target" |
+| turn structure | `⊢☼◷●`, `⊢⨯◷●`, `⊢☾`, `⊢☉1◷●` | beginning of your upkeep / combat on your turn / each end step / your first main phase |
+| library positions | `⌃4▤●`, `→ ⌄▤● ⚂` | top four cards of your library; bottom in a random order (`⇅` any order) |
+| copies | `✚ ◌[❐☞] ∋↯` | create a token that's a copy of it, with haste |
+| counters | `2⊞+1/+1 → ◈`, `⊞✲`, `⊞◇`, `⊞✹`, `⊞✠`, `⊞⚐` | +1/+1, stun, loyalty, charge, finality, quest |
+| replacement inside an effect | `… ; C ⊃ ⤳ effect` | "…instead" |
