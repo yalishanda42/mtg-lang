@@ -71,6 +71,67 @@ def notation_html(text: str, g: Glossary, lang: str = "en", symbols: dict | None
     return "".join(out)
 
 
+# --- card view: notation painted over the real card scan --------------------
+
+_BAR = {"W": "#f4f4ee", "U": "#b7d5e4", "B": "#b4aeae", "R": "#f3ccb8", "G": "#bccfc6"}
+_BOX = {"W": "#f4f4ec", "U": "#dbe9f2", "B": "#e8e7e5", "R": "#f0dfd5", "G": "#d4e4db"}
+_GOLD = ("#d0bc84", "#f2eed8")
+_ARTIFACT = ("#d0d9dd", "#d0dce0")
+_COLORLESS = ("#cec7c5", "#e8e3dc")
+_PAIRS = ("WU", "UB", "BR", "RG", "GW", "WB", "UR", "BG", "RW", "GU")  # frame order of two-colour cards
+VIEW_LAYOUTS = ("normal", "saga", "prepare")
+
+
+def frame_palette(colors: list[str], type_line: str) -> tuple[str, str, str]:
+    """(bar colour, text-box background, solid text-box colour) approximating the printed 2015 frame.
+
+    Two-colour cards get a left-to-right gradient text box; the solid variant is for narrow panels (sagas)."""
+    cs = [c for c in colors if c in _BAR]
+    if not cs:
+        pal = _ARTIFACT if "Artifact" in type_line else _COLORLESS
+        return pal + (pal[1],)
+    if len(cs) == 1:
+        return _BAR[cs[0]], _BOX[cs[0]], _BOX[cs[0]]
+    if len(cs) == 2:
+        pair = next((p for p in _PAIRS if set(p) == set(cs)), "".join(cs))
+        a, b = _BOX[pair[0]], _BOX[pair[1]]
+        return _GOLD[0], f"linear-gradient(90deg, {a} 30%, {b} 70%)", f"color-mix(in srgb, {a}, {b})"
+    return _GOLD + (_GOLD[1],)
+
+
+def card_view(card, doc, g: Glossary, lang: str, symbols: dict | None) -> dict | None:
+    """Overlay data for the card scan, or None if the layout/frame isn't supported."""
+    if card is None or doc is None or not card.image or card.layout not in VIEW_LAYOUTS:
+        return None
+    if card.layout == "prepare" and len(doc.faces) < 2:
+        return None
+    if card.layout != "prepare" and len(doc.faces) != 1:
+        return None
+    if "Battle" in card.faces[0].type_line:
+        return None
+    kind = card.layout
+    if "Planeswalker" in card.faces[0].type_line:
+        if card.layout != "normal":
+            return None
+        # the printed planeswalker frame has a shorter art box when there are four ability rows
+        kind = "pw pw4" if len(oracle_lines(card.faces[0])) >= 4 else "pw pw3"
+    o, c = g.role("name_open").glyph, g.role("name_close").glyph
+    faces = []
+    for fi, f in enumerate(doc.faces[:2]):
+        sf = card.faces[fi] if fi < len(card.faces) else None
+        olines = oracle_lines(sf) if sf else []
+        rows = [{"html": notation_html(a.text, g, lang, symbols), "oracle": olines[k] if k < len(olines) else ""}
+                for k, a in enumerate(f.abilities)]
+        faces.append({"name": notation_html(f"{o}{f.name}{c}", g, lang, symbols),
+                      "mana": notation_html(f.mana, g, lang, symbols) if f.mana else "",
+                      "type": notation_html(f.type_line, g, lang, symbols),
+                      "oracle_name": sf.name if sf else "", "oracle_type": sf.type_line if sf else "",
+                      "rows": rows})
+    bar, box, solid = frame_palette(card.colors, card.faces[0].type_line)
+    return {"kind": kind, "image": card.image, "bar": bar, "box": solid if card.layout == "saga" else box,
+            "pt": bool(doc.faces[0].stats) or bool(card.faces[0].power), "faces": faces}
+
+
 def _safe_ascii(text: str, g: Glossary) -> str:
     try:
         return to_ascii(text, g)
@@ -112,7 +173,8 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
                 ascii_parts.append(ascii_file(text, g))
             doc, _ = parse_card_file(path, parser)
             card = snap.get((code, path.stem))
-            entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])]}
+            entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])],
+                     "view": card_view(card, doc, g, lang, symbols)}
             if doc is not None:
                 for fi, f in enumerate(doc.faces):
                     sf = card.faces[fi] if card and fi < len(card.faces) else None

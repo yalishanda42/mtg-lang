@@ -25,6 +25,8 @@ class ScryCard:
     layout: str
     keywords: list[str] = field(default_factory=list)
     faces: list[ScryFace] = field(default_factory=list)
+    image: str | None = None          # Scryfall "large" scan of the front
+    colors: list[str] = field(default_factory=list)
 
 
 def slugify(name: str) -> str:
@@ -56,6 +58,10 @@ def parse_card(raw: dict) -> ScryCard:
         faces = [_face(f, raw if i == 0 else None) for i, f in enumerate(raw["card_faces"])]
     else:
         faces = [_face(raw)]
+    uris = raw.get("image_uris") or ((raw.get("card_faces") or [{}])[0].get("image_uris") or {})
+    colors = raw.get("colors")
+    if colors is None:
+        colors = (raw.get("card_faces") or [{}])[0].get("colors") or []
     return ScryCard(
         slug=slugify(raw["name"]),
         set_code=raw["set"],
@@ -63,6 +69,8 @@ def parse_card(raw: dict) -> ScryCard:
         layout=raw.get("layout", "normal"),
         keywords=list(raw.get("keywords") or []),
         faces=faces,
+        image=uris.get("large"),
+        colors=list(colors),
     )
 
 

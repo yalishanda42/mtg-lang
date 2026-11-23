@@ -2,8 +2,24 @@
 {% block title %}MTG-Lang — {{ code }}{% endblock %}
 {% block body %}
 <h1>{{ code }} — {{ cards|length }} card(s)</h1>
+{% macro bars(f, n) %}
+    <div class="ov bar name f{{ n }}" title="{{ f.oracle_name }}"><span class="nm">{{ f.name|safe }}</span><span class="mc">{{ f.mana|safe }}</span></div>
+    <div class="ov bar type f{{ n }}" title="{{ f.oracle_type }}">{{ f.type|safe }}</div>
+    <div class="ov text f{{ n }}"><div class="fit">{% for r in f.rows %}<p title="{{ r.oracle }}">{{ r.html|safe }}</p>{% endfor %}</div></div>
+{% endmacro %}
 {% for c in cards %}
 <div class="card" id="{{ c.slug }}">
+  {% if c.view %}{% set v = c.view %}
+  <div class="pair">
+    <figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>Original</figcaption></figure>
+    <figure><div class="cv {{ v.kind }}{% if v.pt and v.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ v.bar }}; --box: {{ v.box }}">
+      <img src="{{ v.image }}" loading="lazy" alt="">
+      {{ bars(v.faces[0], 0) }}
+      {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
+    </div><figcaption>MTG-Lang</figcaption></figure>
+  </div>
+  <details><summary>Line by line</summary>
+  {% endif %}
   {% for f in c.faces %}
   {% if not loop.first %}<hr>{% endif %}
   <div class="hdr">{{ f.header|safe }}</div>
@@ -16,8 +32,34 @@
   </table>
   {% endif %}
   {% endfor %}
+  {% if c.view %}</details>{% endif %}
   {% if c.issues %}<div class="issues">{% for i in c.issues %}{{ i }}
 {% endfor %}</div>{% endif %}
 </div>
 {% endfor %}
+<script>
+// Shrink each overlay's font (binary search, in card-width units) until its content fits.
+function fitBox(el, max, min) {
+  const fits = () => el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1;
+  let lo = min, hi = max;
+  el.style.fontSize = hi + "cqw";
+  if (fits()) return;
+  for (let i = 0; i < 8; i++) {
+    const mid = (lo + hi) / 2;
+    el.style.fontSize = mid + "cqw";
+    if (fits()) lo = mid; else hi = mid;
+  }
+  el.style.fontSize = lo + "cqw";
+}
+function fitCard(cv) {
+  cv.querySelectorAll(".ov.name").forEach(e => fitBox(e, 4.6, 2.4));
+  cv.querySelectorAll(".ov.type").forEach(e => fitBox(e, 4.1, 2.2));
+  cv.querySelectorAll(".ov.text").forEach(e => fitBox(e, 5.4, 1.6));
+}
+// Fit every card in small chunks so the page stays responsive (no image load needed: .cv has a fixed aspect ratio).
+document.fonts.ready.then(() => {
+  const todo = [...document.querySelectorAll(".cv:has(.ov)")];
+  (function step() { todo.splice(0, 12).forEach(fitCard); if (todo.length) setTimeout(step, 0); })();
+});
+</script>
 {% endblock %}

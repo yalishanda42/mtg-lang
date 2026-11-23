@@ -10,6 +10,14 @@
   "keywords": [
    "Landfall"
   ],
-  "set": "trk"
+  "set": "trk",
+  "colors": [
+   "R",
+   "G"
+  ],
+  "image_uris": {
+   "normal": "https://cards.example/normal/dal.jpg",
+   "large": "https://cards.example/large/dal.jpg"
+  }
  }
 ]

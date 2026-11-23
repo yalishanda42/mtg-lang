@@ -24,6 +24,49 @@
   .bad { background: #fde2e2; }
   .issues { color: #b00020; font-size: .9rem; margin-top: .5rem; white-space: pre-wrap; }
   .legend td.g { font-size: 1.3rem; }
+  details summary { cursor: pointer; color: #555; margin-top: .5rem; }
+
+  /* card view: notation painted over the real scan (2015 frame geometry, % of card size) */
+  .pair { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .pair figure { margin: 0; }
+  .pair figcaption { text-align: center; font-size: .8rem; color: #666; text-transform: uppercase; margin-top: .3rem; }
+  .cv { position: relative; width: 340px; aspect-ratio: 488 / 680; container-type: inline-size;
+        border-radius: 4.6% / 3.3%; overflow: hidden; background: #111; }
+  .cv > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ov { position: absolute; box-sizing: border-box; overflow: hidden; color: #111; line-height: 1.18;
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+                     "Noto Sans Symbols 2", "Apple Symbols", "Segoe UI Symbol", serif; }
+  .ov .name, .ov .effect { color: inherit; }
+  .ov img.ms { height: .95em; width: .95em; vertical-align: -0.1em; }
+  .ov.bar { background: var(--bar); display: flex; align-items: center; white-space: nowrap;
+            padding: 0 1.6cqw; border-radius: 1cqw; font-weight: 700; }
+  .ov.name { justify-content: space-between; gap: 1cqw; }
+  .ov.name .mc { font-weight: 400; }
+  .ov.text { background: var(--box); display: flex; flex-direction: column; justify-content: safe center;
+             padding: 1.4cqw 2.4cqw; }
+  .ov.text p { margin: 0 0 .45em; }
+  .ov.text p:last-child { margin-bottom: 0; }
+  .normal .name.f0, .saga .name.f0, .prepare .name.f0 { left: 6.6%; right: 6.6%; top: 6.0%; height: 4.3%; }
+  .normal .type.f0, .prepare .type.f0 { left: 6.8%; right: 13%; top: 57.5%; height: 4.1%; }
+  .normal .text.f0 { left: 7.4%; right: 7.4%; top: 62.7%; bottom: 7.65%; }
+  .normal.pt .text.f0 { padding-bottom: 5.5cqw;
+                        clip-path: polygon(0 0, 100% 0, 100% 83%, 81.5% 83%, 81.5% 100%, 0 100%); }
+  .saga .type.f0 { left: 6.8%; right: 13%; top: 84.8%; height: 4.4%; }
+  .saga .text.f0 { left: 3.9%; right: 50.6%; top: 11.7%; bottom: 16.4%; justify-content: space-around; }
+  .saga .text.f0 p { margin: 0; padding: .3em 0; border-top: 1px solid rgba(0,0,0,.25); }
+  .saga .text.f0 p:first-child { border-top: 0; }
+  .pw .name.f0 { left: 6.4%; right: 6.5%; top: 3.9%; height: 5.0%; }
+  .pw .type.f0 { left: 6.4%; right: 13.5%; }
+  .pw .text.f0 { left: 4.2%; right: 7.6%; bottom: 9.7%; }
+  .pw3 .type.f0 { top: 56.4%; height: 5.3%; }
+  .pw3 .text.f0 { top: 62.8%; }
+  .pw4 .type.f0 { top: 49.7%; height: 4.8%; }
+  .pw4 .text.f0 { top: 55.3%; }
+  .pw.pt .text.f0 { padding-bottom: 4cqw; clip-path: polygon(0 0, 100% 0, 100% 91%, 87% 91%, 87% 100%, 0 100%); }
+  .prepare .text.f0 { left: 7.6%; right: 50.6%; top: 62.8%; bottom: 7.8%; }
+  .prepare .name.f1 { left: 50.8%; right: 6.4%; top: 63.2%; height: 4.4%; }
+  .prepare .type.f1 { left: 50.8%; right: 6.4%; top: 68.2%; height: 4.4%; }
+  .prepare .text.f1 { left: 50.8%; right: 7.4%; top: 73.2%; bottom: 11.7%; }
 </style>
 </head>
 <body>
