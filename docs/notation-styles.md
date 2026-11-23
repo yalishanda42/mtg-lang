@@ -1,6 +1,6 @@
 # Notation style proposals (milestone 1)
 
-Decision: _pending — to be chosen by the user_
+Decision (2026-11-23): **Symbol-heavy**. Keywords get glyphs too; every glyph keeps a short ASCII alias for plain-text use. Glyphs below may be refined during sample review.
 
 This doc shows the same 12 cards (from `docs/sample-cards.txt`) written in three styles. All three
 share **one grammar**. They differ only in which marks the vocabulary uses. That's why the choice
