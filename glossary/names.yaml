@@ -777,3 +777,11 @@
 - {key: Sensors, class: flavor, labels: {en: Sensors}}
 - {key: Transport, class: flavor, labels: {en: Transport}}
 - {key: Abandon Ship, class: flavor, labels: {en: Abandon Ship}}
+- {key: Food, class: subtype, labels: {en: Food}}
+- {key: Murf, class: token, labels: {en: Murf}}
+- {key: Cloaking Device, class: flavor, labels: {en: Cloaking Device}}
+- {key: Follow the 3rd Rule, class: flavor, labels: {en: Follow the 3rd Rule}}
+- {key: Follow the 98th Rule, class: flavor, labels: {en: Follow the 98th Rule}}
+- {key: Use the Relic, class: flavor, labels: {en: Use the Relic}}
+- {key: Destroy the Relic, class: flavor, labels: {en: Destroy the Relic}}
+- {key: Slug, class: subtype, labels: {en: Slug}}

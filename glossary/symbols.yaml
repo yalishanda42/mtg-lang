@@ -9,7 +9,7 @@
 - {glyph: ⟨, ascii: '<:', role: effect_open, class: structural, labels: {en: one-off effect start}}
 - {glyph: ⟩, ascii: ':>', role: effect_close, class: structural, labels: {en: one-off effect end}}
 - {glyph: ;, ascii: ;, class: structural, labels: {en: then (next sentence)}}
-- {glyph: ≔, ascii: ':=', class: structural, labels: {en: where (variable definition)}}
+- {glyph: ≔, ascii: ':=', class: structural, labels: {en: 'where (variable) / becomes (replacing types)'}}
 - {glyph: ◈, ascii: '@', role: self, class: reference, labels: {en: this object}}
 - {glyph: ☞, ascii: $, class: reference, labels: {en: that object / player (just mentioned)}}
 - {glyph: ●, ascii: Yu, class: player, labels: {en: you}}
@@ -189,3 +189,5 @@
 - {glyph: ⟳, ascii: Et, class: time, labels: {en: extra turn}}
 - {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name}}
 - {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to}}
+- {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter)}}
+- {glyph: ⋮, ascii: Dv, class: action, labels: {en: distribute among}}
