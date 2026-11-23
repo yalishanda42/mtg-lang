@@ -49,6 +49,13 @@ def cmd_sync_names(args) -> int:
     return 0
 
 
+def cmd_render(args) -> int:
+    from mtglang.render import render_site
+    render_site(Path(args.root), Path(args.out), lang=args.lang)
+    print(f"wrote {Path(args.out) / 'index.html'}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="mtglang")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -67,6 +74,11 @@ def build_parser() -> argparse.ArgumentParser:
     n = sub.add_parser("sync-names", help="add snapshot card names and subtypes to glossary/names.yaml")
     n.add_argument("--root", default=".")
     n.set_defaults(func=cmd_sync_names)
+    r = sub.add_parser("render", help="write the HTML gallery, legend and ASCII export")
+    r.add_argument("--root", default=".")
+    r.add_argument("--out", default="build")
+    r.add_argument("--lang", default="en")
+    r.set_defaults(func=cmd_render)
     return p
 
 
