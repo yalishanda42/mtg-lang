@@ -769,3 +769,11 @@
 - {key: Shoot to Kill, class: flavor, labels: {en: Shoot to Kill}}
 - {key: "Temba, His Arms Wide", class: flavor, labels: {en: "Temba, His Arms Wide"}}
 - {key: "Shaka, When the Walls Fell", class: flavor, labels: {en: "Shaka, When the Walls Fell"}}
+- {key: Neuroflux Heirloom, class: token, labels: {en: Neuroflux Heirloom}}
+- {key: Transfer Symbiont, class: flavor, labels: {en: Transfer Symbiont}}
+- {key: Surgical Separation, class: flavor, labels: {en: Surgical Separation}}
+- {key: Remain Fused, class: flavor, labels: {en: Remain Fused}}
+- {key: Hail, class: flavor, labels: {en: Hail}}
+- {key: Sensors, class: flavor, labels: {en: Sensors}}
+- {key: Transport, class: flavor, labels: {en: Transport}}
+- {key: Abandon Ship, class: flavor, labels: {en: Abandon Ship}}

@@ -185,3 +185,7 @@
 - {glyph: ⁂, ascii: Cl, class: keyword, labels: {en: Changeling}, oracle: Changeling}
 - {glyph: ⊺, ascii: Kk, class: keyword, labels: {en: Kicker (◈⊺ = this spell was kicked)}, oracle: Kicker}
 - {glyph: ☀, ascii: Sb, class: keyword, labels: {en: Sunburst}, oracle: Sunburst}
+- {glyph: ♚, ascii: Lz, class: action, labels: {en: lose the game}}
+- {glyph: ⟳, ascii: Et, class: time, labels: {en: extra turn}}
+- {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name}}
+- {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to}}
