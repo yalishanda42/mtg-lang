@@ -56,6 +56,17 @@ def cmd_render(args) -> int:
     return 0
 
 
+def cmd_backtrans(args) -> int:
+    from mtglang.backtrans import backtrans_bundle
+    bundle, key = backtrans_bundle(Path(args.root), args.n, args.seed)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "bundle.md").write_text(bundle, encoding="utf-8")
+    (out / "key.md").write_text(key, encoding="utf-8")
+    print(f"wrote {out / 'bundle.md'} and {out / 'key.md'}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="mtglang")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -79,6 +90,12 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--out", default="build")
     r.add_argument("--lang", default="en")
     r.set_defaults(func=cmd_render)
+    b = sub.add_parser("backtrans", help="write a back-translation bundle and answer key")
+    b.add_argument("--root", default=".")
+    b.add_argument("--n", type=int, default=40)
+    b.add_argument("--seed", type=int, default=7)
+    b.add_argument("--out", default="build/backtrans")
+    b.set_defaults(func=cmd_backtrans)
     return p
 
 
