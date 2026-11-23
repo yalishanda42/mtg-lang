@@ -1,1 +1,2 @@
 - {key: no-legend-rule, card: Hall of Echoes, labels: {en: "The \"legend rule\" doesn't apply to these permanents."}}
+- {key: any-number, card: Sphinx's Approach, labels: {en: "A deck can have any number of cards with this name."}}

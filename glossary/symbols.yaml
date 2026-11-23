@@ -172,3 +172,5 @@
 - {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (the battlefield)}}
 - {glyph: ⊥, ascii: Ba, class: characteristic, labels: {en: base power and toughness}}
 - {glyph: ⦰, ascii: Fr, class: action, labels: {en: without paying its mana cost}}
+- {glyph: ⧖, ascii: SS, class: keyword, labels: {en: Split second}, oracle: Split second}
+- {glyph: ◍, ascii: Mc, class: characteristic, labels: {en: mana cost}}
