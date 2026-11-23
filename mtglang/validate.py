@@ -57,7 +57,7 @@ def check_refs(doc: CardDoc, g: Glossary, known_names: set[str]) -> list[Issue]:
 def english_type_line(tree: Tree, g: Glossary) -> str:
     left, right, seen_dash = [], [], False
     for child in tree.children:
-        if isinstance(child, Token) and child.type == "DASH":
+        if isinstance(child, Token) and child.type in ("DASH", "MINUS"):
             seen_dash = True
             continue
         tok = child.children[0]

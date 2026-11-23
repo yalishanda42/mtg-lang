@@ -1,0 +1,756 @@
+- {key: Treasure, class: subtype, labels: {en: Treasure}}
+- {key: Clue, class: subtype, labels: {en: Clue}}
+- {key: Lotus, class: token, labels: {en: Lotus}}
+- {key: Cadet, class: token, labels: {en: Cadet}}
+- {key: Porthos, class: token, labels: {en: Porthos}}
+- {key: Ajani's Pridemate, class: token, labels: {en: Ajani's Pridemate}}
+- {key: Reckless Behavior, class: flavor, labels: {en: Reckless Behavior}}
+- {key: Hailing Frequencies, class: flavor, labels: {en: Hailing Frequencies}}
+- {key: Open a Channel, class: flavor, labels: {en: Open a Channel}}
+- {key: Academic Ascent, class: card, labels: {en: Academic Ascent}}
+- {key: Aerid Konstrari, class: card, labels: {en: Aerid Konstrari}}
+- {key: Elder, class: subtype, labels: {en: Elder}}
+- {key: Sphinx, class: subtype, labels: {en: Sphinx}}
+- {key: Afterthought Sentry, class: card, labels: {en: Afterthought Sentry}}
+- {key: Gargoyle, class: subtype, labels: {en: Gargoyle}}
+- {key: Ajani Resolute, class: card, labels: {en: Ajani Resolute}}
+- {key: Ajani, class: subtype, labels: {en: Ajani}}
+- {key: Ajani Unrelenting, class: card, labels: {en: Ajani Unrelenting}}
+- {key: Ajani's Anguish, class: card, labels: {en: Ajani's Anguish}}
+- {key: Apex Witchstalker, class: card, labels: {en: Apex Witchstalker}}
+- {key: Wolf, class: subtype, labels: {en: Wolf}}
+- {key: Arcane Amphisbaena, class: card, labels: {en: Arcane Amphisbaena}}
+- {key: Snake, class: subtype, labels: {en: Snake}}
+- {key: Archive Arbiter, class: card, labels: {en: Archive Arbiter}}
+- {key: 'Arni, Humble Scribe', class: card, labels: {en: 'Arni, Humble Scribe'}}
+- {key: Human, class: subtype, labels: {en: Human}}
+- {key: Wizard, class: subtype, labels: {en: Wizard}}
+- {key: 'Arni, Renowned Champion', class: card, labels: {en: 'Arni, Renowned Champion'}}
+- {key: Berserker, class: subtype, labels: {en: Berserker}}
+- {key: Artifist Acumen, class: card, labels: {en: Artifist Acumen}}
+- {key: Avatar of Burgeoning Echoes, class: card, labels: {en: Avatar of Burgeoning Echoes}}
+- {key: Avatar, class: subtype, labels: {en: Avatar}}
+- {key: Awaken the Inferno, class: card, labels: {en: Awaken the Inferno}}
+- {key: Bestial Incursion, class: card, labels: {en: Bestial Incursion}}
+- {key: Blazing Crescendo, class: card, labels: {en: Blazing Crescendo}}
+- {key: Blessed Ghoul, class: card, labels: {en: Blessed Ghoul}}
+- {key: Zombie, class: subtype, labels: {en: Zombie}}
+- {key: Cleric, class: subtype, labels: {en: Cleric}}
+- {key: Bloodline Recollector, class: card, labels: {en: Bloodline Recollector}}
+- {key: Ancestral Craving, class: card, labels: {en: Ancestral Craving}}
+- {key: Vampire, class: subtype, labels: {en: Vampire}}
+- {key: Warlock, class: subtype, labels: {en: Warlock}}
+- {key: Bloombrute, class: card, labels: {en: Bloombrute}}
+- {key: Plant, class: subtype, labels: {en: Plant}}
+- {key: Elemental, class: subtype, labels: {en: Elemental}}
+- {key: Blossom-Blessed Angel, class: card, labels: {en: Blossom-Blessed Angel}}
+- {key: Seed Suture, class: card, labels: {en: Seed Suture}}
+- {key: Angel, class: subtype, labels: {en: Angel}}
+- {key: Break Under Pressure, class: card, labels: {en: Break Under Pressure}}
+- {key: Budding Insurgent, class: card, labels: {en: Budding Insurgent}}
+- {key: Dryad, class: subtype, labels: {en: Dryad}}
+- {key: Scout, class: subtype, labels: {en: Scout}}
+- {key: Campus Crier, class: card, labels: {en: Campus Crier}}
+- {key: Advisor, class: subtype, labels: {en: Advisor}}
+- {key: Carnivorous Cultivator, class: card, labels: {en: Carnivorous Cultivator}}
+- {key: Enroot, class: card, labels: {en: Enroot}}
+- {key: Elf, class: subtype, labels: {en: Elf}}
+- {key: Cast Away Doubt, class: card, labels: {en: Cast Away Doubt}}
+- {key: 'Chandra, Chill of Compliance', class: card, labels: {en: 'Chandra, Chill of Compliance'}}
+- {key: Chandra, class: subtype, labels: {en: Chandra}}
+- {key: 'Chandra, Torch of Defiance', class: card, labels: {en: 'Chandra, Torch of Defiance'}}
+- {key: Chandra's Emberling, class: card, labels: {en: Chandra's Emberling}}
+- {key: Gremlin, class: subtype, labels: {en: Gremlin}}
+- {key: Charge the Sanctum, class: card, labels: {en: Charge the Sanctum}}
+- {key: Clash of Elements, class: card, labels: {en: Clash of Elements}}
+- {key: 'Codie, Ravenous Codex', class: card, labels: {en: 'Codie, Ravenous Codex'}}
+- {key: Book, class: subtype, labels: {en: Book}}
+- {key: Construct, class: subtype, labels: {en: Construct}}
+- {key: Command the Stage, class: card, labels: {en: Command the Stage}}
+- {key: Compel Brutality, class: card, labels: {en: Compel Brutality}}
+- {key: Countersculpt, class: card, labels: {en: Countersculpt}}
+- {key: Craftwork Crusher, class: card, labels: {en: Craftwork Crusher}}
+- {key: Boar, class: subtype, labels: {en: Boar}}
+- {key: Craterclaw Colossus, class: card, labels: {en: Craterclaw Colossus}}
+- {key: Beast, class: subtype, labels: {en: Beast}}
+- {key: Cruel Calculations, class: card, labels: {en: Cruel Calculations}}
+- {key: Cryotheory Adept, class: card, labels: {en: Cryotheory Adept}}
+- {key: Curse-Marred Demon, class: card, labels: {en: Curse-Marred Demon}}
+- {key: Demon, class: subtype, labels: {en: Demon}}
+- {key: 'Danitha, Spear of Agony', class: card, labels: {en: 'Danitha, Spear of Agony'}}
+- {key: Knight, class: subtype, labels: {en: Knight}}
+- {key: 'Danitha, Sword of Hope', class: card, labels: {en: 'Danitha, Sword of Hope'}}
+- {key: Dark Matter Manipulator, class: card, labels: {en: Dark Matter Manipulator}}
+- {key: Darklight Phoenix, class: card, labels: {en: Darklight Phoenix}}
+- {key: Phoenix, class: subtype, labels: {en: Phoenix}}
+- {key: Dedicated Commons, class: card, labels: {en: Dedicated Commons}}
+- {key: Denzilore Fatehold, class: card, labels: {en: Denzilore Fatehold}}
+- {key: Deserted Beach, class: card, labels: {en: Deserted Beach}}
+- {key: Desperate Futurescribe, class: card, labels: {en: Desperate Futurescribe}}
+- {key: Kor, class: subtype, labels: {en: Kor}}
+- {key: Diviner of Victory, class: card, labels: {en: Diviner of Victory}}
+- {key: Unwind History, class: card, labels: {en: Unwind History}}
+- {key: Dwarf, class: subtype, labels: {en: Dwarf}}
+- {key: Divining Duelist, class: card, labels: {en: Divining Duelist}}
+- {key: Merfolk, class: subtype, labels: {en: Merfolk}}
+- {key: Draconic Visitor, class: card, labels: {en: Draconic Visitor}}
+- {key: Dragon, class: subtype, labels: {en: Dragon}}
+- {key: Eardrum Rattler, class: card, labels: {en: Eardrum Rattler}}
+- {key: Bard, class: subtype, labels: {en: Bard}}
+- {key: 'Edgar, Ancient Bloodlord', class: card, labels: {en: 'Edgar, Ancient Bloodlord'}}
+- {key: Noble, class: subtype, labels: {en: Noble}}
+- {key: 'Edgar, Moonlit Sovereign', class: card, labels: {en: 'Edgar, Moonlit Sovereign'}}
+- {key: Werewolf, class: subtype, labels: {en: Werewolf}}
+- {key: Emergency Phytomedic, class: card, labels: {en: Emergency Phytomedic}}
+- {key: 'Emrakul, the Exigent Doom', class: card, labels: {en: 'Emrakul, the Exigent Doom'}}
+- {key: Eldrazi, class: subtype, labels: {en: Eldrazi}}
+- {key: Enlightened Confidant, class: card, labels: {en: Enlightened Confidant}}
+- {key: Entrust the Spark, class: card, labels: {en: Entrust the Spark}}
+- {key: Essence Burn, class: card, labels: {en: Essence Burn}}
+- {key: Extended Absence, class: card, labels: {en: Extended Absence}}
+- {key: Extrapolate the Impossible, class: card, labels: {en: Extrapolate the Impossible}}
+- {key: Eye of Jace, class: card, labels: {en: Eye of Jace}}
+- {key: Face Yourself, class: card, labels: {en: Face Yourself}}
+- {key: Fatehold Annex, class: card, labels: {en: Fatehold Annex}}
+- {key: Fatehold Charm, class: card, labels: {en: Fatehold Charm}}
+- {key: Fatehold Chronologist, class: card, labels: {en: Fatehold Chronologist}}
+- {key: Peer Review, class: card, labels: {en: Peer Review}}
+- {key: Bird, class: subtype, labels: {en: Bird}}
+- {key: Fateshaper Aspirant, class: card, labels: {en: Fateshaper Aspirant}}
+- {key: Rhino, class: subtype, labels: {en: Rhino}}
+- {key: 'Fblthp, Impossibly Lost', class: card, labels: {en: 'Fblthp, Impossibly Lost'}}
+- {key: Homunculus, class: subtype, labels: {en: Homunculus}}
+- {key: 'Fblthp, Knows the Way', class: card, labels: {en: 'Fblthp, Knows the Way'}}
+- {key: Ferocity of the Hunt, class: card, labels: {en: Ferocity of the Hunt}}
+- {key: Aura, class: subtype, labels: {en: Aura}}
+- {key: Flickering Hound, class: card, labels: {en: Flickering Hound}}
+- {key: Dog, class: subtype, labels: {en: Dog}}
+- {key: Flourishing Grapple, class: card, labels: {en: Flourishing Grapple}}
+- {key: Forest, class: card, labels: {en: Forest}}
+- {key: Formidable Commons, class: card, labels: {en: Formidable Commons}}
+- {key: Frostbite Pyromental, class: card, labels: {en: Frostbite Pyromental}}
+- {key: Fulminous Forte, class: card, labels: {en: Fulminous Forte}}
+- {key: 'Gallia, the Merrymaker', class: card, labels: {en: 'Gallia, the Merrymaker'}}
+- {key: Satyr, class: subtype, labels: {en: Satyr}}
+- {key: 'Gallia, Tragic Host', class: card, labels: {en: 'Gallia, Tragic Host'}}
+- {key: Gardenize, class: card, labels: {en: Gardenize}}
+- {key: 'Garruk, Curse Breaker', class: card, labels: {en: 'Garruk, Curse Breaker'}}
+- {key: Garruk, class: subtype, labels: {en: Garruk}}
+- {key: 'Garruk, Veiled Butcher', class: card, labels: {en: 'Garruk, Veiled Butcher'}}
+- {key: Geist of Saint Thalia, class: card, labels: {en: Geist of Saint Thalia}}
+- {key: Spirit, class: subtype, labels: {en: Spirit}}
+- {key: Generous Revival, class: card, labels: {en: Generous Revival}}
+- {key: Germinate Recruits, class: card, labels: {en: Germinate Recruits}}
+- {key: Ghalta the Immovable, class: card, labels: {en: Ghalta the Immovable}}
+- {key: Dinosaur, class: subtype, labels: {en: Dinosaur}}
+- {key: Ghalta the Unstoppable, class: card, labels: {en: Ghalta the Unstoppable}}
+- {key: Gideon the Oathless, class: card, labels: {en: Gideon the Oathless}}
+- {key: Mercenary, class: subtype, labels: {en: Mercenary}}
+- {key: Gideon's Memorial, class: card, labels: {en: Gideon's Memorial}}
+- {key: Graft Surgeon, class: card, labels: {en: Graft Surgeon}}
+- {key: Greenhouse Propagator, class: card, labels: {en: Greenhouse Propagator}}
+- {key: Cat, class: subtype, labels: {en: Cat}}
+- {key: Druid, class: subtype, labels: {en: Druid}}
+- {key: Grim Repriser, class: card, labels: {en: Grim Repriser}}
+- {key: Guiding Hydra, class: card, labels: {en: Guiding Hydra}}
+- {key: Hydra, class: subtype, labels: {en: Hydra}}
+- {key: Horror, class: subtype, labels: {en: Horror}}
+- {key: Hall of Echoes, class: card, labels: {en: Hall of Echoes}}
+- {key: Hallway Heckler, class: card, labels: {en: Hallway Heckler}}
+- {key: Vicious Verse, class: card, labels: {en: Vicious Verse}}
+- {key: Sorcerer, class: subtype, labels: {en: Sorcerer}}
+- {key: 'Hapatra, the Desert Fang', class: card, labels: {en: 'Hapatra, the Desert Fang'}}
+- {key: 'Hapatra, the Desert Frost', class: card, labels: {en: 'Hapatra, the Desert Frost'}}
+- {key: Haunted Ridge, class: card, labels: {en: Haunted Ridge}}
+- {key: Heartstring Puller, class: card, labels: {en: Heartstring Puller}}
+- {key: Heartwood Crafter, class: card, labels: {en: Heartwood Crafter}}
+- {key: Soul Tether, class: card, labels: {en: Soul Tether}}
+- {key: Artificer, class: subtype, labels: {en: Artificer}}
+- {key: Hexhaven Battalion, class: card, labels: {en: Hexhaven Battalion}}
+- {key: Hexhaven Dueling Arena, class: card, labels: {en: Hexhaven Dueling Arena}}
+- {key: Hexhaven Invigorator, class: card, labels: {en: Hexhaven Invigorator}}
+- {key: Chimera, class: subtype, labels: {en: Chimera}}
+- {key: Hungering Puppetbeast, class: card, labels: {en: Hungering Puppetbeast}}
+- {key: Hunter's Axe, class: card, labels: {en: Hunter's Axe}}
+- {key: Equipment, class: subtype, labels: {en: Equipment}}
+- {key: Icy Reception, class: card, labels: {en: Icy Reception}}
+- {key: Identity Echo, class: card, labels: {en: Identity Echo}}
+- {key: Infinite Coursework, class: card, labels: {en: Infinite Coursework}}
+- {key: Ingris Stingerquill, class: card, labels: {en: Ingris Stingerquill}}
+- {key: Innovative Commons, class: card, labels: {en: Innovative Commons}}
+- {key: Inspired Tethermage, class: card, labels: {en: Inspired Tethermage}}
+- {key: Warrior, class: subtype, labels: {en: Warrior}}
+- {key: Island, class: card, labels: {en: Island}}
+- {key: 'Jace, Reality Sculptor', class: card, labels: {en: 'Jace, Reality Sculptor'}}
+- {key: Jace, class: subtype, labels: {en: Jace}}
+- {key: Jace's Machinations, class: card, labels: {en: Jace's Machinations}}
+- {key: 'Jiang Yanggu, Alone', class: card, labels: {en: 'Jiang Yanggu, Alone'}}
+- {key: 'Jiang Yanggu, Never Alone', class: card, labels: {en: 'Jiang Yanggu, Never Alone'}}
+- {key: 'Karn, Argent Defender', class: card, labels: {en: 'Karn, Argent Defender'}}
+- {key: Golem, class: subtype, labels: {en: Golem}}
+- {key: 'Karn, Gilded Guardian', class: card, labels: {en: 'Karn, Gilded Guardian'}}
+- {key: Keeper of the Quiet Hour, class: card, labels: {en: Keeper of the Quiet Hour}}
+- {key: Kindred Judgment, class: card, labels: {en: Kindred Judgment}}
+- {key: Kiora of Fire and Ashes, class: card, labels: {en: Kiora of Fire and Ashes}}
+- {key: Kiora of Salt and Sand, class: card, labels: {en: Kiora of Salt and Sand}}
+- {key: Konstrari Annex, class: card, labels: {en: Konstrari Annex}}
+- {key: Konstrari Charm, class: card, labels: {en: Konstrari Charm}}
+- {key: Konstrari Improviser, class: card, labels: {en: Konstrari Improviser}}
+- {key: Koth of the Homestead, class: card, labels: {en: Koth of the Homestead}}
+- {key: Citizen, class: subtype, labels: {en: Citizen}}
+- {key: 'Koth, the Geomancer', class: card, labels: {en: 'Koth, the Geomancer'}}
+- {key: Kwia Vigorbloom, class: card, labels: {en: Kwia Vigorbloom}}
+- {key: Last Gasp, class: card, labels: {en: Last Gasp}}
+- {key: Lich's Relic, class: card, labels: {en: Lich's Relic}}
+- {key: Liliana the Faultless, class: card, labels: {en: Liliana the Faultless}}
+- {key: Liliana the Repentant, class: card, labels: {en: Liliana the Repentant}}
+- {key: Living Library, class: card, labels: {en: Living Library}}
+- {key: Illusion, class: subtype, labels: {en: Illusion}}
+- {key: 'Loot, the Anomaly', class: card, labels: {en: 'Loot, the Anomaly'}}
+- {key: 'Loot, the Nexus', class: card, labels: {en: 'Loot, the Nexus'}}
+- {key: Loyal Tutor, class: card, labels: {en: Loyal Tutor}}
+- {key: 'Lyra, Archangel of Dawn', class: card, labels: {en: 'Lyra, Archangel of Dawn'}}
+- {key: 'Lyra, Tolarian Archangel', class: card, labels: {en: 'Lyra, Tolarian Archangel'}}
+- {key: 'Mabel, Bitter Recluse', class: card, labels: {en: 'Mabel, Bitter Recluse'}}
+- {key: Mouse, class: subtype, labels: {en: Mouse}}
+- {key: 'Mabel, Valley Hero', class: card, labels: {en: 'Mabel, Valley Hero'}}
+- {key: Soldier, class: subtype, labels: {en: Soldier}}
+- {key: 'Marwyn, the Clearcutter', class: card, labels: {en: 'Marwyn, the Clearcutter'}}
+- {key: 'Marwyn, the Preserver', class: card, labels: {en: 'Marwyn, the Preserver'}}
+- {key: 'Massacre Girl, Most Wanted', class: card, labels: {en: 'Massacre Girl, Most Wanted'}}
+- {key: Assassin, class: subtype, labels: {en: Assassin}}
+- {key: Master of Barbs, class: card, labels: {en: Master of Barbs}}
+- {key: Lizard, class: subtype, labels: {en: Lizard}}
+- {key: Medic's Kitesail, class: card, labels: {en: Medic's Kitesail}}
+- {key: Memory Trap, class: card, labels: {en: Memory Trap}}
+- {key: Meticulous Commons, class: card, labels: {en: Meticulous Commons}}
+- {key: Mind Meanderer, class: card, labels: {en: Mind Meanderer}}
+- {key: Fish, class: subtype, labels: {en: Fish}}
+- {key: Mindseeker Oculus, class: card, labels: {en: Mindseeker Oculus}}
+- {key: Mountain, class: card, labels: {en: Mountain}}
+- {key: Multiply by Zero, class: card, labels: {en: Multiply by Zero}}
+- {key: Murmuring Volume, class: card, labels: {en: Murmuring Volume}}
+- {key: No Admittance, class: card, labels: {en: No Admittance}}
+- {key: Null Summoner, class: card, labels: {en: Null Summoner}}
+- {key: Omnipresence, class: card, labels: {en: Omnipresence}}
+- {key: Overgrown Farmland, class: card, labels: {en: Overgrown Farmland}}
+- {key: Overwrite the Multiverse, class: card, labels: {en: Overwrite the Multiverse}}
+- {key: Paradox Shaper, class: card, labels: {en: Paradox Shaper}}
+- {key: Omit Variables, class: card, labels: {en: Omit Variables}}
+- {key: Octopus, class: subtype, labels: {en: Octopus}}
+- {key: Perfected Theory, class: card, labels: {en: Perfected Theory}}
+- {key: 'Pia, Aether Ascetic', class: card, labels: {en: 'Pia, Aether Ascetic'}}
+- {key: 'Pia, Determined Rebuilder', class: card, labels: {en: 'Pia, Determined Rebuilder'}}
+- {key: Plains, class: card, labels: {en: Plains}}
+- {key: Plan for All Outcomes, class: card, labels: {en: Plan for All Outcomes}}
+- {key: Pompous Battlemage, class: card, labels: {en: Pompous Battlemage}}
+- {key: Improvised Act, class: card, labels: {en: Improvised Act}}
+- {key: Goblin, class: subtype, labels: {en: Goblin}}
+- {key: Precise Redaction, class: card, labels: {en: Precise Redaction}}
+- {key: Predictive Preparations, class: card, labels: {en: Predictive Preparations}}
+- {key: Primal Witchstalker, class: card, labels: {en: Primal Witchstalker}}
+- {key: Proctor of Potential, class: card, labels: {en: Proctor of Potential}}
+- {key: 'Proft, Consulting Detective', class: card, labels: {en: 'Proft, Consulting Detective'}}
+- {key: Detective, class: subtype, labels: {en: Detective}}
+- {key: 'Proft, Sinister Mastermind', class: card, labels: {en: 'Proft, Sinister Mastermind'}}
+- {key: Rogue, class: subtype, labels: {en: Rogue}}
+- {key: Prophesied End, class: card, labels: {en: Prophesied End}}
+- {key: Protege's Awakening, class: card, labels: {en: Protege's Awakening}}
+- {key: Prudent Fateseer, class: card, labels: {en: Prudent Fateseer}}
+- {key: Puppet Crafting, class: card, labels: {en: Puppet Crafting}}
+- {key: Pyre Rhymer, class: card, labels: {en: Pyre Rhymer}}
+- {key: Molten Tide, class: card, labels: {en: Molten Tide}}
+- {key: Rampart Hunter, class: card, labels: {en: Rampart Hunter}}
+- {key: Rank Rat, class: card, labels: {en: Rank Rat}}
+- {key: Rat, class: subtype, labels: {en: Rat}}
+- {key: Recursive Recruitment, class: card, labels: {en: Recursive Recruitment}}
+- {key: Refute Destiny, class: card, labels: {en: Refute Destiny}}
+- {key: Repurposed Enforcer, class: card, labels: {en: Repurposed Enforcer}}
+- {key: 'Rescue Girl, First Responder', class: card, labels: {en: 'Rescue Girl, First Responder'}}
+- {key: Restore with Empathy, class: card, labels: {en: Restore with Empathy}}
+- {key: Return to the Light Realms, class: card, labels: {en: Return to the Light Realms}}
+- {key: Rewrite Regrets, class: card, labels: {en: Rewrite Regrets}}
+- {key: Rise of the Deathbringer, class: card, labels: {en: Rise of the Deathbringer}}
+- {key: Rockfall Vale, class: card, labels: {en: Rockfall Vale}}
+- {key: Roiling Canopy, class: card, labels: {en: Roiling Canopy}}
+- {key: Room of Refuge, class: card, labels: {en: Room of Refuge}}
+- {key: 'Ruric Thar, Biomagus', class: card, labels: {en: 'Ruric Thar, Biomagus'}}
+- {key: Ogre, class: subtype, labels: {en: Ogre}}
+- {key: Crab, class: subtype, labels: {en: Crab}}
+- {key: 'Ruric Thar, Magecrusher', class: card, labels: {en: 'Ruric Thar, Magecrusher'}}
+- {key: 'Saheeli, Consul of Oversight', class: card, labels: {en: 'Saheeli, Consul of Oversight'}}
+- {key: 'Saheeli, Jewel of Avishkar', class: card, labels: {en: 'Saheeli, Jewel of Avishkar'}}
+- {key: 'Samut, Hazoret''s Champion', class: card, labels: {en: 'Samut, Hazoret''s Champion'}}
+- {key: 'Samut, Tyrant of Naktamun', class: card, labels: {en: 'Samut, Tyrant of Naktamun'}}
+- {key: Sanctum Lurker, class: card, labels: {en: Sanctum Lurker}}
+- {key: Screeching Soulbreaker, class: card, labels: {en: Screeching Soulbreaker}}
+- {key: Siren, class: subtype, labels: {en: Siren}}
+- {key: Seasoned Cryomancer, class: card, labels: {en: Seasoned Cryomancer}}
+- {key: Semester Foreseer, class: card, labels: {en: Semester Foreseer}}
+- {key: Shatterwing Pegasus, class: card, labels: {en: Shatterwing Pegasus}}
+- {key: Pegasus, class: subtype, labels: {en: Pegasus}}
+- {key: Shipwreck Marsh, class: card, labels: {en: Shipwreck Marsh}}
+- {key: Silence the Echo, class: card, labels: {en: Silence the Echo}}
+- {key: Simulacrum Shaper, class: card, labels: {en: Simulacrum Shaper}}
+- {key: Skilled Battlecarver, class: card, labels: {en: Skilled Battlecarver}}
+- {key: Solarium Sentry, class: card, labels: {en: Solarium Sentry}}
+- {key: Solitary Cell, class: card, labels: {en: Solitary Cell}}
+- {key: Solve for Disappointment, class: card, labels: {en: Solve for Disappointment}}
+- {key: Something Worth Saving, class: card, labels: {en: Something Worth Saving}}
+- {key: Sphinx of False Conclusions, class: card, labels: {en: Sphinx of False Conclusions}}
+- {key: Sphinx's Approach, class: card, labels: {en: Sphinx's Approach}}
+- {key: Stingcaster Mage, class: card, labels: {en: Stingcaster Mage}}
+- {key: Stingerquill Annex, class: card, labels: {en: Stingerquill Annex}}
+- {key: Stingerquill Charm, class: card, labels: {en: Stingerquill Charm}}
+- {key: Stingerquill Voxmancer, class: card, labels: {en: Stingerquill Voxmancer}}
+- {key: Stinging Vitriol, class: card, labels: {en: Stinging Vitriol}}
+- {key: Sureshot Sower, class: card, labels: {en: Sureshot Sower}}
+- {key: Archer, class: subtype, labels: {en: Archer}}
+- {key: Surgical Precision, class: card, labels: {en: Surgical Precision}}
+- {key: Surveillance Phantasm, class: card, labels: {en: Surveillance Phantasm}}
+- {key: Swamp, class: card, labels: {en: Swamp}}
+- {key: 'Tam, the Possibility', class: card, labels: {en: 'Tam, the Possibility'}}
+- {key: Gorgon, class: subtype, labels: {en: Gorgon}}
+- {key: Tam's Resistance, class: card, labels: {en: Tam's Resistance}}
+- {key: Tarmogoyf, class: card, labels: {en: Tarmogoyf}}
+- {key: Lhurgoyf, class: subtype, labels: {en: Lhurgoyf}}
+- {key: Tenured Tethermage, class: card, labels: {en: Tenured Tethermage}}
+- {key: Terminal Criticism, class: card, labels: {en: Terminal Criticism}}
+- {key: Tether Technician, class: card, labels: {en: Tether Technician}}
+- {key: Minotaur, class: subtype, labels: {en: Minotaur}}
+- {key: Tethermage's Advantage, class: card, labels: {en: Tethermage's Advantage}}
+- {key: 'Tetsuko Umezawa, Fugitive', class: card, labels: {en: 'Tetsuko Umezawa, Fugitive'}}
+- {key: 'Tetsuko Umezawa, Pursuer', class: card, labels: {en: 'Tetsuko Umezawa, Pursuer'}}
+- {key: 'Teyo, Diamondblade Mage', class: card, labels: {en: 'Teyo, Diamondblade Mage'}}
+- {key: 'Teyo, Lightshield Expert', class: card, labels: {en: 'Teyo, Lightshield Expert'}}
+- {key: 'Thalia, the Survivor', class: card, labels: {en: 'Thalia, the Survivor'}}
+- {key: The Echoverse Fulcrum, class: card, labels: {en: The Echoverse Fulcrum}}
+- {key: 'The Theorist, Jace Beleren', class: card, labels: {en: 'The Theorist, Jace Beleren'}}
+- {key: Theoretical Necromancer, class: card, labels: {en: Theoretical Necromancer}}
+- {key: Theorist's Proxy, class: card, labels: {en: Theorist's Proxy}}
+- {key: Theorist's Sanctum, class: card, labels: {en: Theorist's Sanctum}}
+- {key: Theorix Annex, class: card, labels: {en: Theorix Annex}}
+- {key: Theorix Charm, class: card, labels: {en: Theorix Charm}}
+- {key: Theorix Metamage, class: card, labels: {en: Theorix Metamage}}
+- {key: Shade, class: subtype, labels: {en: Shade}}
+- {key: 'Tinybones, Pocket Nuisance', class: card, labels: {en: 'Tinybones, Pocket Nuisance'}}
+- {key: Skeleton, class: subtype, labels: {en: Skeleton}}
+- {key: 'Titanbones, Towering Heart', class: card, labels: {en: 'Titanbones, Towering Heart'}}
+- {key: 'Tomik, Izzet Sparkmage', class: card, labels: {en: 'Tomik, Izzet Sparkmage'}}
+- {key: 'Tomik, Orzhov Lawmage', class: card, labels: {en: 'Tomik, Orzhov Lawmage'}}
+- {key: Transformative Commons, class: card, labels: {en: Transformative Commons}}
+- {key: 'Traxos, Academy Guardian', class: card, labels: {en: 'Traxos, Academy Guardian'}}
+- {key: 'Traxos, Scourge Eternal', class: card, labels: {en: 'Traxos, Scourge Eternal'}}
+- {key: Twinned Vision, class: card, labels: {en: Twinned Vision}}
+- {key: Twisted Fates, class: card, labels: {en: Twisted Fates}}
+- {key: Uldaros Theorix, class: card, labels: {en: Uldaros Theorix}}
+- {key: Undulating Witness, class: card, labels: {en: Undulating Witness}}
+- {key: Serpent, class: subtype, labels: {en: Serpent}}
+- {key: Unflinching Hortimancer, class: card, labels: {en: Unflinching Hortimancer}}
+- {key: Unsummon, class: card, labels: {en: Unsummon}}
+- {key: Variable Chaser, class: card, labels: {en: Variable Chaser}}
+- {key: Arc of Fortune, class: card, labels: {en: Arc of Fortune}}
+- {key: Verdant Kraken, class: card, labels: {en: Verdant Kraken}}
+- {key: Kraken, class: subtype, labels: {en: Kraken}}
+- {key: Vigorbloom Annex, class: card, labels: {en: Vigorbloom Annex}}
+- {key: Vigorbloom Charm, class: card, labels: {en: Vigorbloom Charm}}
+- {key: Vigorbloom Vanguard, class: card, labels: {en: Vigorbloom Vanguard}}
+- {key: Troll, class: subtype, labels: {en: Troll}}
+- {key: Vindictive Triumph, class: card, labels: {en: Vindictive Triumph}}
+- {key: Vinelasher Adept, class: card, labels: {en: Vinelasher Adept}}
+- {key: Violent Echoes, class: card, labels: {en: Violent Echoes}}
+- {key: Void Extrapolator, class: card, labels: {en: Void Extrapolator}}
+- {key: Aetherborn, class: subtype, labels: {en: Aetherborn}}
+- {key: 'Vraska, Soul of Stone', class: card, labels: {en: 'Vraska, Soul of Stone'}}
+- {key: 'Vraska, the Cutting Glare', class: card, labels: {en: 'Vraska, the Cutting Glare'}}
+- {key: Vraska's Final Mercy, class: card, labels: {en: Vraska's Final Mercy}}
+- {key: Warrior's Blades, class: card, labels: {en: Warrior's Blades}}
+- {key: Way of the Cryomancer, class: card, labels: {en: Way of the Cryomancer}}
+- {key: Way of the Deathbringer, class: card, labels: {en: Way of the Deathbringer}}
+- {key: Way of the Healer, class: card, labels: {en: Way of the Healer}}
+- {key: Way of the Mentor, class: card, labels: {en: Way of the Mentor}}
+- {key: Way of the Mind Sculptor, class: card, labels: {en: Way of the Mind Sculptor}}
+- {key: Way of the Necromancer, class: card, labels: {en: Way of the Necromancer}}
+- {key: Way of the Paradox, class: card, labels: {en: Way of the Paradox}}
+- {key: Way of the Pyromancer, class: card, labels: {en: Way of the Pyromancer}}
+- {key: Way of the Warlord, class: card, labels: {en: Way of the Warlord}}
+- {key: Way of the Wildspeaker, class: card, labels: {en: Way of the Wildspeaker}}
+- {key: Whiplash Wordsmith, class: card, labels: {en: Whiplash Wordsmith}}
+- {key: 'Winter, Team Player', class: card, labels: {en: 'Winter, Team Player'}}
+- {key: 'Winter, Tormented Loner', class: card, labels: {en: 'Winter, Tormented Loner'}}
+- {key: Woodwork Prodigy, class: card, labels: {en: Woodwork Prodigy}}
+- {key: Wrath of the Bloodmane, class: card, labels: {en: Wrath of the Bloodmane}}
+- {key: Wrecking Gecko, class: card, labels: {en: Wrecking Gecko}}
+- {key: 'Yargle, Glutton of Urborg', class: card, labels: {en: 'Yargle, Glutton of Urborg'}}
+- {key: Frog, class: subtype, labels: {en: Frog}}
+- {key: 'Yargle, Goliath of Otaria', class: card, labels: {en: 'Yargle, Goliath of Otaria'}}
+- {key: 'Yoshimaru, Beloved Companion', class: card, labels: {en: 'Yoshimaru, Beloved Companion'}}
+- {key: 'Yoshimaru, Scrappy Stray', class: card, labels: {en: 'Yoshimaru, Scrappy Stray'}}
+- {key: Your Fate Ends Here, class: card, labels: {en: Your Fate Ends Here}}
+- {key: 'Yuriko, Blade of the Mighty', class: card, labels: {en: 'Yuriko, Blade of the Mighty'}}
+- {key: Samurai, class: subtype, labels: {en: Samurai}}
+- {key: 'Yuriko, Hope from the Shadows', class: card, labels: {en: 'Yuriko, Hope from the Shadows'}}
+- {key: Ninja, class: subtype, labels: {en: Ninja}}
+- {key: '70,000 Light-Years from Home', class: card, labels: {en: '70,000 Light-Years from Home'}}
+- {key: A Good Day to Die, class: card, labels: {en: A Good Day to Die}}
+- {key: Academy Instructor, class: card, labels: {en: Academy Instructor}}
+- {key: Bolian, class: subtype, labels: {en: Bolian}}
+- {key: Officer, class: subtype, labels: {en: Officer}}
+- {key: Adversary by Algorithm, class: card, labels: {en: Adversary by Algorithm}}
+- {key: All Good Things..., class: card, labels: {en: All Good Things...}}
+- {key: Saga, class: subtype, labels: {en: Saga}}
+- {key: Amok Time, class: card, labels: {en: Amok Time}}
+- {key: Andoria, class: card, labels: {en: Andoria}}
+- {key: Planet, class: subtype, labels: {en: Planet}}
+- {key: Andromedan Automatons, class: card, labels: {en: Andromedan Automatons}}
+- {key: Android, class: subtype, labels: {en: Android}}
+- {key: Antagonist Incorporator, class: card, labels: {en: Antagonist Incorporator}}
+- {key: Borg, class: subtype, labels: {en: Borg}}
+- {key: Anthropological Mission, class: card, labels: {en: Anthropological Mission}}
+- {key: 'Armus, Skin of Evil', class: card, labels: {en: 'Armus, Skin of Evil'}}
+- {key: Ooze, class: subtype, labels: {en: Ooze}}
+- {key: Artificial Anomaly, class: card, labels: {en: Artificial Anomaly}}
+- {key: Assault Drone, class: card, labels: {en: Assault Drone}}
+- {key: Assembly Specialist, class: card, labels: {en: Assembly Specialist}}
+- {key: Astute Terraformer, class: card, labels: {en: Astute Terraformer}}
+- {key: Vulcan, class: subtype, labels: {en: Vulcan}}
+- {key: Scientist, class: subtype, labels: {en: Scientist}}
+- {key: Automated Warfare System, class: card, labels: {en: Automated Warfare System}}
+- {key: Bajor, class: card, labels: {en: Bajor}}
+- {key: Bat'leth, class: card, labels: {en: Bat'leth}}
+- {key: Battle-Scarred Survivalist, class: card, labels: {en: Battle-Scarred Survivalist}}
+- {key: Klingon, class: subtype, labels: {en: Klingon}}
+- {key: 'Beckett Mariner, Impetuous Ensign', class: card, labels: {en: 'Beckett Mariner, Impetuous Ensign'}}
+- {key: Blastoneuron, class: card, labels: {en: Blastoneuron}}
+- {key: Jellyfish, class: subtype, labels: {en: Jellyfish}}
+- {key: Leech, class: subtype, labels: {en: Leech}}
+- {key: Blood Crypt, class: card, labels: {en: Blood Crypt}}
+- {key: Boarding Action, class: card, labels: {en: Boarding Action}}
+- {key: Borg Cube, class: card, labels: {en: Borg Cube}}
+- {key: Spacecraft, class: subtype, labels: {en: Spacecraft}}
+- {key: 'Brad Boimler, Eager Ensign', class: card, labels: {en: 'Brad Boimler, Eager Ensign'}}
+- {key: Branching Timeline, class: card, labels: {en: Branching Timeline}}
+- {key: Brazen Bluff, class: card, labels: {en: Brazen Bluff}}
+- {key: Breeding Pool, class: card, labels: {en: Breeding Pool}}
+- {key: Cantankerous Captain, class: card, labels: {en: Cantankerous Captain}}
+- {key: Tellarite, class: subtype, labels: {en: Tellarite}}
+- {key: Captain Benjamin Sisko, class: card, labels: {en: Captain Benjamin Sisko}}
+- {key: Captain James T. Kirk, class: card, labels: {en: Captain James T. Kirk}}
+- {key: Captain Jean-Luc Picard, class: card, labels: {en: Captain Jean-Luc Picard}}
+- {key: Captain Jonathan Archer, class: card, labels: {en: Captain Jonathan Archer}}
+- {key: Captain Kathryn Janeway, class: card, labels: {en: Captain Kathryn Janeway}}
+- {key: Captain Michael Burnham, class: card, labels: {en: Captain Michael Burnham}}
+- {key: 'Captain Pike, Fullness of Time', class: card, labels: {en: 'Captain Pike, Fullness of Time'}}
+- {key: Captain's Tutelage, class: card, labels: {en: Captain's Tutelage}}
+- {key: Cardassia Prime, class: card, labels: {en: Cardassia Prime}}
+- {key: Cetacean Ops, class: card, labels: {en: Cetacean Ops}}
+- {key: Whale, class: subtype, labels: {en: Whale}}
+- {key: Cha'DIch Investigator, class: card, labels: {en: Cha'DIch Investigator}}
+- {key: Class-F Shuttlecraft, class: card, labels: {en: Class-F Shuttlecraft}}
+- {key: 'Cleveland Booker, Empath', class: card, labels: {en: 'Cleveland Booker, Empath'}}
+- {key: Kwejian, class: subtype, labels: {en: Kwejian}}
+- {key: Cloak and Phaser, class: card, labels: {en: Cloak and Phaser}}
+- {key: Cloistered Telepath, class: card, labels: {en: Cloistered Telepath}}
+- {key: Talosian, class: subtype, labels: {en: Talosian}}
+- {key: Cold-Blooded Crew, class: card, labels: {en: Cold-Blooded Crew}}
+- {key: Gorn, class: subtype, labels: {en: Gorn}}
+- {key: Collation Trimatrix, class: card, labels: {en: Collation Trimatrix}}
+- {key: Collective Drone, class: card, labels: {en: Collective Drone}}
+- {key: Combadge, class: card, labels: {en: Combadge}}
+- {key: Communicator, class: subtype, labels: {en: Communicator}}
+- {key: Command Decision, class: card, labels: {en: Command Decision}}
+- {key: Command Subadjunct, class: card, labels: {en: Command Subadjunct}}
+- {key: Commander Raffi Musiker, class: card, labels: {en: Commander Raffi Musiker}}
+- {key: Common Goal, class: card, labels: {en: Common Goal}}
+- {key: Conquest Mission, class: card, labels: {en: Conquest Mission}}
+- {key: Consider the Prime Directive, class: card, labels: {en: Consider the Prime Directive}}
+- {key: Constable Odo, class: card, labels: {en: Constable Odo}}
+- {key: Shapeshifter, class: subtype, labels: {en: Shapeshifter}}
+- {key: Crystalline Entity, class: card, labels: {en: Crystalline Entity}}
+- {key: 'Culber and Stamets, Star-Crossed', class: card, labels: {en: 'Culber and Stamets, Star-Crossed'}}
+- {key: Doctor, class: subtype, labels: {en: Doctor}}
+- {key: Cybernetic Specialist, class: card, labels: {en: Cybernetic Specialist}}
+- {key: D-7 Battle Cruiser, class: card, labels: {en: D-7 Battle Cruiser}}
+- {key: Dahar Master, class: card, labels: {en: Dahar Master}}
+- {key: 'Dal R''El, Augment Orphan', class: card, labels: {en: 'Dal R''El, Augment Orphan'}}
+- {key: Mutant, class: subtype, labels: {en: Mutant}}
+- {key: 'Daniels, Temporal Agent', class: card, labels: {en: 'Daniels, Temporal Agent'}}
+- {key: 'Data, New Life', class: card, labels: {en: 'Data, New Life'}}
+- {key: Dathon and Picard at El-Adrel, class: card, labels: {en: Dathon and Picard at El-Adrel}}
+- {key: 'Dathon, His Heart Open', class: card, labels: {en: 'Dathon, His Heart Open'}}
+- {key: Tamarian, class: subtype, labels: {en: Tamarian}}
+- {key: 'David and Carol Marcus, Creators', class: card, labels: {en: 'David and Carol Marcus, Creators'}}
+- {key: De-evolve, class: card, labels: {en: De-evolve}}
+- {key: 'Deanna Troi, Psychic Counsel', class: card, labels: {en: 'Deanna Troi, Psychic Counsel'}}
+- {key: Betazoid, class: subtype, labels: {en: Betazoid}}
+- {key: Death Is Irrelevant, class: card, labels: {en: Death Is Irrelevant}}
+- {key: Deep Space 9, class: card, labels: {en: Deep Space 9}}
+- {key: Deep Space Scan, class: card, labels: {en: Deep Space Scan}}
+- {key: D'Ghor Bloodletter, class: card, labels: {en: D'Ghor Bloodletter}}
+- {key: Dominion Assault Force, class: card, labels: {en: Dominion Assault Force}}
+- {key: Jem'Hadar, class: subtype, labels: {en: Jem'Hadar}}
+- {key: Dominion Infiltration, class: card, labels: {en: Dominion Infiltration}}
+- {key: Dominion Saboteur, class: card, labels: {en: Dominion Saboteur}}
+- {key: Dominion Supervisor, class: card, labels: {en: Dominion Supervisor}}
+- {key: Vorta, class: subtype, labels: {en: Vorta}}
+- {key: DOT-7 Repair Squad, class: card, labels: {en: DOT-7 Repair Squad}}
+- {key: Robot, class: subtype, labels: {en: Robot}}
+- {key: Dr. Beverly Crusher, class: card, labels: {en: Dr. Beverly Crusher}}
+- {key: Dr. Joseph M'Benga, class: card, labels: {en: Dr. Joseph M'Benga}}
+- {key: Dr. Leonard "Bones" McCoy, class: card, labels: {en: Dr. Leonard "Bones" McCoy}}
+- {key: 'Dr. McCoy, Surly Surgeon', class: card, labels: {en: 'Dr. McCoy, Surly Surgeon'}}
+- {key: 'D''Vana Tendi, Optimistic Ensign', class: card, labels: {en: 'D''Vana Tendi, Optimistic Ensign'}}
+- {key: Orion, class: subtype, labels: {en: Orion}}
+- {key: 'Earth, Sector 001', class: card, labels: {en: 'Earth, Sector 001'}}
+- {key: Eject the Warp Core, class: card, labels: {en: Eject the Warp Core}}
+- {key: 'Elim Garak, Simple Tailor', class: card, labels: {en: 'Elim Garak, Simple Tailor'}}
+- {key: Cardassian, class: subtype, labels: {en: Cardassian}}
+- {key: Emergency Holographic Crew, class: card, labels: {en: Emergency Holographic Crew}}
+- {key: Emergency Medical Hologram, class: card, labels: {en: Emergency Medical Hologram}}
+- {key: Encounter the Unknown, class: card, labels: {en: Encounter the Unknown}}
+- {key: Energize, class: card, labels: {en: Energize}}
+- {key: Engineered Explosives, class: card, labels: {en: Engineered Explosives}}
+- {key: Ensign Pavel Chekov, class: card, labels: {en: Ensign Pavel Chekov}}
+- {key: Pilot, class: subtype, labels: {en: Pilot}}
+- {key: Enterprise NX-01, class: card, labels: {en: Enterprise NX-01}}
+- {key: 'Erica Ortegas, Plucky Pilot', class: card, labels: {en: 'Erica Ortegas, Plucky Pilot'}}
+- {key: Excalbian Gamemaster, class: card, labels: {en: Excalbian Gamemaster}}
+- {key: Excalbian, class: subtype, labels: {en: Excalbian}}
+- {key: Exploratory Mission, class: card, labels: {en: Exploratory Mission}}
+- {key: Federation Field Medic, class: card, labels: {en: Federation Field Medic}}
+- {key: Federation Outpost, class: card, labels: {en: Federation Outpost}}
+- {key: Federation Probe, class: card, labels: {en: Federation Probe}}
+- {key: Federation Resupply, class: card, labels: {en: Federation Resupply}}
+- {key: Ferenginar, class: card, labels: {en: Ferenginar}}
+- {key: Final Frontier, class: card, labels: {en: Final Frontier}}
+- {key: First Contact, class: card, labels: {en: First Contact}}
+- {key: Free Borg Revolutionaries, class: card, labels: {en: Free Borg Revolutionaries}}
+- {key: Rebel, class: subtype, labels: {en: Rebel}}
+- {key: Fugitive Listener, class: card, labels: {en: Fugitive Listener}}
+- {key: El-Aurian, class: subtype, labels: {en: El-Aurian}}
+- {key: 'Gabriel Lorca, Mirror Menace', class: card, labels: {en: 'Gabriel Lorca, Mirror Menace'}}
+- {key: Gaseous Anomaly, class: card, labels: {en: Gaseous Anomaly}}
+- {key: 'General Chang, Cold Warrior', class: card, labels: {en: 'General Chang, Cold Warrior'}}
+- {key: Genesis Device, class: card, labels: {en: Genesis Device}}
+- {key: Genesis Effect, class: card, labels: {en: Genesis Effect}}
+- {key: 'Georgiou, Terran Emperor', class: card, labels: {en: 'Georgiou, Terran Emperor'}}
+- {key: Ghost of Illyria, class: card, labels: {en: Ghost of Illyria}}
+- {key: Godless Shrine, class: card, labels: {en: Godless Shrine}}
+- {key: 'Gowron, Eager for Battle', class: card, labels: {en: 'Gowron, Eager for Battle'}}
+- {key: Grand Nagus Zek, class: card, labels: {en: Grand Nagus Zek}}
+- {key: Ferengi, class: subtype, labels: {en: Ferengi}}
+- {key: 'Gray and Adira, Forever Joined', class: card, labels: {en: 'Gray and Adira, Forever Joined'}}
+- {key: Trill, class: subtype, labels: {en: Trill}}
+- {key: Guidance Failure, class: card, labels: {en: Guidance Failure}}
+- {key: 'Gul Dukat, Colonial Prefect', class: card, labels: {en: 'Gul Dukat, Colonial Prefect'}}
+- {key: 'Gwyndala, the Progeny', class: card, labels: {en: 'Gwyndala, the Progeny'}}
+- {key: Vau-N'Akat, class: subtype, labels: {en: Vau-N'Akat}}
+- {key: 'H.M.S. Bounty, Unlikely Timeship', class: card, labels: {en: 'H.M.S. Bounty, Unlikely Timeship'}}
+- {key: Hallowed Fountain, class: card, labels: {en: Hallowed Fountain}}
+- {key: 'Hemmer, Fixing What Is Broken', class: card, labels: {en: 'Hemmer, Fixing What Is Broken'}}
+- {key: Aenar, class: subtype, labels: {en: Aenar}}
+- {key: 'He''s Dead, Jim', class: card, labels: {en: 'He''s Dead, Jim'}}
+- {key: Highly Illogical, class: card, labels: {en: Highly Illogical}}
+- {key: Hit It!, class: card, labels: {en: Hit It!}}
+- {key: Hive Mind Coprocessor, class: card, labels: {en: Hive Mind Coprocessor}}
+- {key: Holo-Engineer, class: card, labels: {en: Holo-Engineer}}
+- {key: Hologram Janeway, class: card, labels: {en: Hologram Janeway}}
+- {key: Hologram Stalker, class: card, labels: {en: Hologram Stalker}}
+- {key: Hirogen, class: subtype, labels: {en: Hirogen}}
+- {key: Horta, class: card, labels: {en: Horta}}
+- {key: 'Hoshi Sato, Exolinguist', class: card, labels: {en: 'Hoshi Sato, Exolinguist'}}
+- {key: Humpback Whales, class: card, labels: {en: Humpback Whales}}
+- {key: 'I''m a Doctor, Not a . . .', class: card, labels: {en: 'I''m a Doctor, Not a . . .'}}
+- {key: Impossible Choice, class: card, labels: {en: Impossible Choice}}
+- {key: In the Pale Moonlight, class: card, labels: {en: In the Pale Moonlight}}
+- {key: Infinite Diversity, class: card, labels: {en: Infinite Diversity}}
+- {key: Interstellar Effigy, class: card, labels: {en: Interstellar Effigy}}
+- {key: Isolinear Processor, class: card, labels: {en: Isolinear Processor}}
+- {key: 'Jadzia Dax, Living Legacy', class: card, labels: {en: 'Jadzia Dax, Living Legacy'}}
+- {key: 'Jake Sisko, War Correspondent', class: card, labels: {en: 'Jake Sisko, War Correspondent'}}
+- {key: 'Jett Reno, Problem Solver', class: card, labels: {en: 'Jett Reno, Problem Solver'}}
+- {key: 'Kai Winn, Faithless Leader', class: card, labels: {en: 'Kai Winn, Faithless Leader'}}
+- {key: Bajoran, class: subtype, labels: {en: Bajoran}}
+- {key: Khaaaaaaaaaaaannn!, class: card, labels: {en: Khaaaaaaaaaaaannn!}}
+- {key: 'Khan, Despot by Design', class: card, labels: {en: 'Khan, Despot by Design'}}
+- {key: 'Khan, Vengeful Heart', class: card, labels: {en: 'Khan, Vengeful Heart'}}
+- {key: 'Kira Nerys, Firebrand', class: card, labels: {en: 'Kira Nerys, Firebrand'}}
+- {key: 'Kirk, Commanding Officer', class: card, labels: {en: 'Kirk, Commanding Officer'}}
+- {key: Kobayashi Maru Scenario, class: card, labels: {en: Kobayashi Maru Scenario}}
+- {key: 'La''An Noonien-Singh, Security', class: card, labels: {en: 'La''An Noonien-Singh, Security'}}
+- {key: Lieutenant Commander Data, class: card, labels: {en: Lieutenant Commander Data}}
+- {key: Live Long and Prosper, class: card, labels: {en: Live Long and Prosper}}
+- {key: 'Locutus, the One Who Speaks', class: card, labels: {en: 'Locutus, the One Who Speaks'}}
+- {key: 'Lore, Positronic Provocateur', class: card, labels: {en: 'Lore, Positronic Provocateur'}}
+- {key: 'L''Rell, Fierce Visionary', class: card, labels: {en: 'L''Rell, Fierce Visionary'}}
+- {key: Lt. Cmdr. Geordi La Forge, class: card, labels: {en: Lt. Cmdr. Geordi La Forge}}
+- {key: 'Lwaxana Troi, Charming Guest', class: card, labels: {en: 'Lwaxana Troi, Charming Guest'}}
+- {key: MACO Strike Team, class: card, labels: {en: MACO Strike Team}}
+- {key: Make It So, class: card, labels: {en: Make It So}}
+- {key: Malfunctioning Holodeck, class: card, labels: {en: Malfunctioning Holodeck}}
+- {key: Marooned, class: card, labels: {en: Marooned}}
+- {key: Melkotian Adjudicator, class: card, labels: {en: Melkotian Adjudicator}}
+- {key: Melkotian, class: subtype, labels: {en: Melkotian}}
+- {key: 'Miles O''Brien, Transporter Ops', class: card, labels: {en: 'Miles O''Brien, Transporter Ops'}}
+- {key: Mirror Universe Intrusion, class: card, labels: {en: Mirror Universe Intrusion}}
+- {key: Moopsy, class: card, labels: {en: Moopsy}}
+- {key: 'Mr. Spock, Science Officer', class: card, labels: {en: 'Mr. Spock, Science Officer'}}
+- {key: Mugato, class: card, labels: {en: Mugato}}
+- {key: Ape, class: subtype, labels: {en: Ape}}
+- {key: Munitions Enthusiast, class: card, labels: {en: Munitions Enthusiast}}
+- {key: 'Neelix, Moral Support', class: card, labels: {en: 'Neelix, Moral Support'}}
+- {key: Talaxian, class: subtype, labels: {en: Talaxian}}
+- {key: Ni'Var Science Academy, class: card, labels: {en: Ni'Var Science Academy}}
+- {key: 'Nog, Ambitious Cadet', class: card, labels: {en: 'Nog, Ambitious Cadet'}}
+- {key: 'Nyota Uhura, Communications', class: card, labels: {en: 'Nyota Uhura, Communications'}}
+- {key: Oberth-Class Starship, class: card, labels: {en: Oberth-Class Starship}}
+- {key: Obsidian Order Operative, class: card, labels: {en: Obsidian Order Operative}}
+- {key: Spy, class: subtype, labels: {en: Spy}}
+- {key: Open Communications, class: card, labels: {en: Open Communications}}
+- {key: Organic Avulsion Unit, class: card, labels: {en: Organic Avulsion Unit}}
+- {key: Overflow Submatrix, class: card, labels: {en: Overflow Submatrix}}
+- {key: Overgrown Tomb, class: card, labels: {en: Overgrown Tomb}}
+- {key: Pah-Wraith, class: card, labels: {en: Pah-Wraith}}
+- {key: Wraith, class: subtype, labels: {en: Wraith}}
+- {key: Pattern Buffer Preservation, class: card, labels: {en: Pattern Buffer Preservation}}
+- {key: Peace in Our Time, class: card, labels: {en: Peace in Our Time}}
+- {key: Perils of the Past, class: card, labels: {en: Perils of the Past}}
+- {key: Pet Sehlat, class: card, labels: {en: Pet Sehlat}}
+- {key: Bear, class: subtype, labels: {en: Bear}}
+- {key: 'Phlox, Unorthodox Doctor', class: card, labels: {en: 'Phlox, Unorthodox Doctor'}}
+- {key: Denobulan, class: subtype, labels: {en: Denobulan}}
+- {key: Photosynthetic Physician, class: card, labels: {en: Photosynthetic Physician}}
+- {key: 'Picard, Leading by Example', class: card, labels: {en: 'Picard, Leading by Example'}}
+- {key: Planetary Bombardment, class: card, labels: {en: Planetary Bombardment}}
+- {key: Planetary Patrol, class: card, labels: {en: Planetary Patrol}}
+- {key: Plasma Cascade, class: card, labels: {en: Plasma Cascade}}
+- {key: Primary Unimatrix Adjunct, class: card, labels: {en: Primary Unimatrix Adjunct}}
+- {key: Pure Energy, class: card, labels: {en: Pure Energy}}
+- {key: Q Continuum, class: card, labels: {en: Q Continuum}}
+- {key: 'Q, Stacking the Deck', class: card, labels: {en: 'Q, Stacking the Deck'}}
+- {key: Q, class: subtype, labels: {en: Q}}
+- {key: Qo'noS, class: card, labels: {en: Qo'noS}}
+- {key: 'Quark, Humble Proprietor', class: card, labels: {en: 'Quark, Humble Proprietor'}}
+- {key: Quark's Bar, class: card, labels: {en: Quark's Bar}}
+- {key: Ravenous Cosmozoan, class: card, labels: {en: Ravenous Cosmozoan}}
+- {key: Reckless Impulse, class: card, labels: {en: Reckless Impulse}}
+- {key: Red Alert!, class: card, labels: {en: Red Alert!}}
+- {key: Relentless Drednok, class: card, labels: {en: Relentless Drednok}}
+- {key: Replicator, class: card, labels: {en: Replicator}}
+- {key: Resistance Is Futile, class: card, labels: {en: Resistance Is Futile}}
+- {key: Risa, class: card, labels: {en: Risa}}
+- {key: Rogue Artificial Intelligence, class: card, labels: {en: Rogue Artificial Intelligence}}
+- {key: 'Rok-Tahk, Budding Scientist', class: card, labels: {en: 'Rok-Tahk, Budding Scientist'}}
+- {key: Brikar, class: subtype, labels: {en: Brikar}}
+- {key: Romulan Bird-of-Prey, class: card, labels: {en: Romulan Bird-of-Prey}}
+- {key: Romulus, class: card, labels: {en: Romulus}}
+- {key: Rules of Acquisition, class: card, labels: {en: Rules of Acquisition}}
+- {key: 'Rutherford, Upgraded Ensign', class: card, labels: {en: 'Rutherford, Upgraded Ensign'}}
+- {key: 'Saavik, Stoic Student', class: card, labels: {en: 'Saavik, Stoic Student'}}
+- {key: Sacred Foundry, class: card, labels: {en: Sacred Foundry}}
+- {key: Salt Vampire, class: card, labels: {en: Salt Vampire}}
+- {key: 'Sarcophagus, Ship of the Dead', class: card, labels: {en: 'Sarcophagus, Ship of the Dead'}}
+- {key: 'Sarek, Federation Ambassador', class: card, labels: {en: 'Sarek, Federation Ambassador'}}
+- {key: 'Saru, Unthreatened', class: card, labels: {en: 'Saru, Unthreatened'}}
+- {key: Kelpien, class: subtype, labels: {en: Kelpien}}
+- {key: Saurian Explorer, class: card, labels: {en: Saurian Explorer}}
+- {key: Savvy Profiteer, class: card, labels: {en: Savvy Profiteer}}
+- {key: 'Scotty, Miracle Worker', class: card, labels: {en: 'Scotty, Miracle Worker'}}
+- {key: 'Sela, Tal Shiar Paradox', class: card, labels: {en: 'Sela, Tal Shiar Paradox'}}
+- {key: Romulan, class: subtype, labels: {en: Romulan}}
+- {key: Set Phasers to . . ., class: card, labels: {en: Set Phasers to . . .}}
+- {key: Seven of Nine, class: card, labels: {en: Seven of Nine}}
+- {key: 'Seven of Nine, Unassimilated', class: card, labels: {en: 'Seven of Nine, Unassimilated'}}
+- {key: Shields Up!, class: card, labels: {en: Shields Up!}}
+- {key: Shuttle Ace, class: card, labels: {en: Shuttle Ace}}
+- {key: Sickbay, class: card, labels: {en: Sickbay}}
+- {key: Silicate Surveyor, class: card, labels: {en: Silicate Surveyor}}
+- {key: Tholian, class: subtype, labels: {en: Tholian}}
+- {key: Spatial Anomaly, class: card, labels: {en: Spatial Anomaly}}
+- {key: Species 8472, class: card, labels: {en: Species 8472}}
+- {key: Insect, class: subtype, labels: {en: Insect}}
+- {key: 'Spock, Always Your Friend', class: card, labels: {en: 'Spock, Always Your Friend'}}
+- {key: Stable Wormhole, class: card, labels: {en: Stable Wormhole}}
+- {key: Starfleet Academy, class: card, labels: {en: Starfleet Academy}}
+- {key: Starfleet Security, class: card, labels: {en: Starfleet Security}}
+- {key: Starfleet Spanner Jockey, class: card, labels: {en: Starfleet Spanner Jockey}}
+- {key: Steam Vents, class: card, labels: {en: Steam Vents}}
+- {key: Stomping Ground, class: card, labels: {en: Stomping Ground}}
+- {key: Storied Veteran, class: card, labels: {en: Storied Veteran}}
+- {key: Stray from History, class: card, labels: {en: Stray from History}}
+- {key: Subcommander T'Pol, class: card, labels: {en: Subcommander T'Pol}}
+- {key: Subspace Anomaly, class: card, labels: {en: Subspace Anomaly}}
+- {key: 'Sulu, Space Swashbuckler', class: card, labels: {en: 'Sulu, Space Swashbuckler'}}
+- {key: Support Mission, class: card, labels: {en: Support Mission}}
+- {key: Suurok-Class Science Vessel, class: card, labels: {en: Suurok-Class Science Vessel}}
+- {key: Suus Mahna Practitioner, class: card, labels: {en: Suus Mahna Practitioner}}
+- {key: 'Sylvia Tilly, Joy of Discovery', class: card, labels: {en: 'Sylvia Tilly, Joy of Discovery'}}
+- {key: Syndicate Liquidators, class: card, labels: {en: Syndicate Liquidators}}
+- {key: Pirate, class: subtype, labels: {en: Pirate}}
+- {key: Tactical Officer, class: card, labels: {en: Tactical Officer}}
+- {key: Tal Shiar Analyst, class: card, labels: {en: Tal Shiar Analyst}}
+- {key: Tal Shiar Operative, class: card, labels: {en: Tal Shiar Operative}}
+- {key: Targ Wrangler, class: card, labels: {en: Targ Wrangler}}
+- {key: 'Tasha Yar, Out of Time', class: card, labels: {en: 'Tasha Yar, Out of Time'}}
+- {key: 'Tea, Earl Grey, Hot', class: card, labels: {en: 'Tea, Earl Grey, Hot'}}
+- {key: Food, class: subtype, labels: {en: Food}}
+- {key: Tell Me What You See, class: card, labels: {en: Tell Me What You See}}
+- {key: Temple Garden, class: card, labels: {en: Temple Garden}}
+- {key: Temporal Anomaly, class: card, labels: {en: Temporal Anomaly}}
+- {key: Temporal Conqueror, class: card, labels: {en: Temporal Conqueror}}
+- {key: Na'kuhl, class: subtype, labels: {en: Na'kuhl}}
+- {key: Tenacious Drone, class: card, labels: {en: Tenacious Drone}}
+- {key: Test of Conviction, class: card, labels: {en: Test of Conviction}}
+- {key: Test of Courage, class: card, labels: {en: Test of Courage}}
+- {key: Test of Identity, class: card, labels: {en: Test of Identity}}
+- {key: Test of Loyalty, class: card, labels: {en: Test of Loyalty}}
+- {key: Test of Priorities, class: card, labels: {en: Test of Priorities}}
+- {key: The Caretaker, class: card, labels: {en: The Caretaker}}
+- {key: The City on the Edge of Forever, class: card, labels: {en: The City on the Edge of Forever}}
+- {key: The Destruction of Praxis, class: card, labels: {en: The Destruction of Praxis}}
+- {key: 'The Doctor, EMH', class: card, labels: {en: 'The Doctor, EMH'}}
+- {key: The Duras Sisters, class: card, labels: {en: The Duras Sisters}}
+- {key: The Holodeck, class: card, labels: {en: The Holodeck}}
+- {key: The Inner Light, class: card, labels: {en: The Inner Light}}
+- {key: The Measure of a Man, class: card, labels: {en: The Measure of a Man}}
+- {key: The Naked Time, class: card, labels: {en: The Naked Time}}
+- {key: The Needs of the Many, class: card, labels: {en: The Needs of the Many}}
+- {key: The Traveler, class: card, labels: {en: The Traveler}}
+- {key: The Unicomplex, class: card, labels: {en: The Unicomplex}}
+- {key: The Wrath of Khan, class: card, labels: {en: The Wrath of Khan}}
+- {key: There's Coffee in that Nebula, class: card, labels: {en: There's Coffee in that Nebula}}
+- {key: Those Old Scientists, class: card, labels: {en: Those Old Scientists}}
+- {key: Transporter Malfunction, class: card, labels: {en: Transporter Malfunction}}
+- {key: Tricorder, class: card, labels: {en: Tricorder}}
+- {key: Troubling Tribbles, class: card, labels: {en: Troubling Tribbles}}
+- {key: Tribble, class: subtype, labels: {en: Tribble}}
+- {key: Type-2 Phaser, class: card, labels: {en: Type-2 Phaser}}
+- {key: 'U.S.S. Cerritos, Following Up', class: card, labels: {en: 'U.S.S. Cerritos, Following Up'}}
+- {key: 'U.S.S. Discovery, at Black Alert', class: card, labels: {en: 'U.S.S. Discovery, at Black Alert'}}
+- {key: 'U.S.S. Enterprise-A, Free Spirit', class: card, labels: {en: 'U.S.S. Enterprise-A, Free Spirit'}}
+- {key: 'U.S.S. Enterprise-D, Galaxy-Class', class: card, labels: {en: 'U.S.S. Enterprise-D, Galaxy-Class'}}
+- {key: 'U.S.S. Excelsior, Cutting Edge', class: card, labels: {en: 'U.S.S. Excelsior, Cutting Edge'}}
+- {key: 'U.S.S. Reliant, From Hell''s Heart', class: card, labels: {en: 'U.S.S. Reliant, From Hell''s Heart'}}
+- {key: 'U.S.S. Voyager, Lone Wanderer', class: card, labels: {en: 'U.S.S. Voyager, Lone Wanderer'}}
+- {key: 'Una Chin-Riley, Number One', class: card, labels: {en: 'Una Chin-Riley, Number One'}}
+- {key: Illyrian, class: subtype, labels: {en: Illyrian}}
+- {key: Unexplored Territory, class: card, labels: {en: Unexplored Territory}}
+- {key: 'Vash, Freelance Archaeologist', class: card, labels: {en: 'Vash, Freelance Archaeologist'}}
+- {key: Vengeance Mission, class: card, labels: {en: Vengeance Mission}}
+- {key: Vexing Drone, class: card, labels: {en: Vexing Drone}}
+- {key: 'V''Ger, the Intruder', class: card, labels: {en: 'V''Ger, the Intruder'}}
+- {key: Vulcan Mind-Meld, class: card, labels: {en: Vulcan Mind-Meld}}
+- {key: Warp Core, class: card, labels: {en: Warp Core}}
+- {key: Warp Speed, class: card, labels: {en: Warp Speed}}
+- {key: Watery Grave, class: card, labels: {en: Watery Grave}}
+- {key: 'Wesley Crusher, Starfleet Cadet', class: card, labels: {en: 'Wesley Crusher, Starfleet Cadet'}}
+- {key: 'Will Riker, First in the Field', class: card, labels: {en: 'Will Riker, First in the Field'}}
+- {key: 'Worf, Honor-Bound Warrior', class: card, labels: {en: 'Worf, Honor-Bound Warrior'}}
+- {key: 'Worf, Intelligence Contractor', class: card, labels: {en: 'Worf, Intelligence Contractor'}}
+- {key: Xenobotanist, class: card, labels: {en: Xenobotanist}}
+- {key: Xindi Surveyors, class: card, labels: {en: Xindi Surveyors}}
+- {key: Xindi, class: subtype, labels: {en: Xindi}}
+- {key: Year of Hell, class: card, labels: {en: Year of Hell}}
+- {key: 'Zefram Cochrane, Warp Pioneer', class: card, labels: {en: 'Zefram Cochrane, Warp Pioneer'}}
+- {key: 'Zero, Incorporeal Sensate', class: card, labels: {en: 'Zero, Incorporeal Sensate'}}
+- {key: Medusan, class: subtype, labels: {en: Medusan}}

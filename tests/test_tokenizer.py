@@ -43,3 +43,8 @@ def test_to_ascii_roundtrip(fx_glossary):
     assert a == "LF |> Ld[Me]^ => Ad {R} vv {G}"
     assert [t.symbol for t in tokenize(a, fx_glossary)] == [t.symbol for t in tokenize(line, fx_glossary)]
     assert to_ascii("«Dal R'El, Augment Orphan» {1}", fx_glossary) == "<<Dal R'El, Augment Orphan>> {1}"
+
+
+def test_to_ascii_unicode_minus_and_dash(fx_glossary):
+    assert to_ascii("−4 : ✋1", fx_glossary) == "-4 : Dr1"
+    assert to_ascii("⚜☺ — «Human»", fx_glossary) == "LgCr - <<Human>>"

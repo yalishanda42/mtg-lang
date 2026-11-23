@@ -40,3 +40,7 @@ def test_parse_error_col(lp):
     with pytest.raises(LineSyntaxError) as e:
         lp.parse_ability("⇒ Flying")
     assert e.value.col == 3 and "natural-language word" in e.value.message
+
+
+def test_parse_ascii_type_line(lp):
+    assert lp.parse_type_line("LgCr - <<Human>>").data == "type_line"

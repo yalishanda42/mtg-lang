@@ -98,3 +98,8 @@ def test_cli_validate_exit_codes(fx_copy, capsys):
     drop_last_line(fx_copy)
     assert main(["validate", "--root", str(fx_copy)]) == 1
     assert "V-ALIGN" in capsys.readouterr().out
+
+
+def test_ascii_type_line_validates(fx_copy):
+    edit(fx_copy, "⚜☺ — «Human» «Mutant» «Rogue»", "LgCr - <<Human>> <<Mutant>> <<Rogue>>")
+    assert errors(validate_all(fx_copy)) == []

@@ -19,5 +19,5 @@ term: SYMBOL | MANA | NUMBER | VAR | NAME | EFFECT | PLUS | MINUS | SLASH
     | LSQB (term | COMMA)* RSQB                  -> filter
     | LPAR expr ((IMPLIES | COST_SEP) expr)? RPAR -> group
 
-type_line: tterm+ (DASH tterm+)?
+type_line: tterm+ ((DASH | MINUS) tterm+)?
 tterm: SYMBOL | NAME

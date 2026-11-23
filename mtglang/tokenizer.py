@@ -8,6 +8,7 @@ from mtglang.glossary import GRAMMAR_ROLES, Glossary, Symbol
 
 FIXED = {"[": "LSQB", "]": "RSQB", "(": "LPAR", ")": "RPAR", ",": "COMMA", "/": "SLASH",
          "+": "PLUS", "-": "MINUS", "−": "MINUS", "—": "DASH"}
+ASCII_PUNCT = {"−": "-", "—": "-"}
 _MANA = re.compile(r"\{[^{}\s]+\}")
 _NUMBER = re.compile(r"\d+")
 _LETTERS = re.compile(r"[A-Za-z]+")
@@ -149,6 +150,8 @@ def to_ascii(text: str, g: Glossary) -> str:
             out.append(g.role("name_open").ascii + t.value + g.role("name_close").ascii)
         elif t.type == "EFFECT":
             out.append(g.role("effect_open").ascii + t.value + g.role("effect_close").ascii)
+        elif t.text in ASCII_PUNCT:
+            out.append(ASCII_PUNCT[t.text])
         else:
             out.append(t.text)
         last = t.end
