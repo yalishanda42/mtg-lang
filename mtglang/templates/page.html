@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<title>MTG-Lang</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Noto Sans Symbols 2", "Segoe UI Symbol", sans-serif;
+         font-size: 16px; margin: 2rem auto; max-width: 1200px; padding: 0 1rem; color: #1d1d1f; background: #fafafa; }
+  nav { position: sticky; top: 0; z-index: 5; background: #fafafa; padding: .5rem 0; border-bottom: 1px solid #ddd; }
+  nav a { margin-right: 1rem; text-decoration: none; }
+  nav a.on { font-weight: 700; text-decoration: underline; }
+  section.page[hidden] { display: none; }
+  /* glossary editor */
+  .toolbar { position: sticky; top: 2.6rem; z-index: 4; background: #fff8e1; border: 1px solid #e6d9a8; border-radius: 6px;
+             padding: .5rem .75rem; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+  .toolbar .msg { white-space: pre-wrap; font-size: .9rem; flex: 1; }
+  .toolbar .msg.err { color: #b00020; }
+  .legend input { font: inherit; border: 1px solid transparent; background: transparent; padding: .1rem .25rem; width: 100%;
+                  box-sizing: border-box; border-radius: 3px; }
+  .legend input:hover, .legend input:focus { border-color: #bbb; background: #fff; }
+  .legend input.g { font-size: 1.3rem; width: 4.5em; }
+  .legend input.a { font-family: ui-monospace, Menlo, Consolas, monospace; width: 6em; }
+  .legend input.dirty { background: #fff3c4; }
+  .legend input.err { background: #fde2e2; border-color: #d33; }
+  .legend .role { font-size: .75rem; color: #888; }
+  .card { scroll-margin-top: 3rem; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .card h2 { font-size: 1.15rem; margin: 0 0 .25rem; }
+  .hdr { font-size: 1.1rem; margin: .15rem 0; }
+  table { border-collapse: collapse; width: 100%; margin-top: .5rem; }
+  td, th { border-top: 1px solid #eee; padding: .35rem .5rem; vertical-align: top; text-align: left; }
+  th { font-size: .8rem; text-transform: uppercase; color: #666; }
+  td.n { font-size: 1.15rem; width: 38%; }
+  td.a { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9rem; color: #444; width: 27%; }
+  td.o { color: #333; }
+  .sym { cursor: help; }
+  .name { color: #0b5394; cursor: help; }
+  .effect { color: #8e44ad; cursor: help; }
+  .mana { color: #7a5c00; }
+  .ms { display: inline-block; height: 1em; width: 1em; vertical-align: -0.12em; margin: 0 1px;
+        background-size: contain; background-repeat: no-repeat; background-position: center; }
+  .bad { background: #fde2e2; }
+  .issues { color: #b00020; font-size: .9rem; margin-top: .5rem; white-space: pre-wrap; }
+  .legend td.g { font-size: 1.3rem; }
+  details summary { cursor: pointer; color: #555; margin-top: .5rem; }
+
+  /* card view: notation painted over the real scan (2015 frame geometry, % of card size) */
+  .pair { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .pair figure { margin: 0; }
+  .pair figcaption { text-align: center; font-size: .8rem; color: #666; text-transform: uppercase; margin-top: .3rem; }
+  .cv { position: relative; width: 340px; aspect-ratio: 488 / 680; container-type: inline-size;
+        border-radius: 4.6% / 3.3%; overflow: hidden; background: #111; }
+  .cv > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ov { position: absolute; box-sizing: border-box; overflow: hidden; color: #111; line-height: 1.18;
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+                     "Noto Sans Symbols 2", "Apple Symbols", "Segoe UI Symbol", serif; }
+  .ov .name, .ov .effect { color: inherit; }
+  .ov .ms { height: .95em; width: .95em; vertical-align: -0.1em; }
+  .ov.bar { background: var(--bar); display: flex; align-items: center; white-space: nowrap;
+            padding: 0 1.6cqw; border-radius: 1cqw; font-weight: 700; }
+  .ov.name { justify-content: space-between; gap: 1cqw; }
+  .ov.name .mc { font-weight: 400; }
+  .ov.text { background: var(--box); display: flex; flex-direction: column; justify-content: safe center;
+             padding: 1.4cqw 2.4cqw; }
+  .ov.text p { margin: 0 0 .45em; }
+  .ov.text p:last-child { margin-bottom: 0; }
+  .normal .name.f0, .saga .name.f0, .prepare .name.f0 { left: 6.6%; right: 6.6%; top: 6.0%; height: 4.3%; }
+  .normal .type.f0, .prepare .type.f0 { left: 6.8%; right: 13%; top: 57.5%; height: 4.1%; }
+  .normal .text.f0 { left: 7.4%; right: 7.4%; top: 62.7%; bottom: 7.65%; }
+  .normal.pt .text.f0 { padding-bottom: 5.5cqw;
+                        clip-path: polygon(0 0, 100% 0, 100% 83%, 81.5% 83%, 81.5% 100%, 0 100%); }
+  .saga .type.f0 { left: 6.8%; right: 13%; top: 84.8%; height: 4.4%; }
+  .saga .text.f0 { left: 3.9%; right: 50.6%; top: 11.7%; bottom: 16.4%; justify-content: space-around; }
+  .saga .text.f0 p { margin: 0; padding: .3em 0; border-top: 1px solid rgba(0,0,0,.25); }
+  .saga .text.f0 p:first-child { border-top: 0; }
+  .pw .name.f0 { left: 6.4%; right: 6.5%; top: 3.9%; height: 5.0%; }
+  .pw .type.f0 { left: 6.4%; right: 13.5%; }
+  .pw .text.f0 { left: 4.2%; right: 7.6%; bottom: 9.7%; }
+  .pw3 .type.f0 { top: 56.4%; height: 5.3%; }
+  .pw3 .text.f0 { top: 62.8%; }
+  .pw4 .type.f0 { top: 49.7%; height: 4.8%; }
+  .pw4 .text.f0 { top: 55.3%; }
+  .pw.pt .text.f0 { padding-bottom: 4cqw; clip-path: polygon(0 0, 100% 0, 100% 91%, 87% 91%, 87% 100%, 0 100%); }
+  .prepare .text.f0 { left: 7.6%; right: 50.6%; top: 62.8%; bottom: 7.8%; }
+  .prepare .name.f1 { left: 50.8%; right: 6.4%; top: 63.2%; height: 4.4%; }
+  .prepare .type.f1 { left: 50.8%; right: 6.4%; top: 68.2%; height: 4.4%; }
+  .prepare .text.f1 { left: 50.8%; right: 7.4%; top: 73.2%; bottom: 11.7%; }
+</style>
+<style>
+{{ icon_css|safe }}
+</style>
+</head>
+<body>
+<nav><a href="#index">Index</a><a href="#legend">Legend</a>{% for s in sets %}<a href="#{{ s.code }}">{{ s.code }}</a>{% endfor %}</nav>
+
+<section class="page" id="index">
+<h1>MTG-Lang</h1>
+<table>
+<tr><th>Set</th><th>Translated</th></tr>
+{% for s in sets %}<tr><td><a href="#{{ s.code }}">{{ s.code }}</a></td><td>{{ s.translated }} / {{ s.total }}</td></tr>{% endfor %}
+</table>
+</section>
+
+<section class="page" id="legend" hidden>
+<h1>Legend</h1>
+<div class="toolbar">
+  <span class="msg" id="ed-msg">Edit glyphs, ASCII codes and meanings below; every card updates live.</span>
+  <button id="ed-revert" disabled>Revert</button>
+  <button id="ed-save" disabled>Save</button>
+</div>
+{% for cls, rows in groups %}
+<h2>{{ cls }}</h2>
+<table class="legend">
+<tr><th>Glyph</th><th>ASCII</th><th>Meaning</th><th>Oracle keyword</th><th>Definition</th></tr>
+{% for r in rows %}<tr data-i="{{ r.i }}"><td><input class="g" data-f="glyph" value="{{ r.glyph }}" spellcheck="false" aria-label="glyph"></td><td><input class="a" data-f="ascii" value="{{ r.ascii }}" spellcheck="false" aria-label="ASCII"></td><td><input data-f="label" value="{{ r.label }}" aria-label="meaning">{% if r.role %}<span class="role">role: {{ r.role }}</span>{% endif %}</td><td>{{ r.oracle or "" }}</td><td>{{ r.definition|safe }}</td></tr>
+{% endfor %}</table>
+{% endfor %}
+{% if effects %}
+<h2>Named effects</h2>
+<table>
+<tr><th>Key</th><th>Card</th><th>Meaning</th></tr>
+{% for e in effects %}<tr><td>⟨{{ e.key }}⟩</td><td>{{ e.card }}</td><td>{{ e.label }}</td></tr>{% endfor %}
+</table>
+{% endif %}
+</section>
+{% macro bars(f, n) %}
+    <div class="ov bar name f{{ n }}" title="{{ f.oracle_name }}"><span class="nm">{{ f.name|safe }}</span><span class="mc">{{ f.mana|safe }}</span></div>
+    <div class="ov bar type f{{ n }}" title="{{ f.oracle_type }}">{{ f.type|safe }}</div>
+    <div class="ov text f{{ n }}"><div class="fit">{% for r in f.rows %}<p title="{{ r.oracle }}">{{ r.html|safe }}</p>{% endfor %}</div></div>
+{% endmacro %}
+{% for s in sets %}
+<section class="page" id="{{ s.code }}" hidden>
+<h1>{{ s.code }} — {{ s.cards|length }} card(s)</h1>
+{% for c in s.cards %}
+<div class="card" id="{{ s.code }}/{{ c.slug }}">
+  {% if c.view %}{% set v = c.view %}
+  <div class="pair">
+    <figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>Original</figcaption></figure>
+    <figure><div class="cv {{ v.kind }}{% if v.pt and v.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ v.bar }}; --box: {{ v.box }}">
+      <img src="{{ v.image }}" loading="lazy" alt="">
+      {{ bars(v.faces[0], 0) }}
+      {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
+    </div><figcaption>MTG-Lang</figcaption></figure>
+  </div>
+  <details><summary>Line by line</summary>
+  {% endif %}
+  {% for f in c.faces %}
+  {% if not loop.first %}<hr>{% endif %}
+  <div class="hdr">{{ f.header|safe }}</div>
+  <div class="hdr">{{ f.type_line|safe }}</div>
+  {% if f.stats %}<div class="hdr">{{ f.stats|safe }}</div>{% endif %}
+  {% if f.rows %}
+  <table>
+    <tr><th>Notation</th><th>ASCII</th><th>Oracle</th></tr>
+    {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii|safe }}</td><td class="o">{{ r.oracle|safe }}</td></tr>{% endfor %}
+  </table>
+  {% endif %}
+  {% endfor %}
+  {% if c.view %}</details>{% endif %}
+  {% if c.issues %}<div class="issues">{% for i in c.issues %}{{ i }}
+{% endfor %}</div>{% endif %}
+</div>
+{% endfor %}
+</section>
+{% endfor %}
+<script>
+// ---- card overlays: shrink each box's font (binary search, in card-width units) until its content fits ----
+function fitBox(el, max, min) {
+  const fits = () => el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1;
+  let lo = min, hi = max;
+  el.style.fontSize = hi + "cqw";
+  if (fits()) return;
+  for (let i = 0; i < 8; i++) {
+    const mid = (lo + hi) / 2;
+    el.style.fontSize = mid + "cqw";
+    if (fits()) lo = mid; else hi = mid;
+  }
+  el.style.fontSize = lo + "cqw";
+}
+function fitCard(cv) {
+  cv.querySelectorAll(".ov.name").forEach(e => fitBox(e, 4.6, 2.4));
+  cv.querySelectorAll(".ov.type").forEach(e => fitBox(e, 4.1, 2.2));
+  cv.querySelectorAll(".ov.text").forEach(e => fitBox(e, 5.4, 1.6));
+  cv.dataset.fit = "1";
+}
+// Fit the visible page's unfitted cards in small chunks so the page stays responsive; hidden pages wait.
+function fitPage(sec) {
+  const todo = [...sec.querySelectorAll(".cv:has(.ov)")].filter(cv => !cv.dataset.fit);
+  (function step() {
+    if (sec.hidden) return;
+    todo.splice(0, 12).forEach(fitCard);
+    if (todo.length) setTimeout(step, 0);
+  })();
+}
+
+// ---- single-page navigation: #index, #legend, #<set>, #<set>/<card-slug> ----
+const pages = [...document.querySelectorAll("section.page")];
+function current() { return pages.find(p => !p.hidden); }
+function show() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  const sec = pages.find(p => p.id === h.split("/")[0]) || pages[0];
+  pages.forEach(p => p.hidden = p !== sec);
+  document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + sec.id));
+  document.fonts.ready.then(() => fitPage(sec));
+  if (h.includes("/")) document.getElementById(h)?.scrollIntoView();
+}
+window.addEventListener("hashchange", show);
+show();
+const savedY = sessionStorage.getItem("mtgl-scroll");
+if (savedY !== null) { sessionStorage.removeItem("mtgl-scroll"); requestAnimationFrame(() => scrollTo(0, +savedY)); }
+
+// ---- glossary editor: live preview everywhere, save via `mtglang serve` ----
+const inputs = [...document.querySelectorAll(".legend input[data-f]")];
+const msg = document.getElementById("ed-msg"), saveBtn = document.getElementById("ed-save"),
+      revertBtn = document.getElementById("ed-revert");
+let byS = null, byA = null, server = false, refitTimer = 0;
+function group(attr) {
+  const m = new Map();
+  document.querySelectorAll("[" + attr + "]").forEach(e => {
+    const k = e.getAttribute(attr);
+    if (!m.has(k)) m.set(k, []);
+    m.get(k).push(e);
+  });
+  return m;
+}
+function paint(input) {
+  if (!byS) { byS = group("data-s"); byA = group("data-a"); }
+  const i = input.closest("tr").dataset.i, v = input.value;
+  if (input.dataset.f === "glyph") (byS.get(i) || []).forEach(e => e.textContent = v);
+  else if (input.dataset.f === "ascii") (byA.get(i) || []).forEach(e => e.textContent = v);
+  else (byS.get(i) || []).forEach(e => { if (e.classList.contains("sym")) e.title = v; });
+}
+function refitSoon() {
+  clearTimeout(refitTimer);
+  refitTimer = setTimeout(() => {
+    document.querySelectorAll(".cv[data-fit]").forEach(cv => delete cv.dataset.fit);
+    fitPage(current());
+  }, 250);
+}
+function check() {
+  const owner = new Map(), problems = [];
+  inputs.forEach(i => i.classList.remove("err"));
+  for (const i of inputs) {
+    i.classList.toggle("dirty", i.value !== i.defaultValue);
+    if (i.dataset.f === "label") continue;
+    const v = i.value;
+    if (!v.trim()) { i.classList.add("err"); problems.push("empty " + i.dataset.f); continue; }
+    const row = i.closest("tr").dataset.i;
+    const prev = owner.get(v);
+    if (prev && prev.closest("tr").dataset.i !== row) {
+      i.classList.add("err"); prev.classList.add("err"); problems.push(`'${v}' is used by two symbols`);
+    } else owner.set(v, i);
+  }
+  const dirty = new Set(inputs.filter(i => i.value !== i.defaultValue).map(i => i.closest("tr").dataset.i));
+  revertBtn.disabled = !dirty.size;
+  saveBtn.disabled = !server || !dirty.size || problems.length > 0;
+  msg.classList.toggle("err", problems.length > 0);
+  if (problems.length) msg.textContent = [...new Set(problems)].join("\n");
+  else if (dirty.size) msg.textContent = `${dirty.size} symbol(s) edited — preview only` +
+      (server ? "; Save writes glossary/symbols.yaml and rewrites the card files." : "; run `mtglang serve` to save.");
+  else msg.textContent = "Edit glyphs, ASCII codes and meanings below; every card updates live." +
+      (server ? "" : " (Read-only file: run `mtglang serve` to save edits.)");
+  return dirty;
+}
+inputs.forEach(i => i.addEventListener("input", () => { paint(i); check(); refitSoon(); }));
+revertBtn.addEventListener("click", () => {
+  inputs.forEach(i => { if (i.value !== i.defaultValue) { i.value = i.defaultValue; paint(i); } });
+  check(); refitSoon();
+});
+saveBtn.addEventListener("click", async () => {
+  const edits = [...check()].map(idx => {
+    const f = n => document.querySelector(`tr[data-i="${idx}"] input[data-f="${n}"]`);
+    return {index: +idx, orig: f("glyph").defaultValue, glyph: f("glyph").value, ascii: f("ascii").value,
+            label: f("label").value};
+  });
+  saveBtn.disabled = revertBtn.disabled = true;
+  msg.classList.remove("err");
+  msg.textContent = "Saving, rewriting card files and re-rendering…";
+  try {
+    const res = await (await fetch("/api/glossary", {method: "POST", headers: {"Content-Type": "application/json"},
+                                                     body: JSON.stringify({edits})})).json();
+    if (res.ok) {
+      sessionStorage.setItem("mtgl-scroll", scrollY);
+      msg.textContent = `Saved: ${res.lines} line(s) in ${res.files} card file(s) rewritten. Reloading…`;
+      location.reload();
+      return;
+    }
+    msg.classList.add("err");
+    msg.textContent = "Not saved:\n" + res.errors.join("\n");
+  } catch (e) {
+    msg.classList.add("err");
+    msg.textContent = "Not saved: " + e;
+  }
+  check();
+});
+if (location.protocol.startsWith("http"))
+  fetch("/api/ping").then(r => r.ok && r.json()).then(j => { server = !!(j && j.ok); check(); }).catch(() => check());
+else check();
+</script>
+</body>
+</html>

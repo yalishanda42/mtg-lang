@@ -57,8 +57,13 @@ def cmd_sync_names(args) -> int:
 
 def cmd_render(args) -> int:
     from mtglang.render import render_site
-    render_site(Path(args.root), Path(args.out), lang=args.lang)
-    print(f"wrote {Path(args.out) / 'index.html'}")
+    print(f"wrote {render_site(Path(args.root), Path(args.out), lang=args.lang)}")
+    return 0
+
+
+def cmd_serve(args) -> int:
+    from mtglang.serve import serve
+    serve(Path(args.root), Path(args.out), lang=args.lang, port=args.port)
     return 0
 
 
@@ -94,11 +99,17 @@ def build_parser() -> argparse.ArgumentParser:
     n = sub.add_parser("sync-names", help="add snapshot card names and subtypes to glossary/names.yaml")
     n.add_argument("--root", default=".")
     n.set_defaults(func=cmd_sync_names)
-    r = sub.add_parser("render", help="write the HTML gallery, legend and ASCII export")
+    r = sub.add_parser("render", help="write the single-page HTML gallery (index.html) and the ASCII export")
     r.add_argument("--root", default=".")
     r.add_argument("--out", default="build")
     r.add_argument("--lang", default="en")
     r.set_defaults(func=cmd_render)
+    sv = sub.add_parser("serve", help="serve the gallery on localhost; glossary edits made in the page can be saved")
+    sv.add_argument("--root", default=".")
+    sv.add_argument("--out", default="build")
+    sv.add_argument("--lang", default="en")
+    sv.add_argument("--port", type=int, default=8765)
+    sv.set_defaults(func=cmd_serve)
     b = sub.add_parser("backtrans", help="write a back-translation bundle and answer key")
     b.add_argument("--root", default=".")
     b.add_argument("--n", type=int, default=40)

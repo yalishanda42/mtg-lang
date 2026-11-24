@@ -4,60 +4,82 @@ from mtglang.render import notation_html, render_site
 
 def test_notation_html_escapes_and_titles(fx_glossary):
     h = notation_html("«Dal R'El, Augment Orphan» ⇒ ✋1", fx_glossary)
-    assert '<span class="sym" title="then">⇒</span>' in h
+    assert '<span class="sym" data-s="0" title="then">⇒</span>' in h
     assert "Dal R&#x27;El, Augment Orphan" in h and "<script" not in h
-    assert '<span class="name" title="Dal R&#x27;El, Augment Orphan">«Dal R&#x27;El, Augment Orphan»</span>' in h
+    assert ('<span class="name" title="Dal R&#x27;El, Augment Orphan"><span data-s="6">«</span>'
+            'Dal R&#x27;El, Augment Orphan<span data-s="7">»</span></span>') in h
 
 
 def test_notation_html_preserves_spacing_and_bad_input(fx_glossary):
-    assert notation_html("{3}, ✝⛰", fx_glossary).startswith('<span class="mana">{3}</span>, <span class="sym" title="sacrifice">✝</span><span')
+    assert notation_html("{3}, ✝⛰", fx_glossary).startswith(
+        '<span class="mana">{3}</span>, <span class="sym" data-s="20" title="sacrifice">✝</span><span')
     bad = notation_html("Draw <b>", fx_glossary)
     assert bad == '<span class="bad">Draw &lt;b&gt;</span>'
 
 
+def test_ascii_html_tags_aliases(fx_glossary):
+    from mtglang.render import ascii_html
+    h = ascii_html("«Human» ✝⛰ : ✋1", fx_glossary)
+    assert h == ('<span data-a="6">&lt;&lt;</span>Human<span data-a="7">&gt;&gt;</span> '
+                 '<span data-a="20">Sa</span><span data-a="16">Ld</span> <span data-a="1">:</span> '
+                 '<span data-a="19">Dr</span>1')
+
+
+def _page(tmp_path):
+    return (tmp_path / "index.html").read_text()
+
+
 def test_render_site_fixture(tmp_path):
-    render_site(FX, tmp_path)
-    s = (tmp_path / "trk.html").read_text()
-    assert "Sacrifice a land: Draw a card." in s and "{3}, SaLd : Dr1" in s
-    assert "Landfall" in (tmp_path / "legend.html").read_text()
+    assert render_site(FX, tmp_path) == tmp_path / "index.html"
+    s = _page(tmp_path)
+    assert "Sacrifice a land: Draw a card." in s
+    assert '<section class="page" id="trk" hidden>' in s and '<section class="page" id="legend" hidden>' in s
+    assert '<input class="g" data-f="glyph" value="⛰⇡"' in s                       # legend editor
+    assert "Landfall" in s and '<tr><td><a href="#trk">trk</a></td><td>1 / 1</td></tr>' in s
     assert (tmp_path / "ascii/trk.txt").read_text().splitlines()[1] == "<<Dal R'El, Augment Orphan>> {1}{R}{G}"
-    idx = (tmp_path / "index.html").read_text()
-    assert "1 / 1" in idx and "0 / 0" in idx
+    assert not (tmp_path / "trk.html").exists() and not (tmp_path / "legend.html").exists()
+
+
+def test_render_removes_stale_pages(tmp_path):
+    (tmp_path / "trk.html").write_text("old")
+    render_site(FX, tmp_path)
+    assert not (tmp_path / "trk.html").exists()
 
 
 def test_render_shows_issues(fx_copy, tmp_path):
     from conftest import drop_last_line
     drop_last_line(fx_copy)
     render_site(fx_copy, tmp_path / "out")
-    assert "V-ALIGN" in (tmp_path / "out/trk.html").read_text()
+    assert "V-ALIGN" in _page(tmp_path / "out")
 
 
 def test_notation_html_uses_symbol_images(fx_glossary):
     from mtglang.scryfall import load_symbols
     syms = load_symbols(FX / "data" / "symbols")
     h = notation_html("{3}, ✝⛰ : {U}", fx_glossary, symbols=syms)
-    assert '<img class="ms" src="symbols/3.svg" alt="{3}" title="three generic mana">' in h
+    assert '<span class="ms m-3" role="img" aria-label="{3}" title="three generic mana"></span>' in h
     assert '<span class="mana">{U}</span>' in h  # no svg known → text fallback
 
 
 def test_oracle_html_icons_and_escaping():
     from mtglang.render import oracle_html
     h = oracle_html("{T}: Add {R} <b>.", {"{T}": {"file": "T.svg", "english": "tap"}})
-    assert h == '<img class="ms" src="symbols/T.svg" alt="{T}" title="tap">: Add {R} &lt;b&gt;.'
+    assert h == '<span class="ms m-T" role="img" aria-label="{T}" title="tap"></span>: Add {R} &lt;b&gt;.'
 
 
-def test_render_site_copies_symbols_and_uses_icons(tmp_path):
+def test_render_site_inlines_icons(tmp_path):
     render_site(FX, tmp_path)
-    assert (tmp_path / "symbols/T.svg").exists()
-    s = (tmp_path / "trk.html").read_text()
-    assert 'src="symbols/1.svg"' in s and 'alt="{3}"' in s
-    assert s.count('class="ms"') >= 6   # header {1}{R}{G}, ability {R} {G} {3}, oracle icons
+    assert not (tmp_path / "symbols").exists()
+    s = _page(tmp_path)
+    assert ".m-T{background-image:url(\"data:image/svg+xml;base64," in s
+    assert 'class="ms m-1"' in s and 'aria-label="{3}"' in s
+    assert s.count('class="ms ') >= 6   # header {1}{R}{G}, ability {R} {G} {3}, oracle icons
 
 
 def test_render_survives_non_utf8_card(fx_copy, tmp_path):
     (fx_copy / "cards/trk/dal-rel-augment-orphan.mtgl").write_bytes(b"\xff\xfe\x00bad")
     render_site(fx_copy, tmp_path / "out")
-    assert "C-ENCODING" in (tmp_path / "out/trk.html").read_text()
+    assert "C-ENCODING" in _page(tmp_path / "out")
 
 
 def test_parse_card_image_and_colors(dal_raw, vigorbloom_raw):
@@ -108,7 +130,7 @@ def test_card_view_kinds(fx_glossary):
 
 def test_render_site_card_view(tmp_path):
     render_site(FX, tmp_path)
-    s = (tmp_path / "trk.html").read_text()
+    s = _page(tmp_path)
     assert s.count('src="https://cards.example/large/dal.jpg"') == 2      # original + overlaid copy
     assert '<div class="cv normal pt" style="--bar: #d0bc84;' in s
     assert 'title="{3}, Sacrifice a land: Draw a card."' in s             # oracle line on hover

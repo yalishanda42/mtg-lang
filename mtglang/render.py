@@ -1,9 +1,9 @@
 """Render the HTML gallery, the legend and the ASCII export."""
 from __future__ import annotations
 
+import base64
 import html
 import re
-import shutil
 from collections import defaultdict
 from pathlib import Path
 
@@ -14,7 +14,7 @@ from mtglang.glossary import Glossary, load_glossary
 from mtglang.lineparser import LineParser
 from mtglang.oracle import oracle_lines
 from mtglang.scryfall import SETS, load_snapshot, load_symbols
-from mtglang.tokenizer import TokenizeError, to_ascii, tokenize
+from mtglang.tokenizer import TokenizeError, ascii_pieces, to_ascii, tokenize
 from mtglang.validate import validate_all
 
 
@@ -25,11 +25,27 @@ def _e(s: str) -> str:
 _MANA_IN_TEXT = re.compile(r"\{[^{}\s]+\}")
 
 
+def _icon_class(file: str) -> str:
+    return "m-" + re.sub(r"[^A-Za-z0-9]", "_", Path(file).stem)
+
+
 def mana_html(sym: str, symbols: dict | None) -> str:
     info = (symbols or {}).get(sym)
     if info:
-        return f'<img class="ms" src="symbols/{_e(info["file"])}" alt="{_e(sym)}" title="{_e(info["english"])}">'
+        return (f'<span class="ms {_icon_class(info["file"])}" role="img" aria-label="{_e(sym)}" '
+                f'title="{_e(info["english"])}"></span>')
     return f'<span class="mana">{_e(sym)}</span>'
+
+
+def icon_css(symbols_dir: Path, symbols: dict | None) -> str:
+    """One CSS rule per mana/tap icon with the SVG inlined, so the page needs no image files."""
+    rules = {}
+    for info in (symbols or {}).values():
+        f = Path(symbols_dir) / info["file"]
+        if f.exists():
+            data = base64.b64encode(f.read_bytes()).decode("ascii")
+            rules[_icon_class(info["file"])] = f'.{_icon_class(info["file"])}{{background-image:url("data:image/svg+xml;base64,{data}")}}'
+    return "\n".join(rules[k] for k in sorted(rules))
 
 
 def oracle_html(text: str, symbols: dict | None) -> str:
@@ -44,7 +60,18 @@ def oracle_html(text: str, symbols: dict | None) -> str:
     return "".join(out)
 
 
+def _delimited(cls: str, title: str, g: Glossary, open_role: str, close_role: str, inner: str, attr: str,
+               ascii: bool = False) -> str:
+    """A «name» / ⟨effect⟩ span whose delimiters are tagged with their symbol index for live editing."""
+    so, sc = g.role(open_role), g.role(close_role)
+    o, c = (so.ascii, sc.ascii) if ascii else (so.glyph, sc.glyph)
+    body = (f'<span {attr}="{g.index(so)}">{_e(o)}</span>{_e(inner)}'
+            f'<span {attr}="{g.index(sc)}">{_e(c)}</span>')
+    return f'<span class="{cls}" title="{_e(title)}">{body}</span>' if cls else body
+
+
 def notation_html(text: str, g: Glossary, lang: str = "en", symbols: dict | None = None) -> str:
+    """Notation as HTML; every glossary symbol carries ``data-s=<index>`` so the editor can restyle it in place."""
     try:
         toks = tokenize(text, g)
     except TokenizeError:
@@ -53,21 +80,42 @@ def notation_html(text: str, g: Glossary, lang: str = "en", symbols: dict | None
     for t in toks:
         out.append(_e(text[last:t.col - 1]))
         if t.symbol is not None:
-            out.append(f'<span class="sym" title="{_e(g.label(t.symbol, lang))}">{_e(t.symbol.glyph)}</span>')
+            out.append(f'<span class="sym" data-s="{g.index(t.symbol)}" title="{_e(g.label(t.symbol, lang))}">'
+                       f'{_e(t.symbol.glyph)}</span>')
         elif t.type == "NAME":
             label = g.label(g.names[t.value], lang) if t.value in g.names else t.value
-            o, c = g.role("name_open").glyph, g.role("name_close").glyph
-            out.append(f'<span class="name" title="{_e(t.value)}">{_e(o + label + c)}</span>')
+            out.append(_delimited("name", t.value, g, "name_open", "name_close", label, "data-s"))
         elif t.type == "EFFECT":
             label = g.label(g.effects[t.value], lang) if t.value in g.effects else t.value
-            o, c = g.role("effect_open").glyph, g.role("effect_close").glyph
-            out.append(f'<span class="effect" title="{_e(label)}">{_e(o + t.value + c)}</span>')
+            out.append(_delimited("effect", label, g, "effect_open", "effect_close", t.value, "data-s"))
         elif t.type == "MANA":
             out.append(mana_html(t.text, symbols))
         else:
             out.append(_e(t.text))
         last = t.end
     out.append(_e(text[last:]))
+    return "".join(out)
+
+
+def ascii_html(text: str, g: Glossary) -> str:
+    """ASCII form as HTML; glossary aliases carry ``data-a=<index>`` for live editing."""
+    try:
+        pieces = ascii_pieces(text, g)
+    except TokenizeError:
+        return _e(text)
+    out = []
+    for gap, piece, t in pieces:
+        out.append(_e(gap))
+        if t is None:
+            continue
+        if t.symbol is not None:
+            out.append(f'<span data-a="{g.index(t.symbol)}">{_e(piece)}</span>')
+        elif t.type == "NAME":
+            out.append(_delimited("", "", g, "name_open", "name_close", t.value, "data-a", ascii=True))
+        elif t.type == "EFFECT":
+            out.append(_delimited("", "", g, "effect_open", "effect_close", t.value, "data-a", ascii=True))
+        else:
+            out.append(_e(piece))
     return "".join(out)
 
 
@@ -147,14 +195,16 @@ def ascii_file(text: str, g: Glossary) -> str:
     return "\n".join(lines)
 
 
-def render_site(root: Path, out: Path, lang: str = "en") -> None:
+STALE_PAGES = ("legend.html",)   # per-page outputs of earlier versions, superseded by the single index.html
+
+
+def render_site(root: Path, out: Path, lang: str = "en") -> Path:
+    """Write the single-page gallery (index, legend/editor, every set) and the ASCII export; returns the page."""
     root, out = Path(root), Path(out)
     g = load_glossary(root / "glossary")
     parser = LineParser(g)
     snap = load_snapshot(root / "data")
     symbols = load_symbols(root / "data" / "symbols")
-    if symbols:
-        shutil.copytree(root / "data" / "symbols", out / "symbols", dirs_exist_ok=True)
     issues, _ = validate_all(root)
     by_file = defaultdict(list)
     for i in issues:
@@ -164,6 +214,7 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
     env = Environment(loader=PackageLoader("mtglang"), autoescape=select_autoescape(["html"]))
     sets = []
     (out / "ascii").mkdir(parents=True, exist_ok=True)
+    o, c = g.role("name_open").glyph, g.role("name_close").glyph
     for code in SETS:
         files = sorted((root / "cards" / code).glob("*.mtgl"))
         cards, ascii_parts = [], []
@@ -183,9 +234,8 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
                     rows = []
                     for k in range(n):
                         a = f.abilities[k].text if k < len(f.abilities) else ""
-                        rows.append({"notation": notation_html(a, g, lang, symbols), "ascii": _safe_ascii(a, g),
+                        rows.append({"notation": notation_html(a, g, lang, symbols), "ascii": ascii_html(a, g),
                                      "oracle": oracle_html(olines[k], symbols) if k < len(olines) else ""})
-                    o, c = g.role("name_open").glyph, g.role("name_close").glyph
                     header = notation_html(f"{o}{f.name}{c} {f.mana}".strip(), g, lang, symbols)
                     entry["faces"].append({"header": header, "type_line": notation_html(f.type_line, g, lang),
                                            "stats": notation_html(f.stats, g, lang) if f.stats else None,
@@ -195,15 +245,16 @@ def render_site(root: Path, out: Path, lang: str = "en") -> None:
         sets.append({"code": code, "translated": len(files), "total": total, "cards": cards})
         (out / "ascii" / f"{code}.txt").write_text("\n\n".join(ascii_parts), encoding="utf-8")
 
-    ctx = {"sets": sets, "lang": lang}
-    (out / "index.html").write_text(env.get_template("index.html").render(**ctx), encoding="utf-8")
-    for s in sets:
-        (out / f"{s['code']}.html").write_text(
-            env.get_template("set.html").render(code=s["code"], cards=s["cards"], **ctx), encoding="utf-8")
     groups = defaultdict(list)
-    for sym in g.symbols:
-        groups[sym.cls].append({"glyph": sym.glyph, "ascii": sym.ascii, "label": g.label(sym, lang), "oracle": sym.oracle,
+    for i, sym in enumerate(g.symbols):
+        groups[sym.cls].append({"i": i, "glyph": sym.glyph, "ascii": sym.ascii, "label": g.label(sym, lang),
+                                "role": sym.role or "", "oracle": sym.oracle,
                                 "definition": notation_html(sym.definition, g, lang) if sym.definition else ""})
     effects = [{"key": e.key, "card": e.card, "label": g.label(e, lang)} for e in g.effects.values()]
-    (out / "legend.html").write_text(
-        env.get_template("legend.html").render(groups=list(groups.items()), effects=effects, **ctx), encoding="utf-8")
+    page = out / "index.html"
+    page.write_text(env.get_template("page.html").render(
+        sets=sets, lang=lang, groups=list(groups.items()), effects=effects,
+        icon_css=icon_css(root / "data" / "symbols", symbols)), encoding="utf-8")
+    for stale in STALE_PAGES + tuple(f"{code}.html" for code in SETS):
+        (out / stale).unlink(missing_ok=True)
+    return page

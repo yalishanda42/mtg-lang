@@ -1,8 +1,10 @@
 # MTG-Lang — language specification
 
-Version 0.1 (symbol-heavy style), frozen 2026-11-23 after sample review. The vocabulary lives in `glossary/`, and the legend page
-(`mtglang render` → `build/legend.html`) lists every symbol with its meaning. This document covers
-the *structure*.
+Version 0.1 (symbol-heavy style), frozen 2026-11-23 after sample review. The vocabulary lives in `glossary/`, and the Legend tab of
+the single-page gallery (`mtglang render` → `build/index.html`) lists every symbol with its meaning. `mtglang serve`
+serves the same page on localhost and makes the Legend an editor: glyph, ASCII and meaning edits preview live on every
+card, and Save rewrites `glossary/symbols.yaml` plus every card file (token-aware, refusing any edit that would make a
+line ambiguous). This document covers the *structure*.
 
 ## 1. Token rule
 

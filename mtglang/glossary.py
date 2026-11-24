@@ -52,9 +52,14 @@ class Glossary:
 
     def __post_init__(self) -> None:
         self.lookup: dict[str, Symbol] = {}
+        self._index: dict[int, int] = {id(s): i for i, s in enumerate(self.symbols)}
         for s in self.symbols:
             self.lookup.setdefault(s.glyph, s)
             self.lookup.setdefault(s.ascii, s)
+
+    def index(self, s: Symbol) -> int:
+        """Position of a symbol in symbols.yaml (stable identity across glyph/ASCII edits)."""
+        return self._index[id(s)]
 
     def role(self, r: str) -> Symbol:
         for s in self.symbols:

@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block body %}
-<h1>MTG-Lang</h1>
-<table>
-<tr><th>Set</th><th>Translated</th></tr>
-{% for s in sets %}<tr><td><a href="{{ s.code }}.html">{{ s.code }}</a></td><td>{{ s.translated }} / {{ s.total }}</td></tr>{% endfor %}
-</table>
-{% endblock %}

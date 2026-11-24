@@ -157,10 +157,12 @@ def _key(t: Tok) -> tuple:
     return (typ, t.symbol.glyph if t.symbol else ASCII_PUNCT.get(t.value, t.value))
 
 
-def to_ascii(text: str, g: Glossary) -> str:
-    """ASCII form of a line; adjacent aliases that would merge into another symbol get a space."""
+def ascii_pieces(text: str, g: Glossary) -> list[tuple[str, str, Tok | None]]:
+    """(gap, ascii piece, token) triples of a line's ASCII form; the last triple carries the trailing text.
+
+    Adjacent aliases that would merge into another symbol get a space."""
     toks = tokenize(text, g)
-    out: list[str] = []
+    out: list[tuple[str, str, Tok | None]] = []
     last = 0
     prev: Tok | None = None
     for t in toks:
@@ -175,9 +177,13 @@ def to_ascii(text: str, g: Glossary) -> str:
                 same = False
             if not same:
                 gap = " "
-        out.append(gap)
-        out.append(piece)
+        out.append((gap, piece, t))
         last = t.end
         prev = t
-    out.append(text[last:])
-    return "".join(out)
+    out.append((text[last:], "", None))
+    return out
+
+
+def to_ascii(text: str, g: Glossary) -> str:
+    """ASCII form of a line."""
+    return "".join(gap + piece for gap, piece, _ in ascii_pieces(text, g))
