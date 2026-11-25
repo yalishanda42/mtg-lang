@@ -1,0 +1,58 @@
+"""Rendered English must equal Oracle for these lines (grows with every coverage task)."""
+from functools import lru_cache
+from pathlib import Path
+
+import pytest
+
+from mtglang.oracle import oracle_lines
+from mtglang.realize.en import render_card_en
+from mtglang.scryfall import load_snapshot
+
+ROOT = Path(__file__).parent.parent
+
+MUST_MATCH = [
+    "fra/aerid-konstrari#0.0",
+    "fra/academic-ascent#0.0",
+    "trk/dal-rel-augment-orphan#0.1",
+    "fra/ajani-resolute#0.1",
+    "fra/chandra-torch-of-defiance#0.2",
+    "fra/afterthought-sentry#0.0",
+    "fra/afterthought-sentry#0.1",
+]
+
+
+@lru_cache(maxsize=None)
+def _snap():
+    return load_snapshot(ROOT / "data")
+
+
+def _norm(s):
+    from mtglang.evalen import normalize
+    return normalize(s)
+
+
+def _split(ref):
+    card, pos = ref.split("#")
+    code, slug = card.split("/")
+    face, k = pos.split(".")
+    return card, code, slug, int(face), k
+
+
+@pytest.mark.parametrize("ref", MUST_MATCH)
+def test_line_matches_oracle(ref):
+    card, code, slug, face, k = _split(ref)
+    got = render_card_en(ROOT, card)[face]
+    want = oracle_lines(_snap()[(code, slug)].faces[face])
+    assert _norm(got.lines[int(k)]) == _norm(want[int(k)])
+
+
+@pytest.mark.parametrize("card", ["fra/aerid-konstrari", "fra/ajani-resolute", "trk/dal-rel-augment-orphan",
+                                  "fra/afterthought-sentry", "fra/vigorbloom-vanguard-seed-suture"])
+def test_headers_match_scryfall(card):
+    code, slug = card.split("/")
+    sc = _snap()[(code, slug)]
+    for ft, sf in zip(render_card_en(ROOT, card), sc.faces):
+        assert ft.name == sf.name
+        assert ft.type_line == sf.type_line
+        want = f"{sf.power}/{sf.toughness}" if sf.power is not None else (sf.loyalty or sf.defense)
+        assert ft.stats == want

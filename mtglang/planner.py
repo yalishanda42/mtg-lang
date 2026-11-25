@@ -74,11 +74,20 @@ class Planner:
         return AbilityPlan(path, "triggered", parts)
 
     def ab_activated(self, n: A.Activated, path):
-        cost = tuple(self.sentence(c, f"{path}.cost.{i}") if type(c) in SENTENCE_KINDS
-                     else self.conv(c, f"{path}.cost.{i}") for i, c in enumerate(n.cost))
+        cost = tuple(self._cost(c, f"{path}.cost.{i}") for i, c in enumerate(n.cost))
         parts = {"cost": cost, "effect": self.sentence(n.effect, f"{path}.effect"),
                  "limits": tuple(self.sentence(c, f"{path}.limits.{i}") for i, c in enumerate(n.limits))}
         return AbilityPlan(path, "activated", parts)
+
+    def _cost(self, c, path):
+        """A cost is paid by the ability's controller: a subject-less cost action is an imperative to them."""
+        if type(c) not in SENTENCE_KINDS:
+            return self.conv(c, path)
+        p = self.sentence(c, path)
+        if isinstance(p, ClausePlan) and p.subject is None and not p.subject_shared:
+            p = dataclasses.replace(p, mood="imperative", subject=PhrasePlan(
+                f"{path}.subject", ref="you", person=2, definite=True, implicit=True, reason="cost payer"))
+        return p
 
     def ab_labelled(self, n: A.Labelled, path):
         return AbilityPlan(path, "labelled", {"ability": self.ability(n.ability, f"{path}.ability")}, label=n.label)

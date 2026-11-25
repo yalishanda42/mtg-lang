@@ -102,3 +102,9 @@ def test_no_english_in_plan():
                 v = getattr(n, f.name)
                 if isinstance(v, str):
                     assert f.name in _ALLOWED_STR, (slug, type(n).__name__, f.name, v)
+
+
+def test_cost_action_is_imperative():
+    a = plan("trk/dal-rel-augment-orphan").faces[0].abilities[1]      # {3}, ✝⛰ : ⤓1
+    sac = a.parts["cost"][1]
+    assert sac.mood == "imperative" and sac.subject.implicit
