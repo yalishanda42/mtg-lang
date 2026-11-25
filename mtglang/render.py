@@ -324,11 +324,19 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
     bg = bulgarian_glossary(g)
     page = out / "index.html"
     ui = ui_strings(lang)
-    page.write_text(env.get_template("page.html").render(
+    results = evaluate(root)
+    from mtglang.evalen import summary as eval_summary
+    order = {ref: k for k, ref in enumerate(BG.load_sample(root))}
+    showcase = sorted(({"code": st["code"], "slug": c["slug"], "name": c["view"]["faces"][0]["oracle_name"],
+                        "view": c["view"], "view_bg": c["view_bg"]}
+                       for st in sets for c in st["cards"] if c.get("view_bg")),
+                      key=lambda r: order.get(f"{r['code']}/{r['slug']}", len(order)))
+    page.write_text(env.get_template("page.html").render(showcase=showcase,
+        eval_abilities=eval_summary(results)["abilities"] if results else None,
         sets=sets, lang=lang, groups=list(groups.items()), effects=effects, bg=bg, ui=ui,
         cls_label=lambda c: ui.get(f"class:{c}", c),
         icon_css=icon_css(root / "data" / "symbols", symbols)), encoding="utf-8")
     for stale in STALE_PAGES + tuple(f"{code}.html" for code in SETS):
         (out / stale).unlink(missing_ok=True)
-    write_report(evaluate(root), out)
+    write_report(results, out)
     return page

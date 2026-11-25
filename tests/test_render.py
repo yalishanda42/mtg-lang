@@ -35,7 +35,7 @@ def test_render_site_fixture(tmp_path):
     assert "Sacrifice a land: Draw a card." in s
     assert '<section class="page" id="trk" hidden>' in s and '<section class="page" id="legend" hidden>' in s
     assert '<input class="g" data-f="glyph" value="⛰⇡"' in s                       # legend editor
-    assert "Landfall" in s and '<tr><td><a href="#trk">trk</a></td><td>1 / 1</td></tr>' in s
+    assert "Landfall" in s and '<a href="#trk">trk</a> 1 / 1' in s
     assert (tmp_path / "ascii/trk.txt").read_text().splitlines()[1] == "<<Dal R'El, Augment Orphan>> {1}{R}{G}"
     assert not (tmp_path / "trk.html").exists() and not (tmp_path / "legend.html").exists()
 
@@ -204,3 +204,20 @@ def test_bulgarian_failure_does_not_break_gallery(fx_copy, tmp_path, monkeypatch
     monkeypatch.setattr(bg, "render_card", boom)
     page = render_site(fx_copy, tmp_path).read_text()          # must not raise
     assert "dal-rel-augment-orphan" in page
+
+
+def test_index_is_a_showcase_of_the_sample(tmp_path):
+    from pathlib import Path
+    from mtglang.realize.bg import load_sample
+    root = Path(__file__).parent.parent
+    page = render_site(root, tmp_path).read_text()
+    index = page[page.index('<section class="page" id="index">'):]
+    index = index[:index.index("</section>")]
+    sample = load_sample(root)
+    rows = index.split('<div class="srow"')[1:]
+    assert len(rows) == len(sample)
+    assert all(r.count("<figure") == 3 for r in rows)
+    assert 'href="#fra/unsummon"' in index and "Отзови" in index
+    for h in ("Original", "MTG-Lang", "Bulgarian (old spelling)"):
+        assert h in index
+    assert "/ 1242" in index                       # English renderer match rate in the footer

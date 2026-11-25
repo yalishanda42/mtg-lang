@@ -220,4 +220,6 @@ Renders a card into Bulgarian from the same clause plans as `en` (`mtglang/reali
 the glossary's `lex.bg` data (gender, definite and count forms, adjective and verb forms) and the register of
 the `bg` labels. The modern text is converted to the Ivanchev spelling with `mtglang/ortho/`. For now this covers
 the sample in `data/bg-sample.txt`; those cards get a third, old-spelling card in the gallery.
+The gallery's start page is a showcase of that sample: one row per card, in three columns (original,
+MTG-Lang, Bulgarian in old spelling), with set coverage and the English match rate in the footer.
 
