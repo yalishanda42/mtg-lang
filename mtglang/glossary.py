@@ -18,6 +18,30 @@ RESERVED_CHARS = set("[](){},/+-—−")
 RESERVED_EXACT = {"X", "Y", "Z"}
 _WORD = re.compile(r"[A-Za-z]{3,}")
 
+SYNTAX_KINDS: frozenset[str] = frozenset({
+    "verb", "type", "object", "player", "reference", "zone", "duration", "time", "keyword", "ability_word",
+    "counter_kind", "characteristic", "comparison", "infix", "prefix", "postfix", "marker", "structural", "stat",
+})
+ARG_SLOTS: frozenset[str] = frozenset({
+    "object", "amount", "recipient", "destination", "source", "subject", "counter", "ability", "cost", "mana",
+    "player", "number", "value", "zone", "types", "filter",
+})
+PARAM_KINDS: frozenset[str] = frozenset({"cost", "number", "filter", "name"})
+SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec"})
+_CLASS_SYNTAX: dict[str, dict] = {
+    "action": {"kind": "verb", "args": ["object"]},
+    "keyword": {"kind": "keyword", "params": []},
+    "comparison": {"kind": "infix"},
+    "logic": {"kind": "marker"},
+}
+
+
+def default_syntax(cls: str) -> dict:
+    """Syntactic behaviour a symbol of class ``cls`` has unless its ``syntax:`` field overrides it."""
+    if cls in _CLASS_SYNTAX:
+        return {k: (list(v) if isinstance(v, list) else v) for k, v in _CLASS_SYNTAX[cls].items()}
+    return {"kind": cls if cls in SYNTAX_KINDS else "marker"}
+
 
 @dataclass(frozen=True)
 class Symbol:
@@ -28,6 +52,12 @@ class Symbol:
     role: str | None = None
     oracle: str | None = None
     definition: str | None = None
+    syntax: dict | None = None
+
+    def __post_init__(self) -> None:
+        merged = default_syntax(self.cls)
+        merged.update(self.syntax or {})
+        object.__setattr__(self, "syntax", merged)
 
 
 @dataclass(frozen=True)
@@ -81,7 +111,8 @@ def _read_yaml(path: Path) -> list[dict]:
 def load_glossary(dir: Path) -> Glossary:
     dir = Path(dir)
     symbols = [Symbol(glyph=str(d["glyph"]), ascii=str(d["ascii"]), cls=d["class"], labels=d.get("labels") or {},
-                      role=d.get("role"), oracle=d.get("oracle"), definition=d.get("definition"))
+                      role=d.get("role"), oracle=d.get("oracle"), definition=d.get("definition"),
+                      syntax=d.get("syntax"))
                for d in _read_yaml(dir / "symbols.yaml")]
     names = {str(d["key"]): Name(str(d["key"]), d["class"], d.get("labels") or {}) for d in _read_yaml(dir / "names.yaml")}
     effects = {str(d["key"]): NamedEffect(str(d["key"]), d.get("card", ""), d.get("labels") or {})
@@ -103,6 +134,8 @@ def check_glossary(g: Glossary) -> list[Issue]:
                 issues.append(Issue("error", "G-RESERVED", f"{text!r} uses reserved punctuation, a variable letter or digits"))
         if not s.labels.get("en"):
             issues.append(Issue("error", "G-LABEL", f"symbol {s.glyph!r} has no 'en' label"))
+        for problem in _syntax_problems(s.syntax):
+            issues.append(Issue("error", "G-SYNTAX", f"symbol {s.glyph!r}: {problem}"))
     for r in ROLES:
         n = sum(1 for s in g.symbols if s.role == r)
         if n != 1:
@@ -112,6 +145,27 @@ def check_glossary(g: Glossary) -> list[Issue]:
             if not o.labels.get("en"):
                 issues.append(Issue("error", "G-LABEL", f"{o.key!r} has no 'en' label"))
     return issues
+
+
+def _syntax_problems(syn: dict) -> list[str]:
+    out = []
+    if not isinstance(syn, dict):
+        return ["syntax must be a map"]
+    for k in syn:
+        if k not in SYNTAX_KEYS:
+            out.append(f"unknown syntax key {k!r}")
+    if syn.get("kind") not in SYNTAX_KINDS:
+        out.append(f"unknown syntax kind {syn.get('kind')!r}")
+    for key, allowed in (("args", ARG_SLOTS), ("params", PARAM_KINDS)):
+        if key in syn:
+            v = syn[key]
+            if not isinstance(v, list) or any(x not in allowed for x in v):
+                out.append(f"syntax {key} must be a list drawn from {sorted(allowed)}")
+    if "subject" in syn and syn["subject"] not in ARG_SLOTS:
+        out.append(f"unknown subject slot {syn['subject']!r}")
+    if "prec" in syn and (not isinstance(syn["prec"], int) or isinstance(syn["prec"], bool)):
+        out.append("syntax prec must be an integer")
+    return out
 
 
 def sync_names(root: Path) -> int:
