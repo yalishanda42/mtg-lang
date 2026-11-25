@@ -183,3 +183,9 @@ def test_counted_thing_that_died_is_subject():
 def test_under_owners_control_is_a_relation():
     a = rt("☞ → ▦ ⚑⌂")
     assert args(a)["destination"].owner is None and args(a)["rel"].rel.glyph == "⚑"
+
+
+def test_keyword_alternatives_are_an_or():
+    a = rt("◈ ∋ ● ⊻ (⇶ ∨ ☣) ⧗")
+    choice = args(args(a)["ability"])["object"]
+    assert isinstance(choice, A.Or) and [k.sym.glyph for k in choice.items] == ["⇶", "☣"]

@@ -1,0 +1,277 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Arni, Renowned Champion"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{3}{R}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "⚜",
+      "index": 56
+     },
+     {
+      "kind": "sym",
+      "sym": "♞",
+      "index": 49
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Human"
+     },
+     {
+      "kind": "name",
+      "key": "Berserker"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": {
+    "kind": "stats",
+    "stat": "pt",
+    "power": "1",
+    "toughness": "5",
+    "value": null,
+    "sym": null
+   },
+   "abilities": [
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "⇶",
+        "index": 107
+       },
+       "params": [],
+       "glued": true
+      }
+     ]
+    },
+    {
+     "kind": "triggered",
+     "event": {
+      "kind": "action",
+      "verb": {
+       "kind": "sym",
+       "sym": "↥",
+       "index": 69
+      },
+      "subject": {
+       "kind": "np",
+       "quant": null,
+       "each": null,
+       "count": null,
+       "count_after": false,
+       "heads": [
+        {
+         "kind": "sym",
+         "sym": "♞",
+         "index": 49
+        }
+       ],
+       "filters": [
+        {
+         "kind": "filter",
+         "conds": [
+          {
+           "kind": "rel",
+           "rel": {
+            "kind": "sym",
+            "sym": "⚑",
+            "index": 17
+           },
+           "other": {
+            "kind": "np",
+            "quant": null,
+            "each": null,
+            "count": null,
+            "count_after": false,
+            "heads": [
+             {
+              "kind": "sym",
+              "sym": "●",
+              "index": 14
+             }
+            ],
+            "filters": [],
+            "name": null,
+            "post": [],
+            "neg": false,
+            "pre": [],
+            "quantity": "one",
+            "number": "sg",
+            "antecedent": null
+           }
+          },
+          {
+           "kind": "rel",
+           "rel": {
+            "kind": "sym",
+            "sym": "≠",
+            "index": 35
+           },
+           "other": {
+            "kind": "np",
+            "quant": null,
+            "each": null,
+            "count": null,
+            "count_after": false,
+            "heads": [
+             {
+              "kind": "sym",
+              "sym": "◈",
+              "index": 12
+             }
+            ],
+            "filters": [],
+            "name": null,
+            "post": [],
+            "neg": false,
+            "pre": [],
+            "quantity": "one",
+            "number": "sg",
+            "antecedent": null
+           }
+          }
+         ]
+        }
+       ],
+       "name": null,
+       "post": [],
+       "neg": false,
+       "pre": [],
+       "quantity": "one",
+       "number": "sg",
+       "antecedent": null
+      },
+      "args": {},
+      "optional": false,
+      "negated": false,
+      "passive": false,
+      "before": 0,
+      "neg_first": false,
+      "implicit_subject": null
+     },
+     "effect": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "modify",
+        "subject": {
+         "kind": "np",
+         "quant": null,
+         "each": null,
+         "count": null,
+         "count_after": false,
+         "heads": [
+          {
+           "kind": "sym",
+           "sym": "◈",
+           "index": 12
+          }
+         ],
+         "filters": [],
+         "name": null,
+         "post": [],
+         "neg": false,
+         "pre": [],
+         "quantity": "one",
+         "number": "sg",
+         "antecedent": null
+        },
+        "change": {
+         "kind": "pt",
+         "power": {
+          "kind": "var",
+          "name": "X",
+          "sign": "+"
+         },
+         "toughness": {
+          "kind": "num",
+          "value": 0,
+          "sign": "+"
+         },
+         "base": null
+        },
+        "args": {
+         "time": {
+          "kind": "time",
+          "items": [
+           {
+            "kind": "sym",
+            "sym": "⧗",
+            "index": 96
+           }
+          ]
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "implicit_subject": null
+       },
+       {
+        "kind": "bind",
+        "var": {
+         "kind": "var",
+         "name": "X",
+         "sign": ""
+        },
+        "value": {
+         "kind": "char",
+         "char": {
+          "kind": "sym",
+          "sym": "△",
+          "index": 40
+         },
+         "of": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "☞",
+            "index": 13
+           }
+          ],
+          "filters": [],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": "faces.0.abilities.1.event.subject"
+         },
+         "sub": null,
+         "agg": null,
+         "prefix": false
+        }
+       }
+      ]
+     },
+     "conds": [],
+     "while_": null
+    }
+   ]
+  }
+ ]
+}

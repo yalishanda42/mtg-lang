@@ -570,6 +570,9 @@ class SemParser:
                 alts.append(conds[0] if len(conds) == 1 else A.And(tuple(conds), juxtaposed=True))
             node = A.Or(tuple(alts), paren=1) if len(alts) > 1 else replace(alts[0], paren=alts[0].paren + 1)
             return ("group", node, c)
+        alts = split_by(inner, split_top(inner, lambda t: op(t) == "or"))
+        if len(alts) > 1 and all(len(a) == 1 and kind(a[0]) == "keyword" for a in alts):
+            return ("kw", A.Or(tuple(A.Keyword(self.sym(a[0])) for a in alts), paren=1), c)
         if first and mode == "clause" and not s.eof:
             s2 = self._s(inner)
             np = self.p_np(s2)

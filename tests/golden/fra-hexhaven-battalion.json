@@ -1,0 +1,227 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Hexhaven Battalion"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{4}{W}{W}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "✎",
+      "index": 55
+     }
+    ],
+    "subtypes": [],
+    "dash": null
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "✚",
+         "index": 84
+        },
+        "subject": null,
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": {
+           "kind": "num",
+           "value": 3,
+           "sign": ""
+          },
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "◌",
+            "index": 58
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "pt",
+              "power": {
+               "kind": "num",
+               "value": 2,
+               "sign": ""
+              },
+              "toughness": {
+               "kind": "num",
+               "value": 2,
+               "sign": ""
+              },
+              "base": null
+             },
+             {
+              "kind": "char",
+              "char": {
+               "kind": "sym",
+               "sym": "♦",
+               "index": 44
+              },
+              "of": {
+               "kind": "sym",
+               "sym": "∅",
+               "index": 45
+              },
+              "sub": null,
+              "agg": null,
+              "prefix": true
+             },
+             {
+              "kind": "np",
+              "quant": null,
+              "each": null,
+              "count": null,
+              "count_after": false,
+              "heads": [
+               {
+                "kind": "name",
+                "key": "Wizard"
+               },
+               {
+                "kind": "name",
+                "key": "Soldier"
+               },
+               {
+                "kind": "sym",
+                "sym": "♞",
+                "index": 49
+               }
+              ],
+              "filters": [],
+              "name": null,
+              "post": [],
+              "neg": false,
+              "pre": [],
+              "quantity": "kind",
+              "number": null,
+              "antecedent": null
+             }
+            ]
+           }
+          ],
+          "name": {
+           "kind": "name",
+           "key": "Cadet"
+          },
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "exactly",
+          "number": "pl",
+          "antecedent": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       },
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "⟁",
+         "index": 130
+        },
+        "subject": null,
+        "args": {
+         "amount": {
+          "kind": "num",
+          "value": 2,
+          "sign": ""
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       }
+      ]
+     }
+    },
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "♲",
+        "index": 117
+       },
+       "params": [
+        {
+         "kind": "filter",
+         "conds": [
+          {
+           "kind": "np",
+           "quant": null,
+           "each": null,
+           "count": null,
+           "count_after": false,
+           "heads": [
+            {
+             "kind": "sym",
+             "sym": "⊡",
+             "index": 57
+            },
+            {
+             "kind": "sym",
+             "sym": "⛰",
+             "index": 52
+            }
+           ],
+           "filters": [],
+           "name": null,
+           "post": [],
+           "neg": false,
+           "pre": [],
+           "quantity": "kind",
+           "number": null,
+           "antecedent": null
+          }
+         ]
+        },
+        {
+         "kind": "mana",
+         "text": "{2}"
+        }
+       ],
+       "glued": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

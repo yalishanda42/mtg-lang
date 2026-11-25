@@ -16,6 +16,7 @@ v0.1 covers two sets, Reality Fracture (`fra`) and Star Trek (`trk`): 596 cards,
 
 - **Language spec:** [`spec/language.md`](spec/language.md)
 - **Vocabulary:** [`glossary/`](glossary): `symbols.yaml`, `names.yaml`, `named_effects.yaml`
+- **Semantic AST:** [`spec/language.md` §13](spec/language.md#13-semantic-ast)
 - **Readability report:** [`docs/report-v0.1.md`](docs/report-v0.1.md)
 - **Gallery:** deployed to GitHub Pages on every push to `main`
 
@@ -39,9 +40,10 @@ Run every command below from the repo root as `uv run mtglang <command>`. All co
 | `sync-names` | Add snapshot card names and subtypes to `glossary/names.yaml` |
 | `sample` | Print a sample of cards that covers the notation's features |
 | `validate` | Check every card file against Scryfall and the glossary |
-| `render` | Build the single-page HTML gallery and the ASCII export |
+| `render` | Build the single-page HTML gallery, the ASCII export and the AST export |
 | `serve` | Serve the gallery on localhost, with a glossary editor that can save |
 | `backtrans` | Write a back-translation test bundle and its answer key |
+| `ast` | Print a card's semantic AST as JSON, or `--coverage` of the corpus |
 
 ### `fetch`
 
@@ -152,3 +154,15 @@ spec/language.md     the language specification
 mtglang/             the toolchain (parser, validator, renderer, server)
 tests/               pytest suite and fixtures
 ```
+
+### `ast`
+
+```sh
+uv run mtglang ast fra/ajani-resolute
+uv run mtglang ast --coverage
+```
+
+Prints the card's semantic AST as JSON: every ability as a typed tree (actions, phrases, filters, times …),
+with each phrase's quantity and number and what every `☞` refers to (spec §13). `--coverage` counts the
+ability lines that parse and round-trip back to identical notation, and lists the first failures.
+`mtglang render` also writes the ASTs of all cards to `build/ast/<set>.json`.

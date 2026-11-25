@@ -1,0 +1,188 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Bestial Incursion"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{3}{G}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "✎",
+      "index": 55
+     }
+    ],
+    "subtypes": [],
+    "dash": null
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "✚",
+         "index": 84
+        },
+        "subject": null,
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "◌",
+            "index": 58
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "pt",
+              "power": {
+               "kind": "num",
+               "value": 4,
+               "sign": ""
+              },
+              "toughness": {
+               "kind": "num",
+               "value": 4,
+               "sign": ""
+              },
+              "base": null
+             },
+             {
+              "kind": "char",
+              "char": {
+               "kind": "sym",
+               "sym": "♦",
+               "index": 44
+              },
+              "of": {
+               "kind": "mana",
+               "text": "{G}"
+              },
+              "sub": null,
+              "agg": null,
+              "prefix": true
+             },
+             {
+              "kind": "np",
+              "quant": null,
+              "each": null,
+              "count": null,
+              "count_after": false,
+              "heads": [
+               {
+                "kind": "name",
+                "key": "Beast"
+               },
+               {
+                "kind": "sym",
+                "sym": "♞",
+                "index": 49
+               }
+              ],
+              "filters": [],
+              "name": null,
+              "post": [],
+              "neg": false,
+              "pre": [],
+              "quantity": "kind",
+              "number": null,
+              "antecedent": null
+             }
+            ]
+           }
+          ],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         },
+         "state": {
+          "kind": "action",
+          "verb": {
+           "kind": "sym",
+           "sym": "∋",
+           "index": 87
+          },
+          "subject": null,
+          "args": {
+           "ability": {
+            "kind": "keyword",
+            "sym": {
+             "kind": "sym",
+             "sym": "⇶",
+             "index": 107
+            },
+            "params": [],
+            "glued": true
+           }
+          },
+          "optional": false,
+          "negated": false,
+          "passive": false,
+          "before": 0,
+          "neg_first": false,
+          "implicit_subject": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       }
+      ]
+     }
+    },
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "↺",
+        "index": 115
+       },
+       "params": [
+        {
+         "kind": "mana",
+         "text": "{5}{G}"
+        }
+       ],
+       "glued": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

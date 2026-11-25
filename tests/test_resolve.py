@@ -225,3 +225,9 @@ def test_create_a_copy_of_this():
     assert isinstance(dict(act.args)["object"], A.Action)
     (that,) = nps(c, "☞")
     assert isinstance(at(c, that.antecedent), A.Action)
+
+
+def test_enchanted_creature_is_singular():
+    c, _ = resolved("♞[⚭◈] +1/+0 ∧ ∋☣")
+    (np,) = nps(c, "♞[⚭◈]")
+    assert (np.quantity, np.number) == ("one", "sg")

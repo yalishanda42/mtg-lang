@@ -190,3 +190,88 @@ Each change removes a construct the semantic parser could not read unambiguously
 | 5 | `● ? ◈ ❐ (⚙ ∨ ♞)[▦] ∧ ¬⚜` | `● ? (◈ ❐ (⚙ ∨ ♞)[▦] ∧ ¬⚜)` | "You may have this enter as a copy …": a parenthesised body gives the second subject its own clause (as in `◎○ ? (● ⤓1)`) |
 | 6 | `∀▭[⊘ ☞] : ☞⚑ ? ▶☞ …` | `(∀▭[⊘ ☞]) ☞⚑ ? ▶☞ …` | `:` is the cost separator; "for each" is `(∀…)` everywhere else |
 | 7 | `◌[«Planet» ⛰]↷ «New Planet»` | `◌[«Planet» ⛰] «New Planet»↷` | The token's name belongs to the token phrase; after `↷` it read as the thing being tapped |
+
+## 13. Semantic AST
+
+`mtglang ast <set>/<slug>` prints a card as a typed, language-neutral tree (JSON); `mtglang render` also
+writes `build/ast/<set>.json`. The tree is derived from the `.mtgl` files (they stay the source of truth) by
+`mtglang/semparse.py`, and `mtglang/unparse.py` turns it back into notation: every line of the corpus
+round-trips token-for-token (validator code `S-ROUNDTRIP`).
+
+### 13.1 Symbol behaviour comes from the glossary
+
+Each symbol in `glossary/symbols.yaml` has a `syntax` (explicit, or defaulted from its `class`):
+
+| Key | Meaning | Example |
+|---|---|---|
+| `kind` | grammatical kind: verb, type, object, player, reference, relation, quantifier, zone, time, characteristic, stat, keyword, ability_word, counter_kind, comparison, infix, prefix, marker, structural | `♞` type |
+| `op` | the operator a parser rule needs (then, bind, and, or, not, if, while, replace, until, target, each, exists, may, count, …) | `⊃` if |
+| `args` | a verb's argument slots, in order | `⊕` → `[amount, mana]` |
+| `yields` | the verb's result can be referred to with `☞` | `⌕` surveil |
+
+A new symbol that behaves like an existing one needs only a glossary entry.
+
+### 13.2 Node kinds
+
+Every child sits in a named field or a named `(slot, node)` argument; the specific word is a glossary
+reference (`sym`), a name (`name`) or a one-off effect (`effect`).
+
+| Kind | Example | Fields |
+|---|---|---|
+| `card`, `face`, `typeline`, `stats` | the card file | faces; name, cost, types, stats, abilities |
+| `keywords`, `keyword` | `🪽, ⊠{2}` | items; sym, params |
+| `triggered` | `◈↥ ∧ #⛰[⚑●] ≥ 6 ⇒ …` | event, conds (intervening if), while_, effect |
+| `activated` | `{2}, {T} : … ; ≡✎` | cost, effect, limits |
+| `static` | `♞[⚑●] +1/+0` | body |
+| `labelled`, `chapter`, `threshold`, `mode`, `modal` | `⛶ ▸`, `§2 ▸`, `12+ \|`, `•`, `⊻1` + `•` lines | label / numbers / n, ability; choose, modes |
+| `effects` | `… ; …` | sentences |
+| `action` | `◈ ✸3 → ◎` | verb, subject, args (`object`, `destination`, `amount`, `by`, `time`, `times`, `state`, `with`, `rel`, `filter`, `restrict`, …), optional, negated, passive |
+| `modify` | `◎♞ +2/+0 ⧗`, `● ♥+1` | subject, change (`pt` or `delta`), args |
+| `coord` | `X ∧ Y` | op, items |
+| `cond` | `C ⊃ X`, `X ¬⊃ C`, `✓ ⊃ X`, `✗ ⊃ X` | mode (if / unless / if_do / if_dont), cond, then |
+| `replace` | `E ⤳ X`, `⤳ X` (instead) | event, effect |
+| `while`, `until`, `timed` | `X ∵ C`, `X ⊣ E`, `(…) ⧗` | body, cond / until / time |
+| `bind`, `foreach`, `scoped`, `nested` | `X ≔ …`, `(∀○) …`, `∀◐ ? (…)`, `(✓ ⇒ …)` | var, value; over, body; subject, body; ability |
+| `np` | `≤1◎♞[⚑○]`, `◌[2/2 ♦∅ «Cat» ♞] «Cadet»` | quant, each, count, heads, filters, name, post, neg, pre |
+| `filter`, `rel`, `of` | `[⚑● ≠◈]`, `⚑●`, `☞⚑` | conds; rel, other; rel, of |
+| `zone`, `time` | `⌃4▤●`, `∀◷●` | zone, pos, count, owner; items |
+| `char`, `count`, `arith`, `compare`, `bound`, `pt`, `delta` | `◈△`, `#≢ ⛰[⚑●]`, `X ÷ 5`, `0 ≤ Y ≤ 10`, `≤1`, `+2/+0`, `♥+1` | … |
+
+`→` is the one transfer verb ("put into / onto / deal to"): `◈ ✸3 → ◎` is
+`action(→, subject ◈, object ✸3, destination ◎)`. Written after another verb it is a particle and its target
+sits in the `arrow:destination` slot.
+
+### 13.3 Precedence
+
+Loosest first, within one ability:
+
+| Level | Symbols |
+|---|---|
+| ability prefix | `•`, `§n ▸`, `n+ \|`, `label ▸` |
+| ability shape | first top-level `⇒` (triggered) or `:` (activated) |
+| sentences | `;` |
+| condition | `⊃`, `¬⊃`, `✓ ⊃`, `✗ ⊃` (split at the first) |
+| replacement | `⤳` |
+| while / as though | `∵`, then `≈` |
+| until | `⊣` (an event, or a time like `▷◷●`) |
+| coordination | `∨`, then `∧` — a side that has no verb (`∀♞ ∧ ∀◐`, `{R} ∨ {G}`) belongs to the neighbouring argument |
+| clause | `[subject] [?] [¬] verb args`, or a verbless `subject change` / comparison |
+
+Inside a clause, phrases bind tightest: quantifier, count, heads, filters, name; a glued characteristic or
+relation after a reference (`◈△`, `☞⚑`).
+
+### 13.4 Resolution
+
+`mtglang/resolve.py` fills in what the notation leaves implicit (validator code `S-RESOLVE` when it can't):
+
+- **quantity / number** of every phrase: explicit marks win (`◎` one, `≤n◎` up to, `∀` each, `n` exactly,
+  `∃` exists); otherwise a bare phrase is *all* (plural) as a subject in an effect, *one* in a trigger
+  event or as an object, *count* under `#`, *kind* inside a filter or keyword; a phrase attached to this
+  object (`♞[⚭◈]`) is one.
+- **`☞` antecedent**: the most recent compatible phrase before it in written order (players for `[⚑☞]`,
+  `◷☞`, life changes; objects for `☞⚑`, `☞△`, P/T changes, `∋`, verb objects; values for `ⁿ = ☞`). The first
+  `☞` in a trigger's effect prefers the event's subject; results of `yields` verbs (`⌕1`, `⤋4`) and `⊻`
+  choices (also from other abilities) can be antecedents; a phrase is never "it" in its own clause's
+  subject role. Antecedents are `walk` paths.
+- **implicit subject** of subject-less actions: `controller`, or `shared` for a later conjunct (`◎♞ +2/+0 ∧
+  ∋↟`).

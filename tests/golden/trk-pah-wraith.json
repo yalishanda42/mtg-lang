@@ -1,0 +1,293 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Pah-Wraith"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{5}{R}{R}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "♞",
+      "index": 49
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Wraith"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": {
+    "kind": "stats",
+    "stat": "pt",
+    "power": "4",
+    "toughness": "4",
+    "value": null,
+    "sym": null
+   },
+   "abilities": [
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "↟",
+        "index": 105
+       },
+       "params": [],
+       "glued": true
+      },
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "↯",
+        "index": 108
+       },
+       "params": [],
+       "glued": true
+      }
+     ]
+    },
+    {
+     "kind": "labelled",
+     "label": [
+      {
+       "kind": "sym",
+       "sym": "✺",
+       "index": 137
+      }
+     ],
+     "ability": {
+      "kind": "triggered",
+      "event": {
+       "kind": "action",
+       "verb": {
+        "kind": "sym",
+        "sym": "➹",
+        "index": 71
+       },
+       "subject": {
+        "kind": "np",
+        "quant": null,
+        "each": null,
+        "count": null,
+        "count_after": false,
+        "heads": [
+         {
+          "kind": "sym",
+          "sym": "◈",
+          "index": 12
+         }
+        ],
+        "filters": [],
+        "name": null,
+        "post": [],
+        "neg": false,
+        "pre": [],
+        "quantity": "one",
+        "number": "sg",
+        "antecedent": null
+       },
+       "args": {},
+       "optional": false,
+       "negated": false,
+       "passive": false,
+       "before": 0,
+       "neg_first": false,
+       "implicit_subject": null
+      },
+      "effect": {
+       "kind": "effects",
+       "sentences": [
+        {
+         "kind": "modify",
+         "subject": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "♞",
+            "index": 49
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "rel",
+              "rel": {
+               "kind": "sym",
+               "sym": "⚑",
+               "index": 17
+              },
+              "other": {
+               "kind": "np",
+               "quant": null,
+               "each": null,
+               "count": null,
+               "count_after": false,
+               "heads": [
+                {
+                 "kind": "sym",
+                 "sym": "●",
+                 "index": 14
+                }
+               ],
+               "filters": [],
+               "name": null,
+               "post": [],
+               "neg": false,
+               "pre": [],
+               "quantity": "one",
+               "number": "sg",
+               "antecedent": null
+              }
+             }
+            ]
+           }
+          ],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "all",
+          "number": "pl",
+          "antecedent": null
+         },
+         "change": {
+          "kind": "pt",
+          "power": {
+           "kind": "var",
+           "name": "X",
+           "sign": "+"
+          },
+          "toughness": {
+           "kind": "num",
+           "value": 0,
+           "sign": "+"
+          },
+          "base": null
+         },
+         "args": {
+          "time": {
+           "kind": "time",
+           "items": [
+            {
+             "kind": "sym",
+             "sym": "⧗",
+             "index": 96
+            }
+           ]
+          }
+         },
+         "optional": false,
+         "negated": false,
+         "implicit_subject": null
+        },
+        {
+         "kind": "bind",
+         "var": {
+          "kind": "var",
+          "name": "X",
+          "sign": ""
+         },
+         "value": {
+          "kind": "count",
+          "of": {
+           "kind": "np",
+           "quant": null,
+           "each": null,
+           "count": null,
+           "count_after": false,
+           "heads": [
+            {
+             "kind": "sym",
+             "sym": "⛰",
+             "index": 52
+            }
+           ],
+           "filters": [
+            {
+             "kind": "filter",
+             "conds": [
+              {
+               "kind": "rel",
+               "rel": {
+                "kind": "sym",
+                "sym": "⚑",
+                "index": 17
+               },
+               "other": {
+                "kind": "np",
+                "quant": null,
+                "each": null,
+                "count": null,
+                "count_after": false,
+                "heads": [
+                 {
+                  "kind": "sym",
+                  "sym": "●",
+                  "index": 14
+                 }
+                ],
+                "filters": [],
+                "name": null,
+                "post": [],
+                "neg": false,
+                "pre": [],
+                "quantity": "one",
+                "number": "sg",
+                "antecedent": null
+               }
+              }
+             ]
+            }
+           ],
+           "name": null,
+           "post": [],
+           "neg": false,
+           "pre": [],
+           "quantity": "count",
+           "number": "pl",
+           "antecedent": null
+          },
+          "mods": [
+           {
+            "kind": "sym",
+            "sym": "≢",
+            "index": 39
+           }
+          ]
+         }
+        }
+       ]
+      },
+      "conds": [],
+      "while_": null
+     }
+    }
+   ]
+  }
+ ]
+}

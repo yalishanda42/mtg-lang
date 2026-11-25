@@ -1,0 +1,349 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Vraska, the Cutting Glare"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{B}{B}{G}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "⚜",
+      "index": 56
+     },
+     {
+      "kind": "sym",
+      "sym": "♞",
+      "index": 49
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Gorgon"
+     },
+     {
+      "kind": "name",
+      "key": "Assassin"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": {
+    "kind": "stats",
+    "stat": "pt",
+    "power": "4",
+    "toughness": "4",
+    "value": null,
+    "sym": null
+   },
+   "abilities": [
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "☣",
+        "index": 104
+       },
+       "params": [],
+       "glued": true
+      }
+     ]
+    },
+    {
+     "kind": "triggered",
+     "event": {
+      "kind": "action",
+      "verb": {
+       "kind": "sym",
+       "sym": "↥",
+       "index": 69
+      },
+      "subject": {
+       "kind": "np",
+       "quant": null,
+       "each": null,
+       "count": null,
+       "count_after": false,
+       "heads": [
+        {
+         "kind": "sym",
+         "sym": "◈",
+         "index": 12
+        }
+       ],
+       "filters": [],
+       "name": null,
+       "post": [],
+       "neg": false,
+       "pre": [],
+       "quantity": "one",
+       "number": "sg",
+       "antecedent": null
+      },
+      "args": {},
+      "optional": false,
+      "negated": false,
+      "passive": false,
+      "before": 0,
+      "neg_first": false,
+      "implicit_subject": null
+     },
+     "effect": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "✖",
+         "index": 78
+        },
+        "subject": null,
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": {
+           "kind": "sym",
+           "sym": "◎",
+           "index": 20
+          },
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "▣",
+            "index": 60
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "rel",
+              "rel": {
+               "kind": "sym",
+               "sym": "⚑",
+               "index": 17
+              },
+              "other": {
+               "kind": "np",
+               "quant": null,
+               "each": null,
+               "count": null,
+               "count_after": false,
+               "heads": [
+                {
+                 "kind": "sym",
+                 "sym": "○",
+                 "index": 15
+                }
+               ],
+               "filters": [],
+               "name": null,
+               "post": [],
+               "neg": false,
+               "pre": [],
+               "quantity": "one",
+               "number": "sg",
+               "antecedent": null
+              }
+             }
+            ]
+           }
+          ],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       },
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "✚",
+         "index": 84
+        },
+        "subject": {
+         "kind": "of",
+         "rel": {
+          "kind": "sym",
+          "sym": "⚑",
+          "index": 17
+         },
+         "of": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "☞",
+            "index": 13
+           }
+          ],
+          "filters": [],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": "faces.0.abilities.1.effect.sentences.0.args.object"
+         },
+         "prefix": false,
+         "mods": []
+        },
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "◌",
+            "index": 58
+           },
+           {
+            "kind": "name",
+            "key": "Treasure"
+           }
+          ],
+          "filters": [],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": null
+       }
+      ]
+     },
+     "conds": [
+      {
+       "kind": "compare",
+       "items": [
+        {
+         "kind": "count",
+         "of": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "⛰",
+            "index": 52
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "rel",
+              "rel": {
+               "kind": "sym",
+               "sym": "⚑",
+               "index": 17
+              },
+              "other": {
+               "kind": "np",
+               "quant": null,
+               "each": null,
+               "count": null,
+               "count_after": false,
+               "heads": [
+                {
+                 "kind": "sym",
+                 "sym": "●",
+                 "index": 14
+                }
+               ],
+               "filters": [],
+               "name": null,
+               "post": [],
+               "neg": false,
+               "pre": [],
+               "quantity": "one",
+               "number": "sg",
+               "antecedent": null
+              }
+             }
+            ]
+           }
+          ],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "count",
+          "number": "pl",
+          "antecedent": null
+         },
+         "mods": []
+        },
+        {
+         "kind": "num",
+         "value": 6,
+         "sign": ""
+        }
+       ],
+       "ops": [
+        {
+         "kind": "sym",
+         "sym": "≥",
+         "index": 37
+        }
+       ]
+      }
+     ],
+     "while_": null
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,396 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Amok Time"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{2}{G}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "✧",
+      "index": 51
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Saga"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "chapter",
+     "numbers": [
+      1
+     ],
+     "ability": {
+      "kind": "static",
+      "body": {
+       "kind": "effects",
+       "sentences": [
+        {
+         "kind": "action",
+         "verb": {
+          "kind": "sym",
+          "sym": "⚔",
+          "index": 121
+         },
+         "subject": {
+          "kind": "np",
+          "quant": {
+           "kind": "sym",
+           "sym": "◎",
+           "index": 20
+          },
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "♞",
+            "index": 49
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "rel",
+              "rel": {
+               "kind": "sym",
+               "sym": "⚑",
+               "index": 17
+              },
+              "other": {
+               "kind": "np",
+               "quant": null,
+               "each": null,
+               "count": null,
+               "count_after": false,
+               "heads": [
+                {
+                 "kind": "sym",
+                 "sym": "●",
+                 "index": 14
+                }
+               ],
+               "filters": [],
+               "name": null,
+               "post": [],
+               "neg": false,
+               "pre": [],
+               "quantity": "one",
+               "number": "sg",
+               "antecedent": null
+              }
+             }
+            ]
+           }
+          ],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         },
+         "args": {
+          "object": {
+           "kind": "np",
+           "quant": {
+            "kind": "sym",
+            "sym": "◎",
+            "index": 20
+           },
+           "each": null,
+           "count": {
+            "kind": "bound",
+            "op": {
+             "kind": "sym",
+             "sym": "≤",
+             "index": 36
+            },
+            "value": {
+             "kind": "num",
+             "value": 1,
+             "sign": ""
+            }
+           },
+           "count_after": false,
+           "heads": [
+            {
+             "kind": "sym",
+             "sym": "♞",
+             "index": 49
+            }
+           ],
+           "filters": [
+            {
+             "kind": "filter",
+             "conds": [
+              {
+               "kind": "rel",
+               "rel": {
+                "kind": "sym",
+                "sym": "⚑",
+                "index": 17
+               },
+               "other": {
+                "kind": "np",
+                "quant": null,
+                "each": null,
+                "count": null,
+                "count_after": false,
+                "heads": [
+                 {
+                  "kind": "sym",
+                  "sym": "○",
+                  "index": 15
+                 }
+                ],
+                "filters": [],
+                "name": null,
+                "post": [],
+                "neg": false,
+                "pre": [],
+                "quantity": "one",
+                "number": "sg",
+                "antecedent": null
+               }
+              }
+             ]
+            }
+           ],
+           "name": null,
+           "post": [],
+           "neg": false,
+           "pre": [],
+           "quantity": "up_to",
+           "number": "sg",
+           "antecedent": null
+          }
+         },
+         "optional": false,
+         "negated": false,
+         "passive": false,
+         "before": 0,
+         "neg_first": false,
+         "implicit_subject": null
+        }
+       ]
+      }
+     }
+    },
+    {
+     "kind": "chapter",
+     "numbers": [
+      2
+     ],
+     "ability": {
+      "kind": "static",
+      "body": {
+       "kind": "effects",
+       "sentences": [
+        {
+         "kind": "modify",
+         "subject": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "●",
+            "index": 14
+           }
+          ],
+          "filters": [],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         },
+         "change": {
+          "kind": "delta",
+          "char": {
+           "kind": "sym",
+           "sym": "♥",
+           "index": 83
+          },
+          "amount": {
+           "kind": "num",
+           "value": 3,
+           "sign": ""
+          },
+          "sign": "+",
+          "times": null
+         },
+         "args": {},
+         "optional": false,
+         "negated": false,
+         "implicit_subject": null
+        }
+       ]
+      }
+     }
+    },
+    {
+     "kind": "chapter",
+     "numbers": [
+      3
+     ],
+     "ability": {
+      "kind": "static",
+      "body": {
+       "kind": "effects",
+       "sentences": [
+        {
+         "kind": "action",
+         "verb": {
+          "kind": "sym",
+          "sym": "→",
+          "index": 80
+         },
+         "subject": null,
+         "args": {
+          "object": {
+           "kind": "np",
+           "quant": {
+            "kind": "sym",
+            "sym": "◎",
+            "index": 20
+           },
+           "each": null,
+           "count": null,
+           "count_after": false,
+           "heads": [
+            {
+             "kind": "sym",
+             "sym": "▭",
+             "index": 59
+            },
+            {
+             "kind": "sym",
+             "sym": "♞",
+             "index": 49
+            }
+           ],
+           "filters": [
+            {
+             "kind": "filter",
+             "conds": [
+              {
+               "kind": "zone",
+               "zone": {
+                "kind": "sym",
+                "sym": "⚰",
+                "index": 66
+               },
+               "owner": {
+                "kind": "np",
+                "quant": null,
+                "each": null,
+                "count": null,
+                "count_after": false,
+                "heads": [
+                 {
+                  "kind": "sym",
+                  "sym": "●",
+                  "index": 14
+                 }
+                ],
+                "filters": [],
+                "name": null,
+                "post": [],
+                "neg": false,
+                "pre": [],
+                "quantity": "one",
+                "number": "sg",
+                "antecedent": null
+               },
+               "pos": null,
+               "count": null,
+               "pos_alt": null
+              }
+             ]
+            }
+           ],
+           "name": null,
+           "post": [],
+           "neg": false,
+           "pre": [],
+           "quantity": "one",
+           "number": "sg",
+           "antecedent": null
+          },
+          "destination": {
+           "kind": "zone",
+           "zone": {
+            "kind": "sym",
+            "sym": "☚",
+            "index": 64
+           },
+           "owner": {
+            "kind": "np",
+            "quant": null,
+            "each": null,
+            "count": null,
+            "count_after": false,
+            "heads": [
+             {
+              "kind": "sym",
+              "sym": "●",
+              "index": 14
+             }
+            ],
+            "filters": [],
+            "name": null,
+            "post": [],
+            "neg": false,
+            "pre": [],
+            "quantity": "one",
+            "number": "sg",
+            "antecedent": null
+           },
+           "pos": null,
+           "count": null,
+           "pos_alt": null
+          }
+         },
+         "optional": false,
+         "negated": false,
+         "passive": false,
+         "before": 1,
+         "neg_first": false,
+         "implicit_subject": "controller"
+        }
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

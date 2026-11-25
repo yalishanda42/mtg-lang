@@ -1,0 +1,178 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Countersculpt"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{U}{U}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "ϟ",
+      "index": 54
+     }
+    ],
+    "subtypes": [],
+    "dash": null
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "⊹",
+         "index": 93
+        },
+        "subject": null,
+        "args": {
+         "cost": {
+          "kind": "or",
+          "items": [
+           {
+            "kind": "action",
+            "verb": {
+             "kind": "sym",
+             "sym": "⟐",
+             "index": 131
+            },
+            "subject": null,
+            "args": {
+             "object": {
+              "kind": "np",
+              "quant": null,
+              "each": null,
+              "count": null,
+              "count_after": false,
+              "heads": [
+               {
+                "kind": "name",
+                "key": "Jace"
+               }
+              ],
+              "filters": [],
+              "name": null,
+              "post": [],
+              "neg": false,
+              "pre": [],
+              "quantity": "one",
+              "number": "sg",
+              "antecedent": null
+             }
+            },
+            "optional": false,
+            "negated": false,
+            "passive": false,
+            "before": 0,
+            "neg_first": false,
+            "implicit_subject": "controller"
+           },
+           {
+            "kind": "mana",
+            "text": "{1}"
+           }
+          ]
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       }
+      ]
+     }
+    },
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "⊗",
+         "index": 88
+        },
+        "subject": null,
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": {
+           "kind": "sym",
+           "sym": "◎",
+           "index": 20
+          },
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "✦",
+            "index": 61
+           }
+          ],
+          "filters": [],
+          "name": null,
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       },
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "⟁",
+         "index": 130
+        },
+        "subject": null,
+        "args": {
+         "amount": {
+          "kind": "num",
+          "value": 1,
+          "sign": ""
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

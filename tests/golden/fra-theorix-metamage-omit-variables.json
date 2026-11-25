@@ -1,0 +1,357 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Theorix Metamage"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{2}{U/B}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "♞",
+      "index": 49
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Shade"
+     },
+     {
+      "kind": "name",
+      "key": "Wizard"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": {
+    "kind": "stats",
+    "stat": "pt",
+    "power": "2",
+    "toughness": "3",
+    "value": null,
+    "sym": null
+   },
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "↥",
+         "index": 69
+        },
+        "subject": {
+         "kind": "np",
+         "quant": null,
+         "each": null,
+         "count": null,
+         "count_after": false,
+         "heads": [
+          {
+           "kind": "sym",
+           "sym": "◈",
+           "index": 12
+          }
+         ],
+         "filters": [],
+         "name": null,
+         "post": [],
+         "neg": false,
+         "pre": [],
+         "quantity": "one",
+         "number": "sg",
+         "antecedent": null
+        },
+        "args": {
+         "state": {
+          "kind": "action",
+          "verb": {
+           "kind": "sym",
+           "sym": "⧉",
+           "index": 128
+          },
+          "subject": null,
+          "args": {},
+          "optional": false,
+          "negated": false,
+          "passive": false,
+          "before": 0,
+          "neg_first": false,
+          "implicit_subject": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": null
+       }
+      ]
+     }
+    },
+    {
+     "kind": "labelled",
+     "label": [
+      {
+       "kind": "sym",
+       "sym": "⚱",
+       "index": 134
+      }
+     ],
+     "ability": {
+      "kind": "static",
+      "body": {
+       "kind": "effects",
+       "sentences": [
+        {
+         "kind": "while",
+         "op": {
+          "kind": "sym",
+          "sym": "∵",
+          "index": 28
+         },
+         "body": {
+          "kind": "coord",
+          "op": {
+           "kind": "sym",
+           "sym": "∧",
+           "index": 23
+          },
+          "items": [
+           {
+            "kind": "modify",
+            "subject": {
+             "kind": "np",
+             "quant": null,
+             "each": null,
+             "count": null,
+             "count_after": false,
+             "heads": [
+              {
+               "kind": "sym",
+               "sym": "◈",
+               "index": 12
+              }
+             ],
+             "filters": [],
+             "name": null,
+             "post": [],
+             "neg": false,
+             "pre": [],
+             "quantity": "one",
+             "number": "sg",
+             "antecedent": null
+            },
+            "change": {
+             "kind": "pt",
+             "power": {
+              "kind": "num",
+              "value": 1,
+              "sign": "+"
+             },
+             "toughness": {
+              "kind": "num",
+              "value": 0,
+              "sign": "+"
+             },
+             "base": null
+            },
+            "args": {},
+            "optional": false,
+            "negated": false,
+            "implicit_subject": null
+           },
+           {
+            "kind": "action",
+            "verb": {
+             "kind": "sym",
+             "sym": "∋",
+             "index": 87
+            },
+            "subject": null,
+            "args": {
+             "ability": {
+              "kind": "keyword",
+              "sym": {
+               "kind": "sym",
+               "sym": "🪽",
+               "index": 99
+              },
+              "params": [],
+              "glued": true
+             }
+            },
+            "optional": false,
+            "negated": false,
+            "passive": false,
+            "before": 0,
+            "neg_first": false,
+            "implicit_subject": "shared"
+           }
+          ]
+         },
+         "cond": {
+          "kind": "compare",
+          "items": [
+           {
+            "kind": "count",
+            "of": {
+             "kind": "np",
+             "quant": null,
+             "each": null,
+             "count": null,
+             "count_after": false,
+             "heads": [
+              {
+               "kind": "sym",
+               "sym": "▭",
+               "index": 59
+              }
+             ],
+             "filters": [
+              {
+               "kind": "filter",
+               "conds": [
+                {
+                 "kind": "zone",
+                 "zone": {
+                  "kind": "sym",
+                  "sym": "⚰",
+                  "index": 66
+                 },
+                 "owner": {
+                  "kind": "np",
+                  "quant": null,
+                  "each": null,
+                  "count": null,
+                  "count_after": false,
+                  "heads": [
+                   {
+                    "kind": "sym",
+                    "sym": "●",
+                    "index": 14
+                   }
+                  ],
+                  "filters": [],
+                  "name": null,
+                  "post": [],
+                  "neg": false,
+                  "pre": [],
+                  "quantity": "one",
+                  "number": "sg",
+                  "antecedent": null
+                 },
+                 "pos": null,
+                 "count": null,
+                 "pos_alt": null
+                }
+               ]
+              }
+             ],
+             "name": null,
+             "post": [],
+             "neg": false,
+             "pre": [],
+             "quantity": "count",
+             "number": "pl",
+             "antecedent": null
+            },
+            "mods": []
+           },
+           {
+            "kind": "num",
+            "value": 7,
+            "sign": ""
+           }
+          ],
+          "ops": [
+           {
+            "kind": "sym",
+            "sym": "≥",
+            "index": 37
+           }
+          ]
+         }
+        }
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Omit Variables"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{U/B}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "✎",
+      "index": 55
+     }
+    ],
+    "subtypes": [],
+    "dash": null
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "⤋",
+         "index": 118
+        },
+        "subject": null,
+        "args": {
+         "amount": {
+          "kind": "num",
+          "value": 3,
+          "sign": ""
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

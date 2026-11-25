@@ -1,0 +1,335 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Hunter's Axe"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{G}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "⚙",
+      "index": 50
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Equipment"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": null,
+   "abilities": [
+    {
+     "kind": "static",
+     "body": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "coord",
+        "op": {
+         "kind": "sym",
+         "sym": "∧",
+         "index": 23
+        },
+        "items": [
+         {
+          "kind": "modify",
+          "subject": {
+           "kind": "np",
+           "quant": null,
+           "each": null,
+           "count": null,
+           "count_after": false,
+           "heads": [
+            {
+             "kind": "sym",
+             "sym": "♞",
+             "index": 49
+            }
+           ],
+           "filters": [
+            {
+             "kind": "filter",
+             "conds": [
+              {
+               "kind": "rel",
+               "rel": {
+                "kind": "sym",
+                "sym": "⚒",
+                "index": 114
+               },
+               "other": {
+                "kind": "np",
+                "quant": null,
+                "each": null,
+                "count": null,
+                "count_after": false,
+                "heads": [
+                 {
+                  "kind": "sym",
+                  "sym": "◈",
+                  "index": 12
+                 }
+                ],
+                "filters": [],
+                "name": null,
+                "post": [],
+                "neg": false,
+                "pre": [],
+                "quantity": "one",
+                "number": "sg",
+                "antecedent": null
+               }
+              }
+             ]
+            }
+           ],
+           "name": null,
+           "post": [],
+           "neg": false,
+           "pre": [],
+           "quantity": "one",
+           "number": "sg",
+           "antecedent": null
+          },
+          "change": {
+           "kind": "pt",
+           "power": {
+            "kind": "num",
+            "value": 2,
+            "sign": "+"
+           },
+           "toughness": {
+            "kind": "num",
+            "value": 0,
+            "sign": "+"
+           },
+           "base": null
+          },
+          "args": {},
+          "optional": false,
+          "negated": false,
+          "implicit_subject": null
+         },
+         {
+          "kind": "action",
+          "verb": {
+           "kind": "sym",
+           "sym": "∋",
+           "index": 87
+          },
+          "subject": null,
+          "args": {
+           "ability": {
+            "kind": "nested",
+            "paren": 1,
+            "ability": {
+             "kind": "triggered",
+             "event": {
+              "kind": "action",
+              "verb": {
+               "kind": "sym",
+               "sym": "➹",
+               "index": 71
+              },
+              "subject": {
+               "kind": "np",
+               "quant": null,
+               "each": null,
+               "count": null,
+               "count_after": false,
+               "heads": [
+                {
+                 "kind": "sym",
+                 "sym": "◈",
+                 "index": 12
+                }
+               ],
+               "filters": [],
+               "name": null,
+               "post": [],
+               "neg": false,
+               "pre": [],
+               "quantity": "one",
+               "number": "sg",
+               "antecedent": null
+              },
+              "args": {},
+              "optional": false,
+              "negated": false,
+              "passive": false,
+              "before": 0,
+              "neg_first": false,
+              "implicit_subject": null
+             },
+             "effect": {
+              "kind": "effects",
+              "sentences": [
+               {
+                "kind": "action",
+                "verb": {
+                 "kind": "sym",
+                 "sym": "∋",
+                 "index": 87
+                },
+                "subject": {
+                 "kind": "np",
+                 "quant": null,
+                 "each": null,
+                 "count": null,
+                 "count_after": false,
+                 "heads": [
+                  {
+                   "kind": "sym",
+                   "sym": "◈",
+                   "index": 12
+                  }
+                 ],
+                 "filters": [],
+                 "name": null,
+                 "post": [],
+                 "neg": false,
+                 "pre": [],
+                 "quantity": "one",
+                 "number": "sg",
+                 "antecedent": null
+                },
+                "args": {
+                 "ability": {
+                  "kind": "action",
+                  "verb": {
+                   "kind": "sym",
+                   "sym": "⊻",
+                   "index": 22
+                  },
+                  "subject": {
+                   "kind": "np",
+                   "quant": null,
+                   "each": null,
+                   "count": null,
+                   "count_after": false,
+                   "heads": [
+                    {
+                     "kind": "sym",
+                     "sym": "●",
+                     "index": 14
+                    }
+                   ],
+                   "filters": [],
+                   "name": null,
+                   "post": [],
+                   "neg": false,
+                   "pre": [],
+                   "quantity": "one",
+                   "number": "sg",
+                   "antecedent": null
+                  },
+                  "args": {
+                   "object": {
+                    "kind": "or",
+                    "paren": 1,
+                    "items": [
+                     {
+                      "kind": "keyword",
+                      "sym": {
+                       "kind": "sym",
+                       "sym": "⇶",
+                       "index": 107
+                      },
+                      "params": [],
+                      "glued": true
+                     },
+                     {
+                      "kind": "keyword",
+                      "sym": {
+                       "kind": "sym",
+                       "sym": "☣",
+                       "index": 104
+                      },
+                      "params": [],
+                      "glued": true
+                     }
+                    ]
+                   }
+                  },
+                  "optional": false,
+                  "negated": false,
+                  "passive": false,
+                  "before": 0,
+                  "neg_first": false,
+                  "implicit_subject": null
+                 },
+                 "time": {
+                  "kind": "time",
+                  "items": [
+                   {
+                    "kind": "sym",
+                    "sym": "⧗",
+                    "index": 96
+                   }
+                  ]
+                 }
+                },
+                "optional": false,
+                "negated": false,
+                "passive": false,
+                "before": 0,
+                "neg_first": false,
+                "implicit_subject": null
+               }
+              ]
+             },
+             "conds": [],
+             "while_": null
+            }
+           }
+          },
+          "optional": false,
+          "negated": false,
+          "passive": false,
+          "before": 0,
+          "neg_first": false,
+          "implicit_subject": "shared"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "⚒",
+        "index": 114
+       },
+       "params": [
+        {
+         "kind": "mana",
+         "text": "{2}"
+        }
+       ],
+       "glued": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

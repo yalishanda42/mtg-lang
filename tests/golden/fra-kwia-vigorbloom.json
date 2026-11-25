@@ -1,0 +1,381 @@
+{
+ "kind": "card",
+ "faces": [
+  {
+   "kind": "face",
+   "name": {
+    "kind": "name",
+    "key": "Kwia Vigorbloom"
+   },
+   "cost": [
+    {
+     "kind": "mana",
+     "text": "{3}{G}{W}{W}"
+    }
+   ],
+   "types": {
+    "kind": "typeline",
+    "types": [
+     {
+      "kind": "sym",
+      "sym": "⚜",
+      "index": 56
+     },
+     {
+      "kind": "sym",
+      "sym": "♞",
+      "index": 49
+     }
+    ],
+    "subtypes": [
+     {
+      "kind": "name",
+      "key": "Elder"
+     },
+     {
+      "kind": "name",
+      "key": "Sphinx"
+     }
+    ],
+    "dash": "—"
+   },
+   "stats": {
+    "kind": "stats",
+    "stat": "pt",
+    "power": "6",
+    "toughness": "6",
+    "value": null,
+    "sym": null
+   },
+   "abilities": [
+    {
+     "kind": "keywords",
+     "items": [
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "🪽",
+        "index": 99
+       },
+       "params": [],
+       "glued": true
+      },
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "⊙",
+        "index": 100
+       },
+       "params": [],
+       "glued": true
+      },
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "♡",
+        "index": 101
+       },
+       "params": [],
+       "glued": true
+      },
+      {
+       "kind": "keyword",
+       "sym": {
+        "kind": "sym",
+        "sym": "⊠",
+        "index": 102
+       },
+       "params": [
+        {
+         "kind": "mana",
+         "text": "{2}"
+        }
+       ],
+       "glued": true
+      }
+     ]
+    },
+    {
+     "kind": "triggered",
+     "event": {
+      "kind": "modify",
+      "subject": {
+       "kind": "np",
+       "quant": null,
+       "each": null,
+       "count": null,
+       "count_after": false,
+       "heads": [
+        {
+         "kind": "sym",
+         "sym": "●",
+         "index": 14
+        }
+       ],
+       "filters": [],
+       "name": null,
+       "post": [],
+       "neg": false,
+       "pre": [],
+       "quantity": "one",
+       "number": "sg",
+       "antecedent": null
+      },
+      "change": {
+       "kind": "delta",
+       "char": {
+        "kind": "sym",
+        "sym": "♥",
+        "index": 83
+       },
+       "amount": null,
+       "sign": "+",
+       "times": null
+      },
+      "args": {},
+      "optional": false,
+      "negated": false,
+      "implicit_subject": null
+     },
+     "effect": {
+      "kind": "effects",
+      "sentences": [
+       {
+        "kind": "action",
+        "verb": {
+         "kind": "sym",
+         "sym": "✚",
+         "index": 84
+        },
+        "subject": null,
+        "args": {
+         "object": {
+          "kind": "np",
+          "quant": null,
+          "each": null,
+          "count": null,
+          "count_after": false,
+          "heads": [
+           {
+            "kind": "sym",
+            "sym": "◌",
+            "index": 58
+           }
+          ],
+          "filters": [
+           {
+            "kind": "filter",
+            "conds": [
+             {
+              "kind": "char",
+              "char": {
+               "kind": "sym",
+               "sym": "♦",
+               "index": 44
+              },
+              "of": {
+               "kind": "sym",
+               "sym": "∅",
+               "index": 45
+              },
+              "sub": null,
+              "agg": null,
+              "prefix": true
+             },
+             {
+              "kind": "np",
+              "quant": null,
+              "each": null,
+              "count": null,
+              "count_after": false,
+              "heads": [
+               {
+                "kind": "sym",
+                "sym": "⚙",
+                "index": 50
+               }
+              ],
+              "filters": [],
+              "name": null,
+              "post": [],
+              "neg": false,
+              "pre": [],
+              "quantity": "kind",
+              "number": null,
+              "antecedent": null
+             }
+            ]
+           }
+          ],
+          "name": {
+           "kind": "name",
+           "key": "Lotus"
+          },
+          "post": [],
+          "neg": false,
+          "pre": [],
+          "quantity": "one",
+          "number": "sg",
+          "antecedent": null
+         },
+         "state": {
+          "kind": "action",
+          "verb": {
+           "kind": "sym",
+           "sym": "∋",
+           "index": 87
+          },
+          "subject": null,
+          "args": {
+           "ability": {
+            "kind": "nested",
+            "paren": 1,
+            "ability": {
+             "kind": "activated",
+             "cost": [
+              {
+               "kind": "mana",
+               "text": "{T}"
+              },
+              {
+               "kind": "action",
+               "verb": {
+                "kind": "sym",
+                "sym": "✝",
+                "index": 79
+               },
+               "subject": null,
+               "args": {
+                "object": {
+                 "kind": "np",
+                 "quant": null,
+                 "each": null,
+                 "count": null,
+                 "count_after": false,
+                 "heads": [
+                  {
+                   "kind": "sym",
+                   "sym": "◈",
+                   "index": 12
+                  }
+                 ],
+                 "filters": [],
+                 "name": null,
+                 "post": [],
+                 "neg": false,
+                 "pre": [],
+                 "quantity": "one",
+                 "number": "sg",
+                 "antecedent": null
+                }
+               },
+               "optional": false,
+               "negated": false,
+               "passive": false,
+               "before": 0,
+               "neg_first": false,
+               "implicit_subject": null
+              }
+             ],
+             "effect": {
+              "kind": "effects",
+              "sentences": [
+               {
+                "kind": "action",
+                "verb": {
+                 "kind": "sym",
+                 "sym": "⊕",
+                 "index": 81
+                },
+                "subject": null,
+                "args": {
+                 "mana": {
+                  "kind": "np",
+                  "quant": null,
+                  "each": null,
+                  "count": {
+                   "kind": "num",
+                   "value": 3,
+                   "sign": ""
+                  },
+                  "count_after": false,
+                  "heads": [
+                   {
+                    "kind": "sym",
+                    "sym": "◆",
+                    "index": 46
+                   }
+                  ],
+                  "filters": [],
+                  "name": null,
+                  "post": [],
+                  "neg": false,
+                  "pre": [],
+                  "quantity": "exactly",
+                  "number": "pl",
+                  "antecedent": null
+                 }
+                },
+                "optional": false,
+                "negated": false,
+                "passive": false,
+                "before": 0,
+                "neg_first": false,
+                "implicit_subject": "controller"
+               }
+              ]
+             },
+             "limits": []
+            }
+           }
+          },
+          "optional": false,
+          "negated": false,
+          "passive": false,
+          "before": 0,
+          "neg_first": false,
+          "implicit_subject": null
+         }
+        },
+        "optional": false,
+        "negated": false,
+        "passive": false,
+        "before": 0,
+        "neg_first": false,
+        "implicit_subject": "controller"
+       },
+       {
+        "kind": "time",
+        "items": [
+         {
+          "kind": "bound",
+          "op": {
+           "kind": "sym",
+           "sym": "≤",
+           "index": 36
+          },
+          "value": {
+           "kind": "num",
+           "value": 1,
+           "sign": ""
+          }
+         },
+         {
+          "kind": "sym",
+          "sym": "◷",
+          "index": 97
+         }
+        ]
+       }
+      ]
+     },
+     "conds": [],
+     "while_": null
+    }
+   ]
+  }
+ ]
+}

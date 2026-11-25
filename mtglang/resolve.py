@@ -132,6 +132,8 @@ class _Resolver:
             return self._counted(np.count, default=("one", "sg"))
         if hk in ("player", "reference"):
             return "one", "sg"
+        if self._attached_to_self(np):
+            return "one", "sg"        # ♞[⚭◈] enchanted creature, ♞[⚒◈] equipped creature
         if ctx.get("kw"):
             return "kind", None
         if ctx.get("filter"):
@@ -147,6 +149,15 @@ class _Resolver:
         if ctx.get("role") == "subject":
             return "all", "pl"
         return "one", "sg"
+
+    def _attached_to_self(self, np: A.NP) -> bool:
+        for f in np.filters:
+            for c in f.conds:
+                if isinstance(c, A.Rel) and self.kind_of(c.rel) == "keyword" and isinstance(c.other, A.NP) \
+                        and c.other.heads and isinstance(c.other.heads[0], A.SymRef) \
+                        and self.op_of(c.other.heads[0]) == "self":
+                    return True
+        return False
 
     def _counted(self, count, default):
         if count is None:
