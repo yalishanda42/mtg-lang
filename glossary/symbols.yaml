@@ -44,7 +44,7 @@
 - {glyph: ⊤, ascii: Ty, class: characteristic, syntax: {kind: characteristic, op: types}, labels: {en: subtypes among, bg: подвидове измежду, bg-ivanchev: подвидове измежду}}
 - {glyph: ♦, ascii: c., class: characteristic, labels: {en: color, bg: цвят, bg-ivanchev: цвѣтъ}, lex: {en: {noun: color, pl: colors}}}
 - {glyph: ∅, ascii: Nl, class: characteristic, syntax: {kind: characteristic, op: none}, labels: {en: colorless / none, bg: безцветно / нищо, bg-ivanchev: безцвѣтно / нищо}}
-- {glyph: ◆, ascii: Am, class: characteristic, syntax: {kind: characteristic, op: anymana}, labels: {en: mana of any one color, bg: мана от кой да е един цвят, bg-ivanchev: мана отъ кой да е единъ цвѣтъ}, lex: {en: {noun: mana of any one color}}}
+- {glyph: ◆, ascii: Am, class: characteristic, syntax: {kind: characteristic, op: anymana}, labels: {en: mana of any one color, bg: мана от кой да е един цвят, bg-ivanchev: мана отъ кой да е единъ цвѣтъ}, lex: {en: {noun: mana of any color}}}
 - {glyph: ◇, ascii: Lo, role: loyalty, class: stat, syntax: {kind: stat}, labels: {en: Loyalty, bg: Вярност, bg-ivanchev: Вѣрность}, lex: {en: {noun: loyalty}}}
 - {glyph: ⛨, ascii: De, role: defense, class: stat, syntax: {kind: stat}, labels: {en: Defense, bg: Отбрана, bg-ivanchev: Отбрана}}
 - {glyph: ♞, ascii: Cr, class: type, labels: {en: Creature, bg: Твар, bg-ivanchev: Тварь}, lex: {en: {noun: creature, pl: creatures}}}
@@ -92,7 +92,7 @@
 - {glyph: ⟲, ascii: Sh, class: action, labels: {en: shuffle, bg: разбъркай, bg-ivanchev: разбъркай}, lex: {en: {verb: shuffle, s: shuffles}}}
 - {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}, lex: {en: {verb: cost less, s: costs less}}}
 - {glyph: ⊹, ascii: Ac, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: additional cost, bg: допълнителна цена, bg-ivanchev: допълнителна цѣна}}
-- {glyph: ⇄, ascii: Gc, class: action, labels: {en: gain control, bg: завладей, bg-ivanchev: завладѣй}}
+- {glyph: ⇄, ascii: Gc, class: action, labels: {en: gain control, bg: завладей, bg-ivanchev: завладѣй}, lex: {en: {verb: gain control of, s: gains control of}}}
 - {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлѣгъ)}, lex: {en: {noun: promotion}}}
 - {glyph: ⧗, ascii: Ue, class: time, labels: {en: until end of turn, bg: до края на хода, bg-ivanchev: до края на хода}, lex: {en: {word: until end of turn}}}
 - {glyph: ◷, ascii: Tn, class: time, syntax: {kind: time, op: turn}, labels: {en: 'turn (◷ this turn, ◷● your turn)', bg: 'ход (◷ тоя ход, ◷● твоят ход)', bg-ivanchev: 'ходъ (◷ тоя ходъ, ◷● твоятъ ходъ)'}, lex: {en: {noun: turn, pl: turns}}}
@@ -160,7 +160,7 @@
 - {glyph: ⊝, ascii: Hx, class: keyword, labels: {en: Hexproof, bg: Неприкосновеност, bg-note: Hexproof, bg-ivanchev: Неприкосновеность}, oracle: Hexproof}
 - {glyph: ∌, ascii: Ls, class: action, syntax: {kind: verb, op: has, args: [ability]}, labels: {en: loses / doesn't have, bg: губи / няма, bg-ivanchev: губи / нѣма}}
 - {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game, bg: извън играта, bg-ivanchev: извънъ играта}, lex: {en: {noun: outside the game}}}
-- {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game, bg: спечели играта, bg-ivanchev: спечели играта}}
+- {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game, bg: спечели играта, bg-ivanchev: спечели играта}, lex: {en: {verb: win the game, s: wins the game}}}
 - {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлѣгъ)}, lex: {en: {noun: charge}}}
 - {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлѣгъ)}, lex: {en: {noun: finality}}}
 - {glyph: ☉, ascii: Mp, class: time, syntax: {kind: time, op: phase}, labels: {en: main phase, bg: главна част, bg-ivanchev: главна часть}, lex: {en: {noun: main phase}}}
@@ -185,8 +185,8 @@
 - {glyph: ⁂, ascii: Cl, class: keyword, labels: {en: Changeling, bg: Подменче, bg-note: Changeling — народното „подменче“, bg-ivanchev: Подмѣнче}, oracle: Changeling}
 - {glyph: ⊺, ascii: Kk, class: keyword, labels: {en: Kicker (◈⊺ = this spell was kicked), bg: Надбавка (◈⊺ = за туй заклинание е платена надбавка), bg-ivanchev: Надбавка (◈⊺ = за туй заклинание е платена надбавка)}, oracle: Kicker}
 - {glyph: ☀, ascii: Sb, class: keyword, labels: {en: Sunburst, bg: Слънчев изблик, bg-ivanchev: Слънчевъ избликъ}, oracle: Sunburst}
-- {glyph: ♚, ascii: Lz, class: action, labels: {en: lose the game, bg: загуби играта, bg-ivanchev: загуби играта}}
-- {glyph: ⟳, ascii: Et, class: time, syntax: {kind: verb, args: [object]}, labels: {en: extra turn, bg: допълнителен ход, bg-ivanchev: допълнителенъ ходъ}}
+- {glyph: ♚, ascii: Lz, class: action, labels: {en: lose the game, bg: загуби играта, bg-ivanchev: загуби играта}, lex: {en: {verb: lose the game, s: loses the game}}}
+- {glyph: ⟳, ascii: Et, class: time, syntax: {kind: verb, args: [object]}, labels: {en: extra turn, bg: допълнителен ход, bg-ivanchev: допълнителенъ ходъ}, lex: {en: {verb: take an extra turn after this one, s: takes an extra turn after this one}}}
 - {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name, bg: име, bg-ivanchev: име}, lex: {en: {noun: name, pl: names}}}
 - {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to, bg: прикачи към, bg-ivanchev: прикачи къмъ}}
 - {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter), bg: мир (белег), bg-ivanchev: миръ (бѣлѣгъ)}, lex: {en: {noun: peace}}}

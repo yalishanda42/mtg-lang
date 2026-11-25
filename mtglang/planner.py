@@ -226,6 +226,11 @@ class Planner:
             v = getattr(n, name)
             if v is None or v == ():
                 continue
+            if name == "filters":        # a mention inside a filter ("another …") isn't a mention of the object
+                saved = self._self_seen
+                mods.append((name, self.conv(v, f"{path}.{name}")))
+                self._self_seen = saved
+                continue
             mods.append((name, self.conv(v, f"{path}.{name}")))
         if n.neg:
             mods.append(("neg", True))

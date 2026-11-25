@@ -55,6 +55,13 @@ MUST_MATCH = [
     "trk/captains-tutelage#0.2",
     "fra/ferocity-of-the-hunt#0.2",
     "fra/craftwork-crusher#0.3",
+    # Task 8: sentences, joins
+    "fra/ajani-unrelenting#0.2",
+    "fra/carnivorous-cultivator-enroot#0.2",
+    "fra/compel-brutality#0.1",
+    "fra/chandra-chill-of-compliance#0.1",
+    "fra/apex-witchstalker#0.2",
+    "trk/blood-crypt#0.0",
 ]
 
 

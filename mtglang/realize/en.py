@@ -116,8 +116,13 @@ class En:
             word = self.lex.keyword(k.sym.index)
         except KeyError:
             return gap(f"{k.sym.glyph}.word")
-        if k.params:
-            word += " " + " ".join(self.value(p) for p in k.params)
+        params = list(k.params)
+        if params and isinstance(params[0], A.Filter) and k.sym.glyph == "♲":
+            words = [self.premodifier(c) or self.value(c) for c in params[0].conds]
+            word = " ".join(words[:-1] + [words[-1] + word.lower()]).capitalize()
+            params = params[1:]
+        if params:
+            word += " " + " ".join(self.value(p) for p in params)
         return word
 
     def ab_static(self, a: AbilityPlan) -> str:
@@ -225,14 +230,56 @@ class En:
             return self.sentences(p.clauses[0])
         if isinstance(p, SentencePlan) and p.lead is None and p.joins and all(j.kind in ("sentence", "where")
                                                                              for j in p.joins):
-            out = []
-            for c, j in zip(p.clauses, (None,) + p.joins):
+            out: list[str] = []
+            chain = False           # inside a ", then" chain: the next simple clause may join it
+            clauses = list(p.clauses)
+            for i, (c, j) in enumerate(zip(clauses, (None,) + p.joins)):
                 if j is not None and j.kind == "where":
                     out[-1] += f", where {self.inline(c)}"
-                else:
-                    out.append(self.inline(c))
-            return out
+                    continue
+                text = self.inline(c)
+                prev = clauses[i - 1] if i else None
+                if prev is not None and self._search_chain(clauses[:i]) and self._simple(c):
+                    out[-1] += f", {text}"      # R1: search …, put it …, (then) shuffle
+                    chain = True
+                    continue
+                if prev is not None and self._card_flow(prev) and self._card_flow(c) and not chain:
+                    out[-1] += f", then {text}"  # R2: draw a card, then discard a card
+                    chain = True
+                    continue
+                out.append(text)
+                chain = False
+            return [self._then_last(x) for x in out]
         return [self.inline(p)]
+
+    @staticmethod
+    def _then_last(s: str) -> str:
+        """In a search chain "a, b, c" the last item gets "then": "a, b, then c"."""
+        if s.startswith("search ") and s.count(", ") >= 1 and ", then " not in s:
+            k = s.rfind(", ")
+            return s[:k] + ", then " + s[k + 2:]
+        return s
+
+    def _search_chain(self, before: list) -> bool:
+        """The run of simple clauses ending here started with a library search."""
+        for c in reversed(before):
+            if not isinstance(c, ClausePlan):
+                return False
+            if isinstance(c.pred, A.SymRef) and c.pred.glyph == "⌖":
+                return True
+            if not self._simple(c):
+                return False
+        return False
+
+    def _simple(self, c) -> bool:
+        return isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef) and (c.mood == "imperative" or (
+            c.subject is not None and c.subject.ref in ("you", "anaphor")))
+
+    CARD_FLOW = frozenset({"⤓", "⌫", "⤋", "⌕", "◓"})
+
+    def _card_flow(self, c) -> bool:
+        return isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef) and c.pred.glyph in self.CARD_FLOW \
+            and not c.optional
 
     def split_first(self, p) -> tuple[str, list[str]]:
         s = self.sentences(p)
@@ -455,6 +502,11 @@ class En:
                 words.append(self.mana(a))
             elif slot == "state" and isinstance(a, ClausePlan) and isinstance(a.pred, A.SymRef) and not a.args:
                 words.append(self.w(a.pred, "ed"))
+            elif slot == "restrict" and isinstance(a, A.Rel):
+                clause = self.inline(a.other)
+                words[-1] += f". Spend this mana only to {clause}"
+            elif slot == "times" and isinstance(a, A.Rel) and isinstance(a.other, A.Count):
+                words.append(f"for each {self.np(self._sg(a.other.of))}")
             elif slot == "state" and isinstance(a, ClausePlan) and self.op(a.pred) == "has":
                 words.append(f"with {self.ability_arg(self.arg(a, 'ability'), holder)}")
             else:
@@ -496,6 +548,8 @@ class En:
     def mana(self, m) -> str:
         if isinstance(m, A.Mana):
             return m.text
+        if isinstance(m, A.SymRef) and m.glyph == "◆":
+            return f"one {self.w(m, 'noun')}"
         if isinstance(m, A.Or):
             parts = [self.mana(x) for x in m.items]
             return " or ".join(parts) if len(parts) == 2 else ", ".join(parts[:-1]) + ", or " + parts[-1]
@@ -507,11 +561,20 @@ class En:
         hop = self.op(head)
         if hop == "damage":
             amount = self._mod(obj, "count")
+            kinds = [self.damage_kind(h) for h in obj.heads[1:]]
+            pre, _ = self.modifiers(obj, False)
+            dmg = " ".join([w for w in pre + kinds if w] + ["damage"])
             self._damage_dest = True
             try:
-                return f"{'deals' if third else 'deal'} {self.number(amount, word=False)} damage to {self.np(dest)}"
+                d = self.np(dest, role="destination")
             finally:
                 self._damage_dest = False
+            verb = "deals" if third else "deal"
+            if amount is None:
+                return f"{verb} {dmg} to {d}"
+            if isinstance(amount, (A.Num, A.Var)):
+                return f"{verb} {self.number(amount, word=False)} {dmg} to {d}"
+            return f"{verb} {dmg} equal to {self.value(amount)} to {d}"
         if hop == "counter":
             return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest, role='destination')}"
         if isinstance(dest, A.Zone):
@@ -550,6 +613,11 @@ class En:
             where = "on top of" if dest.pos.glyph == "⌃" else "on the bottom of"
             return f"{put} {o} {where} {self.zone(dest, obj, bare=True)}"
         return f"{put} {o} into {self.zone(dest, obj)}"
+
+    def damage_kind(self, h) -> str:
+        if isinstance(h, A.SymRef) and h.glyph == "⨯":
+            return "combat"
+        return self.value(h)
 
     def counter_np(self, p: PhrasePlan) -> str:
         kind = p.heads[1] if len(p.heads) > 1 else None
@@ -693,12 +761,28 @@ class En:
         noun = self.w(v.rel, "noun")
         return f"{self.possessive(v.of)} {noun}"
 
+    def characteristic(self, ch: A.Characteristic) -> str:
+        """its power / that creature's power / the number of basic land types among lands you control."""
+        if ch.sub is not None and ch.char.glyph == "⊤":
+            what = {"⊡": "basic land types", "▭": "card types"}.get(ch.sub.glyph, gap("types"))
+            return f"{what} among {self.np(ch.of)}" if ch.of is not None else what
+        name = self.char_name(ch)
+        if ch.agg is not None:
+            agg = {"Σ": "total", "⇑": "greatest"}.get(ch.agg.glyph, gap("agg"))
+            return f"the {agg} {name} among {self.np(ch.of)}" if ch.of is not None else f"the {agg} {name}"
+        if ch.of is None:
+            return name
+        return f"{self.possessive(ch.of)} {name}"
+
     def possessive(self, x) -> str:
         if isinstance(x, PhrasePlan):
             if x.ref == "you":
                 return "your"
             if x.ref == "anaphor":
-                return "their" if self.is_player(x.antecedent) else "its"
+                if self.is_player(x.antecedent):
+                    return "their"
+                words = self.anaphor(x)
+                return "its" if words == "it" else words + "'s"
             if x.ref == "self" and x.pronoun:
                 return "its"
             words = self.np(x)
@@ -727,7 +811,13 @@ class En:
 
     def head_words(self, p: PhrasePlan) -> str:
         words, token = [], any(isinstance(h, A.SymRef) and h.glyph == "◌" for h in p.heads)
-        heads = sorted(p.heads, key=lambda h: 0 if isinstance(h, A.NameRef) else 1)
+        def rank(h):
+            if isinstance(h, A.NameRef):
+                return 0
+            if isinstance(h, A.SymRef) and self.g.symbols[h.index].syntax.get("kind") == "object":
+                return 2
+            return 1
+        heads = sorted(p.heads, key=rank)
         for i, h in enumerate(heads):
             last = i == len(heads) - 1
             if isinstance(h, A.NameRef):
@@ -789,6 +879,9 @@ class En:
             lx = self.lex.sym(cond.index)
             if "adj" in lx:
                 return lx["adj"]
+        if isinstance(cond, A.Not) and isinstance(cond.item, A.Time) and len(cond.item.items) == 1 \
+                and getattr(cond.item.items[0], "glyph", "") == "⨯":
+            return "noncombat"
         return None
 
     def color(self, v) -> str:
@@ -860,6 +953,8 @@ class En:
             return f"{self.possessive(a.of)} {self.char_name(a)} is {self.bound(op, b)}"
         if isinstance(a, A.Count) and isinstance(b, A.Num):
             return self.count_cond(a, op, b)
+        if isinstance(a, A.Characteristic) and isinstance(b, A.Count):
+            return f"{self.characteristic(a)} is equal to {self.value(b)}"
         return gap("compare")
 
     def count_cond(self, a: A.Count, op: str, b: A.Num) -> str:
@@ -926,7 +1021,10 @@ class En:
         bound = items[0] if items and isinstance(items[0], A.Bound) else None
         if bound is not None:
             items, g = items[1:], g[1:]
-        num = items[0] if items and isinstance(items[0], A.Num) else None
+        num = next((x for x in items if isinstance(x, A.Num)), None)
+        if num is not None:
+            k = items.index(num)
+            items, g = items[:k] + items[k + 1:], g[:k] + g[k + 1:]
         phase = items[0] if items and g[0] in self.PHASES else None
         turn = "◷" in g
         if phase is not None:
@@ -944,8 +1042,6 @@ class En:
             if turn:
                 return f"{noun} this turn"
             return f"each {noun}" if not each else f"each {noun}"
-        if num is not None and len(items) > 1:
-            items = items[1:]
         if turn:
             if bound is not None:
                 return "each turn" if owner is None else f"each of {self.possessive(owner)} turns"
@@ -984,6 +1080,10 @@ class En:
             return self.compare(v)
         if isinstance(v, A.NameRef):
             return v.key
+        if isinstance(v, A.Characteristic):
+            return self.characteristic(v)
+        if isinstance(v, A.Delta) and v.char is not None and v.char.glyph == "♥" and v.amount is not None:
+            return f"{self.number(v.amount, word=False)} life"
         if isinstance(v, A.EffectRef):
             e = self.g.effects.get(v.key)
             return e.labels.get("en", v.key) if e else gap("effect")
