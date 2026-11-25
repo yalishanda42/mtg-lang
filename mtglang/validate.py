@@ -135,11 +135,13 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
     root = Path(root)
     g = load_glossary(root / "glossary")
     issues = check_glossary(g)
-    stats = {"cards": 0, "ability_lines": 0, "named_effect_lines": 0, "named_effect_rate": 0.0}
+    stats = {"cards": 0, "ability_lines": 0, "ast_lines": 0, "named_effect_lines": 0, "named_effect_rate": 0.0}
     if any(i.code == "G-ROLE" for i in issues):
         return issues, stats  # tokenizer cannot work without the structural roles
     issues += check_definitions(g)
     parser = LineParser(g)
+    from mtglang.semparse import SemParser
+    sem = SemParser(g)
     snap = load_snapshot(root / "data")
     wanted = set(sets) if sets else None
     if wanted:
@@ -152,7 +154,7 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
     seen: set[tuple[str, str]] = set()
     pairs: list[tuple[str, str, str, int]] = []
     for path in files:
-        doc, file_issues = parse_card_file(path, parser)
+        doc, file_issues = parse_card_file(path, parser, sem)
         issues += file_issues
         if doc is None:
             continue
@@ -161,6 +163,7 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
         stats["cards"] += 1
         for f in doc.faces:
             stats["ability_lines"] += len(f.abilities)
+            stats["ast_lines"] += sum(1 for a in f.abilities if a.ast is not None)
             for a in f.abilities:
                 try:
                     if any(t.type == "EFFECT" for t in tokenize(a.text, g)):

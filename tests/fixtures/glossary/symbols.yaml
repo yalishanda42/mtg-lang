@@ -19,8 +19,8 @@
 - {glyph: "↑", ascii: "^",  class: action,  labels: {en: "enters"}}
 - {glyph: "✋", ascii: "Dr", class: action,  labels: {en: "draw"}}
 - {glyph: "✝", ascii: "Sa", class: action,  labels: {en: "sacrifice"}}
-- {glyph: "⊕", ascii: "Ad", class: action,  labels: {en: "add mana"}}
-- {glyph: "∨", ascii: "vv", class: logic,   labels: {en: "or"}}
+- {glyph: "⊕", ascii: "Ad", class: action,  syntax: {args: [amount, mana]}, labels: {en: "add mana"}}
+- {glyph: "∨", ascii: "vv", class: logic,   syntax: {kind: infix, op: or}, labels: {en: "or"}}
 - {glyph: "≤", ascii: "<=", class: comparison, labels: {en: "at most"}}
 - {glyph: "⛰⇡", ascii: "LF", class: ability_word, labels: {en: "Landfall"}}
 - {glyph: "F", ascii: "F",  class: keyword, labels: {en: "Flying"}, oracle: "Flying", definition: "◈ ≤ [☺ F]"}

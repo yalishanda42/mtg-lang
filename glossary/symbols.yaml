@@ -140,8 +140,8 @@
 - {glyph: ⌫, ascii: Dc, class: action, labels: {en: discard}}
 - {glyph: ⌃, ascii: Tc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: top (of library)}}
 - {glyph: ⌄, ascii: Bc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: bottom (of library)}}
-- {glyph: ▷, ascii: Nx, class: time, labels: {en: next}}
-- {glyph: ◁, ascii: Lt, class: time, labels: {en: last / previous}}
+- {glyph: ▷, ascii: Nx, class: time, syntax: {kind: time, op: next}, labels: {en: next}}
+- {glyph: ◁, ascii: Lt, class: time, syntax: {kind: time, op: last}, labels: {en: last / previous}}
 - {glyph: ⊢, ascii: Bg, class: time, syntax: {kind: time, op: begin}, labels: {en: at the beginning of}}
 - {glyph: ☼, ascii: Uk, class: time, labels: {en: upkeep}}
 - {glyph: ☾, ascii: Es, class: time, labels: {en: end step}}

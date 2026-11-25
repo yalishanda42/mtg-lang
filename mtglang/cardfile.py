@@ -19,6 +19,8 @@ class AbilityLine:
     lineno: int
     text: str
     tree: Tree | None
+    indent: int = 0
+    ast: object | None = None
 
 
 @dataclass
@@ -30,6 +32,8 @@ class FaceDoc:
     stats: str | None
     abilities: list[AbilityLine] = field(default_factory=list)
     header_lineno: int = 0
+    type_lineno: int = 0
+    type_ast: object | None = None
 
 
 @dataclass
@@ -59,7 +63,46 @@ def read_card_text(path: Path) -> str | None:
         return None
 
 
-def parse_card_file(path: Path, parser: LineParser) -> tuple[CardDoc | None, list[Issue]]:
+def parse_card_file(path: Path, parser: LineParser, sem=None) -> tuple[CardDoc | None, list[Issue]]:
+    """Read a card file. With ``sem`` (a SemParser), also attach the semantic AST to every line and report
+    S-PARSE (line doesn't parse) and S-ROUNDTRIP (unparse differs from the source by token identity)."""
+    doc, issues = _parse_card_file(path, parser)
+    if doc is not None and sem is not None:
+        issues += attach_ast(doc, sem)
+    return doc, issues
+
+
+def attach_ast(doc: "CardDoc", sem) -> list[Issue]:
+    from mtglang.semparse import SemSyntaxError
+    from mtglang.tokenizer import _key
+    from mtglang.unparse import Unparser
+    u = Unparser(sem.g)
+    file = str(doc.path)
+    issues: list[Issue] = []
+
+    def same(a: str, b: str) -> bool:
+        return [_key(t) for t in tokenize(a, sem.g)] == [_key(t) for t in tokenize(b, sem.g)]
+
+    for f in doc.faces:
+        try:
+            f.type_ast = sem.parse_type_line(f.type_line)
+        except SemSyntaxError as e:
+            issues.append(Issue("error", "S-PARSE", f"type line: {e.message}", file, f.type_lineno, e.col))
+        for a in f.abilities:
+            try:
+                node = sem.parse_ability(a.text)
+            except SemSyntaxError as e:
+                issues.append(Issue("error", "S-PARSE", e.message, file, a.lineno, e.col + a.indent))
+                continue
+            back = u.node(node)
+            if not same(back, a.text):
+                issues.append(Issue("error", "S-ROUNDTRIP", f"unparses as {back!r}", file, a.lineno))
+                continue
+            a.ast = node
+    return issues
+
+
+def _parse_card_file(path: Path, parser: LineParser) -> tuple[CardDoc | None, list[Issue]]:
     path = Path(path)
     file = str(path)
     issues: list[Issue] = []
@@ -112,7 +155,7 @@ def parse_card_file(path: Path, parser: LineParser) -> tuple[CardDoc | None, lis
             except LineSyntaxError as e:
                 tree = None
                 issues.append(Issue("error", "C-SYNTAX", e.message, file, ln, e.col + indent))
-            abilities.append(AbilityLine(ln, text, tree))
+            abilities.append(AbilityLine(ln, text, tree, indent))
         faces.append(FaceDoc(htoks[0].value, "".join(t.value for t in htoks[1:]), type_text.strip(),
-                             type_tree, stats, abilities, hl))
+                             type_tree, stats, abilities, hl, tl))
     return CardDoc(path, path.parent.name, path.stem, faces), issues

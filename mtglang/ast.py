@@ -77,6 +77,7 @@ class NP(Node):
     name: NameRef | None = None          # token name «Cadet»
     post: tuple = ()                     # glued postfix markers (◈⊺ kicked, ≢ different names …)
     neg: bool = False                    # ¬☞ "other than it"
+    pre: tuple = ()                      # prefix modifiers: ▷ next, ◁ last
     # resolution
     quantity: str | None = None
     number: str | None = None
@@ -178,6 +179,7 @@ class Or(Node):
 class And(Node):
     kind: ClassVar[str] = "and"
     items: tuple = ()
+    juxtaposed: bool = False             # source detail: written side by side, as in a filter (◌ ⚑●)
 
 
 @dataclass(frozen=True)
@@ -298,6 +300,14 @@ class Until(Node):
     kind: ClassVar[str] = "until"
     body: Node
     until: Node
+
+
+@dataclass(frozen=True)
+class Timed(Node):
+    """body time — an ability or effect limited to a time: (◈ ✸⨯ → ◐ ⇒ ⤓2) ⧗."""
+    kind: ClassVar[str] = "timed"
+    body: Node
+    time: Node
 
 
 @dataclass(frozen=True)

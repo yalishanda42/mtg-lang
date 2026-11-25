@@ -21,6 +21,13 @@ class Unparser:
     def sym(self, s: A.SymRef) -> str:
         return self.g.symbols[s.index].glyph
 
+    def o(self, name: str) -> str:
+        """Glyph of the symbol whose syntax op is ``name``."""
+        try:
+            return self.opg[name]
+        except KeyError:
+            raise TypeError(f"glossary has no symbol with syntax op {name!r}") from None
+
     def role(self, r: str) -> str:
         return self.g.role(r).glyph
 
@@ -57,14 +64,14 @@ class Unparser:
 
     # ------------------------------------------------ phrases
     def u_NP(self, n: A.NP):
-        out = ""
+        out = "".join(self.sym(x) for x in n.pre)
         is_target = n.quant is not None and self.g.symbols[n.quant.index].syntax.get("op") == "target"
         if n.each is not None:
             out += self.sym(n.each)
         if n.quant is not None and not is_target:
             out += self.sym(n.quant)
         if n.neg:
-            out += self.opg["not"]
+            out += self.o("not")
         if n.count is not None and not n.count_after:
             out += self.node(n.count)
         if is_target:
@@ -99,7 +106,7 @@ class Unparser:
     def u_Zone(self, n):
         out = ""
         if n.pos_alt is not None:
-            out += "(" + self.sym(n.pos) + " " + self.opg["or"] + " " + self.sym(n.pos_alt) + ")"
+            out += "(" + self.sym(n.pos) + " " + self.o("or") + " " + self.sym(n.pos_alt) + ")"
         elif n.pos is not None:
             out += self.sym(n.pos)
         out += self.sym(n.zone) if n.pos_alt is None or True else ""
@@ -122,10 +129,10 @@ class Unparser:
         return out
 
     def u_Count(self, n):
-        return self.opg["count"] + "".join(self.sym(m) for m in n.mods) + self.node(n.of)
+        return self.o("count") + "".join(self.sym(m) for m in n.mods) + self.node(n.of)
 
     def u_Arith(self, n):
-        o = {"×": self.opg["times"], "÷": self.opg["div"], "+": "+"}[n.op]
+        o = {"×": self.o("times"), "÷": self.o("div"), "+": "+"}[n.op]
         return self.join([self.node(n.left), o, self.node(n.right)])
 
     def u_PT(self, n):
@@ -135,13 +142,16 @@ class Unparser:
         return "".join(self.node(i) for i in n.items)
 
     def u_Or(self, n):
-        return (" " + self.opg["or"] + " ").join(self.node(i) for i in n.items)
+        return (" " + self.o("or") + " ").join(self.node(i) for i in n.items)
 
     def u_And(self, n):
-        return (" " + self.opg["and"] + " ").join(self.node(i) for i in n.items)
+        if n.juxtaposed:
+            return " ".join(self.node(i) for i in n.items)
+        return (" " + self.o("and") + " ").join(self.node(i) for i in n.items)
+
 
     def u_Not(self, n):
-        return self.opg["not"] + self.node(n.item)
+        return self.o("not") + self.node(n.item)
 
     def u_Compare(self, n):
         parts = [self.node(n.items[0])]
@@ -159,21 +169,25 @@ class Unparser:
     def arg(self, slot: str, node) -> str:
         if slot.startswith("arrow:") or slot in ("times", "restrict"):
             return self.sym(node.rel) + " " + self.node(node.other)
+        if slot == "restrict_not":
+            return self.o("not") + self.sym(node.rel) + " " + self.node(node.other)
         return self.node(node)
 
     def u_Action(self, n: A.Action):
         parts = []
         if n.negated and n.neg_first:
-            parts.append(self.opg["not"])
+            parts.append(self.o("not"))
         parts.append(self.node(n.subject))
         if n.optional:
-            parts.append(self.opg["may"])
+            parts.append(self.o("may"))
         parts += [self.arg(s, x) for s, x in n.args[:n.before]]
-        verb = self.node(n.verb)
-        if n.negated and not n.neg_first:
-            verb = self.opg["not"] + verb
+        verb = self.node(n.verb) if n.verb is not None else ""
+        if n.negated and not n.neg_first and n.verb is None:
+            parts.insert(1 if n.subject is not None else 0, self.o("not"))
+        elif n.negated and not n.neg_first:
+            verb = self.o("not") + verb
         if n.passive:
-            verb += self.opg["passive"]
+            verb += self.o("passive")
         parts.append(verb)
         parts += [self.arg(s, x) for s, x in n.args[n.before:]]
         return self.join(parts)
@@ -181,10 +195,10 @@ class Unparser:
     def u_Modify(self, n: A.Modify):
         parts = [self.node(n.subject)]
         if n.optional:
-            parts.append(self.opg["may"])
+            parts.append(self.o("may"))
         ch = self.node(n.change)
         if n.negated:
-            ch = self.opg["not"] + ch
+            ch = self.o("not") + ch
         parts.append(ch)
         parts += [self.arg(s, x) for s, x in n.args]
         return self.join(parts)
@@ -192,15 +206,15 @@ class Unparser:
     def u_Delta(self, n: A.Delta):
         out = (self.sym(n.char) if n.char else "") + n.sign + (self.node(n.amount) if n.amount else "")
         if n.times is not None:
-            out += " " + self.opg["times"] + " " + self.node(n.times)
+            out += " " + self.o("times") + " " + self.node(n.times)
         return out
 
     def u_Scoped(self, n: A.Scoped):
         parts = [self.node(n.subject)]
         if n.optional:
-            parts.append(self.opg["may"])
+            parts.append(self.o("may"))
         if n.negated:
-            parts.append(self.opg["not"])
+            parts.append(self.o("not"))
         parts.append(self.node(n.body))
         return self.join(parts)
 
@@ -208,26 +222,29 @@ class Unparser:
         return (" " + self.sym(n.op) + " ").join(self.node(i) for i in n.items)
 
     def u_Conditional(self, n: A.Conditional):
-        if_ = self.opg["if"]
+        if_ = self.o("if")
         if n.mode == "unless":
-            return self.join([self.node(n.then), self.opg["not"] + if_, self.node(n.cond)])
+            return self.join([self.node(n.then), self.o("not") + if_, self.node(n.cond)])
         if n.mode == "if_do":
-            return self.join([self.opg["did"], if_, self.node(n.then)])
+            return self.join([self.o("did"), if_, self.node(n.then)])
         if n.mode == "if_dont":
-            return self.join([self.opg["didnt"], if_, self.node(n.then)])
+            return self.join([self.o("didnt"), if_, self.node(n.then)])
         return self.join([self.node(n.cond), if_, self.node(n.then)])
 
     def u_Replace(self, n):
-        return self.join([self.node(n.event), self.opg["replace"], self.node(n.effect)])
+        return self.join([self.node(n.event), self.o("replace"), self.node(n.effect)])
 
     def u_While(self, n):
         return self.join([self.node(n.body), self.sym(n.op), self.node(n.cond)])
 
     def u_Until(self, n):
-        return self.join([self.node(n.body), self.opg["until"] + self.node(n.until)])
+        return self.join([self.node(n.body), self.o("until") + self.node(n.until)])
+
+    def u_Timed(self, n):
+        return self.join([self.node(n.body), self.node(n.time)])
 
     def u_Bind(self, n):
-        return self.join([self.node(n.var), self.opg["bind"], self.node(n.value)])
+        return self.join([self.node(n.var), self.o("bind"), self.node(n.value)])
 
     def u_ForEach(self, n):
         return self.join(["(" + self.node(n.over) + ")", self.node(n.body)])
@@ -236,7 +253,8 @@ class Unparser:
         return self.node(n.ability)
 
     def u_Effects(self, n):
-        return (" " + self.opg["then"] + " ").join(self.node(s) for s in n.sentences)
+        parts = [self.node(s) for s in n.sentences]
+        return parts[0] if len(parts) == 1 else (" " + self.o("then") + " ").join(parts)
 
     # ------------------------------------------------ abilities
     def u_Keywords(self, n):
@@ -245,16 +263,16 @@ class Unparser:
     def u_Triggered(self, n: A.Triggered):
         parts = [self.node(n.event)]
         for c in n.conds:
-            parts += [self.opg["and"], self.node(c)]
+            parts += [self.o("and"), self.node(c)]
         if n.while_ is not None:
-            parts += [self.opg["while"], self.node(n.while_)]
+            parts += [self.o("while"), self.node(n.while_)]
         parts += [self.role("implies"), self.node(n.effect)]
         return self.join(parts)
 
     def u_Activated(self, n: A.Activated):
         eff = self.node(n.effect)
         for lim in n.limits:
-            eff += " " + self.opg["then"] + " " + self.node(lim)
+            eff += " " + self.o("then") + " " + self.node(lim)
         return self.join([", ".join(self.node(c) for c in n.cost), self.role("cost_sep"), eff])
 
     def u_Static(self, n):

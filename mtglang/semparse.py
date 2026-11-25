@@ -375,8 +375,10 @@ class SemParser:
             return self._predicate_node(n.item) or isinstance(n.item, A.NP)
         if isinstance(n, A.NP):
             return n.quant is not None and self._op(n.quant) == "exists"
+        if isinstance(n, A.Time):
+            return bool(n.items) and isinstance(n.items[0], A.SymRef) and self._op(n.items[0]) == "begin"
         return isinstance(n, (A.Action, A.Modify, A.Compare, A.Scoped, A.Nested, A.Coord, A.Conditional,
-                              A.Replace, A.While, A.Until, A.Bind, A.ForEach, A.Keywords))
+                              A.Replace, A.While, A.Until, A.Bind, A.ForEach, A.Keywords, A.Timed))
 
     def _try_keywords(self, toks: list[Tok]) -> A.Keywords | None:
         if kind(toks[0]) != "keyword":
@@ -417,7 +419,7 @@ class SemParser:
                 s.pos = save
                 inner = s.group()
                 parts = split_by(inner, split_top(inner, lambda t: t.type == "COMMA"))
-                params.append(A.CostList(tuple(self.p_cost_item(p, inner) for p in parts)))
+                params.append(A.CostList(tuple(self.p_cost_item(p, inner) for p in parts), paren=1))
             elif line and kind(n) in ("type", "object"):
                 np = self.p_np(s)
                 if np is None:
@@ -477,6 +479,9 @@ class SemParser:
                     out.append(("kw", self.p_keyword(s, line=False), c))
             elif t.type == "LSQB":
                 out.append(("filter", self.p_filter(s), c))
+            elif t.type == "LPAR" and self._verb_group(s):
+                inner = s.group()
+                out.append(("verb", A.Or(tuple(self.sym(x) for x in inner if op(x) != "or"), paren=1), c))
             elif t.type == "LPAR":
                 out.append(self._group_chunk(s, mode, not out))
             elif self._pt_ahead(s):
@@ -487,6 +492,11 @@ class SemParser:
                 s.next()
                 n = s.next()
                 out.append(("plus", A.Num(int(n.value), "+") if n.type == "NUMBER" else A.Var(n.value, "+"), c))
+            elif op(t) in ("next", "last") and kind(s.peek(1)) == "relation":
+                m = self.sym(s.next())
+                r = s.next()
+                other = self._rel_other(s)
+                out.append(("np", A.Of(self.sym(r), other, prefix=True, mods=(m,)), c))
             elif kd == "relation":
                 s.next()
                 other = self._rel_other(s)
@@ -505,6 +515,18 @@ class SemParser:
                 typ = "mana" if isinstance(n, A.Mana) else "value" if self.isval(n) else "np"
                 out.append((typ, n, c))
         return out
+
+    def _verb_group(self, s: _S) -> bool:
+        """(⊶ ∨ ⌕) — alternative verbs, not followed by a filter."""
+        try:
+            e = _close(s.toks, s.pos)
+        except SemSyntaxError:
+            return False
+        inner = s.toks[s.pos + 1:e]
+        if len(inner) < 3 or any(kind(x) != "verb" for x in inner[::2]) or any(op(x) != "or" for x in inner[1::2]):
+            return False
+        nxt = s.toks[e + 1] if e + 1 < len(s.toks) else None
+        return nxt is None or nxt.type != "LSQB"
 
     def _rel_other(self, s: _S):
         n = s.peek()
@@ -535,7 +557,7 @@ class SemParser:
                 if not part:
                     raise SemSyntaxError(c, "empty alternative")
                 conds = self._conds(part)
-                alts.append(conds[0] if len(conds) == 1 else A.And(tuple(conds)))
+                alts.append(conds[0] if len(conds) == 1 else A.And(tuple(conds), juxtaposed=True))
             node = A.Or(tuple(alts), paren=1) if len(alts) > 1 else replace(alts[0], paren=alts[0].paren + 1)
             return ("group", node, c)
         if first and mode == "clause" and not s.eof:
@@ -580,20 +602,27 @@ class SemParser:
             elif ch[0] == "not":
                 negated = True
                 neg_first = k == 0 and m > 1 and any(c2[0] in ("np", "value", "zone", "group", "rel") for c2 in chunks[1:m])
-            elif ch[0] in ("np", "value", "zone", "group", "mana", "kw", "rel"):
+            elif ch[0] == "times" and operands:
+                operands.append(ch)
+            elif ch[0] in ("np", "zone", "group", "kw", "rel") or (ch[0] == "value" and is_arrow):
                 operands.append(ch)
             else:
                 raise SemSyntaxError(ch[2], "unexpected item before the verb")
         subject = None
         args: list[tuple[str, A.Node]] = []
         if is_arrow:
-            if len(operands) > 2:
-                raise SemSyntaxError(operands[2][2], "too many items before →")
-            if len(operands) == 2:
-                subject = self._as_subject(operands[0][1])
-                args.append(("object", operands[1][1]))
-            elif operands:
-                args.append(("object", operands[0][1]))
+            nouns = [o for o in operands if o[0] != "times" and not self._is_per(o[1])]
+            if len(nouns) > 2:
+                raise SemSyntaxError(nouns[2][2], "too many items before →")
+            for o in operands:
+                if o[0] == "times":
+                    args.append(("times", A.Rel(o[1][0], o[1][1])))
+                elif self._is_per(o[1]):
+                    args.append(("per", o[1]))
+                elif len(nouns) == 2 and o is nouns[0]:
+                    subject = self._as_subject(o[1])
+                else:
+                    args.append(("object", o[1]))
         else:
             if len(operands) > 1:
                 raise SemSyntaxError(operands[1][2], "too many items before the verb")
@@ -613,8 +642,13 @@ class SemParser:
                 post = post[1:]
             else:
                 raise SemSyntaxError(chunks[m][2], "→ needs a destination")
-        args += self._args(post, frame, verb)
+        args += self._args(post, frame, verb, prev_dest=is_arrow)
         return A.Action(verb, subject, tuple(args), optional, negated, passive, before, neg_first)
+
+    def _is_per(self, n) -> bool:
+        """∀⊤▭ — "for each card type" written before the verb."""
+        return isinstance(n, A.NP) and n.quant is not None and self._op(n.quant) == "each" and bool(n.heads) \
+            and isinstance(n.heads[0], A.Characteristic)
 
     def _as_subject(self, n):
         if isinstance(n, A.Rel) and n.other is not None:
@@ -623,10 +657,13 @@ class SemParser:
 
     def _frame(self, verb, is_arrow) -> list[str]:
         if isinstance(verb, A.EffectRef):
-            return []
-        return list(self.g.symbols[verb.index].syntax.get("args", []))
+            return ["object"]
+        if isinstance(verb, A.Or):
+            verb = verb.items[0]
+        syn = self.g.symbols[verb.index].syntax
+        return list(syn.get("args", ["object"] if syn.get("kind") != "verb" else []))
 
-    def _args(self, post: list[tuple], frame: list[str], verb) -> list[tuple[str, A.Node]]:
+    def _args(self, post: list[tuple], frame: list[str], verb, prev_dest: bool = False) -> list[tuple[str, A.Node]]:
         args: list[tuple[str, A.Node]] = []
         free = list(frame)
         i = 0
@@ -652,6 +689,10 @@ class SemParser:
                 args.append(("restrict", A.Rel(node[0], node[1])))
             elif typ == "plus":
                 args.append(("additional", node))
+            elif typ == "not" and i + 1 < len(post) and post[i + 1][0] == "restrict":
+                i += 1
+                r = post[i][1]
+                args.append(("restrict_not", A.Rel(r[0], r[1])))
             elif typ in ("verb", "not"):
                 neg = typ == "not"
                 if neg:
@@ -676,7 +717,8 @@ class SemParser:
                 if slot is None:
                     if typ == "rel":
                         slot = "rel"
-                    elif typ in ("np", "value") and args and args[-1][0].startswith("arrow:"):
+                    elif typ in ("np", "value") and (args and args[-1][0] in ("arrow:destination", "destination")
+                                                     or prev_dest):
                         slot = "with"
                     else:
                         raise SemSyntaxError(col, "unexpected item after the verb")
@@ -726,12 +768,26 @@ class SemParser:
             return A.Modify(ar.left.of, A.Delta(ar.left.char, times=ar.right), tuple(args))
         if chunks[0][0] == "not" and len(chunks) == 2:
             return A.Not(chunks[1][1])
-        # subject [?] [¬] (group)
+        # X ✸… — X deals damage (no recipient written)
         rest = [ch for ch in chunks if ch[0] not in ("may", "not")]
+        if len(rest) >= 2 and rest[0][0] == "np" and self._damage_like(rest[1][1]):
+            negated = any(c[0] == "not" for c in chunks)
+            args = [("object", rest[1][1])] + self._args(rest[2:], [], None)
+            return A.Action(None, rest[0][1], tuple(args), negated=negated,
+                            neg_first=negated and chunks[0][0] == "not")
+        # (ability) time — "until end of turn, whenever …"
+        if len(chunks) == 2 and chunks[0][0] == "group" and chunks[1][0] == "time":
+            return A.Timed(chunks[0][1], chunks[1][1])
+        # subject [?] [¬] (group)
         if len(rest) == 2 and rest[0][0] in ("np", "value") and rest[1][0] == "group":
             return A.Scoped(rest[0][1], rest[1][1], any(c[0] == "may" for c in chunks),
                             any(c[0] == "not" for c in chunks))
         raise SemSyntaxError(chunks[1][2], "no verb in this clause")
+
+    def _damage_like(self, n) -> bool:
+        if isinstance(n, A.NP):
+            return self._is_damage(n)
+        return isinstance(n, A.Compare) and isinstance(n.items[0], A.NP) and self._is_damage(n.items[0])
 
     def _combine(self, chunks: list[tuple]) -> list[tuple]:
         """Merge X ∧ Y / X ∨ Y operand chunks (∧ binds tighter), and ¬X operands after them."""
@@ -774,11 +830,15 @@ class SemParser:
         return A.Filter(tuple(self._conds(inner)))
 
     def _conds(self, toks: list[Tok]) -> list[A.Node]:
-        chunks = self._combine(self.p_chunks(self._s(toks), "filter"))
-        conds: list[A.Node] = []
+        chunks = self.p_chunks(self._s(toks), "filter")
+        conds: list = []
         i = 0
         while i < len(chunks):
             typ, node, col = chunks[i]
+            if typ in ("and", "or"):
+                conds.append((typ, node, col))
+                i += 1
+                continue
             if typ == "not":
                 if i + 1 >= len(chunks):
                     raise SemSyntaxError(col, "¬ needs something after it")
@@ -795,11 +855,29 @@ class SemParser:
                     conds.append(replace(prev, args=prev.args + (("arrow:destination", A.Rel(node, dest)),)))
                 else:
                     args = (("from", prev),) if prev is not None else ()
-                    conds.append(A.Action(node, None, args + (("arrow:destination", A.Rel(node, dest)),), before=len(args)))
+                    conds.append(A.Action(node, None, args + (("destination", dest),), before=len(args)))
                 i += 2
                 continue
             c, i = self._cond_one(chunks, i)
             conds.append(c)
+        # X ∧ Y / X ∨ Y between conditions (∧ binds tighter)
+        for name, cls in (("and", A.And), ("or", A.Or)):
+            out: list = []
+            k = 0
+            while k < len(conds):
+                c = conds[k]
+                if isinstance(c, tuple) and c[0] == name:
+                    if not out or isinstance(out[-1], tuple) or k + 1 >= len(conds) or isinstance(conds[k + 1], tuple):
+                        raise SemSyntaxError(c[2], f"{c[1].glyph!r} needs a condition on each side")
+                    left = out.pop()
+                    right = conds[k + 1]
+                    out.append(cls(left.items + (right,)) if isinstance(left, cls) and not left.paren
+                               and not getattr(left, "juxtaposed", False) else cls((left, right)))
+                    k += 2
+                else:
+                    out.append(c)
+                    k += 1
+            conds = out
         return conds
 
     def _cond_one(self, chunks, i):
@@ -833,6 +911,8 @@ class SemParser:
         t = s.peek(k)
         if t is None:
             return False
+        if op(t) in ("next", "last") and self._head_ok(s.peek(k + 1)):
+            return True
         kd = kind(t)
         return kd in ("type", "object", "player", "reference", "quantifier", "stat") or t.type in ("NAME", "LPAR") \
             or op(t) == "anymana"
@@ -923,7 +1003,8 @@ class SemParser:
         if kd in ("characteristic", "stat") and o not in ("base",):
             s.next()
             sub = None
-            if o == "types" and kind(s.peek()) in ("type", "object"):
+            if o == "types" and kind(s.peek()) in ("type", "object") and \
+                    (s.peek(1) is None or s.peek(1).type != "LSQB"):
                 sub = self.sym(s.next())
             of = None
             n = s.peek()
@@ -935,6 +1016,8 @@ class SemParser:
                     of = self.sym(s.next())
                 else:
                     of = self.p_np(s)
+            elif o == "types" and self._np_start(s, 0):
+                of = self._np_or_none(s)
             return A.Characteristic(self.sym(t), of, sub, None, prefix=True)
         if t.type in ("NUMBER", "VAR"):
             if self._pt_ahead(s):
@@ -1005,7 +1088,7 @@ class SemParser:
         if isinstance(n, A.Of):
             return True
         return bool(n.heads) and isinstance(n.heads[-1], A.SymRef) and \
-            self.g.symbols[n.heads[-1].index].syntax.get("kind") in ("player", "reference") and not n.filters
+            self.g.symbols[n.heads[-1].index].syntax.get("kind") == "reference" and not n.filters
 
     def _relative(self, s: _S):
         """What # counts: a phrase, optionally with a glued verb, object and time (♞☠◷, ▭⌫● ◷, ♥+ ◷)."""
@@ -1031,6 +1114,8 @@ class SemParser:
             if self._time_start(s):
                 chunks.append(("time", self.p_time(s), t.col))
                 continue
+            if chunks and chunks[-1][0] in ("np", "time", "delta"):
+                break
             n = self.p_atom(s)
             if n is None:
                 break
@@ -1042,12 +1127,39 @@ class SemParser:
             return None
         if len(chunks) == 1 and chunks[0][0] == "np":
             return chunks[0][1]
-        return self.assemble(chunks, s.toks[start:s.pos])
+        return self._relative_node(chunks)
+
+    def _relative_node(self, chunks: list[tuple]):
+        """[thing] [verb [agent]] [time]: ♞☠◷, ▭⌫● ◷, ⤓● ◷, ♥+ ◷, ⇢◈ ◷."""
+        if chunks[0][0] == "delta":
+            return A.Modify(None, chunks[0][1], tuple(self._args(chunks[1:], [], None)))
+        v = next((i for i, c in enumerate(chunks) if c[0] == "verb"), None)
+        if v is None:
+            raise SemSyntaxError(chunks[0][2], "cannot count this")
+        args: list = []
+        if v == 1 and chunks[0][0] == "np":
+            args.append(("object", chunks[0][1]))
+        elif v != 0:
+            raise SemSyntaxError(chunks[0][2], "cannot count this")
+        before = len(args)
+        for typ, node, col in chunks[v + 1:]:
+            if typ == "np":
+                args.append(("by", node))
+            elif typ == "time":
+                args.append(("time", node))
+            elif typ == "marker":
+                args.append(("marker", node))
+            else:
+                raise SemSyntaxError(col, f"unexpected {typ} after #")
+        return A.Action(chunks[v][1], None, tuple(args), before=before)
 
     def p_np(self, s: _S) -> A.NP | None:
         start = s.pos
         quant = count = None
         neg = False
+        pre = []
+        while op(s.peek()) in ("next", "last") and self._head_ok(s.peek(1)):
+            pre.append(self.sym(s.next()))
         t = s.peek()
         if op(t) in ("each", "target", "exists"):
             if op(t) == "each" and self._time_start(s, 1):
@@ -1089,6 +1201,8 @@ class SemParser:
         if np is None:
             s.pos = start
             return None
+        if pre:
+            np = replace(np, pre=tuple(pre))
         return replace(np, each=each) if each is not None else np
 
     def _np_rest(self, s: _S, quant, count, neg) -> A.NP | None:
@@ -1124,6 +1238,11 @@ class SemParser:
                     heads.append(self.sym(s.next()))
             elif kd in ("type", "object", "stat") or o == "anymana":
                 heads.append(self.sym(s.next()))
+            elif o == "types" and quant is not None and self._op(quant) == "each" and not heads:
+                s.next()
+                sub = self.sym(s.next()) if kind(s.peek()) in ("type", "object") else None
+                heads.append(A.Characteristic(self.sym(t), None, sub, None, prefix=True))
+                break
             elif t.type == "LPAR":
                 save = s.pos
                 inner = s.group()
@@ -1134,7 +1253,7 @@ class SemParser:
                 heads.append(alt)
             else:
                 break
-        if not heads and not (quant is not None and self._op(quant) == "target" and count is None):
+        if not heads and not (quant is not None and self._op(quant) in ("target", "each") and count is None):
             return None
         filters, post = [], []
         name = None
@@ -1246,6 +1365,8 @@ class SemParser:
         t = s.peek(k)
         if t is None:
             return False
+        if op(t) in ("next", "last") and (self._head_ok(s.peek(k + 1)) or kind(s.peek(k + 1)) == "relation"):
+            return False
         if kind(t) == "time" and op(t) not in ("only", "until"):
             return True
         if op(t) == "each" or t.type in ("NUMBER",) or op(t) == "at_most":
@@ -1280,6 +1401,8 @@ class SemParser:
                     items.append(self._postfix(s, np))
                 elif op(t) == "phase" and s.peek() is not None and s.peek().type == "NUMBER":
                     items.append(self._numvar(s))
+            elif self._time_start(s) and op(t) in ("each",):
+                items.append(self.sym(s.next()))
             else:
                 break
         if not items:

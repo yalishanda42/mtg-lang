@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from conftest import (BEAR_RAW, FIXTURES as FX, VIGORBLOOM_RAW, add_name, add_raw_card, codes_of, drop_last_line,
                       edit, only, write_card)
 from mtglang.glossary import sync_names
@@ -125,3 +127,24 @@ def test_utf8_bom_is_accepted(fx_copy):
 def test_consistency_ignores_unicode_vs_ascii_minus(fx_glossary):
     from mtglang.validate import canonical
     assert canonical("−4 : ✋1", fx_glossary) == canonical("-4 : ✋1", fx_glossary)
+
+
+def test_s_parse_reported_with_column(fx_copy):
+    edit(fx_copy, ": ✋1", ": 1✋")
+    i = only(validate_all(fx_copy, only_existing=True), "S-PARSE")
+    assert i.line == 7 and i.col in (11, 12)
+
+
+def test_s_parse_does_not_stop_other_cards(fx_copy):
+    edit(fx_copy, ": ✋1", ": 1✋")
+    write_card(fx_copy, "trk/test-bear.mtgl", "«Test Bear» {1}{G}\n☺ — «Bear»\n2/2\n\n∨ ✋1\n")
+    add_raw_card(fx_copy, "trk", BEAR_RAW)
+    add_name(fx_copy, "Bear")
+    add_name(fx_copy, "Test Bear", "card")
+    found = [i for i in validate_all(fx_copy, only_existing=True)[0] if i.code == "S-PARSE"]
+    assert {Path(i.file).name for i in found} == {"dal-rel-augment-orphan.mtgl", "test-bear.mtgl"}
+
+
+def test_validate_counts_ast_lines(fx_copy):
+    _, stats = validate_all(fx_copy, only_existing=True)
+    assert stats["ast_lines"] == 2
