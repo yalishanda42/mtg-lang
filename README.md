@@ -16,6 +16,8 @@ v0.1 covers two sets, Reality Fracture (`fra`) and Star Trek (`trk`): 596 cards,
 
 - **Language spec:** [`spec/language.md`](spec/language.md)
 - **Vocabulary:** [`glossary/`](glossary): `symbols.yaml`, `names.yaml`, `named_effects.yaml`
+- **Languages:** every glossary entry has `en`, `bg` and `bg-ivanchev` (pre-1945 spelling) labels;
+  `mtglang render --lang bg-ivanchev` shows the gallery in old Bulgarian. Review table: [`docs/bg-review.md`](docs/bg-review.md)
 - **Semantic AST:** [`spec/language.md` §13](spec/language.md#13-semantic-ast)
 - **Readability report:** [`docs/report-v0.1.md`](docs/report-v0.1.md)
 - **Gallery:** deployed to GitHub Pages on every push to `main`
@@ -44,6 +46,7 @@ Run every command below from the repo root as `uv run mtglang <command>`. All co
 | `serve` | Serve the gallery on localhost, with a glossary editor that can save |
 | `backtrans` | Write a back-translation test bundle and its answer key |
 | `ast` | Print a card's semantic AST as JSON, or `--coverage` of the corpus |
+| `ortho` | Convert modern Bulgarian to the pre-1945 (Ivanchev) spelling, offline; maintain `bg-ivanchev` labels |
 
 ### `fetch`
 
@@ -166,3 +169,21 @@ Prints the card's semantic AST as JSON: every ability as a typed tree (actions, 
 with each phrase's quantity and number and what every `☞` refers to (spec §13). `--coverage` counts the
 ability lines that parse and round-trip back to identical notation, and lists the first failures.
 `mtglang render` also writes the ASTs of all cards to `build/ast/<set>.json`.
+
+### `ortho`
+
+```sh
+uv run mtglang ortho "Почиват яростни вълни"     # → Почиватъ яростни вълни
+echo "за път обратен" | uv run mtglang ortho      # reads stdin
+uv run mtglang ortho --glossary                   # regenerate every bg-ivanchev label from bg
+uv run mtglang ortho --review                     # write docs/bg-review.md
+```
+
+Converts modern Bulgarian to the Ivanchev orthography used until 1945 (final ъ / ь, ѣ, ѫ, сѫ, -тѣ),
+entirely offline. Corrections live in `glossary/ortho_overrides.yaml`: `words` (a word everywhere) and
+`entries` (one glossary label). `--glossary` refuses to overwrite a label that differs from the converter's
+output unless you pass `--overwrite`, which lists every label it replaces.
+
+The converter is a port of the engine behind [pravopis.osvedomitel.bg](https://pravopis.osvedomitel.bg/)
+([Peshowe/converter-web-app](https://github.com/Peshowe/converter-web-app), © 2021 Petar Nedelev, MIT
+License); its word lists are vendored in `mtglang/ortho/data/` with the license and provenance.

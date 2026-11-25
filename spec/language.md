@@ -281,3 +281,25 @@ relation after a reference (`◈△`, `☞⚑`).
   subject role. Antecedents are `walk` paths.
 - **implicit subject** of subject-less actions: `controller`, or `shared` for a later conjunct (`◎♞ +2/+0 ∧
   ∋↟`).
+
+## 14. Languages
+
+Every glossary entry (symbols, names, named effects) carries labels per language:
+
+| Key | Content |
+|---|---|
+| `en` | English (required) |
+| `bg` | Bulgarian, modern spelling, citation form: nouns in the nominative singular, actions in the card imperative (Изтегли, Погуби), events in the third person (встъпва, загива) |
+| `bg-ivanchev` | the same in the pre-1945 Ivanchev orthography — generated from `bg` by `mtglang ortho --glossary`, never edited by hand |
+| `bg-note` | optional translator's remark (shown in `docs/bg-review.md`) |
+
+The Bulgarian register is late-19th / early-20th-century literary (Вазов): native and folk words over
+loanwords (нишан "target", Самодива "dryad", Ламя "hydra", Витяз "knight"), coined terms where Magic needs
+them (Мироходец "planeswalker", трайник "permanent", подобие "token"). Star Trek proper names keep their
+established Bulgarian forms.
+
+`bg-ivanchev` comes from the offline converter in `mtglang/ortho/` plus the reviewed corrections in
+`glossary/ortho_overrides.yaml` (`words`: a word everywhere; `entries`: one label). The gallery's own words
+are in `mtglang/ui_strings.yaml`. `check_glossary` warns (`G-LABEL-BG`) once any Bulgarian label exists and
+an entry still lacks one.
+
