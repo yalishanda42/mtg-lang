@@ -129,6 +129,9 @@ class En:
     def ab_triggered(self, a: AbilityPlan) -> str:
         ev = a.parts["event"]
         head = "When" if self._once(ev) else "Whenever"
+        if isinstance(ev, A.Time):
+            head = "At"
+        self._limit_kind = "trigger"
         first, rest = self.split_first(a.parts["effect"])
         conds = "".join(f", if {self.inline(c)}" for c in a.parts["conds"])
         out = f"{head} {self.inline(ev)}{conds}, {fin(first)}"
@@ -145,12 +148,36 @@ class En:
             return self.op(c.pred) == "cast" and isinstance(obj, PhrasePlan) and obj.ref == "self"
         return all(once(c) for c in clauses)
 
+    _limit_kind = "activate"
+
     def ab_activated(self, a: AbilityPlan) -> str:
+        self._limit_kind = "activate"
         costs = ", ".join(cap(self.cost(c)) for c in a.parts["cost"])
         out = f"{costs}: {self.text(a.parts['effect'])}"
-        for lim in a.parts["limits"]:
-            out += f" {self.text(lim)}"
+        if a.parts["limits"]:
+            out += " Activate " + " and ".join(self.limit(l) for l in a.parts["limits"]) + "."
         return out
+
+    def limit(self, l) -> str:
+        """only as a sorcery / only once each turn / only if … / only during your turn."""
+        if isinstance(l, SentencePlan):
+            return " and ".join(self.limit(c) for c in l.clauses)
+        if not isinstance(l, ClausePlan):
+            return gap("limit")
+        obj, t = self.arg(l, "object"), self.arg(l, "time")
+        if t is not None:
+            if t.items and isinstance(t.items[0], A.Bound):
+                return "only once each turn"
+            return f"only during {self.time(t)}"
+        if isinstance(obj, PhrasePlan) and obj.heads and getattr(obj.heads[0], "glyph", "") == "✎":
+            return "only as a sorcery"
+        return f"only if {self.condition(obj)}"
+
+    def condition(self, c) -> str:
+        """A condition clause: perfect / past tense for things that happened ("you've scried this turn")."""
+        if isinstance(c, A.Compare):
+            return self.compare(c)
+        return self.inline(c)
 
     def cost(self, c) -> str:
         if isinstance(c, A.Mana):
@@ -276,6 +303,8 @@ class En:
         if c.subject is None:
             return "", False
         s = c.subject
+        if not isinstance(s, PhrasePlan):
+            return self.value(s), True
         third = s.ref != "you" and s.number == "sg"
         return self.np(s, role="subject"), third
 
@@ -372,9 +401,42 @@ class En:
                 self._damage_dest = False
         if hop == "counter":
             return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest)}"
-        if isinstance(dest, A.Zone) and dest.zone.glyph == "⊘":
-            return f"{self.verb(dest.zone, third)} {self.np(obj, moving=True)}"
+        if isinstance(dest, A.Zone):
+            return self.move(obj, dest, third)
         return gap("transfer")
+
+    def from_zone(self, obj) -> A.Zone | None:
+        if not isinstance(obj, PhrasePlan):
+            return None
+        for slot, f in obj.mods:
+            if slot == "filters":
+                for flt in f:
+                    for c in getattr(flt, "conds", ()):
+                        if isinstance(c, A.Zone):
+                            return c
+        return None
+
+    def move(self, obj, dest: A.Zone, third: bool) -> str:
+        """Zone changes: exile X / return X to … / put X into / onto / on top of …"""
+        z = dest.zone.glyph
+        src = self.from_zone(obj)
+        o = self.np(obj, moving=True)
+        put = "puts" if third else "put"
+        ret = "returns" if third else "return"
+        if z == "⊘":
+            return f"{self.verb(dest.zone, third)} {o}"
+        if z == "▦":
+            if src is not None and src.zone.glyph == "⚰":
+                return f"{ret} {o} to the battlefield"
+            return f"{put} {o} onto the battlefield"
+        if z == "☚":
+            if src is None or src.zone.glyph in ("▦", "⚰"):
+                return f"{ret} {o} to {self.zone(dest, obj)}"
+            return f"{put} {o} into {self.zone(dest, obj)}"
+        if z == "▤" and dest.pos is not None:
+            where = "on top of" if dest.pos.glyph == "⌃" else "on the bottom of"
+            return f"{put} {o} {where} {self.zone(dest, obj, bare=True)}"
+        return f"{put} {o} into {self.zone(dest, obj)}"
 
     def counter_np(self, p: PhrasePlan) -> str:
         kind = p.heads[1] if len(p.heads) > 1 else None
@@ -426,7 +488,11 @@ class En:
         if not isinstance(p, PhrasePlan):
             return self.value(p)
         if p.ref == "self":
-            return "it" if p.pronoun and p.self_as == "permanent" else self_phrase(self.ctx, self.lex, p.self_as)
+            if p.pronoun and p.self_as == "permanent":
+                return "it"
+            words = self_phrase(self.ctx, self.lex, p.self_as)
+            z = self.from_zone(p) if moving else None
+            return f"{words} from {self.zone(z)}" if z is not None else words
         if p.ref == "you":
             return "you"
         if p.ref == "anaphor":
@@ -443,6 +509,8 @@ class En:
                     else "controls"
                 return f"{self.np(who, role='subject')} {verb} {self.np(rest)}"
         pre, post = self.modifiers(p, moving)
+        another = "another" in pre
+        pre = [w for w in pre if w != "another"]
         noun = self.premodified(pre, self.head_words(p))
         quant = self._mod(p, "quant")
         target = quant is not None and self.op(quant) == "target"
@@ -452,7 +520,7 @@ class En:
             n = count.value if isinstance(count, A.Bound) else count
             out = f"up to {self.number(n)} {core}"
         elif q == "one":
-            out = core if target else f"{article(core)} {core}"
+            out = f"another {core}" if another else (core if target else f"{article(core)} {core}")
         elif q == "each":
             out = f"each {core}" if role == "subject" or self.is_player(p) or self._damage_dest else \
                 f"all {self.head_words(dataclasses_replace(p, number='pl'))}"
@@ -493,6 +561,23 @@ class En:
             out += w
         return f"{out} {noun}".strip()
 
+    def of(self, v: A.Of) -> str:
+        """"its controller", "your opponents' …", "Fblthp's owner"."""
+        noun = self.w(v.rel, "noun")
+        return f"{self.possessive(v.of)} {noun}"
+
+    def possessive(self, x) -> str:
+        if isinstance(x, PhrasePlan):
+            if x.ref == "you":
+                return "your"
+            if x.ref == "anaphor":
+                return "their" if self.is_player(x.antecedent) else "its"
+            if x.ref == "self" and x.pronoun:
+                return "its"
+            words = self.np(x)
+            return words + ("'" if words.endswith("s") and x.number == "pl" else "'s")
+        return gap("possessive")
+
     def is_player(self, p) -> bool:
         return isinstance(p, PhrasePlan) and any(
             isinstance(h, A.SymRef) and self.g.symbols[h.index].syntax.get("kind") == "player" for h in p.heads)
@@ -530,6 +615,10 @@ class En:
                     words.append(lx.get("pl") or gap(f"{h.glyph}.pl"))
                 else:
                     words.append(lx.get("noun") or gap(f"{h.glyph}.noun"))
+            elif isinstance(h, A.Or):
+                joiner = " and " if p.quantity in ("each", "all") or p.number == "pl" else " or "
+                sub = [self.head_words(dataclasses_replace(p, heads=(x,))) for x in h.items]
+                words.append(joiner.join(sub))
             else:
                 words.append(self.value(h))
         if token:
@@ -553,6 +642,9 @@ class En:
 
     def premodifier(self, cond) -> str | None:
         """A filter condition written before the noun (non-creature, 2/2, white, legendary), else None."""
+        if isinstance(cond, A.Rel) and self.op(cond.rel) == "other" and isinstance(cond.other, PhrasePlan) \
+                and cond.other.ref == "self":
+            return "another"
         if isinstance(cond, A.Not) and isinstance(cond.item, PhrasePlan) and cond.item.quantity == "kind":
             return "non" + self.head_words(cond.item)
         if isinstance(cond, PhrasePlan) and cond.quantity == "kind" and cond.ref == "new" and not cond.mods:
@@ -585,16 +677,162 @@ class En:
             return f"{self.np(who, role='subject')} {'controls' if getattr(who, 'number', 'sg') == 'sg' else 'control'}"
         if isinstance(cond, A.Zone):
             return f"{'from' if moving else 'in'} {self.zone(cond)}"
+        if isinstance(cond, A.Compare):
+            return self.compare(cond, in_filter=True)
         return gap(f"filter:{getattr(cond, 'kind', type(cond).__name__)}")
 
-    def zone(self, z: A.Zone) -> str:
+    def zone(self, z: A.Zone, obj=None, bare: bool = False) -> str:
         noun = self.w(z.zone, "noun")
-        if z.owner is None:
-            return f"{article(noun)} {noun}" if z.zone.glyph in ("⚰", "▤", "☚") else noun
+        if z.pos is not None and not bare:
+            n = z.count
+            if n is None or (isinstance(n, A.Num) and n.value == 1):
+                card = "the top card" if z.pos.glyph == "⌃" else "the bottom card"
+            else:
+                card = f"the {'top' if z.pos.glyph == '⌃' else 'bottom'} {self.number(n)} cards"
+            return f"{card} of {self.zone(dataclasses_replace(z, pos=None, count=None), obj)}"
         owner = z.owner
-        if isinstance(owner, PhrasePlan) and owner.ref == "you":
-            return f"your {noun}"
-        return gap("zone-owner")
+        if owner is None:
+            if z.zone.glyph in ("⚰", "▤", "☚"):
+                return f"{article(noun)} {noun}"
+            return f"the {noun}" if z.zone.glyph == "▦" else noun
+        if isinstance(owner, A.SymRef) and self.op(owner) == "own":
+            pron = "their" if obj is not None and getattr(obj, "number", "sg") == "pl" else "its"
+            return f"{pron} owner's {noun}" if not (obj is not None and getattr(obj, "number", "sg") == "pl") \
+                else f"their owners' {self.w(z.zone, 'pl', noun)}"
+        return f"{self.possessive(owner)} {noun}"
+
+    # ------------------------------------------------------------ comparisons
+    BOUND_WORDS = {"≤": ("or less", "less than or equal to"), "≥": ("or greater", "greater than or equal to"),
+                   "=": ("", "equal to"), ">": ("", "greater than"), "<": ("", "less than")}
+
+    def char_name(self, ch: A.Characteristic) -> str:
+        return self.w(ch.char, "noun")
+
+    def bound(self, op: str, v) -> str:
+        """"3 or less", "less than or equal to the amount …", "equal to that number plus 1"."""
+        short, long = self.BOUND_WORDS.get(op, ("", gap(f"op:{op}")))
+        if isinstance(v, (A.Num, A.Var)) and short:
+            return f"{self.value(v)} {short}"
+        if isinstance(v, (A.Num, A.Var)) and op == "=":
+            return self.value(v)
+        return f"{long} {self.value(v)}"
+
+    def compare(self, c: A.Compare, in_filter: bool = False) -> str:
+        if len(c.items) != 2 or len(c.ops) != 1:
+            return gap("compare")
+        a, b = c.items
+        op = c.ops[0].glyph
+        if isinstance(a, A.Characteristic) and a.of is None:
+            return f"{'with ' if in_filter else ''}{self.char_name(a)} {self.bound(op, b)}"
+        if isinstance(a, A.Characteristic):
+            return f"{self.possessive(a.of)} {self.char_name(a)} is {self.bound(op, b)}"
+        if isinstance(a, A.Count) and isinstance(b, A.Num):
+            return self.count_cond(a, op, b)
+        return gap("compare")
+
+    def count_cond(self, a: A.Count, op: str, b: A.Num) -> str:
+        n = self.number(b)
+        qty = {"≥": f"{n} or more", "≤": f"{n} or fewer", "=": n}.get(op, gap(f"op:{op}"))
+        of = a.of
+        if isinstance(of, ClausePlan) and isinstance(of.pred, A.SymRef):
+            by = self.arg(of, "by")
+            t = self.arg(of, "time")
+            when = f" {self.time(t)}" if t is not None else ""
+            if of.subject is not None:
+                return f"{qty} {self.np(of.subject)} {self.w(of.pred, 'ed')}{when}"
+            if isinstance(by, PhrasePlan) and by.ref == "you":
+                counted = self.lex.sym(of.pred.index).get("noun", "")
+                past = self.w(of.pred, "pp", "") or self.w(of.pred, "ed")
+                return f"you've {past} {qty} {counted}s{when}".replace("  ", " ")
+            return gap("count-of")
+        if isinstance(of, PhrasePlan):
+            ctl = self.control_rel(of)
+            plural = dataclasses_replace(of, number="pl", quantity="all")
+            if ctl is not None:
+                rest = dataclasses_replace(plural, mods=self._without(of.mods, ctl))
+                if op == "=" and b.value == 0:
+                    return f"{self.np(ctl.other, role='subject')} control no {self.np(rest)}"
+                return f"{self.np(ctl.other, role='subject')} control {qty} {self.np(rest)}"
+            z = self.from_zone(of)
+            if z is not None:
+                rest = dataclasses_replace(plural, mods=self._without(of.mods, z))
+                if op == "=" and b.value == 0:
+                    return f"{self.zone(z)} has no {self.np(rest)} in it"
+                return f"there are {qty} {self.np(rest)} in {self.zone(z)}"
+        return gap("count-of")
+
+    # ------------------------------------------------------------ time
+    PHASES = frozenset({"☾", "☼", "⨯", "☉", "◒", "⤓"})
+
+    def phase_noun(self, s: A.SymRef) -> str:
+        return "draw step" if s.glyph == "⤓" else self.w(s, "noun")
+
+    def time(self, t: A.Time) -> str:
+        """Time phrases: until end of turn, this turn, the beginning of your end step, …"""
+        items = list(t.items)
+        g = [x.glyph if isinstance(x, A.SymRef) else None for x in items]
+        if g == ["⧗"]:
+            return self.w(items[0], "word")
+        if g and g[0] == "⧗":
+            return f"until the end of {self.time(A.Time(items=tuple(items[1:])))}"
+        if g and g[0] == "⊢":
+            return f"the beginning of {self.period(items[1:])}"
+        return self.period(items)
+
+    def period(self, items: list) -> str:
+        g = [x.glyph if isinstance(x, A.SymRef) else None for x in items]
+        owner = items[-1] if items and isinstance(items[-1], (PhrasePlan, A.Of)) else None
+        if owner is not None:
+            items, g = items[:-1], g[:-1]
+        each = bool(g) and g[0] == "∀"
+        if each:
+            items, g = items[1:], g[1:]
+        nxt = bool(g) and g[0] == "▷"
+        last = bool(g) and g[0] == "◁"
+        if nxt or last:
+            items, g = items[1:], g[1:]
+        bound = items[0] if items and isinstance(items[0], A.Bound) else None
+        if bound is not None:
+            items, g = items[1:], g[1:]
+        num = items[0] if items and isinstance(items[0], A.Num) else None
+        phase = items[0] if items and g[0] in self.PHASES else None
+        turn = "◷" in g
+        if phase is not None:
+            noun = self.phase_noun(phase)
+            if num is not None:
+                noun = f"{['', 'first', 'second'][num.value] if num.value < 3 else num.value} {noun}"
+            if owner is not None and phase.glyph == "⨯":
+                return f"combat on {self.possessive(owner)} turn"
+            if owner is not None:
+                if each:
+                    return f"each {self.np(owner)}'s {noun}"
+                return f"{self.possessive(owner)} {noun}"
+            if nxt:
+                return f"the next {noun}" + (" this turn" if turn else "")
+            if turn:
+                return f"{noun} this turn"
+            return f"each {noun}" if not each else f"each {noun}"
+        if num is not None and len(items) > 1:
+            items = items[1:]
+        if turn:
+            if bound is not None:
+                return "each turn" if owner is None else f"each of {self.possessive(owner)} turns"
+            if owner is not None:
+                if each:
+                    return f"each of {self.possessive(owner)} turns"
+                if nxt:
+                    return f"{self.possessive(owner)} next turn"
+                return f"{self.possessive(owner)} turn"
+            if each:
+                return "each turn"
+            if last:
+                return "last turn"
+            return "this turn"
+        if g == ["⧗"] and each:
+            return "each end of turn"
+        if g == ["∞"]:
+            return "this game"
+        return gap("time")
 
     # ------------------------------------------------------------ values
     def value(self, v) -> str:
@@ -607,9 +845,13 @@ class En:
         if isinstance(v, A.Mana):
             return v.text
         if isinstance(v, A.Time):
-            if len(v.items) == 1 and isinstance(v.items[0], A.SymRef):
-                return self.lex.sym(v.items[0].index).get("word") or gap(f"{v.items[0].glyph}.word")
-            return gap("time")
+            if v.items and isinstance(v.items[0], A.Bound) and self._limit_kind == "trigger":
+                return "this ability triggers only once each turn"
+            return self.time(v)
+        if isinstance(v, A.Compare):
+            return self.compare(v)
+        if isinstance(v, A.Of):
+            return self.of(v)
         if isinstance(v, A.Count):
             return f"the number of {self.np(v.of)}"
         if isinstance(v, PhrasePlan):

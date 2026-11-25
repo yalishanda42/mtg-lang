@@ -33,6 +33,19 @@ MUST_MATCH = [
     "fra/bloombrute#0.1",
     "fra/ajanis-anguish#0.0",
     "fra/charge-the-sanctum#0.2",
+    # Task 7: noun phrases, zones, time, comparisons
+    "fra/darklight-phoenix#0.1",
+    "fra/jiang-yanggu-never-alone#0.1",
+    "fra/blessed-ghoul#0.1",
+    "fra/diviner-of-victory-unwind-history#1.0",
+    "fra/edgar-ancient-bloodlord#0.0",
+    "fra/greenhouse-propagator#0.0",
+    "fra/cryotheory-adept#0.1",
+    "fra/rescue-girl-first-responder#0.1",
+    "fra/solarium-sentry#0.0",
+    "fra/fatehold-charm#0.2",
+    "fra/unsummon#0.0",
+    "fra/craftwork-crusher#0.1",
 ]
 
 

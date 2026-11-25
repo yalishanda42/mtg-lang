@@ -15,16 +15,16 @@
 - {glyph: ●, ascii: Yu, class: player, syntax: {kind: player, op: you}, labels: {en: you, bg: ти, bg-ivanchev: ти}, lex: {en: {word: you, poss: your}}}
 - {glyph: ○, ascii: Op, class: player, labels: {en: an opponent, bg: противник, bg-ivanchev: противникъ}, lex: {en: {noun: opponent, pl: opponents}}}
 - {glyph: ◐, ascii: Pp, class: player, labels: {en: a player, bg: играч, bg-ivanchev: играчъ}, lex: {en: {noun: player, pl: players}}}
-- {glyph: ⚑, ascii: Ct, class: player, syntax: {kind: relation, op: control}, labels: {en: controller / controls, bg: владетел / владее, bg-ivanchev: владѣтель / владѣе}}
-- {glyph: ⌂, ascii: Ow, class: player, syntax: {kind: relation, op: own}, labels: {en: owner / owns, bg: стопанин / притежава, bg-ivanchev: стопанинъ / притежава}}
+- {glyph: ⚑, ascii: Ct, class: player, syntax: {kind: relation, op: control}, labels: {en: controller / controls, bg: владетел / владее, bg-ivanchev: владѣтель / владѣе}, lex: {en: {noun: controller, verb: control, s: controls}}}
+- {glyph: ⌂, ascii: Ow, class: player, syntax: {kind: relation, op: own}, labels: {en: owner / owns, bg: стопанин / притежава, bg-ivanchev: стопанинъ / притежава}, lex: {en: {noun: owner, verb: own, s: owns}}}
 - {glyph: ∀, ascii: Al, class: logic, syntax: {kind: quantifier, op: each}, labels: {en: each / all, bg: всеки / всички, bg-ivanchev: всѣки / всички}}
 - {glyph: ◎, ascii: Tg, class: logic, syntax: {kind: quantifier, op: target}, labels: {en: target, bg: нишан, bg-note: 'нишан (тур.) — мишена, прицел; така у Вазов', bg-ivanchev: нишанъ}}
 - {glyph: '?', ascii: '?', class: logic, syntax: {kind: marker, op: may}, labels: {en: may / can, bg: може, bg-ivanchev: може}}
-- {glyph: ⊻, ascii: Ch, class: logic, syntax: {kind: verb, op: choose, args: [amount, object]}, labels: {en: choose, bg: избери, bg-ivanchev: избери}}
+- {glyph: ⊻, ascii: Ch, class: logic, syntax: {kind: verb, op: choose, args: [amount, object]}, labels: {en: choose, bg: избери, bg-ivanchev: избери}, lex: {en: {verb: choose, s: chooses}}}
 - {glyph: ∧, ascii: '&', class: logic, syntax: {kind: infix, op: and}, labels: {en: and, bg: и, bg-ivanchev: и}}
 - {glyph: ∨, ascii: or, class: logic, syntax: {kind: infix, op: or}, labels: {en: or, bg: или, bg-ivanchev: или}}
 - {glyph: ¬, ascii: '~', class: logic, syntax: {kind: prefix, op: not}, labels: {en: not / non-, bg: не / не-, bg-ivanchev: не / не-}}
-- {glyph: ∈, ascii: in, class: logic, syntax: {kind: verb, op: is, args: [types, player]}, labels: {en: is a, bg: е, bg-ivanchev: е}}
+- {glyph: ∈, ascii: in, class: logic, syntax: {kind: verb, op: is, args: [types, player]}, labels: {en: is a, bg: е, bg-ivanchev: е}, lex: {en: {verb: be, s: is}}}
 - {glyph: ⊃, ascii: if, class: logic, syntax: {kind: infix, op: if}, labels: {en: if … then, bg: ако … то, bg-ivanchev: ако … то}}
 - {glyph: ∵, ascii: wl, class: logic, syntax: {kind: infix, op: while}, labels: {en: as long as, bg: докле, bg-note: докле — докато, bg-ivanchev: докле}}
 - {glyph: ✓, ascii: ok, class: logic, syntax: {kind: marker, op: did}, labels: {en: if you do, bg: сториш ли го, bg-ivanchev: сторишъ ли го}}
@@ -38,13 +38,13 @@
 - {glyph: ≥, ascii: '>=', class: comparison, syntax: {kind: comparison, op: at_least}, labels: {en: at least, bg: най-малко, bg-ivanchev: най-малко}}
 - {glyph: ×, ascii: '**', class: comparison, syntax: {kind: infix, op: times}, labels: {en: times, bg: пъти, bg-ivanchev: пѫти}}
 - {glyph: ≢, ascii: Dn, class: comparison, syntax: {kind: marker, op: distinct}, labels: {en: with different names, bg: с различни имена, bg-ivanchev: съ различни имена}}
-- {glyph: △, ascii: Po, class: characteristic, labels: {en: power, bg: мощ, bg-ivanchev: мощь}}
-- {glyph: ▽, ascii: To, class: characteristic, labels: {en: toughness, bg: якост, bg-ivanchev: якость}}
-- {glyph: ⌀, ascii: Mv, class: characteristic, labels: {en: mana value, bg: стойност в мана, bg-ivanchev: стойность въ мана}}
+- {glyph: △, ascii: Po, class: characteristic, labels: {en: power, bg: мощ, bg-ivanchev: мощь}, lex: {en: {noun: power}}}
+- {glyph: ▽, ascii: To, class: characteristic, labels: {en: toughness, bg: якост, bg-ivanchev: якость}, lex: {en: {noun: toughness}}}
+- {glyph: ⌀, ascii: Mv, class: characteristic, labels: {en: mana value, bg: стойност в мана, bg-ivanchev: стойность въ мана}, lex: {en: {noun: mana value}}}
 - {glyph: ⊤, ascii: Ty, class: characteristic, syntax: {kind: characteristic, op: types}, labels: {en: subtypes among, bg: подвидове измежду, bg-ivanchev: подвидове измежду}}
-- {glyph: ♦, ascii: c., class: characteristic, labels: {en: color, bg: цвят, bg-ivanchev: цвѣтъ}}
+- {glyph: ♦, ascii: c., class: characteristic, labels: {en: color, bg: цвят, bg-ivanchev: цвѣтъ}, lex: {en: {noun: color, pl: colors}}}
 - {glyph: ∅, ascii: Nl, class: characteristic, syntax: {kind: characteristic, op: none}, labels: {en: colorless / none, bg: безцветно / нищо, bg-ivanchev: безцвѣтно / нищо}}
-- {glyph: ◆, ascii: Am, class: characteristic, syntax: {kind: characteristic, op: anymana}, labels: {en: mana of any one color, bg: мана от кой да е един цвят, bg-ivanchev: мана отъ кой да е единъ цвѣтъ}}
+- {glyph: ◆, ascii: Am, class: characteristic, syntax: {kind: characteristic, op: anymana}, labels: {en: mana of any one color, bg: мана от кой да е един цвят, bg-ivanchev: мана отъ кой да е единъ цвѣтъ}, lex: {en: {noun: mana of any one color}}}
 - {glyph: ◇, ascii: Lo, role: loyalty, class: stat, syntax: {kind: stat}, labels: {en: Loyalty, bg: Вярност, bg-ivanchev: Вѣрность}, lex: {en: {noun: loyalty}}}
 - {glyph: ⛨, ascii: De, role: defense, class: stat, syntax: {kind: stat}, labels: {en: Defense, bg: Отбрана, bg-ivanchev: Отбрана}}
 - {glyph: ♞, ascii: Cr, class: type, labels: {en: Creature, bg: Твар, bg-ivanchev: Тварь}, lex: {en: {noun: creature, pl: creatures}}}
@@ -67,17 +67,17 @@
 - {glyph: ⚰, ascii: Gy, class: zone, labels: {en: graveyard, bg: гробище, bg-ivanchev: гробище}, lex: {en: {noun: graveyard, pl: graveyards}}}
 - {glyph: ⊘, ascii: Xl, class: zone, labels: {en: exile, bg: заточение, bg-ivanchev: заточение}, lex: {en: {noun: exile, verb: exile, s: exiles}}}
 - {glyph: ≣, ascii: Sk, class: zone, labels: {en: stack, bg: купчина, bg-ivanchev: купчина}}
-- {glyph: ↥, ascii: ^, class: action, syntax: {kind: verb, args: [with]}, labels: {en: enters (the battlefield), bg: встъпва (на бойното поле), bg-ivanchev: встѫпва (на бойното поле)}, lex: {en: {verb: enter, s: enters}}}
-- {glyph: ☠, ascii: Di, class: action, labels: {en: dies, bg: загива, bg-ivanchev: загива}, lex: {en: {verb: die, s: dies}}}
-- {glyph: ➹, ascii: At, class: action, syntax: {state: true}, labels: {en: attacks, bg: напада, bg-ivanchev: напада}, lex: {en: {verb: attack, s: attacks, adj: attacking}}}
+- {glyph: ↥, ascii: ^, class: action, syntax: {kind: verb, args: [with]}, labels: {en: enters (the battlefield), bg: встъпва (на бойното поле), bg-ivanchev: встѫпва (на бойното поле)}, lex: {en: {verb: enter, s: enters, ed: entered}}}
+- {glyph: ☠, ascii: Di, class: action, labels: {en: dies, bg: загива, bg-ivanchev: загива}, lex: {en: {verb: die, s: dies, ed: died}}}
+- {glyph: ➹, ascii: At, class: action, syntax: {state: true}, labels: {en: attacks, bg: напада, bg-ivanchev: напада}, lex: {en: {verb: attack, s: attacks, adj: attacking, ed: attacked, pp: attacked}}}
 - {glyph: ⛉, ascii: Bk, class: action, labels: {en: blocks, bg: препречва, bg-ivanchev: прѣпрѣчва}, lex: {en: {verb: block, s: blocks, adj: blocking}}}
-- {glyph: ✷, ascii: Cs, class: action, syntax: {op: cast}, labels: {en: cast, bg: изречи, bg-ivanchev: изрѣчи}, lex: {en: {verb: cast, s: casts, ed: cast}}}
+- {glyph: ✷, ascii: Cs, class: action, syntax: {op: cast}, labels: {en: cast, bg: изречи, bg-ivanchev: изрѣчи}, lex: {en: {verb: cast, s: casts, ed: cast, pp: cast}}}
 - {glyph: ↷, ascii: Tp, class: action, syntax: {state: true}, labels: {en: tap / tapped, bg: наклони / наклонен, bg-ivanchev: наклони / наклоненъ}, lex: {en: {verb: tap, s: taps, ed: tapped}}}
 - {glyph: ↶, ascii: Un, class: action, labels: {en: untap, bg: изправи, bg-ivanchev: изправи}, lex: {en: {verb: untap, s: untaps, ed: untapped}}}
 - {glyph: ▶, ascii: Pl, class: action, labels: {en: play, bg: изиграй, bg-ivanchev: изиграй}, lex: {en: {verb: play, s: plays}}}
-- {glyph: ⤓, ascii: Dr, class: action, syntax: {yields: true}, labels: {en: draw, bg: изтегли, bg-ivanchev: изтегли}, lex: {en: {verb: draw, s: draws, noun: card}}}
+- {glyph: ⤓, ascii: Dr, class: action, syntax: {yields: true}, labels: {en: draw, bg: изтегли, bg-ivanchev: изтегли}, lex: {en: {verb: draw, s: draws, noun: card, ed: drew, pp: drawn}}}
 - {glyph: ✖, ascii: Ds, class: action, labels: {en: destroy, bg: погуби, bg-ivanchev: погуби}, lex: {en: {verb: destroy, s: destroys}}}
-- {glyph: ✝, ascii: Sc, class: action, labels: {en: sacrifice, bg: принеси в жертва, bg-ivanchev: принеси въ жертва}, lex: {en: {verb: sacrifice, s: sacrifices}}}
+- {glyph: ✝, ascii: Sc, class: action, labels: {en: sacrifice, bg: принеси в жертва, bg-ivanchev: принеси въ жертва}, lex: {en: {verb: sacrifice, s: sacrifices, ed: sacrificed, pp: sacrificed}}}
 - {glyph: →, ascii: ~>, class: action, syntax: {kind: verb, op: transfer, args: [object, destination]}, labels: {en: put into / onto / deal to, bg: сложи в / на · нанеси на, bg-ivanchev: сложи въ / на · нанеси на}}
 - {glyph: ⊕, ascii: Ad, class: action, syntax: {kind: verb, args: [amount, mana], state: true}, labels: {en: add (mana), bg: прибави (мана), bg-ivanchev: прибави (мана)}, lex: {en: {verb: add, s: adds}}}
 - {glyph: ✸, ascii: Dg, class: action, syntax: {kind: object, op: damage}, labels: {en: damage, bg: щета, bg-ivanchev: щета}, lex: {en: {noun: damage}}}
@@ -90,12 +90,12 @@
 - {glyph: ⌖, ascii: Se, class: action, syntax: {kind: verb, args: [zone, object]}, labels: {en: search, bg: потърси, bg-ivanchev: потърси}, lex: {en: {verb: search, s: searches}}}
 - {glyph: ◉, ascii: Rv, class: action, labels: {en: reveal, bg: покажи, bg-ivanchev: покажи}, lex: {en: {verb: reveal, s: reveals}}}
 - {glyph: ⟲, ascii: Sh, class: action, labels: {en: shuffle, bg: разбъркай, bg-ivanchev: разбъркай}, lex: {en: {verb: shuffle, s: shuffles}}}
-- {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}}
+- {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}, lex: {en: {verb: cost less, s: costs less}}}
 - {glyph: ⊹, ascii: Ac, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: additional cost, bg: допълнителна цена, bg-ivanchev: допълнителна цѣна}}
 - {glyph: ⇄, ascii: Gc, class: action, labels: {en: gain control, bg: завладей, bg-ivanchev: завладѣй}}
-- {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлѣгъ)}}
+- {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлѣгъ)}, lex: {en: {noun: promotion}}}
 - {glyph: ⧗, ascii: Ue, class: time, labels: {en: until end of turn, bg: до края на хода, bg-ivanchev: до края на хода}, lex: {en: {word: until end of turn}}}
-- {glyph: ◷, ascii: Tn, class: time, syntax: {kind: time, op: turn}, labels: {en: 'turn (◷ this turn, ◷● your turn)', bg: 'ход (◷ тоя ход, ◷● твоят ход)', bg-ivanchev: 'ходъ (◷ тоя ходъ, ◷● твоятъ ходъ)'}}
+- {glyph: ◷, ascii: Tn, class: time, syntax: {kind: time, op: turn}, labels: {en: 'turn (◷ this turn, ◷● your turn)', bg: 'ход (◷ тоя ход, ◷● твоят ход)', bg-ivanchev: 'ходъ (◷ тоя ходъ, ◷● твоятъ ходъ)'}, lex: {en: {noun: turn, pl: turns}}}
 - {glyph: ≡, ascii: ==, class: time, syntax: {kind: verb, op: only, args: [object], state: true}, labels: {en: only as (≡✎ = only as a sorcery), bg: само като (≡✎ = само като чародейство), bg-ivanchev: само като (≡✎ = само като чародѣйство)}}
 - {glyph: 🪽, ascii: F, class: keyword, labels: {en: Flying, bg: Крилатост, bg-ivanchev: Крилатость}, oracle: Flying, definition: '♞[¬(🪽 ∨ ⇞)] ¬⛉ ◈'}
 - {glyph: ⊙, ascii: V, class: keyword, labels: {en: Vigilance, bg: Будност, bg-ivanchev: Будность}, oracle: Vigilance, definition: ◈➹ ¬↷}
@@ -117,19 +117,19 @@
 - {glyph: ⋈, ascii: Cv, class: keyword, labels: {en: Convoke, bg: Сбор, bg-note: 'Convoke — „свикване, сбор“ на твари', bg-ivanchev: Сборъ}, oracle: Convoke}
 - {glyph: ♲, ascii: Cy, class: keyword, labels: {en: Cycling, bg: Обмяна, bg-ivanchev: Обмѣна}, oracle: Cycling}
 - {glyph: ⤋, ascii: Mi, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Mill, bg: Смели, bg-note: Mill — „смели“ (горните карти отиват в гробището), bg-ivanchev: Смели}, oracle: Mill, definition: ▤● → ⚰●, lex: {en: {verb: mill, s: mills, noun: card}}}
-- {glyph: ⌕, ascii: Sv, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Surveil, bg: Съгледай, bg-note: Surveil — „съгледай“ (съглядвач), bg-ivanchev: Съгледай}, oracle: Surveil, lex: {en: {verb: surveil, s: surveils}}}
-- {glyph: ⊶, ascii: Sy, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Scry, bg: Гадай, bg-note: Scry — „гадай“ (гадател), bg-ivanchev: Гадай}, oracle: Scry, lex: {en: {verb: scry, s: scries}}}
-- {glyph: ⚔, ascii: Fi, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Fight, bg: Бий се, bg-ivanchev: Бий се}, oracle: Fight, definition: ◈ ✸◈△ → ☞ ∧ ☞ ✸☞△ → ◈}
-- {glyph: ⇝, ascii: Xp, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Explore, bg: Издири, bg-ivanchev: Издири}, oracle: Explore}
-- {glyph: ⌗, ascii: Iv, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Investigate, bg: Разучи, bg-ivanchev: Разучи}, oracle: Investigate, definition: ✚ ◌«Clue»}
-- {glyph: ⁜, ascii: Pf, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Proliferate, bg: Размножи, bg-ivanchev: Размножи}, oracle: Proliferate}
+- {glyph: ⌕, ascii: Sv, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Surveil, bg: Съгледай, bg-note: Surveil — „съгледай“ (съглядвач), bg-ivanchev: Съгледай}, oracle: Surveil, lex: {en: {verb: surveil, s: surveils, ed: surveilled, pp: surveilled}}}
+- {glyph: ⊶, ascii: Sy, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Scry, bg: Гадай, bg-note: Scry — „гадай“ (гадател), bg-ivanchev: Гадай}, oracle: Scry, lex: {en: {verb: scry, s: scries, ed: scried, pp: scried}}}
+- {glyph: ⚔, ascii: Fi, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Fight, bg: Бий се, bg-ivanchev: Бий се}, oracle: Fight, definition: ◈ ✸◈△ → ☞ ∧ ☞ ✸☞△ → ◈, lex: {en: {verb: fight, s: fights}}}
+- {glyph: ⇝, ascii: Xp, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Explore, bg: Издири, bg-ivanchev: Издири}, oracle: Explore, lex: {en: {verb: explore, s: explores}}}
+- {glyph: ⌗, ascii: Iv, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Investigate, bg: Разучи, bg-ivanchev: Разучи}, oracle: Investigate, definition: ✚ ◌«Clue», lex: {en: {verb: investigate, s: investigates}}}
+- {glyph: ⁜, ascii: Pf, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Proliferate, bg: Размножи, bg-ivanchev: Размножи}, oracle: Proliferate, lex: {en: {verb: proliferate, s: proliferates}}}
 - {glyph: ⊜, ascii: Af, class: keyword, labels: {en: Affinity, bg: Сродство, bg-ivanchev: Сродство}, oracle: Affinity}
-- {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate, bg: Погълни, bg-note: Assimilate (Borg) — „погълни“, bg-ivanchev: Погълни}, oracle: Assimilate}
+- {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate, bg: Погълни, bg-note: Assimilate (Borg) — „погълни“, bg-ivanchev: Погълни}, oracle: Assimilate, lex: {en: {verb: assimilate, s: assimilates}}}
 - {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристанъ}, oracle: Station}
-- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared}
-- {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma, bg: Изправи се пред кръстопът, bg-note: Face a dilemma, bg-ivanchev: Изправи се прѣдъ кръстопѫть}, oracle: Face a dilemma}
-- {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace, bg: Дай мощ на Джейс, bg-ivanchev: Дай мощь на Джейсъ}, oracle: Empower Jace}
-- {glyph: ⟐, ascii: Bh, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Behold, bg: Узри, bg-note: Behold — „узри“, bg-ivanchev: Узри}, oracle: Behold}
+- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared, lex: {en: {ed: prepared}}}
+- {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma, bg: Изправи се пред кръстопът, bg-note: Face a dilemma, bg-ivanchev: Изправи се прѣдъ кръстопѫть}, oracle: Face a dilemma, lex: {en: {verb: face a dilemma, s: faces a dilemma, ed: faced a dilemma, pp: faced a dilemma}}}
+- {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace, bg: Дай мощ на Джейс, bg-ivanchev: Дай мощь на Джейсъ}, oracle: Empower Jace, lex: {en: {verb: empower Jace, s: empowers Jace}}}
+- {glyph: ⟐, ascii: Bh, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Behold, bg: Узри, bg-note: Behold — „узри“, bg-ivanchev: Узри}, oracle: Behold, lex: {en: {verb: behold, s: beholds}}}
 - {glyph: ⇯, ascii: BU, class: keyword, labels: {en: Beam me up, bg: Вдигни ме горе, bg-note: Beam me up (Star Trek), bg-ivanchev: Вдигни ме горѣ}, oracle: Beam me up}
 - {glyph: ⏚, ascii: Xh, class: keyword, labels: {en: Exhaust, bg: Изтощи, bg-ivanchev: Изтощи}, oracle: Exhaust, definition: '◈ ? : ≤1'}
 - {glyph: ⚱, ascii: Th, class: ability_word, labels: {en: Threshold, bg: Праг, bg-ivanchev: Прагъ}, oracle: Threshold}
@@ -137,47 +137,47 @@
 - {glyph: ☍, ascii: Fd, class: ability_word, labels: {en: Federation, bg: Съюз, bg-note: Federation, bg-ivanchev: Съюзъ}, oracle: Federation}
 - {glyph: ✺, ascii: SN, class: ability_word, labels: {en: Strange new worlds, bg: Чудни нови светове, bg-note: Strange new worlds, bg-ivanchev: Чудни нови свѣтове}, oracle: Strange new worlds}
 - {glyph: ⬡, ascii: Do, class: ability_word, labels: {en: Domain, bg: Владение, bg-ivanchev: Владение}, oracle: Domain}
-- {glyph: ⌫, ascii: Dc, class: action, syntax: {yields: true}, labels: {en: discard, bg: отхвърли, bg-ivanchev: отхвърли}, lex: {en: {verb: discard, s: discards, noun: card}}}
+- {glyph: ⌫, ascii: Dc, class: action, syntax: {yields: true}, labels: {en: discard, bg: отхвърли, bg-ivanchev: отхвърли}, lex: {en: {verb: discard, s: discards, noun: card, ed: discarded, pp: discarded}}}
 - {glyph: ⌃, ascii: Tc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: top (of library), bg: връх (на книгохранилището), bg-ivanchev: връхъ (на книгохранилището)}}
 - {glyph: ⌄, ascii: Bc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: bottom (of library), bg: дъно (на книгохранилището), bg-ivanchev: дъно (на книгохранилището)}}
 - {glyph: ▷, ascii: Nx, class: time, syntax: {kind: time, op: next}, labels: {en: next, bg: следващ, bg-ivanchev: слѣдващъ}}
 - {glyph: ◁, ascii: Lt, class: time, syntax: {kind: time, op: last}, labels: {en: last / previous, bg: последен / предишен, bg-ivanchev: послѣденъ / прѣдишенъ}}
 - {glyph: ⊢, ascii: Bg, class: time, syntax: {kind: time, op: begin}, labels: {en: at the beginning of, bg: в началото на, bg-ivanchev: въ началото на}}
-- {glyph: ☼, ascii: Uk, class: time, labels: {en: upkeep, bg: утринна стража, bg-note: upkeep — „утринна стража“, bg-ivanchev: утринна стража}}
-- {glyph: ☾, ascii: Es, class: time, labels: {en: end step, bg: вечерна стража, bg-note: end step — „вечерна стража“, bg-ivanchev: вечерна стража}}
-- {glyph: ⨯, ascii: Cb, class: time, labels: {en: combat, bg: бой, bg-ivanchev: бой}}
+- {glyph: ☼, ascii: Uk, class: time, labels: {en: upkeep, bg: утринна стража, bg-note: upkeep — „утринна стража“, bg-ivanchev: утринна стража}, lex: {en: {noun: upkeep}}}
+- {glyph: ☾, ascii: Es, class: time, labels: {en: end step, bg: вечерна стража, bg-note: end step — „вечерна стража“, bg-ivanchev: вечерна стража}, lex: {en: {noun: end step}}}
+- {glyph: ⨯, ascii: Cb, class: time, labels: {en: combat, bg: бой, bg-ivanchev: бой}, lex: {en: {noun: combat}}}
 - {glyph: ⊣, ascii: Ut, class: time, syntax: {kind: infix, op: until}, labels: {en: until, bg: докато, bg-ivanchev: докато}}
 - {glyph: ⇑, ascii: Gr, class: comparison, syntax: {kind: prefix, op: agg}, labels: {en: greatest, bg: най-голям, bg-ivanchev: най-голѣмъ}}
 - {glyph: ÷, ascii: Pe, class: comparison, syntax: {kind: infix, op: div}, labels: {en: for every (divided by), bg: за всеки (делено на), bg-ivanchev: за всѣки (дѣлено на)}}
 - {glyph: ∃, ascii: E., class: logic, syntax: {kind: quantifier, op: exists}, labels: {en: there is / you have a, bg: има / съществува, bg-ivanchev: има / сѫществува}}
 - {glyph: ⊸, ascii: Sn, class: action, syntax: {kind: infix, op: restrict}, labels: {en: spend this mana only to, bg: харчи тая мана само за, bg-ivanchev: харчи тая мана само за}}
-- {glyph: ⊳, ascii: Av, class: action, labels: {en: activate, bg: призови, bg-note: activate — „призови“ (способност), bg-ivanchev: призови}, lex: {en: {verb: activate, s: activates}}}
+- {glyph: ⊳, ascii: Av, class: action, labels: {en: activate, bg: призови, bg-note: activate — „призови“ (способност), bg-ivanchev: призови}, lex: {en: {verb: activate, s: activates, pl: activate, pp: activated}}}
 - {glyph: ❐, ascii: Cp, class: action, syntax: {state: true}, labels: {en: copy, bg: препиши, bg-ivanchev: прѣпиши}, lex: {en: {verb: copy, s: copies}}}
 - {glyph: ↻, ascii: Nw, class: action, syntax: {kind: verb, args: [object, of]}, labels: {en: choose new / change, bg: избери нов / промени, bg-ivanchev: избери новъ / промѣни}}
 - {glyph: ⚂, ascii: Rn, class: logic, labels: {en: at random, bg: наслуки, bg-note: 'наслуки — наслука, напосоки', bg-ivanchev: наслуки}}
-- {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter), bg: вцепенение (белег), bg-ivanchev: вцепенение (бѣлѣгъ)}}
+- {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter), bg: вцепенение (белег), bg-ivanchev: вцепенение (бѣлѣгъ)}, lex: {en: {noun: stun}}}
 - {glyph: ⬢, ascii: Id, class: keyword, labels: {en: Indestructible, bg: Несъкрушимост, bg-ivanchev: Несъкрушимость}, oracle: Indestructible}
 - {glyph: ⊝, ascii: Hx, class: keyword, labels: {en: Hexproof, bg: Неприкосновеност, bg-note: Hexproof, bg-ivanchev: Неприкосновеность}, oracle: Hexproof}
 - {glyph: ∌, ascii: Ls, class: action, syntax: {kind: verb, op: has, args: [ability]}, labels: {en: loses / doesn't have, bg: губи / няма, bg-ivanchev: губи / нѣма}}
 - {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game, bg: извън играта, bg-ivanchev: извънъ играта}}
 - {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game, bg: спечели играта, bg-ivanchev: спечели играта}}
-- {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлѣгъ)}}
-- {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлѣгъ)}}
-- {glyph: ☉, ascii: Mp, class: time, syntax: {kind: time, op: phase}, labels: {en: main phase, bg: главна част, bg-ivanchev: главна часть}}
-- {glyph: ◒, ascii: Us, class: time, syntax: {kind: time, op: turn}, labels: {en: untap step, bg: изправяне, bg-ivanchev: изправяне}}
+- {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлѣгъ)}, lex: {en: {noun: charge}}}
+- {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлѣгъ)}, lex: {en: {noun: finality}}}
+- {glyph: ☉, ascii: Mp, class: time, syntax: {kind: time, op: phase}, labels: {en: main phase, bg: главна част, bg-ivanchev: главна часть}, lex: {en: {noun: main phase}}}
+- {glyph: ◒, ascii: Us, class: time, syntax: {kind: time, op: turn}, labels: {en: untap step, bg: изправяне, bg-ivanchev: изправяне}, lex: {en: {noun: untap step}}}
 - {glyph: '>', ascii: '>', class: comparison, syntax: {kind: comparison}, labels: {en: greater than, bg: по-голямо, bg-ivanchev: по-голѣмо}}
 - {glyph: <, ascii: <, class: comparison, syntax: {kind: comparison}, labels: {en: less than, bg: по-малко, bg-ivanchev: по-малко}}
 - {glyph: ∘, ascii: Ao, class: logic, labels: {en: alone, bg: сам, bg-ivanchev: самъ}}
 - {glyph: ⇢, ascii: Tt, class: action, syntax: {state: true}, labels: {en: triggered ability / trigger, bg: подбудена способност / подбуди, bg-ivanchev: подбудена способность / подбуди}}
-- {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (a zone; the battlefield by default), bg: напуска (полето; по подразбиране бойното поле), bg-ivanchev: напуска (полето; по подразбиране бойното поле)}}
+- {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (a zone; the battlefield by default), bg: напуска (полето; по подразбиране бойното поле), bg-ivanchev: напуска (полето; по подразбиране бойното поле)}, lex: {en: {verb: leave, s: leaves}}}
 - {glyph: ⊥, ascii: Ba, class: characteristic, syntax: {kind: characteristic, op: base}, labels: {en: base power and toughness, bg: изходни мощ и якост, bg-ivanchev: изходни мощь и якость}}
 - {glyph: ⦰, ascii: Fr, class: action, syntax: {kind: marker}, labels: {en: without paying its mana cost, bg: без да платиш цената ѝ в мана, bg-ivanchev: безъ да платишъ цѣната ѝ въ мана}}
 - {glyph: ⧖, ascii: SS, class: keyword, labels: {en: Split second, bg: Миг, bg-note: Split second, bg-ivanchev: Мигъ}, oracle: Split second}
-- {glyph: ◍, ascii: Mc, class: characteristic, labels: {en: mana cost, bg: цена в мана, bg-ivanchev: цѣна въ мана}}
-- {glyph: ⨁, ascii: Rs, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs more, bg: струва повече, bg-ivanchev: струва повече}}
+- {glyph: ◍, ascii: Mc, class: characteristic, labels: {en: mana cost, bg: цена в мана, bg-ivanchev: цѣна въ мана}, lex: {en: {noun: mana cost}}}
+- {glyph: ⨁, ascii: Rs, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs more, bg: струва повече, bg-ivanchev: струва повече}, lex: {en: {verb: cost more, s: costs more}}}
 - {glyph: Σ, ascii: Sm, class: comparison, syntax: {kind: prefix, op: agg}, labels: {en: total, bg: общо, bg-ivanchev: общо}}
 - {glyph: ⁺, ascii: Xs, class: comparison, syntax: {kind: marker, op: excess}, labels: {en: excess, bg: излишък, bg-ivanchev: излишъкъ}}
-- {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter), bg: подвиг (белег), bg-ivanchev: подвигъ (бѣлѣгъ)}}
+- {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter), bg: подвиг (белег), bg-ivanchev: подвигъ (бѣлѣгъ)}, lex: {en: {noun: quest}}}
 - {glyph: ∩, ascii: Cm, class: comparison, syntax: {kind: marker, op: shared}, labels: {en: shared / in common, bg: общ, bg-ivanchev: общъ}}
 - {glyph: ◓, ascii: Lk, class: action, labels: {en: look at, bg: погледни, bg-ivanchev: погледни}, lex: {en: {verb: look at, s: looks at}}}
 - {glyph: ←, ascii: By, class: logic, syntax: {kind: marker, op: passive}, labels: {en: 'passive: is …-ed (¬⛉← can''t be blocked)', bg: 'страдателно: бива …-н (¬⛉← не може да бъде препречен)', bg-ivanchev: 'страдателно: бива …-н (¬⛉← не може да бѫде прѣпрѣченъ)'}}
@@ -187,14 +187,14 @@
 - {glyph: ☀, ascii: Sb, class: keyword, labels: {en: Sunburst, bg: Слънчев изблик, bg-ivanchev: Слънчевъ избликъ}, oracle: Sunburst}
 - {glyph: ♚, ascii: Lz, class: action, labels: {en: lose the game, bg: загуби играта, bg-ivanchev: загуби играта}}
 - {glyph: ⟳, ascii: Et, class: time, syntax: {kind: verb, args: [object]}, labels: {en: extra turn, bg: допълнителен ход, bg-ivanchev: допълнителенъ ходъ}}
-- {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name, bg: име, bg-ivanchev: име}}
+- {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name, bg: име, bg-ivanchev: име}, lex: {en: {noun: name, pl: names}}}
 - {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to, bg: прикачи към, bg-ivanchev: прикачи къмъ}}
-- {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter), bg: мир (белег), bg-ivanchev: миръ (бѣлѣгъ)}}
+- {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter), bg: мир (белег), bg-ivanchev: миръ (бѣлѣгъ)}, lex: {en: {noun: peace}}}
 - {glyph: ⋮, ascii: Dv, class: action, syntax: {kind: verb, op: transfer, args: [object, destination]}, labels: {en: distribute among, bg: раздели между, bg-ivanchev: раздѣли между}}
 - {glyph: ⇅, ascii: Ay, class: logic, labels: {en: in any order, bg: в какъвто ред щеш, bg-ivanchev: въ какъвто редъ щешъ}}
 - {glyph: ⦸, ascii: Ph, class: action, labels: {en: phase out, bg: избледней, bg-note: phase out, bg-ivanchev: изблѣдней}}
 - {glyph: ⦶, ascii: Pi, class: action, labels: {en: phase in, bg: яви се, bg-note: phase in, bg-ivanchev: яви се}}
-- {glyph: ⟡, ascii: Dx, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Discover, bg: Открий, bg-ivanchev: Открий}, oracle: Discover}
+- {glyph: ⟡, ascii: Dx, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Discover, bg: Открий, bg-ivanchev: Открий}, oracle: Discover, lex: {en: {verb: discover, s: discovers}}}
 - {glyph: ⊄, ascii: Pd, class: action, labels: {en: prevent, bg: предотврати, bg-ivanchev: прѣдотврати}}
 - {glyph: ▼, ascii: Fw, class: logic, labels: {en: face down, bg: с лицето надолу, bg-ivanchev: съ лицето надолу}}
 - {glyph: ∞, ascii: Gm, class: time, labels: {en: this game, bg: тая игра, bg-ivanchev: тая игра}}
