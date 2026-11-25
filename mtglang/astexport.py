@@ -23,7 +23,7 @@ class _Ctx:
 
 
 def card_ast(root: Path, ref: str) -> A.Card | None:
-    """AST of ``<set>/<slug>``; None if the file doesn't exist. Raises SemSyntaxError on a bad line."""
+    """Resolved AST of ``<set>/<slug>``; None if the file doesn't exist. Raises SemSyntaxError on a bad line."""
     ctx = _Ctx(root)
     path = ctx.root / "cards" / (ref + ".mtgl")
     if not path.exists():
@@ -31,7 +31,8 @@ def card_ast(root: Path, ref: str) -> A.Card | None:
     doc, _ = parse_card_file(path, ctx.lp)
     if doc is None:
         return None
-    return build_card(doc, ctx.sem)
+    from mtglang.resolve import resolve_card
+    return resolve_card(build_card(doc, ctx.sem), ctx.g)[0]
 
 
 def coverage(root: Path) -> dict:
@@ -67,6 +68,8 @@ def export_ast(root: Path, out: Path) -> list[Path]:
             card = build_card(doc, ctx.sem)
         except SemSyntaxError:
             continue
+        from mtglang.resolve import resolve_card
+        card = resolve_card(card, ctx.g)[0]
         by_set.setdefault(doc.set_code, []).append({"slug": doc.slug, "ast": to_json(card)})
     written = []
     for code, cards in sorted(by_set.items()):

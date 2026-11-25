@@ -36,3 +36,11 @@ def test_every_card_parses_and_roundtrips():
     issues, _ = validate_all(ROOT)
     bad = [f"{i.file}:{i.line}: {i.code} {i.message}" for i in issues if i.code in ("S-PARSE", "S-ROUNDTRIP")]
     assert bad == []
+
+
+@pytest.mark.skipif(not CARDS, reason="no corpus")
+def test_every_card_resolves():
+    from mtglang.validate import validate_all
+    issues, _ = validate_all(ROOT)
+    bad = [f"{i.file}:{i.line}: {i.message}" for i in issues if i.code == "S-RESOLVE"]
+    assert bad == []

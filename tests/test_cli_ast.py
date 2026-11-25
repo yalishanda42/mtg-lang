@@ -30,3 +30,10 @@ def test_export_ast_json(tmp_path):
     data = json.loads((tmp_path / "ast" / "fra.json").read_text(encoding="utf-8"))
     assert {p.name for p in paths} == {"fra.json", "trk.json"}
     assert any(e["slug"] == "ajani-resolute" and e["ast"]["kind"] == "card" for e in data)
+
+
+def test_cli_ast_includes_resolved_fields(capsys):
+    from mtglang.cli import main
+    main(["ast", "fra/ajani-resolute", "--root", str(ROOT)])
+    text = capsys.readouterr().out
+    assert '"quantity": "one"' in text and '"implicit_subject": "controller"' in text

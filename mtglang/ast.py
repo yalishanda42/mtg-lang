@@ -100,7 +100,6 @@ class Of(Node):
     of: Node
     prefix: bool = False                 # source detail: ⚑☞ vs ☞⚑
     mods: tuple = ()                     # e.g. ◁ previous
-    antecedent: str | None = None
 
 
 @dataclass(frozen=True)

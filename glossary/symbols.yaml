@@ -75,7 +75,7 @@
 - {glyph: ↷, ascii: Tp, class: action, labels: {en: tap / tapped}}
 - {glyph: ↶, ascii: Un, class: action, labels: {en: untap}}
 - {glyph: ▶, ascii: Pl, class: action, labels: {en: play}}
-- {glyph: ⤓, ascii: Dr, class: action, labels: {en: draw}}
+- {glyph: ⤓, ascii: Dr, class: action, syntax: {yields: true}, labels: {en: draw}}
 - {glyph: ✖, ascii: Ds, class: action, labels: {en: destroy}}
 - {glyph: ✝, ascii: Sc, class: action, labels: {en: sacrifice}}
 - {glyph: →, ascii: ~>, class: action, syntax: {kind: verb, op: transfer, args: [object, destination]}, labels: {en: put into / onto / deal to}}
@@ -116,9 +116,9 @@
 - {glyph: ↺, ascii: FB, class: keyword, labels: {en: Flashback}, oracle: Flashback}
 - {glyph: ⋈, ascii: Cv, class: keyword, labels: {en: Convoke}, oracle: Convoke}
 - {glyph: ♲, ascii: Cy, class: keyword, labels: {en: Cycling}, oracle: Cycling}
-- {glyph: ⤋, ascii: Mi, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Mill}, oracle: Mill, definition: ▤● → ⚰●}
-- {glyph: ⌕, ascii: Sv, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Surveil}, oracle: Surveil}
-- {glyph: ⊶, ascii: Sy, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Scry}, oracle: Scry}
+- {glyph: ⤋, ascii: Mi, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Mill}, oracle: Mill, definition: ▤● → ⚰●}
+- {glyph: ⌕, ascii: Sv, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Surveil}, oracle: Surveil}
+- {glyph: ⊶, ascii: Sy, class: keyword, syntax: {kind: verb, args: [amount], yields: true}, labels: {en: Scry}, oracle: Scry}
 - {glyph: ⚔, ascii: Fi, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Fight}, oracle: Fight, definition: ◈ ✸◈△ → ☞ ∧ ☞ ✸☞△ → ◈}
 - {glyph: ⇝, ascii: Xp, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Explore}, oracle: Explore}
 - {glyph: ⌗, ascii: Iv, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Investigate}, oracle: Investigate, definition: ✚ ◌«Clue»}
@@ -137,7 +137,7 @@
 - {glyph: ☍, ascii: Fd, class: ability_word, labels: {en: Federation}, oracle: Federation}
 - {glyph: ✺, ascii: SN, class: ability_word, labels: {en: Strange new worlds}, oracle: Strange new worlds}
 - {glyph: ⬡, ascii: Do, class: ability_word, labels: {en: Domain}, oracle: Domain}
-- {glyph: ⌫, ascii: Dc, class: action, labels: {en: discard}}
+- {glyph: ⌫, ascii: Dc, class: action, syntax: {yields: true}, labels: {en: discard}}
 - {glyph: ⌃, ascii: Tc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: top (of library)}}
 - {glyph: ⌄, ascii: Bc, class: zone, syntax: {kind: zone, op: pos}, labels: {en: bottom (of library)}}
 - {glyph: ▷, ascii: Nx, class: time, syntax: {kind: time, op: next}, labels: {en: next}}

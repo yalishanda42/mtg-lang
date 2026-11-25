@@ -127,6 +127,25 @@ def check_consistency(pairs: list[tuple[str, str, str, int]], g: Glossary) -> li
     return out
 
 
+def check_resolution(doc, g: Glossary) -> list[Issue]:
+    """S-RESOLVE: phrases or ☞ references the resolution pass could not settle."""
+    from mtglang.resolve import resolve_card
+    from mtglang.semparse import group_modes
+    faces, linenos = [], []
+    for f in doc.faces:
+        asts = [a.ast for a in f.abilities]
+        lines = [a.lineno for a in f.abilities if not isinstance(a.ast, A.Mode)]
+        faces.append(A.Face(A.NameRef(f.name), (), f.type_ast or A.TypeLine(), None, tuple(group_modes(asts, g))))
+        linenos.append(lines)
+    _, problems = resolve_card(A.Card(tuple(faces)), g)
+    out = []
+    for p in problems:
+        parts = p.path.split(".")
+        fi, ai = int(parts[1]), int(parts[3])
+        out.append(_err("S-RESOLVE", p.message, str(doc.path), linenos[fi][ai] if ai < len(linenos[fi]) else None))
+    return out
+
+
 def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: bool = False) -> tuple[list[Issue], dict]:
     root = Path(root)
     g = load_glossary(root / "glossary")
@@ -167,6 +186,8 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
                 except TokenizeError:
                     pass
         issues += check_refs(doc, g, known_names)
+        if not any(i.code in ("S-PARSE", "S-ROUNDTRIP") for i in file_issues):
+            issues += check_resolution(doc, g)
         card = snap.get(key)
         if card is None:
             issues.append(_err("V-ORPHAN", "no Scryfall card in scope for this file", str(path)))

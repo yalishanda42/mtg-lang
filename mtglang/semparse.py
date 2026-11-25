@@ -594,6 +594,7 @@ class SemParser:
                 chunks[i] = ("verb", ch[1].quant, ch[2])
         # noun use of a verb / keyword before the main verb: ⊳ ⊖{X}, ⚒ ⊖{1}
         if len(chunks) > 1 and chunks[0][0] in ("verb", "kw") and chunks[1][0] == "verb" and \
+                "cost" in self._frame(chunks[1][1], False) and \
                 not (chunks[0][0] == "verb" and "cost" in self._frame(chunks[0][1], False)):
             n = chunks[0][1]
             chunks[0] = ("np", A.NP(heads=(n.sym if isinstance(n, A.Keyword) else n,)), chunks[0][2])
@@ -752,7 +753,12 @@ class SemParser:
                         break
                     i += 1
                     sub_args.append((slot, post[i][1]))
-                args.append(("state", A.Action(node, None, tuple(sub_args), negated=neg)))
+                sub = A.Action(node, None, tuple(sub_args), negated=neg)
+                if not args and "object" in free and sub_args and not neg:
+                    del free[:free.index("object") + 1]
+                    args.append(("object", sub))      # ✚ ❐◈ — create a copy of this
+                else:
+                    args.append(("state", sub))
             elif typ == "pt":
                 args.append(("pt", node))
             elif typ in ("np", "value", "zone", "group", "mana", "kw", "rel", "delta"):
