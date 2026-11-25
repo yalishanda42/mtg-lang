@@ -607,7 +607,12 @@ class SemParser:
             post = post[1:]
         frame = list(self._frame(verb, is_arrow))
         if is_arrow:
-            frame = ["destination"]
+            frame = []
+            if post and post[0][0] in ("np", "value", "zone", "group", "mana", "rel"):
+                args.append(("destination", post[0][1]))
+                post = post[1:]
+            else:
+                raise SemSyntaxError(chunks[m][2], "→ needs a destination")
         args += self._args(post, frame, verb)
         return A.Action(verb, subject, tuple(args), optional, negated, passive, before, neg_first)
 
@@ -680,7 +685,7 @@ class SemParser:
 
     def _slot(self, free: list[str], node, typ) -> str | None:
         for k, slot in enumerate(free):
-            if slot == "amount" and not (is_value(node) or typ == "mana"):
+            if slot == "amount" and not is_value(node):
                 continue
             if slot == "destination":
                 continue

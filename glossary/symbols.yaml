@@ -9,7 +9,7 @@
 - {glyph: ⟨, ascii: '<:', role: effect_open, class: structural, labels: {en: one-off effect start}}
 - {glyph: ⟩, ascii: ':>', role: effect_close, class: structural, labels: {en: one-off effect end}}
 - {glyph: ;, ascii: ;, class: structural, syntax: {kind: structural, op: then}, labels: {en: then (next sentence)}}
-- {glyph: ≔, ascii: ':=', class: structural, syntax: {kind: structural, op: bind}, labels: {en: 'where (variable) / becomes (replacing types)'}}
+- {glyph: ≔, ascii: ':=', class: structural, syntax: {kind: structural, op: bind, args: [types]}, labels: {en: 'where (variable) / becomes (replacing types)'}}
 - {glyph: ◈, ascii: '@', role: self, class: reference, syntax: {kind: reference, op: self}, labels: {en: this object}}
 - {glyph: ☞, ascii: $, class: reference, syntax: {kind: reference, op: that}, labels: {en: that object / player (just mentioned)}}
 - {glyph: ●, ascii: Yu, class: player, labels: {en: you}}
