@@ -73,3 +73,13 @@ def test_bad_syntax_args_and_prec_are_g_syntax(fx_glossary):
                 {"kind": "infix", "prec": "high"}, {"kind": "keyword", "params": ["bogus"]}):
         bad = replace_symbols(fx_glossary, extra=[Symbol("ŋ", "Qq", "logic", {"en": "x"}, syntax=syn)])
         assert "G-SYNTAX" in {i.code for i in check_glossary(bad)}, syn
+
+
+def test_missing_bulgarian_labels_warn_once_translation_started(fx_glossary):
+    assert not [i for i in check_glossary(fx_glossary) if i.code == "G-LABEL-BG"]   # no bg anywhere: silent
+    s0 = fx_glossary.symbols[0]
+    started = Glossary([replace(s0, labels={**s0.labels, "bg": "тогава", "bg-ivanchev": "тогава"})]
+                       + fx_glossary.symbols[1:], fx_glossary.names, fx_glossary.effects)
+    warns = [i for i in check_glossary(started) if i.code == "G-LABEL-BG"]
+    assert warns and all(i.severity == "warning" for i in warns)
+    assert len(warns) <= 3          # one summary per glossary file, not one per entry

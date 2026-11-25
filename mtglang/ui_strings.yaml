@@ -1,0 +1,47 @@
+# Fixed words of the gallery page, per language. Missing languages fall back to English;
+# `bg-ivanchev` falls back to the Ivanchev spelling of `bg` (mtglang.ortho).
+- {id: index, labels: {en: Index, bg: Съдържание}}
+- {id: legend, labels: {en: Legend, bg: Легенда}}
+- {id: set, labels: {en: Set, bg: Сбирка}}
+- {id: translated, labels: {en: Translated, bg: Преведени}}
+- {id: edit_hint, labels: {en: "Edit glyphs, ASCII codes and meanings below; every card updates live.", bg: "Тук можете да промените знаците, ASCII-кодовете и значенията им; всяка карта се обновява начаса."}}
+- {id: readonly_hint, labels: {en: " (Read-only file: run `mtglang serve` to save edits.)", bg: " (Само за четене: пуснете `mtglang serve`, за да запазите промените.)"}}
+- {id: preview_only, labels: {en: "symbol(s) edited — preview only", bg: "знака променени — само за преглед"}}
+- {id: save_hint, labels: {en: "; Save writes glossary/symbols.yaml and rewrites the card files.", bg: "; „Запази“ записва glossary/symbols.yaml и преписва файловете на картите."}}
+- {id: serve_hint, labels: {en: "; run `mtglang serve` to save.", bg: "; пуснете `mtglang serve`, за да запазите."}}
+- {id: used_by_two, labels: {en: "is used by two symbols", bg: "е зает от два знака"}}
+- {id: empty, labels: {en: empty, bg: празно}}
+- {id: saving, labels: {en: "Saving, rewriting card files and re-rendering…", bg: "Записва се, картите се преписват и страницата се обновява…"}}
+- {id: saved, labels: {en: "Saved: {lines} line(s) in {files} card file(s) rewritten. Reloading…", bg: "Запазено: преписани са {lines} реда в {files} карти. Страницата се презарежда…"}}
+- {id: not_saved, labels: {en: "Not saved:", bg: "Не е запазено:"}}
+- {id: revert, labels: {en: Revert, bg: Върни}}
+- {id: save, labels: {en: Save, bg: Запази}}
+- {id: glyph, labels: {en: Glyph, bg: Знак}}
+- {id: ascii, labels: {en: ASCII, bg: ASCII}}
+- {id: meaning, labels: {en: Meaning, bg: Значение}}
+- {id: oracle_keyword, labels: {en: Oracle keyword, bg: Ключова дума в Oracle}}
+- {id: definition, labels: {en: Definition, bg: Определение}}
+- {id: role, labels: {en: role, bg: роля}}
+- {id: named_effects, labels: {en: Named effects, bg: Именувани действия}}
+- {id: key, labels: {en: Key, bg: Ключ}}
+- {id: card, labels: {en: Card, bg: Карта}}
+- {id: cards, labels: {en: card(s), bg: карти}}
+- {id: original, labels: {en: Original, bg: Подлинник}}
+- {id: line_by_line, labels: {en: Line by line, bg: Ред по ред}}
+- {id: notation, labels: {en: Notation, bg: Запис}}
+- {id: oracle, labels: {en: Oracle, bg: Oracle}}
+- {id: "class:structural", labels: {en: structural, bg: строеж}}
+- {id: "class:reference", labels: {en: reference, bg: посочване}}
+- {id: "class:player", labels: {en: player, bg: играч}}
+- {id: "class:logic", labels: {en: logic, bg: логика}}
+- {id: "class:comparison", labels: {en: comparison, bg: сравнение}}
+- {id: "class:characteristic", labels: {en: characteristic, bg: свойство}}
+- {id: "class:stat", labels: {en: stat, bg: сила}}
+- {id: "class:type", labels: {en: type, bg: вид}}
+- {id: "class:object", labels: {en: object, bg: предмет}}
+- {id: "class:zone", labels: {en: zone, bg: предел}}
+- {id: "class:action", labels: {en: action, bg: действие}}
+- {id: "class:counter_kind", labels: {en: counter kind, bg: вид жетон}}
+- {id: "class:time", labels: {en: time, bg: време}}
+- {id: "class:keyword", labels: {en: keyword, bg: ключова дума}}
+- {id: "class:ability_word", labels: {en: ability word, bg: дума на способност}}

@@ -195,6 +195,22 @@ def ascii_file(text: str, g: Glossary) -> str:
     return "\n".join(lines)
 
 
+def ui_strings(lang: str) -> dict[str, str]:
+    """The gallery's fixed words in ``lang`` (fallback: English; bg-ivanchev: Ivanchev spelling of bg)."""
+    from importlib.resources import files
+
+    import yaml
+    out = {}
+    for e in yaml.safe_load(files("mtglang").joinpath("ui_strings.yaml").read_text(encoding="utf-8")):
+        labels = e["labels"]
+        text = labels.get(lang)
+        if text is None and lang == "bg-ivanchev" and labels.get("bg"):
+            from mtglang.ortho.ivanchev import to_ivanchev
+            text = to_ivanchev(labels["bg"])
+        out[e["id"]] = text if text is not None else labels["en"]
+    return out
+
+
 STALE_PAGES = ("legend.html",)   # per-page outputs of earlier versions, superseded by the single index.html
 
 
@@ -252,8 +268,10 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                                 "definition": notation_html(sym.definition, g, lang) if sym.definition else ""})
     effects = [{"key": e.key, "card": e.card, "label": g.label(e, lang)} for e in g.effects.values()]
     page = out / "index.html"
+    ui = ui_strings(lang)
     page.write_text(env.get_template("page.html").render(
-        sets=sets, lang=lang, groups=list(groups.items()), effects=effects,
+        sets=sets, lang=lang, groups=list(groups.items()), effects=effects, ui=ui,
+        cls_label=lambda c: ui.get(f"class:{c}", c),
         icon_css=icon_css(root / "data" / "symbols", symbols)), encoding="utf-8")
     for stale in STALE_PAGES + tuple(f"{code}.html" for code in SETS):
         (out / stale).unlink(missing_ok=True)

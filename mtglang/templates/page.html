@@ -90,34 +90,34 @@
 </style>
 </head>
 <body>
-<nav><a href="#index">Index</a><a href="#legend">Legend</a>{% for s in sets %}<a href="#{{ s.code }}">{{ s.code }}</a>{% endfor %}</nav>
+<nav><a href="#index">{{ ui.index }}</a><a href="#legend">{{ ui.legend }}</a>{% for s in sets %}<a href="#{{ s.code }}">{{ s.code }}</a>{% endfor %}</nav>
 
 <section class="page" id="index">
 <h1>MTG-Lang</h1>
 <table>
-<tr><th>Set</th><th>Translated</th></tr>
+<tr><th>{{ ui.set }}</th><th>{{ ui.translated }}</th></tr>
 {% for s in sets %}<tr><td><a href="#{{ s.code }}">{{ s.code }}</a></td><td>{{ s.translated }} / {{ s.total }}</td></tr>{% endfor %}
 </table>
 </section>
 
 <section class="page" id="legend" hidden>
-<h1>Legend</h1>
+<h1>{{ ui.legend }}</h1>
 <div class="toolbar">
-  <span class="msg" id="ed-msg">Edit glyphs, ASCII codes and meanings below; every card updates live.</span>
-  <button id="ed-revert" disabled>Revert</button>
-  <button id="ed-save" disabled>Save</button>
+  <span class="msg" id="ed-msg">{{ ui.edit_hint }}</span>
+  <button id="ed-revert" disabled>{{ ui.revert }}</button>
+  <button id="ed-save" disabled>{{ ui.save }}</button>
 </div>
 {% for cls, rows in groups %}
-<h2>{{ cls }}</h2>
+<h2>{{ cls_label(cls) }}</h2>
 <table class="legend">
-<tr><th>Glyph</th><th>ASCII</th><th>Meaning</th><th>Oracle keyword</th><th>Definition</th></tr>
-{% for r in rows %}<tr data-i="{{ r.i }}"><td><input class="g" data-f="glyph" value="{{ r.glyph }}" spellcheck="false" aria-label="glyph"></td><td><input class="a" data-f="ascii" value="{{ r.ascii }}" spellcheck="false" aria-label="ASCII"></td><td><input data-f="label" value="{{ r.label }}" aria-label="meaning">{% if r.role %}<span class="role">role: {{ r.role }}</span>{% endif %}</td><td>{{ r.oracle or "" }}</td><td>{{ r.definition|safe }}</td></tr>
+<tr><th>{{ ui.glyph }}</th><th>{{ ui.ascii }}</th><th>{{ ui.meaning }}</th><th>{{ ui.oracle_keyword }}</th><th>{{ ui.definition }}</th></tr>
+{% for r in rows %}<tr data-i="{{ r.i }}"><td><input class="g" data-f="glyph" value="{{ r.glyph }}" spellcheck="false" aria-label="glyph"></td><td><input class="a" data-f="ascii" value="{{ r.ascii }}" spellcheck="false" aria-label="ASCII"></td><td><input data-f="label" value="{{ r.label }}" aria-label="meaning">{% if r.role %}<span class="role">{{ ui.role }}: {{ r.role }}</span>{% endif %}</td><td>{{ r.oracle or "" }}</td><td>{{ r.definition|safe }}</td></tr>
 {% endfor %}</table>
 {% endfor %}
 {% if effects %}
-<h2>Named effects</h2>
+<h2>{{ ui.named_effects }}</h2>
 <table>
-<tr><th>Key</th><th>Card</th><th>Meaning</th></tr>
+<tr><th>{{ ui.key }}</th><th>{{ ui.card }}</th><th>{{ ui.meaning }}</th></tr>
 {% for e in effects %}<tr><td>⟨{{ e.key }}⟩</td><td>{{ e.card }}</td><td>{{ e.label }}</td></tr>{% endfor %}
 </table>
 {% endif %}
@@ -129,19 +129,19 @@
 {% endmacro %}
 {% for s in sets %}
 <section class="page" id="{{ s.code }}" hidden>
-<h1>{{ s.code }} — {{ s.cards|length }} card(s)</h1>
+<h1>{{ s.code }} — {{ s.cards|length }} {{ ui.cards }}</h1>
 {% for c in s.cards %}
 <div class="card" id="{{ s.code }}/{{ c.slug }}">
   {% if c.view %}{% set v = c.view %}
   <div class="pair">
-    <figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>Original</figcaption></figure>
+    <figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>{{ ui.original }}</figcaption></figure>
     <figure><div class="cv {{ v.kind }}{% if v.pt and v.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ v.bar }}; --box: {{ v.box }}">
       <img src="{{ v.image }}" loading="lazy" alt="">
       {{ bars(v.faces[0], 0) }}
       {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
     </div><figcaption>MTG-Lang</figcaption></figure>
   </div>
-  <details><summary>Line by line</summary>
+  <details><summary>{{ ui.line_by_line }}</summary>
   {% endif %}
   {% for f in c.faces %}
   {% if not loop.first %}<hr>{% endif %}
@@ -150,7 +150,7 @@
   {% if f.stats %}<div class="hdr">{{ f.stats|safe }}</div>{% endif %}
   {% if f.rows %}
   <table>
-    <tr><th>Notation</th><th>ASCII</th><th>Oracle</th></tr>
+    <tr><th>{{ ui.notation }}</th><th>{{ ui.ascii }}</th><th>{{ ui.oracle }}</th></tr>
     {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii|safe }}</td><td class="o">{{ r.oracle|safe }}</td></tr>{% endfor %}
   </table>
   {% endif %}
@@ -209,6 +209,7 @@ const savedY = sessionStorage.getItem("mtgl-scroll");
 if (savedY !== null) { sessionStorage.removeItem("mtgl-scroll"); requestAnimationFrame(() => scrollTo(0, +savedY)); }
 
 // ---- glossary editor: live preview everywhere, save via `mtglang serve` ----
+const UI = {{ ui|tojson }};
 const inputs = [...document.querySelectorAll(".legend input[data-f]")];
 const msg = document.getElementById("ed-msg"), saveBtn = document.getElementById("ed-save"),
       revertBtn = document.getElementById("ed-revert");
@@ -243,11 +244,11 @@ function check() {
     i.classList.toggle("dirty", i.value !== i.defaultValue);
     if (i.dataset.f === "label") continue;
     const v = i.value;
-    if (!v.trim()) { i.classList.add("err"); problems.push("empty " + i.dataset.f); continue; }
+    if (!v.trim()) { i.classList.add("err"); problems.push(UI.empty + " " + i.dataset.f); continue; }
     const row = i.closest("tr").dataset.i;
     const prev = owner.get(v);
     if (prev && prev.closest("tr").dataset.i !== row) {
-      i.classList.add("err"); prev.classList.add("err"); problems.push(`'${v}' is used by two symbols`);
+      i.classList.add("err"); prev.classList.add("err"); problems.push(`'${v}' ${UI.used_by_two}`);
     } else owner.set(v, i);
   }
   const dirty = new Set(inputs.filter(i => i.value !== i.defaultValue).map(i => i.closest("tr").dataset.i));
@@ -255,10 +256,8 @@ function check() {
   saveBtn.disabled = !server || !dirty.size || problems.length > 0;
   msg.classList.toggle("err", problems.length > 0);
   if (problems.length) msg.textContent = [...new Set(problems)].join("\n");
-  else if (dirty.size) msg.textContent = `${dirty.size} symbol(s) edited — preview only` +
-      (server ? "; Save writes glossary/symbols.yaml and rewrites the card files." : "; run `mtglang serve` to save.");
-  else msg.textContent = "Edit glyphs, ASCII codes and meanings below; every card updates live." +
-      (server ? "" : " (Read-only file: run `mtglang serve` to save edits.)");
+  else if (dirty.size) msg.textContent = `${dirty.size} ${UI.preview_only}` + (server ? UI.save_hint : UI.serve_hint);
+  else msg.textContent = UI.edit_hint + (server ? "" : UI.readonly_hint);
   return dirty;
 }
 inputs.forEach(i => i.addEventListener("input", () => { paint(i); check(); refitSoon(); }));
@@ -274,21 +273,21 @@ saveBtn.addEventListener("click", async () => {
   });
   saveBtn.disabled = revertBtn.disabled = true;
   msg.classList.remove("err");
-  msg.textContent = "Saving, rewriting card files and re-rendering…";
+  msg.textContent = UI.saving;
   try {
     const res = await (await fetch("/api/glossary", {method: "POST", headers: {"Content-Type": "application/json"},
                                                      body: JSON.stringify({edits})})).json();
     if (res.ok) {
       sessionStorage.setItem("mtgl-scroll", scrollY);
-      msg.textContent = `Saved: ${res.lines} line(s) in ${res.files} card file(s) rewritten. Reloading…`;
+      msg.textContent = UI.saved.replace("{lines}", res.lines).replace("{files}", res.files);
       location.reload();
       return;
     }
     msg.classList.add("err");
-    msg.textContent = "Not saved:\n" + res.errors.join("\n");
+    msg.textContent = UI.not_saved + "\n" + res.errors.join("\n");
   } catch (e) {
     msg.classList.add("err");
-    msg.textContent = "Not saved: " + e;
+    msg.textContent = UI.not_saved + " " + e;
   }
   check();
 });

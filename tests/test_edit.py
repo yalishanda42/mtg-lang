@@ -110,3 +110,14 @@ def test_editor_save_preserves_syntax_field(fx_copy):
     text = p.read_text()
     assert "syntax: {kind: verb, args: [amount, recipient]}" in text
     assert load_glossary(fx_copy / "glossary").lookup["Dw"].syntax["args"] == ["amount", "recipient"]
+
+
+def test_editor_save_keeps_other_language_labels(fx_copy):
+    p = fx_copy / "glossary/symbols.yaml"
+    lines = p.read_text().splitlines()
+    k = next(i for i, l in enumerate(lines) if '"✋"' in l)
+    lines[k] = '- {glyph: "✋", ascii: "Dr", class: action, labels: {en: "draw", bg: "Изтегли", bg-ivanchev: "Изтегли"}}'
+    p.write_text("\n".join(lines) + "\n")
+    apply_symbol_edits(fx_copy, [_edit(k, "✋", "✋", "Dr", "draw a card")])
+    labels = load_glossary(fx_copy / "glossary").lookup["✋"].labels
+    assert labels == {"en": "draw a card", "bg": "Изтегли", "bg-ivanchev": "Изтегли"}
