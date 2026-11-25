@@ -77,6 +77,14 @@ def cmd_ast(args) -> int:
 
 
 def cmd_ortho(args) -> int:
+    try:
+        return _ortho(args)
+    except ValueError as e:
+        print(f"error: {e}")
+        return 1
+
+
+def _ortho(args) -> int:
     import sys
     from mtglang.ortho.glossary import load_overrides, regenerate, review_markdown
     from mtglang.ortho.ivanchev import to_ivanchev

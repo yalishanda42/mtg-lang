@@ -62,3 +62,7 @@ def test_accuracy_on_upstream_word_lists():
 
 
 ACCURACY = 0.986  # 2026-11-25: owords1 100%, owords2 99.9%, owords3 95.9% (already-old inputs) — mean 0.986
+
+
+def test_inner_capitals_kept():
+    assert to_ivanchev("Ел-Ауриец") == "Ел-Ауриецъ"

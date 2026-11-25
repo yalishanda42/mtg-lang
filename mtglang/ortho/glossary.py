@@ -24,8 +24,13 @@ class RegenResult:
 
 def load_overrides(root: Path) -> tuple[dict[str, str], dict[str, str]]:
     p = Path(root) / "glossary" / "ortho_overrides.yaml"
-    data = yaml.safe_load(p.read_text(encoding="utf-8")) if p.exists() else None
+    try:
+        data = yaml.safe_load(p.read_text(encoding="utf-8")) if p.exists() else None
+    except yaml.YAMLError as e:
+        raise ValueError(f"{p}: not valid YAML ({e.problem}, line {e.problem_mark.line + 1})") from None
     data = data or {}
+    if not isinstance(data, dict) or any(not isinstance(data.get(k) or {}, dict) for k in ("words", "entries")):
+        raise ValueError(f"{p}: expected two maps, `words:` and `entries:`")
     words = {str(k).lower(): str(v) for k, v in (data.get("words") or {}).items()}
     entries = {str(k): str(v) for k, v in (data.get("entries") or {}).items()}
     return words, entries

@@ -69,3 +69,15 @@ def test_review_markdown(tmp_path):
     assert "| Warrior | Воин | Воинъ |" in md and "## Names — subtype" in md and "## Symbols — structural" in md
     assert "draw" not in md       # entries without bg are listed in the missing section only
     assert "Missing" in md
+
+
+def test_broken_overrides_file_is_a_clear_error(tmp_path, capsys):
+    from mtglang.cli import main
+    root = _glossary(tmp_path)
+    (root / "glossary" / "ortho_overrides.yaml").write_text("words: {}\n# c\nentries: x\n  bad\n", encoding="utf-8")
+    assert main(["ortho", "--glossary", "--root", str(root)]) == 1
+    out = capsys.readouterr().out
+    assert out.startswith("error:") and "ortho_overrides.yaml" in out
+    (root / "glossary" / "ortho_overrides.yaml").write_text("words: [\n", encoding="utf-8")
+    assert main(["ortho", "--glossary", "--root", str(root)]) == 1
+    assert "not valid YAML" in capsys.readouterr().out

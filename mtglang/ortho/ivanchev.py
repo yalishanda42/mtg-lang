@@ -207,15 +207,12 @@ def convert_word(word: str) -> str:
 
 
 def _keep_case(orig: str, new: str) -> str:
+    """Carry the original capitalisation over, letter by letter (ALL CAPS stays all caps)."""
     if orig.islower():
         return new
     if orig.isupper() and len(orig) > 1:
         return new.upper()
-    if orig[:1].isupper() and orig[1:].islower():
-        return new[:1].upper() + new[1:]
-    if orig.isupper():
-        return new[:1].upper() + new[1:]
-    return new
+    return "".join(c.upper() if k < len(orig) and orig[k].isupper() else c for k, c in enumerate(new))
 
 
 def to_ivanchev(text: str, override: dict[str, str] | None = None) -> str:

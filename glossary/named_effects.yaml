@@ -1,4 +1,4 @@
-- {key: no-legend-rule, card: Hall of Echoes, labels: {en: "The \"legend rule\" doesn't apply to these permanents."}}
-- {key: any-number, card: Sphinx's Approach, labels: {en: "A deck can have any number of cards with this name."}}
-- {key: extra-lifegain-trigger, card: Dr. Beverly Crusher, labels: {en: "If you gaining life causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time."}}
-- {key: no-max-hand, card: Deep Space Scan, labels: {en: "has no maximum hand size"}}
+- {key: no-legend-rule, card: Hall of Echoes, labels: {en: The "legend rule" doesn't apply to these permanents., bg: „Правилото за прочутите“ не важи за тия трайници., bg-ivanchev: „Правилото за прочутитѣ“ не важи за тия трайници.}}
+- {key: any-number, card: Sphinx's Approach, labels: {en: A deck can have any number of cards with this name., bg: Тестето може да съдържа колкото щеш карти с туй име., bg-ivanchev: Тестето може да съдържа колкото щешъ карти съ туй име.}}
+- {key: extra-lifegain-trigger, card: Dr. Beverly Crusher, labels: {en: 'If you gaining life causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.', bg: 'Ако спечелиш живот и това подбуди способност на трайник, който владееш, тя се подбужда още веднъж.', bg-ivanchev: 'Ако спечелишъ животъ и това подбуди способность на трайникъ, който владѣешъ, тя се подбужда още веднъжъ.'}}
+- {key: no-max-hand, card: Deep Space Scan, labels: {en: has no maximum hand size, bg: няма предел за броя карти в ръката, bg-ivanchev: нѣма прѣдѣлъ за броя карти въ рѫката}}
