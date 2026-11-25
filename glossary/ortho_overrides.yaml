@@ -30,6 +30,17 @@ words:
   пресметни: прѣсмѣтни        # смѣтка
   белерен: белеренъ           # a name (Beleren), no ѣ
   метамаг: метамагъ           # Greek meta-, no ѣ
+  стеймътс: стеймътсъ         # a name (Stamets): ъ is a plain vowel, not ѫ
+  маркъс: маркъсъ             # a name (Marcus): as above
+  дейта: дейта                # a name (Data), no ѣ
+  дейвид: дейвидъ             # a name (David), no ѣ
+  ортегас: ортегасъ           # a name (Ortegas), no ѣ
+  полеви: полеви              # поле — no ѣ
+  светилище: светилище        # свѧт- "holy" (ѧ → е)
+  осветен: осветенъ           # as above
+  изолинеен: изолинеенъ       # a loanword, no ѣ
+  разрешава: разрѣшава        # рѣшение
+  безверна: безвѣрна          # вѣра (the converter put ѣ in the prefix)
 entries:
   "symbols:⤋": Смели                 # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
   "names:Jem'Hadar": Джем'Хадаръ     # one name: final ъ only at the end
@@ -38,3 +49,6 @@ entries:
   "names:Fateshaper Aspirant": Ученикъ-сѫдбоковачъ          # both parts of the compound end in ъ
   "names:Hungering Puppetbeast": Гладенъ звѣръ-кукла        # as above
   "names:Teyo, Lightshield Expert": Тейо, вѣщъ въ свѣтлия щитъ   # вѣщъ "skilled" (вѣдѣти), not вещь "thing"
+  "names:DOT-7 Repair Squad": Поправителна дружина ДОТ-7          # an acronym takes no ъ
+  "names:H.M.S. Bounty, Unlikely Timeship": Н.В.К. „Баунти“, невѣроятенъ врѣмеплавъ   # abbreviation letters take no ъ; не- + вѣра
+  "names:Fugitive Listener": Бѣгълецъ-слушатель                  # both parts of the compound get their ending
