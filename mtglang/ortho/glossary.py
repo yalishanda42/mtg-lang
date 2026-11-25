@@ -32,6 +32,10 @@ def load_overrides(root: Path) -> tuple[dict[str, str], dict[str, str]]:
     data = data or {}
     if not isinstance(data, dict) or any(not isinstance(data.get(k) or {}, dict) for k in ("words", "entries")):
         raise ValueError(f"{p}: expected two maps, `words:` and `entries:`")
+    for section in ("words", "entries"):
+        empty = [str(k) for k, v in (data.get(section) or {}).items() if v is None or not str(v).strip()]
+        if empty:
+            raise ValueError(f"{p}: {section} without a value: {', '.join(empty)}")
     words = {str(k).lower(): str(v) for k, v in (data.get("words") or {}).items()}
     entries = {str(k): str(v) for k, v in (data.get("entries") or {}).items()}
     return words, entries
@@ -58,7 +62,7 @@ def generated(bg: str, key: str, words: dict, entries: dict) -> str:
     return entries.get(key) or to_ivanchev(bg, words)
 
 
-def regenerate(root: Path, overwrite: bool = False) -> RegenResult:
+def regenerate(root: Path, overwrite: bool | list[str] = False) -> RegenResult:
     """Set ``bg-ivanchev`` on every entry with ``bg``. Writes nothing if a hand-edited label would be lost,
     unless ``overwrite`` (then every replaced label is reported in ``overwritten``)."""
     root = Path(root)
@@ -81,8 +85,12 @@ def regenerate(root: Path, overwrite: bool = False) -> RegenResult:
                 continue
             # a stored label that isn't converter output (with or without the word overrides) is a hand edit:
             # never overwrite it — it must be moved into `entries` first
-            if have and key not in entries and have not in (to_ivanchev(str(bg), words), to_ivanchev(str(bg))):
-                if not overwrite:
+            # a stored label that is neither the entry override nor converter output (with or without the word
+            # overrides) is a hand edit — or a label left over from an older bg / converter
+            known = {to_ivanchev(str(bg), words), to_ivanchev(str(bg))} | ({entries[key]} if key in entries else set())
+            if have and have not in known:
+                allowed = overwrite is True or (isinstance(overwrite, list) and key in overwrite)
+                if not allowed:
                     result.conflicts.append(key)
                     continue
                 result.overwritten.append((key, str(have), want))

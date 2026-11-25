@@ -4,7 +4,7 @@
 - {id: legend, labels: {en: Legend, bg: Легенда}}
 - {id: set, labels: {en: Set, bg: Сбирка}}
 - {id: translated, labels: {en: Translated, bg: Преведени}}
-- {id: edit_hint, labels: {en: "Edit glyphs, ASCII codes and meanings below; every card updates live.", bg: "Тук можете да промените знаците, ASCII-кодовете и значенията им; всяка карта се обновява начаса."}}
+- {id: edit_hint, labels: {en: "Edit glyphs, ASCII codes and meanings below; every card updates live.", bg: "Тук можете да промените знаците, ASCII-кодовете и значенията им; всяка карта се обновява начаса.", bg-ivanchev: "Тукъ можете да промѣните знацитѣ, ASCII-кодоветѣ и значенията имъ; всѣка карта се обновява начаса."}}
 - {id: readonly_hint, labels: {en: " (Read-only file: run `mtglang serve` to save edits.)", bg: " (Само за четене: пуснете `mtglang serve`, за да запазите промените.)"}}
 - {id: preview_only, labels: {en: "symbol(s) edited — preview only", bg: "знака променени — само за преглед"}}
 - {id: save_hint, labels: {en: "; Save writes glossary/symbols.yaml and rewrites the card files.", bg: "; „Запази“ записва glossary/symbols.yaml и преписва файловете на картите."}}
@@ -41,7 +41,7 @@
 - {id: "class:object", labels: {en: object, bg: предмет}}
 - {id: "class:zone", labels: {en: zone, bg: предел}}
 - {id: "class:action", labels: {en: action, bg: действие}}
-- {id: "class:counter_kind", labels: {en: counter kind, bg: вид жетон}}
+- {id: "class:counter_kind", labels: {en: counter kind, bg: вид белег}}
 - {id: "class:time", labels: {en: time, bg: време}}
 - {id: "class:keyword", labels: {en: keyword, bg: ключова дума}}
 - {id: "class:ability_word", labels: {en: ability word, bg: дума на способност}}

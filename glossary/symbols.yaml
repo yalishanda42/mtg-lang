@@ -83,7 +83,7 @@
 - {glyph: ✸, ascii: Dg, class: action, syntax: {kind: object, op: damage}, labels: {en: damage, bg: щета, bg-ivanchev: щета}}
 - {glyph: ♥, ascii: <3, class: action, syntax: {kind: characteristic, op: life}, labels: {en: 'life (♥+ gain, ♥- lose)', bg: 'живот (♥+ печелиш, ♥- губиш)', bg-ivanchev: 'животъ (♥+ печелишъ, ♥- губишъ)'}}
 - {glyph: ✚, ascii: Mk, class: action, labels: {en: create, bg: сътвори, bg-ivanchev: сътвори}}
-- {glyph: ⊞, ascii: Co, class: action, syntax: {kind: object, op: counter}, labels: {en: counter (on a permanent), bg: белег (върху трайник), bg-note: counter — „белег“, bg-ivanchev: бѣлегъ (върху трайникъ)}}
+- {glyph: ⊞, ascii: Co, class: action, syntax: {kind: object, op: counter}, labels: {en: counter (on a permanent), bg: белег (върху трайник), bg-note: counter — „белег“, bg-ivanchev: бѣлѣгъ (върху трайникъ)}}
 - {glyph: ⊟, ascii: Rm, class: action, labels: {en: remove, bg: махни, bg-ivanchev: махни}}
 - {glyph: ∋, ascii: Hs, class: action, syntax: {kind: verb, op: has, args: [ability], state: true}, labels: {en: has / gains, bg: има / придобива, bg-ivanchev: има / придобива}}
 - {glyph: ⊗, ascii: Cn, class: action, labels: {en: counter (a spell), bg: осуети (заклинание), bg-ivanchev: осуети (заклинание)}}
@@ -93,7 +93,7 @@
 - {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}}
 - {glyph: ⊹, ascii: Ac, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: additional cost, bg: допълнителна цена, bg-ivanchev: допълнителна цѣна}}
 - {glyph: ⇄, ascii: Gc, class: action, labels: {en: gain control, bg: завладей, bg-ivanchev: завладѣй}}
-- {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлегъ)}}
+- {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлѣгъ)}}
 - {glyph: ⧗, ascii: Ue, class: time, labels: {en: until end of turn, bg: до края на хода, bg-ivanchev: до края на хода}}
 - {glyph: ◷, ascii: Tn, class: time, syntax: {kind: time, op: turn}, labels: {en: 'turn (◷ this turn, ◷● your turn)', bg: 'ход (◷ тоя ход, ◷● твоят ход)', bg-ivanchev: 'ходъ (◷ тоя ходъ, ◷● твоятъ ходъ)'}}
 - {glyph: ≡, ascii: ==, class: time, syntax: {kind: verb, op: only, args: [object], state: true}, labels: {en: only as (≡✎ = only as a sorcery), bg: само като (≡✎ = само като чародейство), bg-ivanchev: само като (≡✎ = само като чародѣйство)}}
@@ -125,7 +125,7 @@
 - {glyph: ⁜, ascii: Pf, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Proliferate, bg: Размножи, bg-ivanchev: Размножи}, oracle: Proliferate}
 - {glyph: ⊜, ascii: Af, class: keyword, labels: {en: Affinity, bg: Сродство, bg-ivanchev: Сродство}, oracle: Affinity}
 - {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate, bg: Погълни, bg-note: Assimilate (Borg) — „погълни“, bg-ivanchev: Погълни}, oracle: Assimilate}
-- {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристань}, oracle: Station}
+- {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристанъ}, oracle: Station}
 - {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared}
 - {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma, bg: Изправи се пред кръстопът, bg-note: Face a dilemma, bg-ivanchev: Изправи се прѣдъ кръстопѫть}, oracle: Face a dilemma}
 - {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace, bg: Дай мощ на Джейс, bg-ivanchev: Дай мощь на Джейсъ}, oracle: Empower Jace}
@@ -155,14 +155,14 @@
 - {glyph: ❐, ascii: Cp, class: action, syntax: {state: true}, labels: {en: copy, bg: препиши, bg-ivanchev: прѣпиши}}
 - {glyph: ↻, ascii: Nw, class: action, syntax: {kind: verb, args: [object, of]}, labels: {en: choose new / change, bg: избери нов / промени, bg-ivanchev: избери новъ / промѣни}}
 - {glyph: ⚂, ascii: Rn, class: logic, labels: {en: at random, bg: наслуки, bg-note: 'наслуки — наслука, напосоки', bg-ivanchev: наслуки}}
-- {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter), bg: вцепенение (белег), bg-ivanchev: вцепенение (бѣлегъ)}}
+- {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter), bg: вцепенение (белег), bg-ivanchev: вцепенение (бѣлѣгъ)}}
 - {glyph: ⬢, ascii: Id, class: keyword, labels: {en: Indestructible, bg: Несъкрушимост, bg-ivanchev: Несъкрушимость}, oracle: Indestructible}
 - {glyph: ⊝, ascii: Hx, class: keyword, labels: {en: Hexproof, bg: Неприкосновеност, bg-note: Hexproof, bg-ivanchev: Неприкосновеность}, oracle: Hexproof}
 - {glyph: ∌, ascii: Ls, class: action, syntax: {kind: verb, op: has, args: [ability]}, labels: {en: loses / doesn't have, bg: губи / няма, bg-ivanchev: губи / нѣма}}
 - {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game, bg: извън играта, bg-ivanchev: извънъ играта}}
 - {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game, bg: спечели играта, bg-ivanchev: спечели играта}}
-- {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлегъ)}}
-- {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлегъ)}}
+- {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлѣгъ)}}
+- {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлѣгъ)}}
 - {glyph: ☉, ascii: Mp, class: time, syntax: {kind: time, op: phase}, labels: {en: main phase, bg: главна част, bg-ivanchev: главна часть}}
 - {glyph: ◒, ascii: Us, class: time, syntax: {kind: time, op: turn}, labels: {en: untap step, bg: изправяне, bg-ivanchev: изправяне}}
 - {glyph: '>', ascii: '>', class: comparison, syntax: {kind: comparison}, labels: {en: greater than, bg: по-голямо, bg-ivanchev: по-голѣмо}}
@@ -177,7 +177,7 @@
 - {glyph: ⨁, ascii: Rs, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: costs more, bg: струва повече, bg-ivanchev: струва повече}}
 - {glyph: Σ, ascii: Sm, class: comparison, syntax: {kind: prefix, op: agg}, labels: {en: total, bg: общо, bg-ivanchev: общо}}
 - {glyph: ⁺, ascii: Xs, class: comparison, syntax: {kind: marker, op: excess}, labels: {en: excess, bg: излишък, bg-ivanchev: излишъкъ}}
-- {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter), bg: подвиг (белег), bg-ivanchev: подвигъ (бѣлегъ)}}
+- {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter), bg: подвиг (белег), bg-ivanchev: подвигъ (бѣлѣгъ)}}
 - {glyph: ∩, ascii: Cm, class: comparison, syntax: {kind: marker, op: shared}, labels: {en: shared / in common, bg: общ, bg-ivanchev: общъ}}
 - {glyph: ◓, ascii: Lk, class: action, labels: {en: look at, bg: погледни, bg-ivanchev: погледни}}
 - {glyph: ←, ascii: By, class: logic, syntax: {kind: marker, op: passive}, labels: {en: 'passive: is …-ed (¬⛉← can''t be blocked)', bg: 'страдателно: бива …-н (¬⛉← не може да бъде препречен)', bg-ivanchev: 'страдателно: бива …-н (¬⛉← не може да бѫде прѣпрѣченъ)'}}
@@ -189,7 +189,7 @@
 - {glyph: ⟳, ascii: Et, class: time, syntax: {kind: verb, args: [object]}, labels: {en: extra turn, bg: допълнителен ход, bg-ivanchev: допълнителенъ ходъ}}
 - {glyph: ⁿ, ascii: Nm, class: characteristic, labels: {en: name, bg: име, bg-ivanchev: име}}
 - {glyph: ⟜, ascii: Ah, class: action, labels: {en: attach to, bg: прикачи към, bg-ivanchev: прикачи къмъ}}
-- {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter), bg: мир (белег), bg-ivanchev: миръ (бѣлегъ)}}
+- {glyph: ☮, ascii: Pc, class: counter_kind, labels: {en: peace (counter), bg: мир (белег), bg-ivanchev: миръ (бѣлѣгъ)}}
 - {glyph: ⋮, ascii: Dv, class: action, syntax: {kind: verb, op: transfer, args: [object, destination]}, labels: {en: distribute among, bg: раздели между, bg-ivanchev: раздѣли между}}
 - {glyph: ⇅, ascii: Ay, class: logic, labels: {en: in any order, bg: в какъвто ред щеш, bg-ivanchev: въ какъвто редъ щешъ}}
 - {glyph: ⦸, ascii: Ph, class: action, labels: {en: phase out, bg: избледней, bg-note: phase out, bg-ivanchev: изблѣдней}}

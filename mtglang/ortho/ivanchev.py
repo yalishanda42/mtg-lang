@@ -4,13 +4,17 @@ A dependency-free port of the converter behind https://pravopis.osvedomitel.bg/ 
 (``converter/converter.py`` and ``process_vocabs.py``), © 2021 Petar Nedelev, MIT License; word lists vendored in
 ``mtglang/ortho/data`` (see its README). Differences from upstream:
 
-- no nltk: a regex tokenizer over Cyrillic words (hyphenated words stay one token), everything else untouched;
+- no nltk: a regex tokenizer over Cyrillic words, everything else untouched; each part of a hyphenated
+  compound is converted on its own (самъ-самичъкъ, Плащъ-невидимка — as in the upstream gold texts), and an
+  override can name a whole compound;
 - no BERT tagger: ``-те`` verb/noun homographs take the non-verb reading (upstream's behaviour without weights);
 - no frequency cache (speed only);
 - ``override`` pairs (lowercase modern → old) are applied per word before the rules;
 - words already in old spelling (containing ѣ / ѫ, or ending in ъ / ь) are left as they are, so conversion is
   idempotent;
 - the second-vowel ѫ roots (гълъб, жълъд) use an offset from the root, not an absolute index (upstream bug);
+- dropped: upstream's skip list {"ВиК", "МВнР"}; all-caps words count я/ю as vowels (ЮГ → ЮГЪ);
+- input is assumed to be modern spelling: old-spelling text without ѣ/ѫ/final ъ is converted again;
 - extension: nouns in -тел and -ост (6+ letters) are soft (-тель, -ость; учительтъ, радостьта), so coined and
   rarer words not in the upstream lists come out right.
 """
@@ -232,15 +236,20 @@ def to_ivanchev(text: str, override: dict[str, str] | None = None) -> str:
     """Convert modern-spelling Bulgarian text; non-Cyrillic text passes through unchanged."""
     override = override or {}
 
-    def sub(m: re.Match) -> str:
-        w = m.group()
-        low = w.lower()
-        if w.isupper() and len(w) > 1 and not any(c in VOWELS | {"я", "ю", "и", "е"} for c in low):
-            return w                      # an abbreviation in capitals
+    def one(part: str) -> str:
+        low = part.lower()
+        if part.isupper() and len(part) > 1 and not any(c in VOWELS | {"я", "ю", "и", "е"} for c in low):
+            return part                   # an abbreviation in capitals
         new = override.get(low)
         if new is None:
             new = convert_word(low)
-        return _keep_case(w, new)
+        return _keep_case(part, new)
+
+    def sub(m: re.Match) -> str:
+        w = m.group()
+        if w.lower() in override:         # a whole compound can be overridden
+            return _keep_case(w, override[w.lower()])
+        return "-".join(one(p) for p in w.split("-"))   # each part of a compound gets its own ending
 
     return _WORD.sub(sub, text)
 

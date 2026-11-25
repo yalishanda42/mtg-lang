@@ -91,3 +91,29 @@ def test_overwrite_replaces_listed_conflicts(tmp_path, capsys):
     out = capsys.readouterr().out
     assert "overwrote names:Bell: Звѫнъ →" in out
     assert _labels(root, "names.yaml")[2]["bg-ivanchev"] != "Звѫнъ"
+
+
+def test_hand_edit_on_entry_with_override_is_a_conflict(tmp_path):
+    root = _glossary(tmp_path, '- {key: Bell, class: card, labels: {en: Bell, bg: Звън, bg-ivanchev: Звънецъ}}\n')
+    (root / "glossary" / "ortho_overrides.yaml").write_text("words: {}\nentries: {'names:Bell': Звѫнъ}\n",
+                                                            encoding="utf-8")
+    r = regenerate(root)
+    assert r.conflicts == ["names:Bell"]
+
+
+def test_overwrite_only_named_keys(tmp_path):
+    root = _glossary(tmp_path, '- {key: Bell, class: card, labels: {en: Bell, bg: Звън, bg-ivanchev: Звѫнъ}}\n'
+                               '- {key: Bow, class: card, labels: {en: Bow, bg: Лък, bg-ivanchev: Лѫкъ!}}\n')
+    r = regenerate(root, overwrite=["names:Bell"])
+    assert r.conflicts == ["names:Bow"] and r.changed == 0
+    r = regenerate(root, overwrite=["names:Bell", "names:Bow"])
+    assert r.conflicts == [] and {k for k, _, _ in r.overwritten} == {"names:Bell", "names:Bow"}
+
+
+def test_null_override_value_is_an_error(tmp_path):
+    import pytest
+    from mtglang.ortho.glossary import load_overrides
+    root = _glossary(tmp_path)
+    (root / "glossary" / "ortho_overrides.yaml").write_text("words:\n  път:\nentries: {}\n", encoding="utf-8")
+    with pytest.raises(ValueError):
+        load_overrides(root)
