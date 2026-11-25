@@ -111,7 +111,7 @@ class Planner:
         """A sentence-level node → SentencePlan / ClausePlan / Gap."""
         fn = SENTENCE_KINDS.get(type(node))
         if fn is None:
-            if type(node) in PHRASE_ONLY:
+            if type(node) in PHRASE_ONLY or isinstance(node, A.SymRef):
                 return self.conv(node, path)
             return Gap(node.kind, path)
         return fn(self, node, path)

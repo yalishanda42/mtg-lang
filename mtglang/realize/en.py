@@ -17,6 +17,7 @@ from mtglang.planir import AbilityPlan, CardContext, CardPlan, ClausePlan, Gap, 
 # subtypes a card names itself by ("this Saga"); otherwise the card type decides ("this creature")
 SELF_SUBTYPES = ("Saga", "Aura", "Equipment", "Spacecraft", "Vehicle")
 SELF_TYPES = ("Creature", "Land", "Artifact", "Enchantment", "Planeswalker", "Battle")
+ROMAN = ("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
 COLOR_WORDS = {"{W}": "white", "{U}": "blue", "{B}": "black", "{R}": "red", "{G}": "green", "{C}": "colorless"}
 NUM_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
              "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
@@ -184,7 +185,7 @@ class En:
             return c.text
         if isinstance(c, A.Num):
             sign = {"-": "−", "−": "−", "+": "+"}.get(c.sign, "")
-            return f"{sign}{c.value}"
+            return f"[{sign}{c.value}]" if self.in_quotes else f"{sign}{c.value}"
         return self.inline(c)
 
     def ab_modal(self, a: AbilityPlan) -> str:
@@ -200,6 +201,13 @@ class En:
         inner = a.parts["ability"]
         body = self.text(inner.parts["body"]) if getattr(inner, "shape", "") == "static" else self.ability(inner)
         return f"• {body}"
+
+    def ab_chapter(self, a: AbilityPlan) -> str:
+        nums = ", ".join(ROMAN[n] if n < len(ROMAN) else str(n) for n in a.parts["numbers"])
+        return f"{nums} — {self.ability(a.parts['ability'])}"
+
+    def ab_threshold(self, a: AbilityPlan) -> str:
+        return f"{a.parts['n']}+ | {self.ability(a.parts['ability'])}"
 
     def ab_labelled(self, a: AbilityPlan) -> str:
         label = " ".join(self.label_word(x) for x in a.label)
@@ -247,11 +255,35 @@ class En:
             return f"{p.var.name} is {self.value(p.value)}"
         if isinstance(p, AbilityPlan):
             return self.modal(p) if p.shape == "modal" else gap(f"ability:{p.shape}")
+        if isinstance(p, A.Nested):
+            return self.nested(p.ability)
         return self.value(p)
+
+    def nested(self, a) -> str:
+        """A triggered ability inside an effect: reflexive ("when you do, …"), delayed ("… at the beginning of
+        the next end step"), or bounded ("until end of turn, whenever …")."""
+        if not isinstance(a, AbilityPlan) or a.shape != "triggered":
+            return gap("nested")
+        ev, eff = a.parts["event"], a.parts["effect"]
+        if isinstance(ev, A.Time):
+            sents = self.sentences(eff)
+            if len(sents) == 1:
+                return f"{sents[0]} at {self.time(ev)}"
+            return f"at {self.time(ev)}, " + ". ".join(cap(x) if i else x for i, x in enumerate(sents))
+        if isinstance(ev, A.SymRef) and self.op(ev) in ("did", "didnt"):
+            head = "when you do" if self.op(ev) == "did" else "when you don't"
+            return f"{head}, " + ". ".join(cap(x) if i else x for i, x in enumerate(self.sentences(eff)))
+        text = self.ab_triggered(a)
+        return text[:1].lower() + text[1:].rstrip(".")
 
     def sentence_plan(self, p: SentencePlan) -> str:
         if p.lead is not None:
-            return gap(f"lead:{p.lead}")
+            body = self.inline(p.clauses[0])
+            if p.lead == "if_do":
+                return f"if you do, {body}"
+            if p.lead == "if_dont":
+                return f"if you don't, {body}"
+            return f"{body} instead"
         if len(p.clauses) == 1:
             return self.inline(p.clauses[0])
         kinds = {j.kind for j in p.joins}
@@ -268,16 +300,43 @@ class En:
             return ". ".join(cap(s) if i else s for i, s in enumerate(self.sentences(p)))
         if len(p.joins) == 1:
             j = p.joins[0].kind
+            if j == "instead":
+                return self.replacement(p)
+            if j == "for_each":
+                return f"for each {self.np(self._sg(p.clauses[0]))}, {self.inline(p.clauses[1])}"
             a, b = (self.inline(c) for c in p.clauses)
+            if j == "while":
+                return f"{a} as long as {self.condition(p.clauses[1])}"
+            if j == "as_though":
+                return f"{a} as though {b}"
             if j == "if":
                 return f"if {a}, {b}"
             if j == "unless":
                 return f"{a} unless {b}"
+            first = p.clauses[0]
+            if j in ("until", "during") and isinstance(first, A.Nested):
+                lead = f"until {b}" if j == "until" else b
+                return f"{lead}, {a}"
             if j == "until":
                 return f"{a} until {b}"
             if j == "during":
                 return f"{a} {b}"
         return gap("join:" + "+".join(j.kind for j in p.joins))
+
+    def replacement(self, p: SentencePlan) -> str:
+        """"As this land enters, …" (self entering) / "If <event> would …, <effect> instead"."""
+        ev, eff = p.clauses
+        if isinstance(ev, ClausePlan) and isinstance(ev.pred, A.SymRef) and ev.pred.glyph == "↥" \
+                and ev.subject is not None and ev.subject.ref == "self" and not ev.args:
+            return f"as {self.clause(ev)}, {self.inline(eff)}"
+        self._modal = "would"
+        try:
+            cond = self.inline(ev)
+        finally:
+            self._modal = None
+        return f"if {cond}, {self.inline(eff)} instead"
+
+    _modal: str | None = None
 
     def merge_objects(self, p: SentencePlan, word: str) -> str | None:
         """"gains trample and lifelink": shared subject, same verb, one argument each, time only at the end."""
@@ -323,10 +382,30 @@ class En:
             body = self.delta(c.pred, third)
         elif isinstance(c.pred, A.SymRef):
             body = self.verb_phrase(c, third)
+        elif isinstance(c.pred, A.EffectRef):
+            body = self.value(c.pred)
         else:
             body = gap(f"pred:{type(c.pred).__name__}")
         rest = self.trailing(c)
+        if self._modal and not c.optional:
+            body = f"{self._modal} " + self.base_form(c, body)
+        if c.optional:
+            if not subj:
+                subj = "you" if c.mood == "imperative" else subj
+            body = "may " + self.base_form(c, body)
         return " ".join(x for x in (subj, body, rest) if x)
+
+    def base_form(self, c: ClausePlan, body: str) -> str:
+        """The body with its first verb in the base form ("may pay", not "may pays")."""
+        if isinstance(c.pred, A.SymRef):
+            third = self.w(c.pred, "s", "")
+            if third and body.startswith(third):
+                return self.w(c.pred, "verb") + body[len(third):]
+        for a, b in (("gets ", "get "), ("gains ", "gain "), ("has ", "have "), ("deals ", "deal "),
+                     ("puts ", "put "), ("returns ", "return ")):
+            if body.startswith(a):
+                return b + body[len(a):]
+        return body
 
     def trailing(self, c: ClausePlan) -> str:
         out = []
@@ -351,8 +430,21 @@ class En:
             state = self.static and not self.ctx.is_spell and self.arg(c, "time") is None
             word = ("has" if third else "have") if state else self.verb(v, third)
             ab = self.arg(c, "ability")
-            return f"{word} {self.ability_arg(ab)}"
-        words = [self.verb(v, third)]
+            text = self.ability_arg(ab)
+            if self.trailing(c) and text.endswith('."'):
+                text = text[:-2] + '"'
+            return f"{word} {text}"
+        obj = self.arg(c, "object")
+        holder = None
+        if isinstance(obj, PhrasePlan) and obj.heads and isinstance(obj.heads[0], A.SymRef):
+            holder = {"◌": "token", "✪": "emblem"}.get(obj.heads[0].glyph)
+        if holder is None and isinstance(obj, PhrasePlan) and any(
+                isinstance(h, A.SymRef) and h.glyph == "◌" for h in obj.heads):
+            holder = "token"
+        if holder == "emblem" and v.glyph == "✚":
+            words = ["gets" if third else "get"]
+        else:
+            words = [self.verb(v, third)]
         counted = self.lex.sym(v.index).get("noun")
         for slot, a in c.args:
             if slot == "time":
@@ -363,15 +455,36 @@ class En:
                 words.append(self.mana(a))
             elif slot == "state" and isinstance(a, ClausePlan) and isinstance(a.pred, A.SymRef) and not a.args:
                 words.append(self.w(a.pred, "ed"))
+            elif slot == "state" and isinstance(a, ClausePlan) and self.op(a.pred) == "has":
+                words.append(f"with {self.ability_arg(self.arg(a, 'ability'), holder)}")
             else:
                 words.append(self.value(a))
         del g
         return " ".join(words)
 
-    def ability_arg(self, ab) -> str:
+    def ability_arg(self, ab, holder: str | None = None) -> str:
+        """A granted ability: a keyword in lower case, or a whole ability in quotes."""
         if isinstance(ab, A.Keyword):
             return self.keyword(ab).lower()
+        if isinstance(ab, A.Nested):
+            ab = ab.ability
+        if isinstance(ab, (AbilityPlan, ClausePlan, SentencePlan)):
+            return f'"{self.quoted(ab, holder)}"'
+        if isinstance(ab, A.Keywords) or (isinstance(ab, tuple)):
+            return gap("ability")
         return gap("ability")
+
+    def quoted(self, ab, holder: str | None) -> str:
+        sub = En(self.lex, self.ctx)
+        sub.holder, sub.in_quotes = holder, True
+        if isinstance(ab, AbilityPlan):
+            sub.static = ab.shape == "static" and holder is not None
+            return sub.ability(ab)
+        sub.static = True
+        return sub.text(ab)
+
+    holder: str | None = None       # "token" / "emblem": what "this …" means inside quotes
+    in_quotes = False
 
     def counted(self, n, noun: str) -> str:
         if isinstance(n, A.Count):
@@ -400,7 +513,7 @@ class En:
             finally:
                 self._damage_dest = False
         if hop == "counter":
-            return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest)}"
+            return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest, role='destination')}"
         if isinstance(dest, A.Zone):
             return self.move(obj, dest, third)
         return gap("transfer")
@@ -490,7 +603,7 @@ class En:
         if p.ref == "self":
             if p.pronoun and p.self_as == "permanent":
                 return "it"
-            words = self_phrase(self.ctx, self.lex, p.self_as)
+            words = f"this {self.holder}" if self.holder else self_phrase(self.ctx, self.lex, p.self_as)
             z = self.from_zone(p) if moving else None
             return f"{words} from {self.zone(z)}" if z is not None else words
         if p.ref == "you":
@@ -508,26 +621,40 @@ class En:
                 verb = "control" if (isinstance(who, PhrasePlan) and (who.ref == "you" or who.number == "pl")) \
                     else "controls"
                 return f"{self.np(who, role='subject')} {verb} {self.np(rest)}"
+        each_all = q == "each" and not (role in ("subject", "destination") or self.is_player(p) or self._damage_dest)
+        if each_all:
+            p = dataclasses_replace(p, number="pl")
         pre, post = self.modifiers(p, moving)
-        another = "another" in pre
+        other = "another" in pre
+        definite = any(w in ("enchanted", "equipped") for w in pre)
         pre = [w for w in pre if w != "another"]
         noun = self.premodified(pre, self.head_words(p))
+        name = self._mod(p, "name")
+        if name is not None:
+            post = f"named {self.value(name)} {post}".strip()
         quant = self._mod(p, "quant")
         target = quant is not None and self.op(quant) == "target"
         core = f"target {noun}" if target else noun
+        oth = "other " if other else ""
         if q == "up_to":
             count = self._mod(p, "count")
             n = count.value if isinstance(count, A.Bound) else count
-            out = f"up to {self.number(n)} {core}"
+            out = f"up to {self.number(n)} {oth}{core}"
         elif q == "one":
-            out = f"another {core}" if another else (core if target else f"{article(core)} {core}")
+            if other:
+                out = f"another {core}"
+            elif target or definite:
+                out = core
+            else:
+                out = f"{article(core)} {core}"
         elif q == "each":
-            out = f"each {core}" if role == "subject" or self.is_player(p) or self._damage_dest else \
-                f"all {self.head_words(dataclasses_replace(p, number='pl'))}"
+            out = f"all {oth}{core}" if each_all else f"each {oth}{core}"
         elif q == "exists":
             out = f"{article(core)} {core}"
+        elif q == "exactly":
+            out = f"{self.number(self._mod(p, 'count'))} {oth}{core}"
         else:
-            out = core
+            out = f"{oth}{core}"
         return f"{out} {post}".strip()
 
     def control_rel(self, p: PhrasePlan):
@@ -600,7 +727,7 @@ class En:
 
     def head_words(self, p: PhrasePlan) -> str:
         words, token = [], any(isinstance(h, A.SymRef) and h.glyph == "◌" for h in p.heads)
-        heads = list(p.heads)
+        heads = sorted(p.heads, key=lambda h: 0 if isinstance(h, A.NameRef) else 1)
         for i, h in enumerate(heads):
             last = i == len(heads) - 1
             if isinstance(h, A.NameRef):
@@ -643,8 +770,13 @@ class En:
     def premodifier(self, cond) -> str | None:
         """A filter condition written before the noun (non-creature, 2/2, white, legendary), else None."""
         if isinstance(cond, A.Rel) and self.op(cond.rel) == "other" and isinstance(cond.other, PhrasePlan) \
-                and cond.other.ref == "self":
+                and cond.other.ref in ("self", "anaphor"):
             return "another"
+        if isinstance(cond, A.Rel) and isinstance(cond.other, PhrasePlan) and cond.other.ref == "self" \
+                and "adj" in self.lex.sym(cond.rel.index):
+            return self.lex.sym(cond.rel.index)["adj"]
+        if isinstance(cond, A.Or) and all(self.premodifier(x) is not None for x in cond.items):
+            return " or ".join(self.premodifier(x) for x in cond.items)
         if isinstance(cond, A.Not) and isinstance(cond.item, PhrasePlan) and cond.item.quantity == "kind":
             return "non" + self.head_words(cond.item)
         if isinstance(cond, PhrasePlan) and cond.quantity == "kind" and cond.ref == "new" and not cond.mods:
@@ -850,8 +982,17 @@ class En:
             return self.time(v)
         if isinstance(v, A.Compare):
             return self.compare(v)
+        if isinstance(v, A.NameRef):
+            return v.key
+        if isinstance(v, A.EffectRef):
+            e = self.g.effects.get(v.key)
+            return e.labels.get("en", v.key) if e else gap("effect")
         if isinstance(v, A.Of):
             return self.of(v)
+        if isinstance(v, (A.Or, A.And)):
+            word = " or " if isinstance(v, A.Or) else " and "
+            parts = [self.value(x) for x in v.items]
+            return word.join(parts) if len(parts) == 2 else ", ".join(parts[:-1]) + "," + word + parts[-1]
         if isinstance(v, A.Count):
             return f"the number of {self.np(v.of)}"
         if isinstance(v, PhrasePlan):

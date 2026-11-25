@@ -111,8 +111,8 @@
 - {glyph: ⚠, ascii: Mn, class: keyword, labels: {en: Menace, bg: Страховитост, bg-ivanchev: Страховитость}, oracle: Menace, definition: ◈ ¬⛉← ≤1 ♞}
 - {glyph: ⛊, ascii: Df, class: keyword, labels: {en: Defender, bg: Бранител, bg-ivanchev: Бранитель}, oracle: Defender, definition: ◈ ¬➹}
 - {glyph: ❂, ascii: Pw, class: keyword, labels: {en: Prowess, bg: Юначество, bg-ivanchev: Юначество}, oracle: Prowess, definition: '● ✷ ✦[¬♞] ⇒ ◈ +1/+1 ⧗'}
-- {glyph: ⚭, ascii: En, class: keyword, labels: {en: Enchant, bg: Омайва, bg-ivanchev: Омайва}, oracle: Enchant}
-- {glyph: ⚒, ascii: Eq, class: keyword, labels: {en: Equip, bg: Въоръжи, bg-ivanchev: Въорѫжи}, oracle: Equip}
+- {glyph: ⚭, ascii: En, class: keyword, labels: {en: Enchant, bg: Омайва, bg-ivanchev: Омайва}, oracle: Enchant, lex: {en: {adj: enchanted}}}
+- {glyph: ⚒, ascii: Eq, class: keyword, labels: {en: Equip, bg: Въоръжи, bg-ivanchev: Въорѫжи}, oracle: Equip, lex: {en: {adj: equipped}}}
 - {glyph: ↺, ascii: FB, class: keyword, labels: {en: Flashback, bg: Възврат, bg-note: Flashback — „връщане“ на заклинанието от гробището, bg-ivanchev: Възвратъ}, oracle: Flashback}
 - {glyph: ⋈, ascii: Cv, class: keyword, labels: {en: Convoke, bg: Сбор, bg-note: 'Convoke — „свикване, сбор“ на твари', bg-ivanchev: Сборъ}, oracle: Convoke}
 - {glyph: ♲, ascii: Cy, class: keyword, labels: {en: Cycling, bg: Обмяна, bg-ivanchev: Обмѣна}, oracle: Cycling}
@@ -159,7 +159,7 @@
 - {glyph: ⬢, ascii: Id, class: keyword, labels: {en: Indestructible, bg: Несъкрушимост, bg-ivanchev: Несъкрушимость}, oracle: Indestructible}
 - {glyph: ⊝, ascii: Hx, class: keyword, labels: {en: Hexproof, bg: Неприкосновеност, bg-note: Hexproof, bg-ivanchev: Неприкосновеность}, oracle: Hexproof}
 - {glyph: ∌, ascii: Ls, class: action, syntax: {kind: verb, op: has, args: [ability]}, labels: {en: loses / doesn't have, bg: губи / няма, bg-ivanchev: губи / нѣма}}
-- {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game, bg: извън играта, bg-ivanchev: извънъ играта}}
+- {glyph: ⬚, ascii: Og, class: zone, labels: {en: outside the game, bg: извън играта, bg-ivanchev: извънъ играта}, lex: {en: {noun: outside the game}}}
 - {glyph: ♔, ascii: Wn, class: action, labels: {en: win the game, bg: спечели играта, bg-ivanchev: спечели играта}}
 - {glyph: ✹, ascii: Cg, class: counter_kind, labels: {en: charge (counter), bg: заряд (белег), bg-ivanchev: зарядъ (бѣлѣгъ)}, lex: {en: {noun: charge}}}
 - {glyph: ✠, ascii: Fn, class: counter_kind, labels: {en: finality (counter), bg: окончателност (белег), bg-ivanchev: окончателность (бѣлѣгъ)}, lex: {en: {noun: finality}}}

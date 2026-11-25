@@ -46,6 +46,15 @@ MUST_MATCH = [
     "fra/fatehold-charm#0.2",
     "fra/unsummon#0.0",
     "fra/craftwork-crusher#0.1",
+    # Task 9: ability shapes
+    "trk/year-of-hell#0.0",
+    "trk/borg-cube#0.3",
+    "fra/pompous-battlemage-improvised-act#1.0",
+    "fra/mind-meanderer#0.1",
+    "fra/lichs-relic#0.0",
+    "trk/captains-tutelage#0.2",
+    "fra/ferocity-of-the-hunt#0.2",
+    "fra/craftwork-crusher#0.3",
 ]
 
 
