@@ -76,6 +76,41 @@ def cmd_ast(args) -> int:
     return 0
 
 
+def cmd_en(args) -> int:
+    from mtglang.realize.en import render_card_en
+    try:
+        faces = render_card_en(Path(args.root), args.card)
+    except FileNotFoundError:
+        print(f"no card file for {args.card}")
+        return 1
+    for k, f in enumerate(faces):
+        if k:
+            print("//")
+        print(f.name)
+        print(f.type_line)
+        if f.stats:
+            print(f.stats)
+        for line in f.lines:
+            print(line)
+    return 0
+
+
+def cmd_eval_en(args) -> int:
+    from mtglang.evalen import evaluate, summary, write_report
+    results = evaluate(Path(args.root), sets=args.set or None)
+    s = summary(results)
+    pct = 100 * s["exact"] / s["lines"] if s["lines"] else 0.0
+    a_ok, a_n = s["abilities"]
+    print(f"exact {s['exact']}/{s['lines']} ({pct:.1f}%) — ability lines {a_ok}/{a_n} "
+          f"({100 * a_ok / a_n if a_n else 0:.1f}%)")
+    for code, (ok, n) in s["by_set"].items():
+        print(f"  {code}: {ok}/{n}")
+    for cause, n in s["by_cause"].items():
+        print(f"  {n:5}  {cause}")
+    print(f"wrote {write_report(results, Path(args.out))}")
+    return 0
+
+
 def cmd_ortho(args) -> int:
     try:
         return _ortho(args)
@@ -171,6 +206,15 @@ def build_parser() -> argparse.ArgumentParser:
     a.add_argument("--root", default=".")
     a.add_argument("--coverage", action="store_true", help="count lines that parse and round-trip")
     a.set_defaults(func=cmd_ast)
+    e = sub.add_parser("en", help="print a card rendered into English from its AST")
+    e.add_argument("card", help="<set>/<slug>, e.g. fra/academic-ascent")
+    e.add_argument("--root", default=".")
+    e.set_defaults(func=cmd_en)
+    ee = sub.add_parser("eval-en", help="compare AST → English with Oracle text; write build/eval-en/")
+    ee.add_argument("--root", default=".")
+    ee.add_argument("--set", action="append", choices=list(scryfall.SETS))
+    ee.add_argument("--out", default="build")
+    ee.set_defaults(func=cmd_eval_en)
     o = sub.add_parser("ortho", help="convert modern Bulgarian to Ivanchev (pre-1945) spelling, offline")
     o.add_argument("text", nargs="?", help="text to convert (default: read stdin)")
     o.add_argument("--root", default=".")

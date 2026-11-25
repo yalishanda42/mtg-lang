@@ -494,7 +494,7 @@ def realize_card(plan: CardPlan, lex: Lexicon) -> list[FaceText]:
     out = []
     for f in plan.faces:
         en = En(lex, f.ctx)
-        lines = tuple(en.ability(a) for a in f.abilities)
+        lines = tuple(line for a in f.abilities for line in en.ability(a).split("\n"))
         out.append(FaceText(f.name, english_type_line(f.types, lex.g), stats_text(f.stats), lines))
     return out
 
