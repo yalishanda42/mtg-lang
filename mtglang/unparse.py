@@ -273,7 +273,13 @@ class Unparser:
         eff = self.node(n.effect)
         for lim in n.limits:
             eff += " " + self.o("then") + " " + self.node(lim)
-        return self.join([", ".join(self.node(c) for c in n.cost), self.role("cost_sep"), eff])
+        return self.join([", ".join(self._cost(c) for c in n.cost), self.role("cost_sep"), eff])
+
+    def _cost(self, c) -> str:
+        """Loyalty costs are written with the minus sign −."""
+        if isinstance(c, (A.Num, A.Var)) and c.sign == "-":
+            return "−" + (str(c.value) if isinstance(c, A.Num) else c.name)
+        return self.node(c)
 
     def u_Static(self, n):
         return self.node(n.body)

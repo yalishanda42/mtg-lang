@@ -12,7 +12,7 @@
 - {glyph: ≔, ascii: ':=', class: structural, syntax: {kind: structural, op: bind, args: [types]}, labels: {en: 'where (variable) / becomes (replacing types)'}}
 - {glyph: ◈, ascii: '@', role: self, class: reference, syntax: {kind: reference, op: self}, labels: {en: this object}}
 - {glyph: ☞, ascii: $, class: reference, syntax: {kind: reference, op: that}, labels: {en: that object / player (just mentioned)}}
-- {glyph: ●, ascii: Yu, class: player, labels: {en: you}}
+- {glyph: ●, ascii: Yu, class: player, syntax: {kind: player, op: you}, labels: {en: you}}
 - {glyph: ○, ascii: Op, class: player, labels: {en: an opponent}}
 - {glyph: ◐, ascii: Pp, class: player, labels: {en: a player}}
 - {glyph: ⚑, ascii: Ct, class: player, syntax: {kind: relation, op: control}, labels: {en: controller / controls}}
@@ -69,23 +69,23 @@
 - {glyph: ≣, ascii: Sk, class: zone, labels: {en: stack}}
 - {glyph: ↥, ascii: ^, class: action, syntax: {kind: verb, args: [with]}, labels: {en: enters (the battlefield)}}
 - {glyph: ☠, ascii: Di, class: action, labels: {en: dies}}
-- {glyph: ➹, ascii: At, class: action, labels: {en: attacks}}
+- {glyph: ➹, ascii: At, class: action, syntax: {state: true}, labels: {en: attacks}}
 - {glyph: ⛉, ascii: Bk, class: action, labels: {en: blocks}}
 - {glyph: ✷, ascii: Cs, class: action, labels: {en: cast}}
-- {glyph: ↷, ascii: Tp, class: action, labels: {en: tap / tapped}}
+- {glyph: ↷, ascii: Tp, class: action, syntax: {state: true}, labels: {en: tap / tapped}}
 - {glyph: ↶, ascii: Un, class: action, labels: {en: untap}}
 - {glyph: ▶, ascii: Pl, class: action, labels: {en: play}}
 - {glyph: ⤓, ascii: Dr, class: action, syntax: {yields: true}, labels: {en: draw}}
 - {glyph: ✖, ascii: Ds, class: action, labels: {en: destroy}}
 - {glyph: ✝, ascii: Sc, class: action, labels: {en: sacrifice}}
 - {glyph: →, ascii: ~>, class: action, syntax: {kind: verb, op: transfer, args: [object, destination]}, labels: {en: put into / onto / deal to}}
-- {glyph: ⊕, ascii: Ad, class: action, syntax: {kind: verb, args: [amount, mana]}, labels: {en: add (mana)}}
+- {glyph: ⊕, ascii: Ad, class: action, syntax: {kind: verb, args: [amount, mana], state: true}, labels: {en: add (mana)}}
 - {glyph: ✸, ascii: Dg, class: action, syntax: {kind: object, op: damage}, labels: {en: damage}}
 - {glyph: ♥, ascii: <3, class: action, syntax: {kind: characteristic, op: life}, labels: {en: 'life (♥+ gain, ♥- lose)'}}
 - {glyph: ✚, ascii: Mk, class: action, labels: {en: create}}
 - {glyph: ⊞, ascii: Co, class: action, syntax: {kind: object, op: counter}, labels: {en: counter (on a permanent)}}
 - {glyph: ⊟, ascii: Rm, class: action, labels: {en: remove}}
-- {glyph: ∋, ascii: Hs, class: action, syntax: {kind: verb, op: has, args: [ability]}, labels: {en: has / gains}}
+- {glyph: ∋, ascii: Hs, class: action, syntax: {kind: verb, op: has, args: [ability], state: true}, labels: {en: has / gains}}
 - {glyph: ⊗, ascii: Cn, class: action, labels: {en: counter (a spell)}}
 - {glyph: ⌖, ascii: Se, class: action, syntax: {kind: verb, args: [zone, object]}, labels: {en: search}}
 - {glyph: ◉, ascii: Rv, class: action, labels: {en: reveal}}
@@ -96,7 +96,7 @@
 - {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter)}}
 - {glyph: ⧗, ascii: Ue, class: time, labels: {en: until end of turn}}
 - {glyph: ◷, ascii: Tn, class: time, syntax: {kind: time, op: turn}, labels: {en: 'turn (◷ this turn, ◷● your turn)'}}
-- {glyph: ≡, ascii: ==, class: time, syntax: {kind: verb, op: only, args: [object]}, labels: {en: only as (≡✎ = only as a sorcery)}}
+- {glyph: ≡, ascii: ==, class: time, syntax: {kind: verb, op: only, args: [object], state: true}, labels: {en: only as (≡✎ = only as a sorcery)}}
 - {glyph: 🪽, ascii: F, class: keyword, labels: {en: Flying}, oracle: Flying, definition: '♞[¬(🪽 ∨ ⇞)] ¬⛉ ◈'}
 - {glyph: ⊙, ascii: V, class: keyword, labels: {en: Vigilance}, oracle: Vigilance, definition: ◈➹ ¬↷}
 - {glyph: ♡, ascii: LL, class: keyword, labels: {en: Lifelink}, oracle: Lifelink, definition: ◈ ✸X ⇒ ◈⚑ ♥+X}
@@ -126,7 +126,7 @@
 - {glyph: ⊜, ascii: Af, class: keyword, labels: {en: Affinity}, oracle: Affinity}
 - {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate}, oracle: Assimilate}
 - {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station}, oracle: Station}
-- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Prepared}, oracle: Prepared}
+- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared}, oracle: Prepared}
 - {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma}, oracle: Face a dilemma}
 - {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace}, oracle: Empower Jace}
 - {glyph: ⟐, ascii: Bh, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Behold}, oracle: Behold}
@@ -152,7 +152,7 @@
 - {glyph: ∃, ascii: E., class: logic, syntax: {kind: quantifier, op: exists}, labels: {en: there is / you have a}}
 - {glyph: ⊸, ascii: Sn, class: action, syntax: {kind: infix, op: restrict}, labels: {en: spend this mana only to}}
 - {glyph: ⊳, ascii: Av, class: action, labels: {en: activate}}
-- {glyph: ❐, ascii: Cp, class: action, labels: {en: copy}}
+- {glyph: ❐, ascii: Cp, class: action, syntax: {state: true}, labels: {en: copy}}
 - {glyph: ↻, ascii: Nw, class: action, syntax: {kind: verb, args: [object, of]}, labels: {en: choose new / change}}
 - {glyph: ⚂, ascii: Rn, class: logic, labels: {en: at random}}
 - {glyph: ✲, ascii: Su, class: counter_kind, labels: {en: stun (counter)}}
@@ -168,7 +168,7 @@
 - {glyph: '>', ascii: '>', class: comparison, syntax: {kind: comparison}, labels: {en: greater than}}
 - {glyph: '<', ascii: '<', class: comparison, syntax: {kind: comparison}, labels: {en: less than}}
 - {glyph: ∘, ascii: Ao, class: logic, labels: {en: alone}}
-- {glyph: ⇢, ascii: Tt, class: action, labels: {en: triggered ability / trigger}}
+- {glyph: ⇢, ascii: Tt, class: action, syntax: {state: true}, labels: {en: triggered ability / trigger}}
 - {glyph: ↧, ascii: Lv, class: action, labels: {en: leaves (a zone; the battlefield by default)}}
 - {glyph: ⊥, ascii: Ba, class: characteristic, syntax: {kind: characteristic, op: base}, labels: {en: base power and toughness}}
 - {glyph: ⦰, ascii: Fr, class: action, syntax: {kind: marker}, labels: {en: without paying its mana cost}}

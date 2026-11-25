@@ -130,12 +130,16 @@ def check_consistency(pairs: list[tuple[str, str, str, int]], g: Glossary) -> li
 def check_resolution(doc, g: Glossary) -> list[Issue]:
     """S-RESOLVE: phrases or ☞ references the resolution pass could not settle."""
     from mtglang.resolve import resolve_card
-    from mtglang.semparse import group_modes
+    from mtglang.semparse import SemSyntaxError, group_modes
     faces, linenos = [], []
     for f in doc.faces:
         asts = [a.ast for a in f.abilities]
         lines = [a.lineno for a in f.abilities if not isinstance(a.ast, A.Mode)]
-        faces.append(A.Face(A.NameRef(f.name), (), f.type_ast or A.TypeLine(), None, tuple(group_modes(asts, g))))
+        try:
+            grouped = group_modes(asts, g, [a.lineno for a in f.abilities])
+        except SemSyntaxError as e:
+            return [_err("S-PARSE", e.message, str(doc.path), getattr(e, "line", None))]
+        faces.append(A.Face(A.NameRef(f.name), (), f.type_ast or A.TypeLine(), None, tuple(grouped)))
         linenos.append(lines)
     _, problems = resolve_card(A.Card(tuple(faces)), g)
     out = []

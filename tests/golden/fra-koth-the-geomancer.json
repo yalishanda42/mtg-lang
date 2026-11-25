@@ -290,8 +290,8 @@
             "post": [],
             "neg": false,
             "pre": [],
-            "quantity": "one",
-            "number": "sg",
+            "quantity": "kind",
+            "number": null,
             "antecedent": null
            }
           },

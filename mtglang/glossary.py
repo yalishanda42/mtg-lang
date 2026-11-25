@@ -28,7 +28,7 @@ ARG_SLOTS: frozenset[str] = frozenset({
     "player", "number", "value", "zone", "types", "filter", "with", "from", "of", "among", "as", "body",
 })
 PARAM_KINDS: frozenset[str] = frozenset({"cost", "number", "filter", "name"})
-SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec", "op", "yields"})
+SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec", "op", "yields", "state"})
 _CLASS_SYNTAX: dict[str, dict] = {
     "action": {"kind": "verb", "args": ["amount", "object"]},
     "keyword": {"kind": "keyword", "params": []},
@@ -164,8 +164,9 @@ def _syntax_problems(syn: dict) -> list[str]:
                 out.append(f"syntax {key} must be a list drawn from {sorted(allowed)}")
     if "subject" in syn and syn["subject"] not in ARG_SLOTS:
         out.append(f"unknown subject slot {syn['subject']!r}")
-    if "yields" in syn and not isinstance(syn["yields"], bool):
-        out.append("syntax yields must be true or false")
+    for flag in ("yields", "state"):
+        if flag in syn and not isinstance(syn[flag], bool):
+            out.append(f"syntax {flag} must be true or false")
     if "op" in syn and not isinstance(syn["op"], str):
         out.append("syntax op must be a name")
     if "prec" in syn and (not isinstance(syn["prec"], int) or isinstance(syn["prec"], bool)):

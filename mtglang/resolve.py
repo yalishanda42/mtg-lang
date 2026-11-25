@@ -86,6 +86,8 @@ def _records(root: A.Node, path: str, ctx: dict, out: list, parent=None, slot=""
             c["time"] = True
         if isinstance(root, A.Nested):
             c = {"nested": True}
+        if isinstance(root, A.Not) and isinstance(child, A.NP):
+            c["role"] = "types"        # ¬⚜ "isn't legendary" — a predicate
         if isinstance(root, (A.Action, A.Modify, A.Scoped)) and cslot == "subject":
             c["role"] = "subject"
         elif isinstance(root, A.Action) and cslot not in ("verb",):
@@ -146,9 +148,15 @@ class _Resolver:
             return "one", "sg"
         if ctx.get("event"):
             return "one", "sg"
-        if ctx.get("role") == "subject":
-            return "all", "pl"
-        return "one", "sg"
+        role = ctx.get("role")
+        if role in ("subject", "by"):
+            return "all", "pl"         # ♞[⚑●] +1/+0; blocked by creatures with power 2 or less
+        if role == "types":
+            return "kind", None        # ◈ ≔ ♞«Construct» — a predicate
+        if role in ("object", "destination", "arrow:destination", "with", "mana", "cost", "zone", "ability",
+                    "over", "rel", "state", "of", "from"):
+            return "one", "sg"
+        return None, None
 
     def _attached_to_self(self, np: A.NP) -> bool:
         for f in np.filters:
@@ -225,12 +233,7 @@ class _Resolver:
         return isinstance(p, A.Action) and isinstance(p.verb, A.SymRef) and self.op_of(p.verb) == "choose"
 
     def _is_you(self, n: A.NP) -> bool:
-        # the first player symbol in the glossary is "you"
-        if not self.g or n.quant is not None:
-            return False
-        h = n.heads[0]
-        players = [i for i, s in enumerate(self.g.symbols) if s.syntax.get("kind") == "player"]
-        return bool(players) and h.index == players[0]
+        return n.quant is None and isinstance(n.heads[0], A.SymRef) and self.op_of(n.heads[0]) == "you"
 
     def expected(self, rec: _Rec) -> str | None:
         p = rec.parent
@@ -323,6 +326,8 @@ def _resolve_ability(r: _Resolver, recs: list[_Rec], changes: dict, problems: li
         n = rec.node
         if isinstance(n, A.NP):
             quantity, number = r.classify(n, rec.ctx)
+            if quantity is None:
+                problems.append(ResolveProblem(rec.path, f"no rule gives the number of a phrase in slot {rec.ctx.get('role')!r}"))
             changes.setdefault(rec.path, {}).update(quantity=quantity, number=number)
             if r.is_that(n):
                 want = r.expected(rec)

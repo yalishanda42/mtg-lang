@@ -57,7 +57,7 @@ def test_activated_with_limit():
 
 def test_loyalty_cost():
     a = rt("−4 : ✚ ◌[2/2 ♦{W} «Cat» «Soldier» ♞] «Ajani's Pridemate» ∋ (● ♥+ ⇒ ⊞+1/+1 → ◈)")
-    assert a.cost == (A.Num(4, "−"),)
+    assert a.cost == (A.Num(4, "-"),)
     assert U.node(a).startswith("−4")
 
 

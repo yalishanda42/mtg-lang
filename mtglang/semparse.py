@@ -42,6 +42,11 @@ def op(t: Tok | None) -> str | None:
     return t.symbol.syntax.get("op")
 
 
+def _sign(text: str) -> str:
+    """Semantic sign: "+" or "-" (the loyalty minus − and the hyphen - mean the same)."""
+    return "-" if text in ("-", "−") else text
+
+
 def is_value(n) -> bool:
     return isinstance(n, VALUE_TYPES)
 
@@ -172,7 +177,7 @@ class SemParser:
             if t.type in ("DASH", "MINUS"):
                 if dash is not None:
                     raise SemSyntaxError(t.col, "second dash in type line")
-                dash = t.text
+                dash = "—"                 # meaning: has subtypes; spelling (— or -) is not kept
             elif t.type == "NAME" and dash is not None:
                 subs.append(A.NameRef(t.value))
             elif t.type == "SYMBOL" and dash is None:
@@ -278,7 +283,7 @@ class SemParser:
         if all(t.type == "MANA" for t in toks):
             return A.Mana("".join(t.value for t in toks))
         if len(toks) <= 2 and toks[-1].type in ("NUMBER", "VAR") and (len(toks) == 1 or toks[0].type in ("PLUS", "MINUS")):
-            sign = toks[0].text if len(toks) == 2 else ""
+            sign = _sign(toks[0].text) if len(toks) == 2 else ""
             last = toks[-1]
             return A.Num(int(last.value), sign) if last.type == "NUMBER" else A.Var(last.value, sign)
         return self.p_sentence(toks)
@@ -748,6 +753,8 @@ class SemParser:
                     i += 1
                     node = post[i][1]
                     col = post[i][2]
+                if not self._state_verb(node):
+                    raise SemSyntaxError(col, "a second verb here needs ; or ∧ before it")
                 sub_args = []
                 sub_free = self._frame(node, False)
                 while i + 1 < len(post) and post[i + 1][0] in ("np", "value", "kw", "group", "mana"):
@@ -779,6 +786,12 @@ class SemParser:
                 raise SemSyntaxError(col, f"unexpected {typ}")
             i += 1
         return args
+
+    def _state_verb(self, v) -> bool:
+        """May this verb follow another verb's arguments (↥↷ enters tapped, ✚ ◌ ∋ …, ✚ ❐◈)?"""
+        if isinstance(v, A.Or):
+            return all(self._state_verb(x) for x in v.items)
+        return isinstance(v, A.SymRef) and bool(self.g.symbols[v.index].syntax.get("state"))
 
     def _slot(self, free: list[str], node, typ) -> str | None:
         for k, slot in enumerate(free):
@@ -1375,7 +1388,7 @@ class SemParser:
     def _signed(self, s: _S):
         sign = ""
         if s.peek() is not None and s.peek().type in ("PLUS", "MINUS"):
-            sign = s.next().text
+            sign = _sign(s.next().text)
         t = s.next()
         if t.type == "NUMBER":
             return A.Num(int(t.value), sign)
@@ -1399,7 +1412,7 @@ class SemParser:
         amount = times = None
         n = s.peek()
         if n is not None and n.type in ("PLUS", "MINUS"):
-            sign = s.next().text
+            sign = _sign(s.next().text)
             n = s.peek()
         if n is not None and not bare and (n.type in ("NUMBER", "VAR") or op(n) == "count"):
             amount = self.p_atom(s)
@@ -1458,7 +1471,8 @@ class SemParser:
             if kind(t) == "time" and op(t) not in ("only", "until"):
                 s.next()
                 items.append(self.sym(t))
-                if op(t) == "begin" and s.peek() is not None and kind(s.peek()) != "time":
+                if op(t) == "begin" and s.peek() is not None and s.peek().type == "SYMBOL" \
+                        and kind(s.peek()) not in ("time", "structural"):
                     items.append(self.sym(s.next()))
                 elif op(t) == "turn" and s.peek() is not None and (
                         kind(s.peek()) in ("player", "reference")
@@ -1489,7 +1503,8 @@ class SemParser:
             except SemSyntaxError:
                 return False
             inner = s.toks[j + 1:e]
-            return bool(inner) and all(op(x) in ("pos", "or") for x in inner) and e + 1 < len(s.toks) \
+            return any(op(x) == "pos" for x in inner) and all(op(x) in ("pos", "or") for x in inner) \
+                and e + 1 < len(s.toks) \
                 and kind(s.toks[e + 1]) == "zone"
         return False
 
@@ -1572,7 +1587,9 @@ def group_modes(abilities: list, g: Glossary, lines: list[int] | None = None) ->
     for k, ab in enumerate(abilities):
         if isinstance(ab, A.Mode):
             if chooser is None:
-                raise SemSyntaxError(1, "mode line without a preceding ⊻ choice")
+                e = SemSyntaxError(1, "mode line without a preceding ⊻ choice")
+                e.line = lines[k] if lines else None
+                raise e
             chooser[2].append(ab)
             i, act, modes = chooser
             out[i] = (out[i][0], act, modes)
@@ -1603,5 +1620,5 @@ def build_card(doc, p: SemParser) -> A.Card:
                 raise
         stats = p.parse_stats(f.stats) if f.stats else None
         faces.append(A.Face(A.NameRef(f.name), (A.Mana(f.mana),) if f.mana else (), p.parse_type_line(f.type_line),
-                            stats, tuple(group_modes(abilities, p.g))))
+                            stats, tuple(group_modes(abilities, p.g, [a.lineno for a in f.abilities]))))
     return A.Card(tuple(faces))

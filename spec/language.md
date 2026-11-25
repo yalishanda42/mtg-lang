@@ -208,6 +208,7 @@ Each symbol in `glossary/symbols.yaml` has a `syntax` (explicit, or defaulted fr
 | `op` | the operator a parser rule needs (then, bind, and, or, not, if, while, replace, until, target, each, exists, may, count, …) | `⊃` if |
 | `args` | a verb's argument slots, in order | `⊕` → `[amount, mana]` |
 | `yields` | the verb's result can be referred to with `☞` | `⌕` surveil |
+| `state` | the verb may follow another verb's arguments as a state or nominal object (`◈ ↥↷` enters tapped, `✚ ❐◈` create a copy of this); any other second verb is an error (missing `;` or `∧`) | `↷` |
 
 A new symbol that behaves like an existing one needs only a glossary entry.
 
@@ -236,6 +237,10 @@ reference (`sym`), a name (`name`) or a one-off effect (`effect`).
 | `filter`, `rel`, `of` | `[⚑● ≠◈]`, `⚑●`, `☞⚑` | conds; rel, other; rel, of |
 | `zone`, `time` | `⌃4▤●`, `∀◷●` | zone, pos, count, owner; items |
 | `char`, `count`, `arith`, `compare`, `bound`, `pt`, `delta` | `◈△`, `#≢ ⛰[⚑●]`, `X ÷ 5`, `0 ≤ Y ≤ 10`, `≤1`, `+2/+0`, `♥+1` | … |
+
+An `action` with no verb is "deals damage" written without a recipient (`◈ ✸⨯`, `∀♞[…] ✸⨯ = ☞▽`); its
+`object` is the damage phrase. Signs are semantic (`+` / `-`; the loyalty `−` is spelling only), and a type
+line's dash is stored as `—`.
 
 `→` is the one transfer verb ("put into / onto / deal to"): `◈ ✸3 → ◎` is
 `action(→, subject ◈, object ✸3, destination ◎)`. Written after another verb it is a particle and its target
@@ -267,7 +272,8 @@ relation after a reference (`◈△`, `☞⚑`).
 - **quantity / number** of every phrase: explicit marks win (`◎` one, `≤n◎` up to, `∀` each, `n` exactly,
   `∃` exists); otherwise a bare phrase is *all* (plural) as a subject in an effect, *one* in a trigger
   event or as an object, *count* under `#`, *kind* inside a filter or keyword; a phrase attached to this
-  object (`♞[⚭◈]`) is one.
+  object (`♞[⚭◈]`) is one; a passive agent (`¬⛉← ♞[△ ≤ 2]`) is all; a predicate type (`☞ ∈ «Mountain»`,
+  `¬⚜`) is kind. A phrase no rule covers is an `S-RESOLVE` error. "You" is the player symbol with `op: you`.
 - **`☞` antecedent**: the most recent compatible phrase before it in written order (players for `[⚑☞]`,
   `◷☞`, life changes; objects for `☞⚑`, `☞△`, P/T changes, `∋`, verb objects; values for `ⁿ = ☞`). The first
   `☞` in a trigger's effect prefers the event's subject; results of `yields` verbs (`⌕1`, `⤋4`) and `⊻`

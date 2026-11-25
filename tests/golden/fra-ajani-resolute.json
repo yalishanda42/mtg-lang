@@ -230,7 +230,7 @@
       {
        "kind": "num",
        "value": 4,
-       "sign": "−"
+       "sign": "-"
       }
      ],
      "effect": {
@@ -499,7 +499,7 @@
       {
        "kind": "num",
        "value": 10,
-       "sign": "−"
+       "sign": "-"
       }
      ],
      "effect": {
