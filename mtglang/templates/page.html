@@ -54,6 +54,23 @@
   details summary { cursor: pointer; color: #555; margin-top: .5rem; }
 
   /* card view: notation painted over the real scan (2015 frame geometry, % of card size) */
+  .intro { max-width: 60rem; color: #444; }
+  .showcase { display: flex; flex-direction: column; gap: 2.2rem; }
+  .shead { position: sticky; top: 2.6rem; z-index: 4; background: #fafafa; display: grid;
+           grid-template-columns: repeat(3, 340px); gap: 1.5rem; padding: .5rem 0; border-bottom: 1px solid #ddd;
+           font-size: .8rem; text-transform: uppercase; color: #666; text-align: center; }
+  .trio { display: grid; grid-template-columns: repeat(3, 340px); gap: 1.5rem; }
+  .trio figure { margin: 0; }
+  .trio figcaption { display: none; }
+  .sname { display: block; margin-top: .4rem; color: #333; text-decoration: none; font-size: .9rem; }
+  .sname:hover { text-decoration: underline; }
+  .stats { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: .85rem; color: #666; }
+  @media (max-width: 1120px) {
+    .shead { display: none; }
+    .trio { grid-template-columns: 340px; }
+    .trio figcaption { display: block; text-align: center; font-size: .8rem; color: #666;
+                       text-transform: uppercase; margin-top: .3rem; }
+  }
   .pair { display: flex; gap: 1.5rem; flex-wrap: wrap; }
   .pair figure { margin: 0; }
   .pair figcaption { text-align: center; font-size: .8rem; color: #666; text-transform: uppercase; margin-top: .3rem; }
@@ -100,14 +117,35 @@
 </style>
 </head>
 <body>
+{% macro bars(f, n) %}
+    <div class="ov bar name f{{ n }}" title="{{ f.oracle_name }}"><span class="nm">{{ f.name|safe }}</span><span class="mc">{{ f.mana|safe }}</span></div>
+    <div class="ov bar type f{{ n }}" title="{{ f.oracle_type }}">{{ f.type|safe }}</div>
+    <div class="ov text f{{ n }}"><div class="fit">{% for r in f.rows %}<p title="{{ r.oracle }}">{{ r.html|safe }}</p>{% endfor %}</div></div>
+{% endmacro %}
+{% macro original(v) %}<figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>{{ ui.original }}</figcaption></figure>{% endmacro %}
+{% macro overlay(v, caption) %}<figure><div class="cv {{ v.kind }}{% if v.pt and v.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ v.bar }}; --box: {{ v.box }}">
+      <img src="{{ v.image }}" loading="lazy" alt="">
+      {{ bars(v.faces[0], 0) }}
+      {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
+    </div><figcaption>{{ caption }}</figcaption></figure>{% endmacro %}
 <nav><a href="#index">{{ ui.index }}</a><a href="#legend">{{ ui.legend }}</a>{% for s in sets %}<a href="#{{ s.code }}">{{ s.code }}</a>{% endfor %}</nav>
 
 <section class="page" id="index">
 <h1>MTG-Lang</h1>
-<table>
-<tr><th>{{ ui.set }}</th><th>{{ ui.translated }}</th></tr>
-{% for s in sets %}<tr><td><a href="#{{ s.code }}">{{ s.code }}</a></td><td>{{ s.translated }} / {{ s.total }}</td></tr>{% endfor %}
-</table>
+<p class="intro">{{ ui.intro }}</p>
+<div class="showcase">
+  <div class="shead"><span>{{ ui.original }}</span><span>MTG-Lang</span><span>{{ ui.old_bulgarian }}</span></div>
+  {% for r in showcase %}
+  <div class="srow">
+    <div class="trio">{{ original(r.view) }}{{ overlay(r.view, "MTG-Lang") }}{{ overlay(r.view_bg, ui.old_bulgarian) }}</div>
+    <a class="sname" href="#{{ r.code }}/{{ r.slug }}">{{ r.name }} · {{ r.code }}</a>
+  </div>
+  {% endfor %}
+</div>
+<footer class="stats">
+{% for s in sets %}<a href="#{{ s.code }}">{{ s.code }}</a> {{ s.translated }} / {{ s.total }} {{ ui.translated|lower }}{% if not loop.last %} · {% endif %}{% endfor %}
+{% if eval_abilities %} · {{ ui.en_match }}: {{ eval_abilities[0] }} / {{ eval_abilities[1] }}{% endif %}
+</footer>
 </section>
 
 <section class="page" id="legend" hidden>
@@ -161,11 +199,7 @@
 {% endfor %}
 </div>
 </section>
-{% macro bars(f, n) %}
-    <div class="ov bar name f{{ n }}" title="{{ f.oracle_name }}"><span class="nm">{{ f.name|safe }}</span><span class="mc">{{ f.mana|safe }}</span></div>
-    <div class="ov bar type f{{ n }}" title="{{ f.oracle_type }}">{{ f.type|safe }}</div>
-    <div class="ov text f{{ n }}"><div class="fit">{% for r in f.rows %}<p title="{{ r.oracle }}">{{ r.html|safe }}</p>{% endfor %}</div></div>
-{% endmacro %}
+
 {% for s in sets %}
 <section class="page" id="{{ s.code }}" hidden>
 <h1>{{ s.code }} — {{ s.cards|length }} {{ ui.cards }}</h1>
@@ -173,19 +207,9 @@
 <div class="card" id="{{ s.code }}/{{ c.slug }}">
   {% if c.view %}{% set v = c.view %}
   <div class="pair">
-    <figure><div class="cv"><img src="{{ v.image }}" loading="lazy" alt="{{ v.faces[0].oracle_name }}"></div><figcaption>{{ ui.original }}</figcaption></figure>
-    <figure><div class="cv {{ v.kind }}{% if v.pt and v.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ v.bar }}; --box: {{ v.box }}">
-      <img src="{{ v.image }}" loading="lazy" alt="">
-      {{ bars(v.faces[0], 0) }}
-      {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
-    </div><figcaption>MTG-Lang</figcaption></figure>
-    {% if c.view_bg %}{% set b = c.view_bg %}
-    <figure><div class="cv {{ b.kind }}{% if b.pt and b.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ b.bar }}; --box: {{ b.box }}">
-      <img src="{{ b.image }}" loading="lazy" alt="">
-      {{ bars(b.faces[0], 0) }}
-      {% if b.kind == 'prepare' %}{{ bars(b.faces[1], 1) }}{% endif %}
-    </div><figcaption>{{ ui.old_bulgarian }}</figcaption></figure>
-    {% endif %}
+    {{ original(v) }}
+    {{ overlay(v, "MTG-Lang") }}
+    {% if c.view_bg %}{{ overlay(c.view_bg, ui.old_bulgarian) }}{% endif %}
   </div>
   <details><summary>{{ ui.line_by_line }}</summary>
   {% endif %}

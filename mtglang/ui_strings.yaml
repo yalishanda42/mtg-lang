@@ -27,6 +27,8 @@
 - {id: card, labels: {en: Card, bg: Карта}}
 - {id: cards, labels: {en: card(s), bg: карти}}
 - {id: original, labels: {en: Original, bg: Подлинник}}
+- {id: intro, labels: {en: 'Magic card text in MTG-Lang, a notation independent of any natural language — rendered from the same notation back into English and into Bulgarian in the pre-1945 spelling.', bg: 'Текстът на картите „Магия“ на MTG-Lang — запис, независим от всеки естествен език — и изведен от същия запис обратно на английски и на български в правописа отпреди 1945 г.'}}
+- {id: en_match, labels: {en: English renderer — ability lines matching Oracle, bg: Английско извеждане — редове като в Oracle}}
 - {id: old_bulgarian, labels: {en: Bulgarian (old spelling), bg: Български (стар правопис)}}
 - {id: line_by_line, labels: {en: Line by line, bg: Ред по ред}}
 - {id: notation, labels: {en: Notation, bg: Запис}}
