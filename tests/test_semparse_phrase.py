@@ -110,3 +110,14 @@ def test_error_column():
     with pytest.raises(SemSyntaxError) as e:
         P.parse_phrase("◎▣[⚑○")
     assert e.value.col == 6
+
+
+def test_keyword_relation_after_another():
+    np = rt("♞[⚑● ≠◈ ⚒«Communicator»]")
+    ctl, other, eq = np.filters[0].conds
+    assert other.other.post == () and isinstance(eq, A.Rel) and eq.rel.glyph == "⚒"
+
+
+def test_reference_is_never_a_second_head():
+    np = rt("▭[▣ ☞]")
+    assert len(np.filters[0].conds) == 2

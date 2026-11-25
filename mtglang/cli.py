@@ -49,6 +49,33 @@ def cmd_validate(args) -> int:
     return 1 if n_err else 0
 
 
+def cmd_ast(args) -> int:
+    from mtglang.astexport import card_ast, coverage
+    from mtglang.ast import to_json
+    from mtglang.semparse import SemSyntaxError
+    if args.coverage:
+        c = coverage(Path(args.root))
+        print(f"parsed {c['parsed']}/{c['total']}, roundtrip {c['roundtrip']}/{c['total']}")
+        for k, (msg, where) in enumerate(sorted(c["failures"].items(), key=lambda kv: -len(kv[1]))):
+            if k == 20:
+                break
+            print(f"  {len(where):4}  {msg}  e.g. {where[0]}")
+        return 0 if c["roundtrip"] == c["total"] else 1
+    if not args.card:
+        print("give <set>/<slug> or --coverage")
+        return 2
+    try:
+        card = card_ast(Path(args.root), args.card)
+    except SemSyntaxError as e:
+        print(f"{args.card}:{getattr(e, 'line', '?')}: {e}")
+        return 1
+    if card is None:
+        print(f"no card file for {args.card}")
+        return 1
+    print(json.dumps(to_json(card), ensure_ascii=False, indent=1))
+    return 0
+
+
 def cmd_sync_names(args) -> int:
     from mtglang.glossary import sync_names
     print(f"added {sync_names(Path(args.root))} name(s)")
@@ -56,8 +83,11 @@ def cmd_sync_names(args) -> int:
 
 
 def cmd_render(args) -> int:
+    from mtglang.astexport import export_ast
     from mtglang.render import render_site
     print(f"wrote {render_site(Path(args.root), Path(args.out), lang=args.lang)}")
+    for p in export_ast(Path(args.root), Path(args.out)):
+        print(f"wrote {p}")
     return 0
 
 
@@ -96,6 +126,11 @@ def build_parser() -> argparse.ArgumentParser:
     v.add_argument("--set", action="append", choices=list(scryfall.SETS))
     v.add_argument("--only-existing", action="store_true", help="don't report cards without a file")
     v.set_defaults(func=cmd_validate)
+    a = sub.add_parser("ast", help="print a card's semantic AST as JSON, or --coverage of the whole corpus")
+    a.add_argument("card", nargs="?", help="<set>/<slug>, e.g. fra/ajani-resolute")
+    a.add_argument("--root", default=".")
+    a.add_argument("--coverage", action="store_true", help="count lines that parse and round-trip")
+    a.set_defaults(func=cmd_ast)
     n = sub.add_parser("sync-names", help="add snapshot card names and subtypes to glossary/names.yaml")
     n.add_argument("--root", default=".")
     n.set_defaults(func=cmd_sync_names)

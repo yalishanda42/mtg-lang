@@ -503,7 +503,10 @@ class SemParser:
                 out.append(("rel", A.Rel(self.sym(t), other), c))
             elif o == "other" and self._np_start(s, 1):
                 s.next()
-                out.append(("rel", A.Rel(self.sym(t), self.p_operand(s)), c))
+                np = self.p_np(s)
+                if np is None:
+                    raise SemSyntaxError(c, "expected a phrase after ≠")
+                out.append(("rel", A.Rel(self.sym(t), self._postfix(s, np, chars=False)), c))
             elif self._time_start(s):
                 out.append(("time", self.p_time(s), c))
             elif self._zone_start(s):
@@ -534,7 +537,14 @@ class SemParser:
             return None
         if kind(n) == "relation":
             return self.sym(s.next())
+        if self._time_start(s) or self._zone_start(s):
+            return self.p_operand(s)
         if self._np_start(s, 0):
+            save = s.pos
+            np = self.p_np(s)
+            if np is not None:
+                return self._postfix(s, np, chars=False)
+            s.pos = save
             return self.p_operand(s)
         return None
 
@@ -583,7 +593,8 @@ class SemParser:
                     and not ch[1].filters and chunks[i + 1][0] == "passive":
                 chunks[i] = ("verb", ch[1].quant, ch[2])
         # noun use of a verb / keyword before the main verb: ⊳ ⊖{X}, ⚒ ⊖{1}
-        if len(chunks) > 1 and chunks[0][0] in ("verb", "kw") and chunks[1][0] == "verb":
+        if len(chunks) > 1 and chunks[0][0] in ("verb", "kw") and chunks[1][0] == "verb" and \
+                not (chunks[0][0] == "verb" and "cost" in self._frame(chunks[0][1], False)):
             n = chunks[0][1]
             chunks[0] = ("np", A.NP(heads=(n.sym if isinstance(n, A.Keyword) else n,)), chunks[0][2])
         m = next((i for i, ch in enumerate(chunks) if ch[0] == "verb"), None)
@@ -635,6 +646,12 @@ class SemParser:
             passive = True
             post = post[1:]
         frame = list(self._frame(verb, is_arrow))
+        if passive and "object" in frame:
+            frame[frame.index("object")] = "by"
+        rest = self._rest_clause(post, toks, verb, frame)
+        if rest is not None:
+            args += rest
+            return A.Action(verb, subject, tuple(args), optional, negated, passive, before, neg_first)
         if is_arrow:
             frame = []
             if post and post[0][0] in ("np", "value", "zone", "group", "mana", "rel"):
@@ -644,6 +661,32 @@ class SemParser:
                 raise SemSyntaxError(chunks[m][2], "→ needs a destination")
         args += self._args(post, frame, verb, prev_dest=is_arrow)
         return A.Action(verb, subject, tuple(args), optional, negated, passive, before, neg_first)
+
+    def _rest_clause(self, post, toks, verb, frame):
+        """Verbs whose argument is a whole clause: ⊹ ✝♞ (cost), ∋ ● ⊻ (…) (ability). Trailing times stay."""
+        if not post or isinstance(verb, A.EffectRef):
+            return None
+        slot = None
+        if "cost" in frame and (post[0][0] in ("verb", "kw") or any(c[0] == "or" for c in post)):
+            slot = "cost"
+        elif "ability" in frame and len(post) > 1 and post[0][0] == "np" and post[1][0] == "verb":
+            slot = "ability"
+        if slot is None:
+            return None
+        end = len(post)
+        while end > 1 and post[end - 1][0] == "time":
+            end -= 1
+        first = next(k for k, t in enumerate(toks) if t.col == post[0][2])
+        last = next(k for k, t in enumerate(toks) if t.col == post[end][2]) if end < len(post) else len(toks)
+        sub = toks[first:last]
+        node = self.p_cost_expr(sub) if slot == "cost" else self.p_clause(sub)
+        return [(slot, node)] + [("time", c[1]) for c in post[end:]]
+
+    def p_cost_expr(self, toks: list[Tok]) -> A.Node:
+        parts = split_by(toks, split_top(toks, lambda t: op(t) == "or"))
+        if len(parts) == 1:
+            return self.p_cost_item(toks, toks)
+        return A.Or(tuple(self.p_cost_item(p, toks) for p in parts))
 
     def _is_per(self, n) -> bool:
         """∀⊤▭ — "for each card type" written before the verb."""
@@ -1000,6 +1043,10 @@ class SemParser:
         if o == "anymana":
             np = self.p_np(s)
             return self._postfix(s, np) if np is not None else None
+        if kd == "stat" and kind(s.peek(1)) != "comparison":
+            np = self.p_np(s)
+            if np is not None:
+                return self._postfix(s, np)
         if kd in ("characteristic", "stat") and o not in ("base",):
             s.next()
             sub = None
@@ -1067,7 +1114,7 @@ class SemParser:
             s.pos = save
         return None
 
-    def _postfix(self, s: _S, np):
+    def _postfix(self, s: _S, np, chars: bool = True):
         """Glued postfix on a player/reference phrase: ☞⚑ (controller), ◈△ (power), ◈⊺ (kicked)."""
         while isinstance(np, (A.NP, A.Of)) and self._refish(np):
             t = s.peek()
@@ -1077,7 +1124,7 @@ class SemParser:
             if kd == "relation":
                 s.next()
                 np = A.Of(self.sym(t), np)
-            elif kd in ("characteristic", "stat") and op(t) not in ("life", "base", "anymana", "none"):
+            elif chars and kd in ("characteristic", "stat") and op(t) not in ("life", "base", "anymana", "none"):
                 s.next()
                 return A.Characteristic(self.sym(t), np)
             else:
@@ -1119,6 +1166,8 @@ class SemParser:
             n = self.p_atom(s)
             if n is None:
                 break
+            if isinstance(n, A.Characteristic) and n.of is None and n.agg is None and self._np_start(s, 0):
+                n = replace(n, of=self._np_or_none(s))
             chunks.append(("np", n, t.col))
             if isinstance(n, A.Characteristic):
                 break
@@ -1137,8 +1186,13 @@ class SemParser:
         if v is None:
             raise SemSyntaxError(chunks[0][2], "cannot count this")
         args: list = []
+        subject = None
+        has_agent = any(c[0] == "np" for c in chunks[v + 1:])
         if v == 1 and chunks[0][0] == "np":
-            args.append(("object", chunks[0][1]))
+            if has_agent:
+                args.append(("object", chunks[0][1]))
+            else:
+                subject = chunks[0][1]
         elif v != 0:
             raise SemSyntaxError(chunks[0][2], "cannot count this")
         before = len(args)
@@ -1151,7 +1205,7 @@ class SemParser:
                 args.append(("marker", node))
             else:
                 raise SemSyntaxError(col, f"unexpected {typ} after #")
-        return A.Action(chunks[v][1], None, tuple(args), before=before)
+        return A.Action(chunks[v][1], subject, tuple(args), before=before)
 
     def p_np(self, s: _S) -> A.NP | None:
         start = s.pos
@@ -1214,6 +1268,8 @@ class SemParser:
             if t.type == "NAME":
                 heads.append(A.NameRef(s.next().value))
             elif kd in ("player", "reference"):
+                if heads:
+                    break
                 heads.append(self.sym(s.next()))
                 break
             elif o == "counter":
@@ -1266,7 +1322,8 @@ class SemParser:
                 name = A.NameRef(s.next().value)
             elif op(t) in ("distinct", "excess"):
                 post.append(self.sym(s.next()))
-            elif kind(t) == "keyword" and heads and self._refish(A.NP(heads=tuple(heads))):
+            elif kind(t) == "keyword" and heads and self._refish(A.NP(heads=tuple(heads))) \
+                    and not self._head_ok(s.peek(1)) and (s.peek(1) is None or s.peek(1).type != "LSQB"):
                 post.append(self.sym(s.next()))
             else:
                 break
@@ -1449,7 +1506,7 @@ class SemParser:
                               or (op(n) in ("target", "each") and kind(s.peek(1)) in ("player", "reference"))):
             np = self.p_np(s)
             owner = self._postfix(s, np)
-        elif n is not None and kind(n) == "relation" and zone is not None:
+        elif n is not None and op(n) == "own" and zone is not None:
             owner = self.sym(s.next())
         if zone is None:
             return A.Zone(pos, owner, None, count, pos_alt, paren=0)

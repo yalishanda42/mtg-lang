@@ -135,3 +135,51 @@ def test_scoped_subject():
 def test_double_life():
     m = rt("● ♥ × 2")
     assert isinstance(m, A.Modify) and m.change.times == A.Num(2)
+
+
+def test_another_then_comparison_in_filter():
+    np = P.parse_phrase("◎♞[⚑● ≠◈ △ ≤ 2]")
+    ctl, other, cmp_ = np.filters[0].conds
+    assert isinstance(other, A.Rel) and other.other.heads[0].glyph == "◈"
+    assert isinstance(cmp_, A.Compare)
+
+
+def test_additional_cost_is_the_verb():
+    a = rt("⊹ ✝♞")
+    assert a.verb.glyph == "⊹" and a.subject is None and args(a)["cost"].verb.glyph == "✝"
+    b = rt("⊹ ⟐«Jace» ∨ {1}")
+    alt = args(b)["cost"]
+    assert isinstance(alt, A.Or) and alt.items[1] == A.Mana("{1}")
+
+
+def test_loyalty_ability_is_a_noun():
+    a = rt("○ ⊳◇")
+    assert isinstance(args(a)["object"], A.NP) and args(a)["object"].heads[0].glyph == "◇"
+
+
+def test_passive_agent_slot():
+    a = rt("◈ ¬⛉← ♞[△ ≤ 2]")
+    assert a.passive and "by" in args(a) and "object" not in args(a)
+
+
+def test_colors_among():
+    a = rt("⤓ #♦ ⚙[⚑● ≠◈]")
+    c = args(a)["amount"]
+    assert isinstance(c, A.Count) and c.of.char.glyph == "♦" and c.of.of.heads[0].glyph == "⚙"
+
+
+def test_gains_your_choice():
+    a = rt("◈ ∋ ● ⊻ (⇶ ∨ ☣) ⧗")
+    ab = args(a)["ability"]
+    assert isinstance(ab, A.Action) and ab.verb.glyph == "⊻" and ab.subject.heads[0].glyph == "●"
+    assert args(a)["time"].items[0].glyph == "⧗"
+
+
+def test_counted_thing_that_died_is_subject():
+    c = P.parse_phrase("#♞☠◷")
+    assert c.of.subject.heads[0].glyph == "♞" and c.of.verb.glyph == "☠"
+
+
+def test_under_owners_control_is_a_relation():
+    a = rt("☞ → ▦ ⚑⌂")
+    assert args(a)["destination"].owner is None and args(a)["rel"].rel.glyph == "⚑"

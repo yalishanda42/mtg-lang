@@ -9,6 +9,7 @@ from typing import Iterable
 from lark import Token, Tree
 
 from mtglang.cardfile import CardDoc, FaceDoc, parse_card_file
+from mtglang import ast as A
 from mtglang.glossary import Glossary, check_glossary, load_glossary
 from mtglang.issues import Issue
 from mtglang.lineparser import LineParser
@@ -57,19 +58,14 @@ def check_refs(doc: CardDoc, g: Glossary, known_names: set[str]) -> list[Issue]:
     return out
 
 
-def english_type_line(tree: Tree, g: Glossary) -> str:
-    left, right, seen_dash = [], [], False
-    for child in tree.children:
-        if isinstance(child, Token) and child.type in ("DASH", "MINUS"):
-            seen_dash = True
-            continue
-        tok = child.children[0]
-        if tok.type == "NAME":
-            word = g.label(g.names[tok.value]) if tok.value in g.names else tok.value
-        else:
-            word = g.label(g.lookup[tok.value])
-        (right if seen_dash else left).append(word)
-    return " ".join(left) + (" — " + " ".join(right) if seen_dash else "")
+def english_type_line(tl, g: Glossary) -> str:
+    """English type line from the semantic TypeLine (used to compare against Scryfall)."""
+    def word(n) -> str:
+        if isinstance(n, A.NameRef):
+            return g.label(g.names[n.key]) if n.key in g.names else n.key
+        return g.label(g.symbols[n.index])
+    left = " ".join(word(t) for t in tl.types)
+    return left + (" — " + " ".join(word(t) for t in tl.subtypes) if tl.dash is not None else "")
 
 
 def _stats_ok(face: FaceDoc, sf: ScryFace, g: Glossary) -> str | None:
@@ -97,8 +93,8 @@ def check_against_scryfall(doc: CardDoc, card: ScryCard, g: Glossary) -> list[Is
             out.append(_err("V-CARDNAME", f"name «{f.name}» ≠ Scryfall {sf.name!r}", file, hl))
         if f.mana != sf.mana_cost:
             out.append(_err("V-MANA", f"mana {f.mana or '(none)'} ≠ Scryfall {sf.mana_cost or '(none)'}", file, hl))
-        if f.type_tree is not None:
-            eng = english_type_line(f.type_tree, g)
+        if f.type_ast is not None:
+            eng = english_type_line(f.type_ast, g)
             if eng != sf.type_line:
                 out.append(_err("V-TYPE", f"type line reads {eng!r} ≠ Scryfall {sf.type_line!r}", file, hl + 1))
         want = _stats_ok(f, sf, g)
