@@ -156,3 +156,15 @@ def test_legend_bulgarian_tab(fx_copy, tmp_path):
     assert '<div class="tab" id="legend-bg" hidden>' in s
     assert "<td class=\"iv\">Човѣкъ</td><td>Човек</td><td>Human</td><td class=\"note\">бележка</td>" in s
     assert '<td class="g"><span data-s="0">⇒</span></td><td class="iv"></td>' in s   # glyphs follow live edits
+
+
+def test_render_site_rendered_english_column(tmp_path):
+    from pathlib import Path
+    import re
+    root = Path(__file__).parent.parent
+    page = render_site(root, tmp_path).read_text()
+    card = page[page.index('id="fra/academic-ascent"'):]
+    card = card[:card.index('<div class="card"', 10)]
+    assert '<td class="en">Target creature gets +2/+2 and gains flying until end of turn.</td>' in card
+    assert re.search(r'<td class="en mismatch">[^<]+</td>', page)
+    assert (tmp_path / "eval-en" / "index.html").exists()

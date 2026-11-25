@@ -32,6 +32,8 @@
   td.n { font-size: 1.15rem; width: 38%; }
   td.a { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9rem; color: #444; width: 27%; }
   td.o { color: #333; }
+  td.en { color: #333; }
+  td.en.mismatch { background: #fff1f0; }
   .sym { cursor: help; }
   .name { color: #0b5394; cursor: help; }
   .effect { color: #8e44ad; cursor: help; }
@@ -187,8 +189,8 @@
   {% if f.stats %}<div class="hdr">{{ f.stats|safe }}</div>{% endif %}
   {% if f.rows %}
   <table>
-    <tr><th>{{ ui.notation }}</th><th>{{ ui.ascii }}</th><th>{{ ui.oracle }}</th></tr>
-    {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii|safe }}</td><td class="o">{{ r.oracle|safe }}</td></tr>{% endfor %}
+    <tr><th>{{ ui.notation }}</th><th>{{ ui.ascii }}</th><th>{{ ui.oracle }}</th><th>{{ ui.rendered_en }}</th></tr>
+    {% for r in f.rows %}<tr><td class="n">{{ r.notation|safe }}</td><td class="a">{{ r.ascii|safe }}</td><td class="o">{{ r.oracle|safe }}</td><td class="en{% if not r.english_ok %} mismatch{% endif %}">{{ r.english }}</td></tr>{% endfor %}
   </table>
   {% endif %}
   {% endfor %}
