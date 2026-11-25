@@ -27,6 +27,9 @@ words:
   припевник: припѣвникъ       # пѣя
   пристан: пристань           # пристань is soft feminine
   кощеевата: кощеевата        # Кощей — no ѣ
+  пресметни: прѣсмѣтни        # смѣтка
+  белерен: белеренъ           # a name (Beleren), no ѣ
+  метамаг: метамагъ           # Greek meta-, no ѣ
 entries:
   "symbols:⤋": Смели                 # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
   "names:Jem'Hadar": Джем'Хадаръ     # one name: final ъ only at the end
@@ -34,3 +37,4 @@ entries:
   "names:Geist of Saint Thalia": Духътъ на света Талия      # света = "saint" (свѧт-), not свѣта "the world"
   "names:Fateshaper Aspirant": Ученикъ-сѫдбоковачъ          # both parts of the compound end in ъ
   "names:Hungering Puppetbeast": Гладенъ звѣръ-кукла        # as above
+  "names:Teyo, Lightshield Expert": Тейо, вѣщъ въ свѣтлия щитъ   # вѣщъ "skilled" (вѣдѣти), not вещь "thing"

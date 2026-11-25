@@ -222,174 +222,174 @@
 - {key: Master of Barbs, class: card, labels: {en: Master of Barbs, bg: Майстор на бодлите, bg-ivanchev: Майсторъ на бодлитѣ}}
 - {key: Lizard, class: subtype, labels: {en: Lizard, bg: Гущер, bg-ivanchev: Гущеръ}}
 - {key: Medic's Kitesail, class: card, labels: {en: Medic's Kitesail, bg: Хвърчилото на лечителя, bg-ivanchev: Хвърчилото на лечителя}}
-- {key: Memory Trap, class: card, labels: {en: Memory Trap}}
-- {key: Meticulous Commons, class: card, labels: {en: Meticulous Commons}}
-- {key: Mind Meanderer, class: card, labels: {en: Mind Meanderer}}
+- {key: Memory Trap, class: card, labels: {en: Memory Trap, bg: Капан за паметта, bg-ivanchev: Капанъ за паметьта}}
+- {key: Meticulous Commons, class: card, labels: {en: Meticulous Commons, bg: Грижлива мера, bg-ivanchev: Грижлива мѣра}}
+- {key: Mind Meanderer, class: card, labels: {en: Mind Meanderer, bg: Скитащ ум, bg-ivanchev: Скитащъ умъ}}
 - {key: Fish, class: subtype, labels: {en: Fish, bg: Риба, bg-ivanchev: Риба}}
-- {key: Mindseeker Oculus, class: card, labels: {en: Mindseeker Oculus}}
-- {key: Mountain, class: card, labels: {en: Mountain}}
-- {key: Multiply by Zero, class: card, labels: {en: Multiply by Zero}}
-- {key: Murmuring Volume, class: card, labels: {en: Murmuring Volume}}
-- {key: No Admittance, class: card, labels: {en: No Admittance}}
-- {key: Null Summoner, class: card, labels: {en: Null Summoner}}
-- {key: Omnipresence, class: card, labels: {en: Omnipresence}}
-- {key: Overgrown Farmland, class: card, labels: {en: Overgrown Farmland}}
-- {key: Overwrite the Multiverse, class: card, labels: {en: Overwrite the Multiverse}}
-- {key: Paradox Shaper, class: card, labels: {en: Paradox Shaper}}
-- {key: Omit Variables, class: card, labels: {en: Omit Variables}}
+- {key: Mindseeker Oculus, class: card, labels: {en: Mindseeker Oculus, bg: Умотърсещо око, bg-ivanchev: Умотърсещо око}}
+- {key: Mountain, class: card, labels: {en: Mountain, bg: Планина, bg-ivanchev: Планина}}
+- {key: Multiply by Zero, class: card, labels: {en: Multiply by Zero, bg: Умножи по нула, bg-ivanchev: Умножи по нула}}
+- {key: Murmuring Volume, class: card, labels: {en: Murmuring Volume, bg: Шепнещ том, bg-ivanchev: Шепнещъ томъ}}
+- {key: No Admittance, class: card, labels: {en: No Admittance, bg: Вход забранен, bg-ivanchev: Входъ забраненъ}}
+- {key: Null Summoner, class: card, labels: {en: Null Summoner, bg: Призовател на нищото, bg-ivanchev: Призователь на нищото}}
+- {key: Omnipresence, class: card, labels: {en: Omnipresence, bg: Вездесъщие, bg-ivanchev: Вездесѫщие}}
+- {key: Overgrown Farmland, class: card, labels: {en: Overgrown Farmland, bg: Обрасла нива, bg-ivanchev: Обрасла нива}}
+- {key: Overwrite the Multiverse, class: card, labels: {en: Overwrite the Multiverse, bg: Препиши мировете, bg-ivanchev: Прѣпиши мироветѣ}}
+- {key: Paradox Shaper, class: card, labels: {en: Paradox Shaper, bg: Ваятел на противоречия, bg-ivanchev: Ваятель на противорѣчия}}
+- {key: Omit Variables, class: card, labels: {en: Omit Variables, bg: Пропусни неизвестните, bg-ivanchev: Пропусни неизвѣстнитѣ}}
 - {key: Octopus, class: subtype, labels: {en: Octopus, bg: Осмокрак, bg-ivanchev: Осмокракъ}}
-- {key: Perfected Theory, class: card, labels: {en: Perfected Theory}}
-- {key: 'Pia, Aether Ascetic', class: card, labels: {en: 'Pia, Aether Ascetic'}}
-- {key: 'Pia, Determined Rebuilder', class: card, labels: {en: 'Pia, Determined Rebuilder'}}
-- {key: Plains, class: card, labels: {en: Plains}}
-- {key: Plan for All Outcomes, class: card, labels: {en: Plan for All Outcomes}}
-- {key: Pompous Battlemage, class: card, labels: {en: Pompous Battlemage}}
-- {key: Improvised Act, class: card, labels: {en: Improvised Act}}
+- {key: Perfected Theory, class: card, labels: {en: Perfected Theory, bg: Съвършено учение, bg-ivanchev: Съвършено учение}}
+- {key: 'Pia, Aether Ascetic', class: card, labels: {en: 'Pia, Aether Ascetic', bg: 'Пия, етерна подвижница', bg-ivanchev: 'Пия, етерна подвижница'}}
+- {key: 'Pia, Determined Rebuilder', class: card, labels: {en: 'Pia, Determined Rebuilder', bg: 'Пия, упорита възстановителка', bg-ivanchev: 'Пия, упорита възстановителка'}}
+- {key: Plains, class: card, labels: {en: Plains, bg: Поле, bg-ivanchev: Поле}}
+- {key: Plan for All Outcomes, class: card, labels: {en: Plan for All Outcomes, bg: Предвиди всеки изход, bg-ivanchev: Прѣдвиди всѣки изходъ}}
+- {key: Pompous Battlemage, class: card, labels: {en: Pompous Battlemage, bg: Надут боен маг, bg-ivanchev: Надутъ боенъ магъ}}
+- {key: Improvised Act, class: card, labels: {en: Improvised Act, bg: Импровизирано представление, bg-ivanchev: Импровизирано прѣдставление}}
 - {key: Goblin, class: subtype, labels: {en: Goblin, bg: Караконджул, bg-note: goblin — народният караконджул, bg-ivanchev: Караконджулъ}}
-- {key: Precise Redaction, class: card, labels: {en: Precise Redaction}}
-- {key: Predictive Preparations, class: card, labels: {en: Predictive Preparations}}
-- {key: Primal Witchstalker, class: card, labels: {en: Primal Witchstalker}}
-- {key: Proctor of Potential, class: card, labels: {en: Proctor of Potential}}
-- {key: 'Proft, Consulting Detective', class: card, labels: {en: 'Proft, Consulting Detective'}}
+- {key: Precise Redaction, class: card, labels: {en: Precise Redaction, bg: Точно зачеркване, bg-ivanchev: Точно зачеркване}}
+- {key: Predictive Preparations, class: card, labels: {en: Predictive Preparations, bg: Предвидливи приготовления, bg-ivanchev: Прѣдвидливи приготовления}}
+- {key: Primal Witchstalker, class: card, labels: {en: Primal Witchstalker, bg: Първичен ловец на вещици, bg-ivanchev: Първиченъ ловецъ на вѣщици}}
+- {key: Proctor of Potential, class: card, labels: {en: Proctor of Potential, bg: Надзирател на заложбите, bg-ivanchev: Надзиратель на заложбитѣ}}
+- {key: 'Proft, Consulting Detective', class: card, labels: {en: 'Proft, Consulting Detective', bg: 'Профт, съветващ издирвач', bg-ivanchev: 'Профтъ, съвѣтващъ издирвачъ'}}
 - {key: Detective, class: subtype, labels: {en: Detective, bg: Издирвач, bg-ivanchev: Издирвачъ}}
-- {key: 'Proft, Sinister Mastermind', class: card, labels: {en: 'Proft, Sinister Mastermind'}}
+- {key: 'Proft, Sinister Mastermind', class: card, labels: {en: 'Proft, Sinister Mastermind', bg: 'Профт, зловещ кроител', bg-ivanchev: 'Профтъ, зловѣщъ кроитель'}}
 - {key: Rogue, class: subtype, labels: {en: Rogue, bg: Ловкач, bg-ivanchev: Ловкачъ}}
-- {key: Prophesied End, class: card, labels: {en: Prophesied End}}
-- {key: Protege's Awakening, class: card, labels: {en: Protege's Awakening}}
-- {key: Prudent Fateseer, class: card, labels: {en: Prudent Fateseer}}
-- {key: Puppet Crafting, class: card, labels: {en: Puppet Crafting}}
-- {key: Pyre Rhymer, class: card, labels: {en: Pyre Rhymer}}
-- {key: Molten Tide, class: card, labels: {en: Molten Tide}}
-- {key: Rampart Hunter, class: card, labels: {en: Rampart Hunter}}
-- {key: Rank Rat, class: card, labels: {en: Rank Rat}}
+- {key: Prophesied End, class: card, labels: {en: Prophesied End, bg: Пророкуван край, bg-ivanchev: Пророкуванъ край}}
+- {key: Protege's Awakening, class: card, labels: {en: Protege's Awakening, bg: Пробуждане на питомеца, bg-ivanchev: Пробуждане на питомеца}}
+- {key: Prudent Fateseer, class: card, labels: {en: Prudent Fateseer, bg: Благоразумен съдбогадател, bg-ivanchev: Благоразуменъ сѫдбогадатель}}
+- {key: Puppet Crafting, class: card, labels: {en: Puppet Crafting, bg: Майсторене на кукли, bg-ivanchev: Майсторене на кукли}}
+- {key: Pyre Rhymer, class: card, labels: {en: Pyre Rhymer, bg: Стихоплетец на кладата, bg-ivanchev: Стихоплетецъ на кладата}}
+- {key: Molten Tide, class: card, labels: {en: Molten Tide, bg: Разтопен прилив, bg-ivanchev: Разтопенъ приливъ}}
+- {key: Rampart Hunter, class: card, labels: {en: Rampart Hunter, bg: Ловец по стените, bg-ivanchev: Ловецъ по стѣнитѣ}}
+- {key: Rank Rat, class: card, labels: {en: Rank Rat, bg: Смрадлив плъх, bg-ivanchev: Смрадливъ плъхъ}}
 - {key: Rat, class: subtype, labels: {en: Rat, bg: Плъх, bg-ivanchev: Плъхъ}}
-- {key: Recursive Recruitment, class: card, labels: {en: Recursive Recruitment}}
-- {key: Refute Destiny, class: card, labels: {en: Refute Destiny}}
-- {key: Repurposed Enforcer, class: card, labels: {en: Repurposed Enforcer}}
-- {key: 'Rescue Girl, First Responder', class: card, labels: {en: 'Rescue Girl, First Responder'}}
-- {key: Restore with Empathy, class: card, labels: {en: Restore with Empathy}}
-- {key: Return to the Light Realms, class: card, labels: {en: Return to the Light Realms}}
-- {key: Rewrite Regrets, class: card, labels: {en: Rewrite Regrets}}
-- {key: Rise of the Deathbringer, class: card, labels: {en: Rise of the Deathbringer}}
-- {key: Rockfall Vale, class: card, labels: {en: Rockfall Vale}}
-- {key: Roiling Canopy, class: card, labels: {en: Roiling Canopy}}
-- {key: Room of Refuge, class: card, labels: {en: Room of Refuge}}
-- {key: 'Ruric Thar, Biomagus', class: card, labels: {en: 'Ruric Thar, Biomagus'}}
+- {key: Recursive Recruitment, class: card, labels: {en: Recursive Recruitment, bg: Повтарящо се новобранство, bg-ivanchev: Повтарящо се новобранство}}
+- {key: Refute Destiny, class: card, labels: {en: Refute Destiny, bg: Опровергай съдбата, bg-ivanchev: Опровергай сѫдбата}}
+- {key: Repurposed Enforcer, class: card, labels: {en: Repurposed Enforcer, bg: Преназначен пазач на реда, bg-ivanchev: Прѣназначенъ пазачъ на реда}}
+- {key: 'Rescue Girl, First Responder', class: card, labels: {en: 'Rescue Girl, First Responder', bg: 'Спасителката, първа на помощ', bg-ivanchev: 'Спасителката, първа на помощь'}}
+- {key: Restore with Empathy, class: card, labels: {en: Restore with Empathy, bg: Възстанови със съчувствие, bg-ivanchev: Възстанови съ съчувствие}}
+- {key: Return to the Light Realms, class: card, labels: {en: Return to the Light Realms, bg: Върни се в светлите царства, bg-ivanchev: Върни се въ свѣтлитѣ царства}}
+- {key: Rewrite Regrets, class: card, labels: {en: Rewrite Regrets, bg: Препиши съжаленията, bg-ivanchev: Прѣпиши съжаленията}}
+- {key: Rise of the Deathbringer, class: card, labels: {en: Rise of the Deathbringer, bg: Възход на смъртоносеца, bg-ivanchev: Възходъ на смъртоносеца}}
+- {key: Rockfall Vale, class: card, labels: {en: Rockfall Vale, bg: Долина на сипеите, bg-ivanchev: Долина на сипеитѣ}}
+- {key: Roiling Canopy, class: card, labels: {en: Roiling Canopy, bg: Бушуващи корони, bg-ivanchev: Бушуващи корони}}
+- {key: Room of Refuge, class: card, labels: {en: Room of Refuge, bg: Стая-прибежище, bg-ivanchev: Стая-прибѣжище}}
+- {key: 'Ruric Thar, Biomagus', class: card, labels: {en: 'Ruric Thar, Biomagus', bg: 'Рурик Тар, живомаг', bg-ivanchev: 'Рурикъ Таръ, живомагъ'}}
 - {key: Ogre, class: subtype, labels: {en: Ogre, bg: Людоед, bg-ivanchev: Людоедъ}}
 - {key: Crab, class: subtype, labels: {en: Crab, bg: Рак, bg-ivanchev: Ракъ}}
-- {key: 'Ruric Thar, Magecrusher', class: card, labels: {en: 'Ruric Thar, Magecrusher'}}
-- {key: 'Saheeli, Consul of Oversight', class: card, labels: {en: 'Saheeli, Consul of Oversight'}}
-- {key: 'Saheeli, Jewel of Avishkar', class: card, labels: {en: 'Saheeli, Jewel of Avishkar'}}
-- {key: 'Samut, Hazoret''s Champion', class: card, labels: {en: 'Samut, Hazoret''s Champion'}}
-- {key: 'Samut, Tyrant of Naktamun', class: card, labels: {en: 'Samut, Tyrant of Naktamun'}}
-- {key: Sanctum Lurker, class: card, labels: {en: Sanctum Lurker}}
-- {key: Screeching Soulbreaker, class: card, labels: {en: Screeching Soulbreaker}}
+- {key: 'Ruric Thar, Magecrusher', class: card, labels: {en: 'Ruric Thar, Magecrusher', bg: 'Рурик Тар, магосмазвач', bg-ivanchev: 'Рурикъ Таръ, магосмазвачъ'}}
+- {key: 'Saheeli, Consul of Oversight', class: card, labels: {en: 'Saheeli, Consul of Oversight', bg: 'Сахили, консул на надзора', bg-ivanchev: 'Сахили, консулъ на надзора'}}
+- {key: 'Saheeli, Jewel of Avishkar', class: card, labels: {en: 'Saheeli, Jewel of Avishkar', bg: 'Сахили, бисерът на Авишкар', bg-ivanchev: 'Сахили, бисерътъ на Авишкаръ'}}
+- {key: 'Samut, Hazoret''s Champion', class: card, labels: {en: 'Samut, Hazoret''s Champion', bg: 'Самут, юнакиня на Хазорет', bg-ivanchev: 'Самутъ, юнакиня на Хазоретъ'}}
+- {key: 'Samut, Tyrant of Naktamun', class: card, labels: {en: 'Samut, Tyrant of Naktamun', bg: 'Самут, тиранка на Нактамун', bg-ivanchev: 'Самутъ, тиранка на Нактамунъ'}}
+- {key: Sanctum Lurker, class: card, labels: {en: Sanctum Lurker, bg: Дебнещ в светилището, bg-ivanchev: Дебнещъ въ светилището}}
+- {key: Screeching Soulbreaker, class: card, labels: {en: Screeching Soulbreaker, bg: Пищяща душеломка, bg-ivanchev: Пищяща душеломка}}
 - {key: Siren, class: subtype, labels: {en: Siren, bg: Русалка, bg-ivanchev: Русалка}}
-- {key: Seasoned Cryomancer, class: card, labels: {en: Seasoned Cryomancer}}
-- {key: Semester Foreseer, class: card, labels: {en: Semester Foreseer}}
-- {key: Shatterwing Pegasus, class: card, labels: {en: Shatterwing Pegasus}}
+- {key: Seasoned Cryomancer, class: card, labels: {en: Seasoned Cryomancer, bg: Опитен мразомаг, bg-ivanchev: Опитенъ мразомагъ}}
+- {key: Semester Foreseer, class: card, labels: {en: Semester Foreseer, bg: Предвестник на учебния срок, bg-ivanchev: Прѣдвѣстникъ на учебния срокъ}}
+- {key: Shatterwing Pegasus, class: card, labels: {en: Shatterwing Pegasus, bg: Пегас с трошливи криле, bg-ivanchev: Пегасъ съ трошливи криле}}
 - {key: Pegasus, class: subtype, labels: {en: Pegasus, bg: Пегас, bg-ivanchev: Пегасъ}}
-- {key: Shipwreck Marsh, class: card, labels: {en: Shipwreck Marsh}}
-- {key: Silence the Echo, class: card, labels: {en: Silence the Echo}}
-- {key: Simulacrum Shaper, class: card, labels: {en: Simulacrum Shaper}}
-- {key: Skilled Battlecarver, class: card, labels: {en: Skilled Battlecarver}}
-- {key: Solarium Sentry, class: card, labels: {en: Solarium Sentry}}
-- {key: Solitary Cell, class: card, labels: {en: Solitary Cell}}
-- {key: Solve for Disappointment, class: card, labels: {en: Solve for Disappointment}}
-- {key: Something Worth Saving, class: card, labels: {en: Something Worth Saving}}
-- {key: Sphinx of False Conclusions, class: card, labels: {en: Sphinx of False Conclusions}}
-- {key: Sphinx's Approach, class: card, labels: {en: Sphinx's Approach}}
-- {key: Stingcaster Mage, class: card, labels: {en: Stingcaster Mage}}
-- {key: Stingerquill Annex, class: card, labels: {en: Stingerquill Annex}}
-- {key: Stingerquill Charm, class: card, labels: {en: Stingerquill Charm}}
-- {key: Stingerquill Voxmancer, class: card, labels: {en: Stingerquill Voxmancer}}
-- {key: Stinging Vitriol, class: card, labels: {en: Stinging Vitriol}}
-- {key: Sureshot Sower, class: card, labels: {en: Sureshot Sower}}
+- {key: Shipwreck Marsh, class: card, labels: {en: Shipwreck Marsh, bg: Блато на корабокрушенците, bg-ivanchev: Блато на корабокрушенцитѣ}}
+- {key: Silence the Echo, class: card, labels: {en: Silence the Echo, bg: Заглуши ехото, bg-ivanchev: Заглуши ехото}}
+- {key: Simulacrum Shaper, class: card, labels: {en: Simulacrum Shaper, bg: Ваятел на подобия, bg-ivanchev: Ваятель на подобия}}
+- {key: Skilled Battlecarver, class: card, labels: {en: Skilled Battlecarver, bg: Изкусен бойнорезбар, bg-ivanchev: Изкусенъ бойнорезбаръ}}
+- {key: Solarium Sentry, class: card, labels: {en: Solarium Sentry, bg: Страж на слънчевата зала, bg-ivanchev: Стражъ на слънчевата зала}}
+- {key: Solitary Cell, class: card, labels: {en: Solitary Cell, bg: Самотна килия, bg-ivanchev: Самотна килия}}
+- {key: Solve for Disappointment, class: card, labels: {en: Solve for Disappointment, bg: Пресметни разочарованието, bg-ivanchev: Прѣсмѣтни разочарованието}}
+- {key: Something Worth Saving, class: card, labels: {en: Something Worth Saving, bg: 'Нещо, що си струва да се спаси', bg-ivanchev: 'Нѣщо, що си струва да се спаси'}}
+- {key: Sphinx of False Conclusions, class: card, labels: {en: Sphinx of False Conclusions, bg: Сфинкс на лъжливите изводи, bg-ivanchev: Сфинксъ на лъжливитѣ изводи}}
+- {key: Sphinx's Approach, class: card, labels: {en: Sphinx's Approach, bg: Сфинксов подход, bg-ivanchev: Сфинксовъ подходъ}}
+- {key: Stingcaster Mage, class: card, labels: {en: Stingcaster Mage, bg: Жилохвъргач маг, bg-ivanchev: Жилохвъргачъ магъ}}
+- {key: Stingerquill Annex, class: card, labels: {en: Stingerquill Annex, bg: Пристройка на Жилоперо, bg-note: Stingerquill — „Жилоперо“ (училище), bg-ivanchev: Пристройка на Жилоперо}}
+- {key: Stingerquill Charm, class: card, labels: {en: Stingerquill Charm, bg: Муска на Жилоперо, bg-ivanchev: Муска на Жилоперо}}
+- {key: Stingerquill Voxmancer, class: card, labels: {en: Stingerquill Voxmancer, bg: Гласомаг от Жилоперо, bg-ivanchev: Гласомагъ отъ Жилоперо}}
+- {key: Stinging Vitriol, class: card, labels: {en: Stinging Vitriol, bg: Жилеща отрова, bg-ivanchev: Жилеща отрова}}
+- {key: Sureshot Sower, class: card, labels: {en: Sureshot Sower, bg: Сеяч с верен прицел, bg-ivanchev: Сѣячъ съ вѣренъ прицѣлъ}}
 - {key: Archer, class: subtype, labels: {en: Archer, bg: Стрелец, bg-ivanchev: Стрѣлецъ}}
-- {key: Surgical Precision, class: card, labels: {en: Surgical Precision}}
-- {key: Surveillance Phantasm, class: card, labels: {en: Surveillance Phantasm}}
-- {key: Swamp, class: card, labels: {en: Swamp}}
-- {key: 'Tam, the Possibility', class: card, labels: {en: 'Tam, the Possibility'}}
+- {key: Surgical Precision, class: card, labels: {en: Surgical Precision, bg: Хирургическа точност, bg-ivanchev: Хирургическа точность}}
+- {key: Surveillance Phantasm, class: card, labels: {en: Surveillance Phantasm, bg: Съглеждащ фантом, bg-ivanchev: Съглеждащъ фантомъ}}
+- {key: Swamp, class: card, labels: {en: Swamp, bg: Блато, bg-ivanchev: Блато}}
+- {key: 'Tam, the Possibility', class: card, labels: {en: 'Tam, the Possibility', bg: 'Там, възможността', bg-ivanchev: 'Тамъ, възможностьта'}}
 - {key: Gorgon, class: subtype, labels: {en: Gorgon, bg: Горгона, bg-ivanchev: Горгона}}
-- {key: Tam's Resistance, class: card, labels: {en: Tam's Resistance}}
-- {key: Tarmogoyf, class: card, labels: {en: Tarmogoyf}}
+- {key: Tam's Resistance, class: card, labels: {en: Tam's Resistance, bg: Тамова съпротива, bg-ivanchev: Тамова съпротива}}
+- {key: Tarmogoyf, class: card, labels: {en: Tarmogoyf, bg: Тармогойф, bg-ivanchev: Тармогойфъ}}
 - {key: Lhurgoyf, class: subtype, labels: {en: Lhurgoyf, bg: Лургойф, bg-ivanchev: Лургойфъ}}
-- {key: Tenured Tethermage, class: card, labels: {en: Tenured Tethermage}}
-- {key: Terminal Criticism, class: card, labels: {en: Terminal Criticism}}
-- {key: Tether Technician, class: card, labels: {en: Tether Technician}}
+- {key: Tenured Tethermage, class: card, labels: {en: Tenured Tethermage, bg: Пожизнен връзкомаг, bg-ivanchev: Пожизненъ връзкомагъ}}
+- {key: Terminal Criticism, class: card, labels: {en: Terminal Criticism, bg: Смъртоносна критика, bg-ivanchev: Смъртоносна критика}}
+- {key: Tether Technician, class: card, labels: {en: Tether Technician, bg: Майстор на връзките, bg-ivanchev: Майсторъ на връзкитѣ}}
 - {key: Minotaur, class: subtype, labels: {en: Minotaur, bg: Минотавър, bg-ivanchev: Минотавъръ}}
-- {key: Tethermage's Advantage, class: card, labels: {en: Tethermage's Advantage}}
-- {key: 'Tetsuko Umezawa, Fugitive', class: card, labels: {en: 'Tetsuko Umezawa, Fugitive'}}
-- {key: 'Tetsuko Umezawa, Pursuer', class: card, labels: {en: 'Tetsuko Umezawa, Pursuer'}}
-- {key: 'Teyo, Diamondblade Mage', class: card, labels: {en: 'Teyo, Diamondblade Mage'}}
-- {key: 'Teyo, Lightshield Expert', class: card, labels: {en: 'Teyo, Lightshield Expert'}}
-- {key: 'Thalia, the Survivor', class: card, labels: {en: 'Thalia, the Survivor'}}
-- {key: The Echoverse Fulcrum, class: card, labels: {en: The Echoverse Fulcrum}}
-- {key: 'The Theorist, Jace Beleren', class: card, labels: {en: 'The Theorist, Jace Beleren'}}
-- {key: Theoretical Necromancer, class: card, labels: {en: Theoretical Necromancer}}
-- {key: Theorist's Proxy, class: card, labels: {en: Theorist's Proxy}}
-- {key: Theorist's Sanctum, class: card, labels: {en: Theorist's Sanctum}}
-- {key: Theorix Annex, class: card, labels: {en: Theorix Annex}}
-- {key: Theorix Charm, class: card, labels: {en: Theorix Charm}}
-- {key: Theorix Metamage, class: card, labels: {en: Theorix Metamage}}
+- {key: Tethermage's Advantage, class: card, labels: {en: Tethermage's Advantage, bg: Предимството на връзкомага, bg-ivanchev: Прѣдимството на връзкомага}}
+- {key: 'Tetsuko Umezawa, Fugitive', class: card, labels: {en: 'Tetsuko Umezawa, Fugitive', bg: 'Тецуко Умедзава, бегълка', bg-ivanchev: 'Тецуко Умедзава, бѣгълка'}}
+- {key: 'Tetsuko Umezawa, Pursuer', class: card, labels: {en: 'Tetsuko Umezawa, Pursuer', bg: 'Тецуко Умедзава, преследвачка', bg-ivanchev: 'Тецуко Умедзава, прѣслѣдвачка'}}
+- {key: 'Teyo, Diamondblade Mage', class: card, labels: {en: 'Teyo, Diamondblade Mage', bg: 'Тейо, маг с диамантено острие', bg-ivanchev: 'Тейо, магъ съ диамантено острие'}}
+- {key: 'Teyo, Lightshield Expert', class: card, labels: {en: 'Teyo, Lightshield Expert', bg: 'Тейо, вещ в светлия щит', bg-ivanchev: 'Тейо, вѣщъ въ свѣтлия щитъ'}}
+- {key: 'Thalia, the Survivor', class: card, labels: {en: 'Thalia, the Survivor', bg: 'Талия, оцелялата', bg-ivanchev: 'Талия, оцѣлялата'}}
+- {key: The Echoverse Fulcrum, class: card, labels: {en: The Echoverse Fulcrum, bg: Опорната точка на Ехомира, bg-ivanchev: Опорната точка на Ехомира}}
+- {key: 'The Theorist, Jace Beleren', class: card, labels: {en: 'The Theorist, Jace Beleren', bg: 'Учения, Джейс Белерен', bg-ivanchev: 'Учения, Джейсъ Белеренъ'}}
+- {key: Theoretical Necromancer, class: card, labels: {en: Theoretical Necromancer, bg: Умозрителен некромант, bg-ivanchev: Умозрителенъ некромантъ}}
+- {key: Theorist's Proxy, class: card, labels: {en: Theorist's Proxy, bg: Заместникът на учения, bg-ivanchev: Замѣстникътъ на учения}}
+- {key: Theorist's Sanctum, class: card, labels: {en: Theorist's Sanctum, bg: Светилището на учения, bg-ivanchev: Светилището на учения}}
+- {key: Theorix Annex, class: card, labels: {en: Theorix Annex, bg: Пристройка на Теорикс, bg-note: Theorix — училище; името е запазено, bg-ivanchev: Пристройка на Теориксъ}}
+- {key: Theorix Charm, class: card, labels: {en: Theorix Charm, bg: Муска на Теорикс, bg-ivanchev: Муска на Теориксъ}}
+- {key: Theorix Metamage, class: card, labels: {en: Theorix Metamage, bg: Метамаг от Теорикс, bg-ivanchev: Метамагъ отъ Теориксъ}}
 - {key: Shade, class: subtype, labels: {en: Shade, bg: Сянка, bg-ivanchev: Сѣнка}}
-- {key: 'Tinybones, Pocket Nuisance', class: card, labels: {en: 'Tinybones, Pocket Nuisance'}}
+- {key: 'Tinybones, Pocket Nuisance', class: card, labels: {en: 'Tinybones, Pocket Nuisance', bg: 'Костичко, джобна напаст', bg-ivanchev: 'Костичко, джобна напасть'}}
 - {key: Skeleton, class: subtype, labels: {en: Skeleton, bg: Скелет, bg-ivanchev: Скелетъ}}
-- {key: 'Titanbones, Towering Heart', class: card, labels: {en: 'Titanbones, Towering Heart'}}
-- {key: 'Tomik, Izzet Sparkmage', class: card, labels: {en: 'Tomik, Izzet Sparkmage'}}
-- {key: 'Tomik, Orzhov Lawmage', class: card, labels: {en: 'Tomik, Orzhov Lawmage'}}
-- {key: Transformative Commons, class: card, labels: {en: Transformative Commons}}
-- {key: 'Traxos, Academy Guardian', class: card, labels: {en: 'Traxos, Academy Guardian'}}
-- {key: 'Traxos, Scourge Eternal', class: card, labels: {en: 'Traxos, Scourge Eternal'}}
-- {key: Twinned Vision, class: card, labels: {en: Twinned Vision}}
-- {key: Twisted Fates, class: card, labels: {en: Twisted Fates}}
-- {key: Uldaros Theorix, class: card, labels: {en: Uldaros Theorix}}
-- {key: Undulating Witness, class: card, labels: {en: Undulating Witness}}
+- {key: 'Titanbones, Towering Heart', class: card, labels: {en: 'Titanbones, Towering Heart', bg: 'Исполинокост, извисено сърце', bg-ivanchev: 'Исполинокость, извисѣно сърдце'}}
+- {key: 'Tomik, Izzet Sparkmage', class: card, labels: {en: 'Tomik, Izzet Sparkmage', bg: 'Томик, искромаг на Изет', bg-ivanchev: 'Томикъ, искромагъ на Изетъ'}}
+- {key: 'Tomik, Orzhov Lawmage', class: card, labels: {en: 'Tomik, Orzhov Lawmage', bg: 'Томик, закономаг на Орзов', bg-ivanchev: 'Томикъ, закономагъ на Орзовъ'}}
+- {key: Transformative Commons, class: card, labels: {en: Transformative Commons, bg: Преобразяваща мера, bg-ivanchev: Прѣобразяваща мѣра}}
+- {key: 'Traxos, Academy Guardian', class: card, labels: {en: 'Traxos, Academy Guardian', bg: 'Траксос, пазител на академията', bg-ivanchev: 'Траксосъ, пазитель на академията'}}
+- {key: 'Traxos, Scourge Eternal', class: card, labels: {en: 'Traxos, Scourge Eternal', bg: 'Траксос, вечен бич', bg-ivanchev: 'Траксосъ, веченъ бичъ'}}
+- {key: Twinned Vision, class: card, labels: {en: Twinned Vision, bg: Двойно видение, bg-ivanchev: Двойно видение}}
+- {key: Twisted Fates, class: card, labels: {en: Twisted Fates, bg: Изкривени съдби, bg-ivanchev: Изкривени сѫдби}}
+- {key: Uldaros Theorix, class: card, labels: {en: Uldaros Theorix, bg: Улдарос Теорикс, bg-ivanchev: Улдаросъ Теориксъ}}
+- {key: Undulating Witness, class: card, labels: {en: Undulating Witness, bg: Вълнообразен свидетел, bg-ivanchev: Вълнообразенъ свидѣтель}}
 - {key: Serpent, class: subtype, labels: {en: Serpent, bg: Смок, bg-note: 'serpent — „смок“, голяма змия', bg-ivanchev: Смокъ}}
-- {key: Unflinching Hortimancer, class: card, labels: {en: Unflinching Hortimancer}}
-- {key: Unsummon, class: card, labels: {en: Unsummon}}
-- {key: Variable Chaser, class: card, labels: {en: Variable Chaser}}
-- {key: Arc of Fortune, class: card, labels: {en: Arc of Fortune}}
-- {key: Verdant Kraken, class: card, labels: {en: Verdant Kraken}}
+- {key: Unflinching Hortimancer, class: card, labels: {en: Unflinching Hortimancer, bg: Неустрашим растомаг, bg-ivanchev: Неустрашимъ растомагъ}}
+- {key: Unsummon, class: card, labels: {en: Unsummon, bg: Отзови, bg-ivanchev: Отзови}}
+- {key: Variable Chaser, class: card, labels: {en: Variable Chaser, bg: Гонител на неизвестни, bg-ivanchev: Гонитель на неизвѣстни}}
+- {key: Arc of Fortune, class: card, labels: {en: Arc of Fortune, bg: Дъга на сполуката, bg-ivanchev: Дѫга на сполуката}}
+- {key: Verdant Kraken, class: card, labels: {en: Verdant Kraken, bg: Зелен кракен, bg-ivanchev: Зеленъ кракенъ}}
 - {key: Kraken, class: subtype, labels: {en: Kraken, bg: Кракен, bg-ivanchev: Кракенъ}}
-- {key: Vigorbloom Annex, class: card, labels: {en: Vigorbloom Annex}}
-- {key: Vigorbloom Charm, class: card, labels: {en: Vigorbloom Charm}}
-- {key: Vigorbloom Vanguard, class: card, labels: {en: Vigorbloom Vanguard}}
+- {key: Vigorbloom Annex, class: card, labels: {en: Vigorbloom Annex, bg: Пристройка на Силноцвет, bg-note: Vigorbloom — „Силноцвет“ (училище), bg-ivanchev: Пристройка на Силноцвѣтъ}}
+- {key: Vigorbloom Charm, class: card, labels: {en: Vigorbloom Charm, bg: Муска на Силноцвет, bg-ivanchev: Муска на Силноцвѣтъ}}
+- {key: Vigorbloom Vanguard, class: card, labels: {en: Vigorbloom Vanguard, bg: Предна стража на Силноцвет, bg-ivanchev: Прѣдна стража на Силноцвѣтъ}}
 - {key: Troll, class: subtype, labels: {en: Troll, bg: Трол, bg-ivanchev: Тролъ}}
-- {key: Vindictive Triumph, class: card, labels: {en: Vindictive Triumph}}
-- {key: Vinelasher Adept, class: card, labels: {en: Vinelasher Adept}}
-- {key: Violent Echoes, class: card, labels: {en: Violent Echoes}}
-- {key: Void Extrapolator, class: card, labels: {en: Void Extrapolator}}
+- {key: Vindictive Triumph, class: card, labels: {en: Vindictive Triumph, bg: Отмъстително тържество, bg-ivanchev: Отмъстително тържество}}
+- {key: Vinelasher Adept, class: card, labels: {en: Vinelasher Adept, bg: Посветен лозобичувач, bg-ivanchev: Посветенъ лозобичувачъ}}
+- {key: Violent Echoes, class: card, labels: {en: Violent Echoes, bg: Свирепи отгласи, bg-ivanchev: Свирепи отгласи}}
+- {key: Void Extrapolator, class: card, labels: {en: Void Extrapolator, bg: Предсказател на празнотата, bg-ivanchev: Прѣдсказатель на празнотата}}
 - {key: Aetherborn, class: subtype, labels: {en: Aetherborn, bg: Етеророден, bg-ivanchev: Етеророденъ}}
-- {key: 'Vraska, Soul of Stone', class: card, labels: {en: 'Vraska, Soul of Stone'}}
-- {key: 'Vraska, the Cutting Glare', class: card, labels: {en: 'Vraska, the Cutting Glare'}}
-- {key: Vraska's Final Mercy, class: card, labels: {en: Vraska's Final Mercy}}
-- {key: Warrior's Blades, class: card, labels: {en: Warrior's Blades}}
-- {key: Way of the Cryomancer, class: card, labels: {en: Way of the Cryomancer}}
-- {key: Way of the Deathbringer, class: card, labels: {en: Way of the Deathbringer}}
-- {key: Way of the Healer, class: card, labels: {en: Way of the Healer}}
-- {key: Way of the Mentor, class: card, labels: {en: Way of the Mentor}}
-- {key: Way of the Mind Sculptor, class: card, labels: {en: Way of the Mind Sculptor}}
-- {key: Way of the Necromancer, class: card, labels: {en: Way of the Necromancer}}
-- {key: Way of the Paradox, class: card, labels: {en: Way of the Paradox}}
-- {key: Way of the Pyromancer, class: card, labels: {en: Way of the Pyromancer}}
-- {key: Way of the Warlord, class: card, labels: {en: Way of the Warlord}}
-- {key: Way of the Wildspeaker, class: card, labels: {en: Way of the Wildspeaker}}
-- {key: Whiplash Wordsmith, class: card, labels: {en: Whiplash Wordsmith}}
-- {key: 'Winter, Team Player', class: card, labels: {en: 'Winter, Team Player'}}
-- {key: 'Winter, Tormented Loner', class: card, labels: {en: 'Winter, Tormented Loner'}}
-- {key: Woodwork Prodigy, class: card, labels: {en: Woodwork Prodigy}}
-- {key: Wrath of the Bloodmane, class: card, labels: {en: Wrath of the Bloodmane}}
-- {key: Wrecking Gecko, class: card, labels: {en: Wrecking Gecko}}
-- {key: 'Yargle, Glutton of Urborg', class: card, labels: {en: 'Yargle, Glutton of Urborg'}}
+- {key: 'Vraska, Soul of Stone', class: card, labels: {en: 'Vraska, Soul of Stone', bg: 'Враска, каменна душа', bg-ivanchev: 'Враска, каменна душа'}}
+- {key: 'Vraska, the Cutting Glare', class: card, labels: {en: 'Vraska, the Cutting Glare', bg: 'Враска, режещият поглед', bg-ivanchev: 'Враска, рѣжещиятъ погледъ'}}
+- {key: Vraska's Final Mercy, class: card, labels: {en: Vraska's Final Mercy, bg: Последната милост на Враска, bg-ivanchev: Послѣдната милость на Враска}}
+- {key: Warrior's Blades, class: card, labels: {en: Warrior's Blades, bg: Воински остриета, bg-ivanchev: Воински остриета}}
+- {key: Way of the Cryomancer, class: card, labels: {en: Way of the Cryomancer, bg: Пътят на мразомага, bg-ivanchev: Пѫтьтъ на мразомага}}
+- {key: Way of the Deathbringer, class: card, labels: {en: Way of the Deathbringer, bg: Пътят на смъртоносеца, bg-ivanchev: Пѫтьтъ на смъртоносеца}}
+- {key: Way of the Healer, class: card, labels: {en: Way of the Healer, bg: Пътят на лечителя, bg-ivanchev: Пѫтьтъ на лечителя}}
+- {key: Way of the Mentor, class: card, labels: {en: Way of the Mentor, bg: Пътят на наставника, bg-ivanchev: Пѫтьтъ на наставника}}
+- {key: Way of the Mind Sculptor, class: card, labels: {en: Way of the Mind Sculptor, bg: Пътят на умоваятеля, bg-ivanchev: Пѫтьтъ на умоваятеля}}
+- {key: Way of the Necromancer, class: card, labels: {en: Way of the Necromancer, bg: Пътят на некроманта, bg-ivanchev: Пѫтьтъ на некроманта}}
+- {key: Way of the Paradox, class: card, labels: {en: Way of the Paradox, bg: Пътят на противоречието, bg-ivanchev: Пѫтьтъ на противорѣчието}}
+- {key: Way of the Pyromancer, class: card, labels: {en: Way of the Pyromancer, bg: Пътят на огнемага, bg-ivanchev: Пѫтьтъ на огнемага}}
+- {key: Way of the Warlord, class: card, labels: {en: Way of the Warlord, bg: Пътят на военачалника, bg-ivanchev: Пѫтьтъ на военачалника}}
+- {key: Way of the Wildspeaker, class: card, labels: {en: Way of the Wildspeaker, bg: Пътят на дивоговорителя, bg-ivanchev: Пѫтьтъ на дивоговорителя}}
+- {key: Whiplash Wordsmith, class: card, labels: {en: Whiplash Wordsmith, bg: Камшикослов, bg-ivanchev: Камшикословъ}}
+- {key: 'Winter, Team Player', class: card, labels: {en: 'Winter, Team Player', bg: 'Уинтър, другар в дружината', bg-ivanchev: 'Уинтъръ, другарь въ дружината'}}
+- {key: 'Winter, Tormented Loner', class: card, labels: {en: 'Winter, Tormented Loner', bg: 'Уинтър, измъчен самотник', bg-ivanchev: 'Уинтъръ, измѫченъ самотникъ'}}
+- {key: Woodwork Prodigy, class: card, labels: {en: Woodwork Prodigy, bg: Чудо-дърворезбар, bg-ivanchev: Чудо-дърворезбаръ}}
+- {key: Wrath of the Bloodmane, class: card, labels: {en: Wrath of the Bloodmane, bg: Гневът на Кървавогривия, bg-ivanchev: Гнѣвътъ на Кървавогривия}}
+- {key: Wrecking Gecko, class: card, labels: {en: Wrecking Gecko, bg: Рушащ гекон, bg-ivanchev: Рушащъ геконъ}}
+- {key: 'Yargle, Glutton of Urborg', class: card, labels: {en: 'Yargle, Glutton of Urborg', bg: 'Яргъл, лакомникът от Урборг', bg-ivanchev: 'Яргълъ, лакомникътъ отъ Урборгъ'}}
 - {key: Frog, class: subtype, labels: {en: Frog, bg: Жаба, bg-ivanchev: Жаба}}
-- {key: 'Yargle, Goliath of Otaria', class: card, labels: {en: 'Yargle, Goliath of Otaria'}}
-- {key: 'Yoshimaru, Beloved Companion', class: card, labels: {en: 'Yoshimaru, Beloved Companion'}}
-- {key: 'Yoshimaru, Scrappy Stray', class: card, labels: {en: 'Yoshimaru, Scrappy Stray'}}
-- {key: Your Fate Ends Here, class: card, labels: {en: Your Fate Ends Here}}
-- {key: 'Yuriko, Blade of the Mighty', class: card, labels: {en: 'Yuriko, Blade of the Mighty'}}
+- {key: 'Yargle, Goliath of Otaria', class: card, labels: {en: 'Yargle, Goliath of Otaria', bg: 'Яргъл, Голиат от Отария', bg-ivanchev: 'Яргълъ, Голиатъ отъ Отария'}}
+- {key: 'Yoshimaru, Beloved Companion', class: card, labels: {en: 'Yoshimaru, Beloved Companion', bg: 'Йошимару, обичен другар', bg-ivanchev: 'Йошимару, обиченъ другарь'}}
+- {key: 'Yoshimaru, Scrappy Stray', class: card, labels: {en: 'Yoshimaru, Scrappy Stray', bg: 'Йошимару, драглив скитник', bg-ivanchev: 'Йошимару, драгливъ скитникъ'}}
+- {key: Your Fate Ends Here, class: card, labels: {en: Your Fate Ends Here, bg: Тук свършва съдбата ти, bg-ivanchev: Тукъ свършва сѫдбата ти}}
+- {key: 'Yuriko, Blade of the Mighty', class: card, labels: {en: 'Yuriko, Blade of the Mighty', bg: 'Юрико, острие на силните', bg-ivanchev: 'Юрико, острие на силнитѣ'}}
 - {key: Samurai, class: subtype, labels: {en: Samurai, bg: Самурай, bg-ivanchev: Самурай}}
-- {key: 'Yuriko, Hope from the Shadows', class: card, labels: {en: 'Yuriko, Hope from the Shadows'}}
+- {key: 'Yuriko, Hope from the Shadows', class: card, labels: {en: 'Yuriko, Hope from the Shadows', bg: 'Юрико, надежда от сенките', bg-ivanchev: 'Юрико, надежда отъ сѣнкитѣ'}}
 - {key: Ninja, class: subtype, labels: {en: Ninja, bg: Нинджа, bg-ivanchev: Нинджа}}
 - {key: '70,000 Light-Years from Home', class: card, labels: {en: '70,000 Light-Years from Home'}}
 - {key: A Good Day to Die, class: card, labels: {en: A Good Day to Die}}
