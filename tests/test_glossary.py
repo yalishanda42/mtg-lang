@@ -48,7 +48,7 @@ def _one_symbol_glossary(tmp_path, line):
 
 def test_syntax_defaults_from_class(fx_glossary):
     draw = fx_glossary.lookup["✋"]
-    assert draw.syntax["kind"] == "verb" and draw.syntax["args"] == ["object"]
+    assert draw.syntax["kind"] == "verb" and draw.syntax["args"] == ["amount", "object"]
     assert fx_glossary.lookup["☺"].syntax["kind"] == "type"
     assert fx_glossary.lookup["F"].syntax == {"kind": "keyword", "params": []}
 

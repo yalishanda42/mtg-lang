@@ -68,14 +68,15 @@ class Var(Node):
 class NP(Node):
     """Object / player phrase: quantifier, count, head(s), filters, name, postfix markers."""
     kind: ClassVar[str] = "np"
-    quant: SymRef | None = None          # ◎ target, ∀ each, ∃ there is
-    count: Node | None = None            # 2, X, ≤1 (Compare-less bound: Bound), (1 ∨ 2)
+    quant: SymRef | None = None          # ◎ target, ∀ each, ∃ there is (◎ is written after the count)
+    each: SymRef | None = None           # ∀ in ∀(1 ∨ 2)◎♞ — each of the targets
+    count: Node | None = None            # 2, X, Bound (≤1), Or (1 ∨ 2)
+    count_after: bool = False            # source detail: amount written after the head (✸3)
     heads: tuple = ()                    # SymRef / NameRef / Or / Of …
     filters: tuple = ()                  # Filter, in order
     name: NameRef | None = None          # token name «Cadet»
     post: tuple = ()                     # glued postfix markers (◈⊺ kicked, ≢ different names …)
     neg: bool = False                    # ¬☞ "other than it"
-    glued_count: bool = True             # source detail: count written glued to the head
     # resolution
     quantity: str | None = None
     number: str | None = None
@@ -209,12 +210,14 @@ class Action(Node):
     kind: ClassVar[str] = "action"
     verb: Node | None                    # SymRef or EffectRef
     subject: Node | None = None
-    args: tuple = ()                     # ((slot, node), …) in written order
-    mods: tuple = ()                     # ((slot, node), …): duration, manner, times, restriction …
+    args: tuple = ()                     # ((slot, node), …) in written order; slots name the role:
+                                         # amount/object/destination/… from the verb frame, plus modifier
+                                         # slots: time, times, marker, filter, restrict, state, additional, rel
     optional: bool = False               # ?
     negated: bool = False                # ¬
     passive: bool = False                # ←
-    postfix: bool = False                # source detail: verb written after its first argument (◈↥, ♞☠)
+    before: int = 0                      # source detail: how many args are written before the verb
+    neg_first: bool = False              # source detail: ¬ written before the subject
     implicit_subject: str | None = None
 
 
@@ -224,7 +227,7 @@ class Modify(Node):
     kind: ClassVar[str] = "modify"
     subject: Node | None
     change: Node                         # PT, or Delta
-    mods: tuple = ()
+    args: tuple = ()                     # modifier slots, as in Action
     optional: bool = False
     negated: bool = False
     implicit_subject: str | None = None
@@ -238,6 +241,23 @@ class Delta(Node):
     amount: Node | None = None           # Num/Var with sign, or None for the bare event ♥+
     sign: str = ""
     times: Node | None = None
+
+
+@dataclass(frozen=True)
+class Scoped(Node):
+    """subject [?] (body) — a subject shared by a parenthesised group: ∀◐ ? (⌫☚ ∧ ⤓7)."""
+    kind: ClassVar[str] = "scoped"
+    subject: Node
+    body: Node
+    optional: bool = False
+    negated: bool = False
+
+
+@dataclass(frozen=True)
+class CostList(Node):
+    """Comma-separated costs inside a keyword parameter: ↺({1}{U/R}{U/R}, ⌫1)."""
+    kind: ClassVar[str] = "costs"
+    items: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -413,7 +433,7 @@ class Card(Node):
 
 # ---------------------------------------------------------------- utilities
 
-_PAIRS = {"args", "mods"}
+_PAIRS = {"args"}
 
 
 def _fields(node: Node):

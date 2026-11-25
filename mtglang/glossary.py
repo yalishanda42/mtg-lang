@@ -21,15 +21,16 @@ _WORD = re.compile(r"[A-Za-z]{3,}")
 SYNTAX_KINDS: frozenset[str] = frozenset({
     "verb", "type", "object", "player", "reference", "zone", "duration", "time", "keyword", "ability_word",
     "counter_kind", "characteristic", "comparison", "infix", "prefix", "postfix", "marker", "structural", "stat",
+    "quantifier", "relation",
 })
 ARG_SLOTS: frozenset[str] = frozenset({
     "object", "amount", "recipient", "destination", "source", "subject", "counter", "ability", "cost", "mana",
-    "player", "number", "value", "zone", "types", "filter",
+    "player", "number", "value", "zone", "types", "filter", "with", "from", "of", "among", "as", "body",
 })
 PARAM_KINDS: frozenset[str] = frozenset({"cost", "number", "filter", "name"})
-SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec"})
+SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec", "op"})
 _CLASS_SYNTAX: dict[str, dict] = {
-    "action": {"kind": "verb", "args": ["object"]},
+    "action": {"kind": "verb", "args": ["amount", "object"]},
     "keyword": {"kind": "keyword", "params": []},
     "comparison": {"kind": "infix"},
     "logic": {"kind": "marker"},
@@ -163,6 +164,8 @@ def _syntax_problems(syn: dict) -> list[str]:
                 out.append(f"syntax {key} must be a list drawn from {sorted(allowed)}")
     if "subject" in syn and syn["subject"] not in ARG_SLOTS:
         out.append(f"unknown subject slot {syn['subject']!r}")
+    if "op" in syn and not isinstance(syn["op"], str):
+        out.append("syntax op must be a name")
     if "prec" in syn and (not isinstance(syn["prec"], int) or isinstance(syn["prec"], bool)):
         out.append("syntax prec must be an integer")
     return out
