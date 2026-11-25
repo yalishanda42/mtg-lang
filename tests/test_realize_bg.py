@@ -35,8 +35,8 @@ def lines(ref, face=0):
 
 
 def test_feminine_agreement():
-    assert lines("fra/academic-ascent")[0].startswith("Нишанна твар получава")       # adjective
-    assert "до една нишанна карта" in lines("fra/afterthought-sentry")[1]            # numeral
+    assert lines("fra/academic-ascent")[0].startswith("Посочена твар получава")       # adjective
+    assert "до една посочена карта" in lines("fra/afterthought-sentry")[1]            # numeral
     assert "Когато тая твар встъпи" in lines("fra/archive-arbiter")[1]               # demonstrative
     assert lines("fra/charge-the-sanctum")[2].endswith("Сложи белег +1/+1 на нея.")  # pronoun
     assert lines("trk/blood-crypt")[0].endswith("тя встъпва наклонена.")             # participle
@@ -45,8 +45,8 @@ def test_feminine_agreement():
 
 def test_neuter_and_masculine_agreement():
     assert lines("trk/batleth")[0].startswith("Когато туй Снаряжение встъпи")
-    assert "нишанен трайник, който не е нито твар, нито земя" in lines("fra/archive-arbiter")[2]
-    assert "Принеси го в жертва" in lines("trk/lrell-fierce-visionary")[0]           # the token: подобие (n)
+    assert "посочен трайник, който не е нито твар, нито земя" in lines("fra/archive-arbiter")[2]
+    assert "Принеси го в жертва" in lines("trk/lrell-fierce-visionary")[0]           # the token: образ (m)
 
 
 def test_old_spelling_keeps_symbols():
@@ -89,3 +89,19 @@ def test_plural_token_colour():
     assert COLORS["{W}"][3] == "бели"
     src = open(bg.__file__, encoding="utf-8").read()
     assert 'color[:-1] + "и"' not in src
+
+
+def test_token_is_obraz():
+    l = lines("fra/ajani-resolute")
+    assert "Сътвори бял образ-твар 2/2 Котка Войник на име Аджаниев побратим" in l[2]
+    assert "на тоя образ" in l[2]
+    assert lines("trk/lrell-fierce-visionary")[0].count("червен образ-твар 2/1") == 1
+    assert "Землепад —" in lines("trk/dal-rel-augment-orphan")[0]
+
+
+def test_token_is_obraz():
+    l = lines("fra/ajani-resolute")
+    assert "Сътвори бял образ-твар 2/2 Котка Войник на име Аджаниев побратим" in l[2]
+    assert "на тоя образ" in l[2]
+    assert "червен образ-твар 2/1" in lines("trk/lrell-fierce-visionary")[0]
+    assert "Землепад —" in lines("trk/dal-rel-augment-orphan")[0]

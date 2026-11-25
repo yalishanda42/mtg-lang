@@ -591,10 +591,10 @@ class Bg:
     # ------------------------------------------------------------ phrases
     def self_np(self, p: PhrasePlan, role: str) -> Np:
         ctx = self.ctx
-        if self.holder == "token":
-            return Np("туй подобие", "n")
-        if self.holder == "emblem":
-            return Np("туй знамение", "n")
+        if self.holder in ("token", "emblem"):           # «тоя образ», «туй знамение»
+            n = self.noun(A.SymRef(index=self._sym("◌" if self.holder == "token" else "✪"),
+                                   glyph="◌" if self.holder == "token" else "✪"))
+            return Np(f"{demonstrative(n.gender)} {n.text}", n.gender)
         if p.self_as == "card":
             return Np("тая карта", "f")
         if ctx.is_spell or ctx.legendary:
@@ -652,7 +652,7 @@ class Bg:
         return Np(pronoun(ante.g, case), ante.gender, ante.number)
 
     def head(self, p: PhrasePlan, number: str | None = None, definite: bool = False) -> Np:
-        """The head noun(s): «твар», «карта-земя», «твар или мироходец», «подобие»."""
+        """The head noun(s): «твар», «карта-земя», «твар или мироходец», «образ»."""
         number = number or p.number
         heads = [h for h in p.heads]
         names = [h for h in heads if isinstance(h, A.NameRef)]
@@ -685,7 +685,7 @@ class Bg:
         quant = next((v for s, v in p.mods if s == "quant"), None)
         target = quant is not None and self.op(quant) == "target"
         if not p.heads and target:
-            return Np("нишанна цел", "f")
+            return Np(f"{self.adj(quant, 'f')} цел", "f")
         token = any(getattr(h, "glyph", "") == "◌" for h in p.heads)
         if token:
             return self.token_np(p)
@@ -722,7 +722,7 @@ class Bg:
         rel = self._join_nots(rel, rel_g)
         preps = [r for r in rel if not r.startswith(relative(rel_g) + " ")]
         rels = [r for r in rel if r.startswith(relative(rel_g) + " ")]
-        if len(rels) > 1:          # «която владееш и не е подобие»
+        if len(rels) > 1:          # «която владееш и не е образ»
             rels = [rels[0] + "".join(" и " + r[len(relative(rel_g)) + 1:] for r in rels[1:])]
         words = []
         if definite and pre:                         # «омаяната твар»
@@ -794,7 +794,8 @@ class Bg:
         return tuple(out)
 
     def token_np(self, p: PhrasePlan) -> Np:
-        """«бяло подобие-твар 2/2 Котка Войник на име Аджаниев побратим»."""
+        """«бял образ-твар 2/2 Котка Войник на име Аджаниев побратим»: the token noun and its gender come from
+        the glossary (``◌``), colour and count agree with it."""
         color_forms, pt, kind, subs = None, "", "", []
         for s, f in p.mods:
             if s != "filters":
@@ -816,22 +817,28 @@ class Bg:
         names = [h for h in p.heads if isinstance(h, A.NameRef)]
         count = next((v for s, v in p.mods if s == "count"), None)
         plural = isinstance(count, A.Num) and count.value > 1
-        noun = "подобия" if plural else "подобие"
+        tok = next(h for h in p.heads if getattr(h, "glyph", "") == "◌")
+        lx = self.L(tok)
+        gender = lx.get("gender", "m")
+        if plural:
+            noun = lx.get("cnt" if gender == "m" else "pl") or gap("◌.pl")
+        else:
+            noun = lx.get("noun") or gap("◌.noun")
         words = []
         if plural:
-            words.append(number_word(count.value, "n"))
+            words.append(number_word(count.value, gender))
         if color_forms:
-            words.append(color_forms[3] if plural else color_forms[2])
+            words.append(color_forms[3] if plural else color_forms[GI[gender]])
         words.append(f"{noun}-{kind}" if kind else noun)
         if pt:
             words.append(pt)
         words += subs
-        if names and not subs and not kind:          # a named token: «подобие Сърцевина»
+        if names and not subs and not kind:          # a named token: «образ Сърцевина»
             words += [self.label(n) for n in names]
         name = next((v for s, v in p.mods if s == "name"), None)
         if name is not None:
             words.append(f"на име {self.label(name)}")
-        return Np(" ".join(words), "n", "pl" if plural else "sg")
+        return Np(" ".join(words), gender, "pl" if plural else "sg")
 
     # ------------------------------------------------------------ comparisons and time
     def compare(self, c: A.Compare, in_filter: bool = False) -> str:
