@@ -545,7 +545,7 @@
 - {key: 'Gul Dukat, Colonial Prefect', class: card, labels: {en: 'Gul Dukat, Colonial Prefect', bg: 'Гул Дукат, колониален управител', bg-ivanchev: 'Гулъ Дукатъ, колониаленъ управитель'}}
 - {key: 'Gwyndala, the Progeny', class: card, labels: {en: 'Gwyndala, the Progeny', bg: 'Гуиндала, потомката', bg-ivanchev: 'Гуиндала, потомката'}}
 - {key: Vau-N'Akat, class: subtype, labels: {en: Vau-N'Akat, bg: Вау-Н'Акат, bg-ivanchev: Вау-Н'Акатъ}}
-- {key: 'H.M.S. Bounty, Unlikely Timeship', class: card, labels: {en: 'H.M.S. Bounty, Unlikely Timeship', bg: 'Н.В.К. „Баунти“, невероятен времеплав', bg-ivanchev: 'Н.В.К. „Баунти“, невѣроятенъ врѣмеплавъ'}}
+- {key: 'H.M.S. Bounty, Unlikely Timeship', class: card, labels: {en: 'H.M.S. Bounty, Unlikely Timeship', bg: 'H.M.S. „Баунти“, невероятен времеплав', bg-ivanchev: 'H.M.S. „Баунти“, невѣроятенъ врѣмеплавъ'}}
 - {key: Hallowed Fountain, class: card, labels: {en: Hallowed Fountain, bg: Осветен извор, bg-ivanchev: Осветенъ изворъ}}
 - {key: 'Hemmer, Fixing What Is Broken', class: card, labels: {en: 'Hemmer, Fixing What Is Broken', bg: 'Хемър, поправя счупеното', bg-ivanchev: 'Хемъръ, поправя счупеното'}}
 - {key: Aenar, class: subtype, labels: {en: Aenar, bg: Аенар, bg-ivanchev: Аенаръ}}
@@ -582,177 +582,177 @@
 - {key: Live Long and Prosper, class: card, labels: {en: Live Long and Prosper, bg: Живей дълго и благоденствай, bg-ivanchev: Живей дълго и благоденствай}}
 - {key: 'Locutus, the One Who Speaks', class: card, labels: {en: 'Locutus, the One Who Speaks', bg: 'Локутус, Онзи, който говори', bg-ivanchev: 'Локутусъ, Онзи, който говори'}}
 - {key: 'Lore, Positronic Provocateur', class: card, labels: {en: 'Lore, Positronic Provocateur', bg: 'Лор, позитронен подстрекател', bg-ivanchev: 'Лоръ, позитроненъ подстрѣкатель'}}
-- {key: 'L''Rell, Fierce Visionary', class: card, labels: {en: 'L''Rell, Fierce Visionary'}}
-- {key: Lt. Cmdr. Geordi La Forge, class: card, labels: {en: Lt. Cmdr. Geordi La Forge}}
-- {key: 'Lwaxana Troi, Charming Guest', class: card, labels: {en: 'Lwaxana Troi, Charming Guest'}}
-- {key: MACO Strike Team, class: card, labels: {en: MACO Strike Team}}
-- {key: Make It So, class: card, labels: {en: Make It So}}
-- {key: Malfunctioning Holodeck, class: card, labels: {en: Malfunctioning Holodeck}}
-- {key: Marooned, class: card, labels: {en: Marooned}}
-- {key: Melkotian Adjudicator, class: card, labels: {en: Melkotian Adjudicator}}
+- {key: 'L''Rell, Fierce Visionary', class: card, labels: {en: 'L''Rell, Fierce Visionary', bg: 'Л''Рел, люта прозорливка', bg-ivanchev: 'Л''Релъ, люта прозорливка'}}
+- {key: Lt. Cmdr. Geordi La Forge, class: card, labels: {en: Lt. Cmdr. Geordi La Forge, bg: Лейт.-ком. Джорди Ла Форж, bg-ivanchev: Лейт.-ком. Джорди Ла Форжъ}}
+- {key: 'Lwaxana Troi, Charming Guest', class: card, labels: {en: 'Lwaxana Troi, Charming Guest', bg: 'Луаксана Трой, пленителна гостенка', bg-ivanchev: 'Луаксана Трой, пленителна гостенка'}}
+- {key: MACO Strike Team, class: card, labels: {en: MACO Strike Team, bg: Ударна дружина на МАКО, bg-ivanchev: Ударна дружина на МАКО}}
+- {key: Make It So, class: card, labels: {en: Make It So, bg: Тъй да бъде, bg-ivanchev: Тъй да бѫде}}
+- {key: Malfunctioning Holodeck, class: card, labels: {en: Malfunctioning Holodeck, bg: Повредена холокамера, bg-ivanchev: Поврѣдена холокамера}}
+- {key: Marooned, class: card, labels: {en: Marooned, bg: Изоставен на пуст остров, bg-ivanchev: Изоставенъ на пустъ островъ}}
+- {key: Melkotian Adjudicator, class: card, labels: {en: Melkotian Adjudicator, bg: Мелкотийски съдник, bg-ivanchev: Мелкотийски сѫдникъ}}
 - {key: Melkotian, class: subtype, labels: {en: Melkotian, bg: Мелкотианец, bg-ivanchev: Мелкотианецъ}}
-- {key: 'Miles O''Brien, Transporter Ops', class: card, labels: {en: 'Miles O''Brien, Transporter Ops'}}
-- {key: Mirror Universe Intrusion, class: card, labels: {en: Mirror Universe Intrusion}}
-- {key: Moopsy, class: card, labels: {en: Moopsy}}
-- {key: 'Mr. Spock, Science Officer', class: card, labels: {en: 'Mr. Spock, Science Officer'}}
-- {key: Mugato, class: card, labels: {en: Mugato}}
+- {key: 'Miles O''Brien, Transporter Ops', class: card, labels: {en: 'Miles O''Brien, Transporter Ops', bg: 'Майлс О''Брайън, при преносителя', bg-ivanchev: 'Майлсъ О''Брайънъ, при прѣносителя'}}
+- {key: Mirror Universe Intrusion, class: card, labels: {en: Mirror Universe Intrusion, bg: Нашествие от огледалния свят, bg-ivanchev: Нашествие отъ огледалния свѣтъ}}
+- {key: Moopsy, class: card, labels: {en: Moopsy, bg: Мупси, bg-ivanchev: Мупси}}
+- {key: 'Mr. Spock, Science Officer', class: card, labels: {en: 'Mr. Spock, Science Officer', bg: 'Г-н Спок, научен офицер', bg-ivanchev: 'Г-нъ Спокъ, наученъ офицеръ'}}
+- {key: Mugato, class: card, labels: {en: Mugato, bg: Мугато, bg-ivanchev: Мугато}}
 - {key: Ape, class: subtype, labels: {en: Ape, bg: Маймуна, bg-ivanchev: Маймуна}}
-- {key: Munitions Enthusiast, class: card, labels: {en: Munitions Enthusiast}}
-- {key: 'Neelix, Moral Support', class: card, labels: {en: 'Neelix, Moral Support'}}
+- {key: Munitions Enthusiast, class: card, labels: {en: Munitions Enthusiast, bg: Любител на бойните припаси, bg-ivanchev: Любитель на бойнитѣ припаси}}
+- {key: 'Neelix, Moral Support', class: card, labels: {en: 'Neelix, Moral Support', bg: 'Нийликс, дружеска опора', bg-ivanchev: 'Нийликсъ, дружеска опора'}}
 - {key: Talaxian, class: subtype, labels: {en: Talaxian, bg: Талаксианец, bg-ivanchev: Талаксианецъ}}
-- {key: Ni'Var Science Academy, class: card, labels: {en: Ni'Var Science Academy}}
-- {key: 'Nog, Ambitious Cadet', class: card, labels: {en: 'Nog, Ambitious Cadet'}}
-- {key: 'Nyota Uhura, Communications', class: card, labels: {en: 'Nyota Uhura, Communications'}}
-- {key: Oberth-Class Starship, class: card, labels: {en: Oberth-Class Starship}}
-- {key: Obsidian Order Operative, class: card, labels: {en: Obsidian Order Operative}}
+- {key: Ni'Var Science Academy, class: card, labels: {en: Ni'Var Science Academy, bg: Научна академия на Ни'Вар, bg-ivanchev: Научна академия на Ни'Варъ}}
+- {key: 'Nog, Ambitious Cadet', class: card, labels: {en: 'Nog, Ambitious Cadet', bg: 'Ног, честолюбив юнкер', bg-ivanchev: 'Ногъ, честолюбивъ юнкеръ'}}
+- {key: 'Nyota Uhura, Communications', class: card, labels: {en: 'Nyota Uhura, Communications', bg: 'Ниота Ухура, свръзка', bg-ivanchev: 'Ниота Ухура, свръзка'}}
+- {key: Oberth-Class Starship, class: card, labels: {en: Oberth-Class Starship, bg: Звездна ладия от клас „Оберт“, bg-ivanchev: Звѣздна ладия отъ класъ „Обертъ“}}
+- {key: Obsidian Order Operative, class: card, labels: {en: Obsidian Order Operative, bg: Оръдие на Обсидиановия орден, bg-ivanchev: Орѫдие на Обсидиановия орденъ}}
 - {key: Spy, class: subtype, labels: {en: Spy, bg: Лазутчик, bg-ivanchev: Лазутчикъ}}
-- {key: Open Communications, class: card, labels: {en: Open Communications}}
-- {key: Organic Avulsion Unit, class: card, labels: {en: Organic Avulsion Unit}}
-- {key: Overflow Submatrix, class: card, labels: {en: Overflow Submatrix}}
-- {key: Overgrown Tomb, class: card, labels: {en: Overgrown Tomb}}
-- {key: Pah-Wraith, class: card, labels: {en: Pah-Wraith}}
+- {key: Open Communications, class: card, labels: {en: Open Communications, bg: Отвори връзка с всички, bg-ivanchev: Отвори връзка съ всички}}
+- {key: Organic Avulsion Unit, class: card, labels: {en: Organic Avulsion Unit, bg: Възел за откъсване на плът, bg-ivanchev: Вѫзелъ за откѫсване на плъть}}
+- {key: Overflow Submatrix, class: card, labels: {en: Overflow Submatrix, bg: Преливаща подматрица, bg-ivanchev: Прѣливаща подматрица}}
+- {key: Overgrown Tomb, class: card, labels: {en: Overgrown Tomb, bg: Обрасла гробница, bg-ivanchev: Обрасла гробница}}
+- {key: Pah-Wraith, class: card, labels: {en: Pah-Wraith, bg: Па-призрак, bg-note: Pah-wraith — злите духове на Байор, bg-ivanchev: Па-призракъ}}
 - {key: Wraith, class: subtype, labels: {en: Wraith, bg: Призрак, bg-ivanchev: Призракъ}}
-- {key: Pattern Buffer Preservation, class: card, labels: {en: Pattern Buffer Preservation}}
-- {key: Peace in Our Time, class: card, labels: {en: Peace in Our Time}}
-- {key: Perils of the Past, class: card, labels: {en: Perils of the Past}}
-- {key: Pet Sehlat, class: card, labels: {en: Pet Sehlat}}
+- {key: Pattern Buffer Preservation, class: card, labels: {en: Pattern Buffer Preservation, bg: Опазване в образния буфер, bg-ivanchev: Опазване въ образния буферъ}}
+- {key: Peace in Our Time, class: card, labels: {en: Peace in Our Time, bg: Мир в наше време, bg-ivanchev: Миръ въ наше врѣме}}
+- {key: Perils of the Past, class: card, labels: {en: Perils of the Past, bg: Беди от миналото, bg-ivanchev: Бѣди отъ миналото}}
+- {key: Pet Sehlat, class: card, labels: {en: Pet Sehlat, bg: Опитомен селат, bg-ivanchev: Опитоменъ селатъ}}
 - {key: Bear, class: subtype, labels: {en: Bear, bg: Мечка, bg-ivanchev: Мечка}}
-- {key: 'Phlox, Unorthodox Doctor', class: card, labels: {en: 'Phlox, Unorthodox Doctor'}}
+- {key: 'Phlox, Unorthodox Doctor', class: card, labels: {en: 'Phlox, Unorthodox Doctor', bg: 'Флокс, необикновен лекар', bg-ivanchev: 'Флоксъ, необикновенъ лекарь'}}
 - {key: Denobulan, class: subtype, labels: {en: Denobulan, bg: Денобуланец, bg-ivanchev: Денобуланецъ}}
-- {key: Photosynthetic Physician, class: card, labels: {en: Photosynthetic Physician}}
-- {key: 'Picard, Leading by Example', class: card, labels: {en: 'Picard, Leading by Example'}}
-- {key: Planetary Bombardment, class: card, labels: {en: Planetary Bombardment}}
-- {key: Planetary Patrol, class: card, labels: {en: Planetary Patrol}}
-- {key: Plasma Cascade, class: card, labels: {en: Plasma Cascade}}
-- {key: Primary Unimatrix Adjunct, class: card, labels: {en: Primary Unimatrix Adjunct}}
-- {key: Pure Energy, class: card, labels: {en: Pure Energy}}
-- {key: Q Continuum, class: card, labels: {en: Q Continuum}}
-- {key: 'Q, Stacking the Deck', class: card, labels: {en: 'Q, Stacking the Deck'}}
+- {key: Photosynthetic Physician, class: card, labels: {en: Photosynthetic Physician, bg: Светлохранен лечител, bg-ivanchev: Свѣтлохраненъ лечитель}}
+- {key: 'Picard, Leading by Example', class: card, labels: {en: 'Picard, Leading by Example', bg: 'Пикар, води с пример', bg-ivanchev: 'Пикаръ, води съ примѣръ'}}
+- {key: Planetary Bombardment, class: card, labels: {en: Planetary Bombardment, bg: Обстрел на планетата, bg-ivanchev: Обстрѣлъ на планетата}}
+- {key: Planetary Patrol, class: card, labels: {en: Planetary Patrol, bg: Планетна стража, bg-ivanchev: Планетна стража}}
+- {key: Plasma Cascade, class: card, labels: {en: Plasma Cascade, bg: Плазмен водопад, bg-ivanchev: Плазменъ водопадъ}}
+- {key: Primary Unimatrix Adjunct, class: card, labels: {en: Primary Unimatrix Adjunct, bg: Първи помагач на униматрицата, bg-ivanchev: Първи помагачъ на униматрицата}}
+- {key: Pure Energy, class: card, labels: {en: Pure Energy, bg: Чиста сила, bg-ivanchev: Чиста сила}}
+- {key: Q Continuum, class: card, labels: {en: Q Continuum, bg: Континуумът Кю, bg-ivanchev: Континуумътъ Кю}}
+- {key: 'Q, Stacking the Deck', class: card, labels: {en: 'Q, Stacking the Deck', bg: 'Кю, нарежда тестето', bg-ivanchev: 'Кю, нарежда тестето'}}
 - {key: Q, class: subtype, labels: {en: Q, bg: Кю, bg-ivanchev: Кю}}
-- {key: Qo'noS, class: card, labels: {en: Qo'noS}}
-- {key: 'Quark, Humble Proprietor', class: card, labels: {en: 'Quark, Humble Proprietor'}}
-- {key: Quark's Bar, class: card, labels: {en: Quark's Bar}}
-- {key: Ravenous Cosmozoan, class: card, labels: {en: Ravenous Cosmozoan}}
-- {key: Reckless Impulse, class: card, labels: {en: Reckless Impulse}}
-- {key: Red Alert!, class: card, labels: {en: Red Alert!}}
-- {key: Relentless Drednok, class: card, labels: {en: Relentless Drednok}}
-- {key: Replicator, class: card, labels: {en: Replicator}}
-- {key: Resistance Is Futile, class: card, labels: {en: Resistance Is Futile}}
-- {key: Risa, class: card, labels: {en: Risa}}
-- {key: Rogue Artificial Intelligence, class: card, labels: {en: Rogue Artificial Intelligence}}
-- {key: 'Rok-Tahk, Budding Scientist', class: card, labels: {en: 'Rok-Tahk, Budding Scientist'}}
+- {key: Qo'noS, class: card, labels: {en: Qo'noS, bg: Кронос, bg-ivanchev: Кроносъ}}
+- {key: 'Quark, Humble Proprietor', class: card, labels: {en: 'Quark, Humble Proprietor', bg: 'Кварк, смирен стопанин', bg-ivanchev: 'Кваркъ, смиренъ стопанинъ'}}
+- {key: Quark's Bar, class: card, labels: {en: Quark's Bar, bg: Кръчмата на Кварк, bg-ivanchev: Кръчмата на Кваркъ}}
+- {key: Ravenous Cosmozoan, class: card, labels: {en: Ravenous Cosmozoan, bg: Ненаситна звездна твар, bg-ivanchev: Ненаситна звѣздна тварь}}
+- {key: Reckless Impulse, class: card, labels: {en: Reckless Impulse, bg: Безразсъден порив, bg-ivanchev: Безразсѫденъ поривъ}}
+- {key: Red Alert!, class: card, labels: {en: Red Alert!, bg: Червена тревога!, bg-ivanchev: Червена тревога!}}
+- {key: Relentless Drednok, class: card, labels: {en: Relentless Drednok, bg: Неуморим Дреднок, bg-ivanchev: Неуморимъ Дреднокъ}}
+- {key: Replicator, class: card, labels: {en: Replicator, bg: Възпроизводител, bg-ivanchev: Възпроизводитель}}
+- {key: Resistance Is Futile, class: card, labels: {en: Resistance Is Futile, bg: Съпротивата е безполезна, bg-ivanchev: Съпротивата е безполезна}}
+- {key: Risa, class: card, labels: {en: Risa, bg: Риса, bg-ivanchev: Риса}}
+- {key: Rogue Artificial Intelligence, class: card, labels: {en: Rogue Artificial Intelligence, bg: Отцепил се изкуствен разум, bg-ivanchev: Отцепилъ се изкуственъ разумъ}}
+- {key: 'Rok-Tahk, Budding Scientist', class: card, labels: {en: 'Rok-Tahk, Budding Scientist', bg: 'Рок-Та, напъпил учен', bg-ivanchev: 'Рок-Та, напѫпилъ ученъ'}}
 - {key: Brikar, class: subtype, labels: {en: Brikar, bg: Брикар, bg-ivanchev: Брикаръ}}
-- {key: Romulan Bird-of-Prey, class: card, labels: {en: Romulan Bird-of-Prey}}
-- {key: Romulus, class: card, labels: {en: Romulus}}
-- {key: Rules of Acquisition, class: card, labels: {en: Rules of Acquisition}}
-- {key: 'Rutherford, Upgraded Ensign', class: card, labels: {en: 'Rutherford, Upgraded Ensign'}}
-- {key: 'Saavik, Stoic Student', class: card, labels: {en: 'Saavik, Stoic Student'}}
-- {key: Sacred Foundry, class: card, labels: {en: Sacred Foundry}}
-- {key: Salt Vampire, class: card, labels: {en: Salt Vampire}}
-- {key: 'Sarcophagus, Ship of the Dead', class: card, labels: {en: 'Sarcophagus, Ship of the Dead'}}
-- {key: 'Sarek, Federation Ambassador', class: card, labels: {en: 'Sarek, Federation Ambassador'}}
-- {key: 'Saru, Unthreatened', class: card, labels: {en: 'Saru, Unthreatened'}}
+- {key: Romulan Bird-of-Prey, class: card, labels: {en: Romulan Bird-of-Prey, bg: Ромуланска хищна птица, bg-ivanchev: Ромуланска хищна птица}}
+- {key: Romulus, class: card, labels: {en: Romulus, bg: Ромул, bg-ivanchev: Ромулъ}}
+- {key: Rules of Acquisition, class: card, labels: {en: Rules of Acquisition, bg: Правила за придобиване, bg-ivanchev: Правила за придобиване}}
+- {key: 'Rutherford, Upgraded Ensign', class: card, labels: {en: 'Rutherford, Upgraded Ensign', bg: 'Ръдърфорд, подобрен мичман', bg-ivanchev: 'Ръдърфордъ, подобренъ мичманъ'}}
+- {key: 'Saavik, Stoic Student', class: card, labels: {en: 'Saavik, Stoic Student', bg: 'Савик, невъзмутима ученичка', bg-ivanchev: 'Савикъ, невъзмутима ученичка'}}
+- {key: Sacred Foundry, class: card, labels: {en: Sacred Foundry, bg: Свещена леярна, bg-ivanchev: Свещена леярна}}
+- {key: Salt Vampire, class: card, labels: {en: Salt Vampire, bg: Солен вампир, bg-ivanchev: Соленъ вампиръ}}
+- {key: 'Sarcophagus, Ship of the Dead', class: card, labels: {en: 'Sarcophagus, Ship of the Dead', bg: 'Саркофаг, корабът на мъртвите', bg-ivanchev: 'Саркофагъ, корабътъ на мъртвитѣ'}}
+- {key: 'Sarek, Federation Ambassador', class: card, labels: {en: 'Sarek, Federation Ambassador', bg: 'Сарек, посланик на Съюза', bg-ivanchev: 'Сарекъ, посланикъ на Съюза'}}
+- {key: 'Saru, Unthreatened', class: card, labels: {en: 'Saru, Unthreatened', bg: 'Сару, незастрашен', bg-ivanchev: 'Сару, незастрашенъ'}}
 - {key: Kelpien, class: subtype, labels: {en: Kelpien, bg: Келпиец, bg-ivanchev: Келпиецъ}}
-- {key: Saurian Explorer, class: card, labels: {en: Saurian Explorer}}
-- {key: Savvy Profiteer, class: card, labels: {en: Savvy Profiteer}}
-- {key: 'Scotty, Miracle Worker', class: card, labels: {en: 'Scotty, Miracle Worker'}}
-- {key: 'Sela, Tal Shiar Paradox', class: card, labels: {en: 'Sela, Tal Shiar Paradox'}}
+- {key: Saurian Explorer, class: card, labels: {en: Saurian Explorer, bg: Гущероподобен изследовател, bg-ivanchev: Гущероподобенъ изслѣдователь}}
+- {key: Savvy Profiteer, class: card, labels: {en: Savvy Profiteer, bg: Хитър печалбар, bg-ivanchev: Хитъръ печалбарь}}
+- {key: 'Scotty, Miracle Worker', class: card, labels: {en: 'Scotty, Miracle Worker', bg: 'Скоти, чудотворец', bg-ivanchev: 'Скоти, чудотворецъ'}}
+- {key: 'Sela, Tal Shiar Paradox', class: card, labels: {en: 'Sela, Tal Shiar Paradox', bg: 'Села, противоречие от Тал Шиар', bg-ivanchev: 'Села, противорѣчие отъ Талъ Шиаръ'}}
 - {key: Romulan, class: subtype, labels: {en: Romulan, bg: Ромуланец, bg-ivanchev: Ромуланецъ}}
-- {key: Set Phasers to . . ., class: card, labels: {en: Set Phasers to . . .}}
-- {key: Seven of Nine, class: card, labels: {en: Seven of Nine}}
-- {key: 'Seven of Nine, Unassimilated', class: card, labels: {en: 'Seven of Nine, Unassimilated'}}
-- {key: Shields Up!, class: card, labels: {en: Shields Up!}}
-- {key: Shuttle Ace, class: card, labels: {en: Shuttle Ace}}
-- {key: Sickbay, class: card, labels: {en: Sickbay}}
-- {key: Silicate Surveyor, class: card, labels: {en: Silicate Surveyor}}
+- {key: Set Phasers to . . ., class: card, labels: {en: Set Phasers to . . ., bg: Нагласи фазерите на . . ., bg-ivanchev: Нагласи фазеритѣ на . . .}}
+- {key: Seven of Nine, class: card, labels: {en: Seven of Nine, bg: Седма от Девет, bg-ivanchev: Седма отъ Деветь}}
+- {key: 'Seven of Nine, Unassimilated', class: card, labels: {en: 'Seven of Nine, Unassimilated', bg: 'Седма от Девет, непогълната', bg-ivanchev: 'Седма отъ Деветь, непогълната'}}
+- {key: Shields Up!, class: card, labels: {en: Shields Up!, bg: Щитовете горе!, bg-ivanchev: Щитоветѣ горѣ!}}
+- {key: Shuttle Ace, class: card, labels: {en: Shuttle Ace, bg: Майстор-совалкар, bg-ivanchev: Майсторъ-совалкаръ}}
+- {key: Sickbay, class: card, labels: {en: Sickbay, bg: Лечебница, bg-ivanchev: Лечебница}}
+- {key: Silicate Surveyor, class: card, labels: {en: Silicate Surveyor, bg: Силикатен огледник, bg-ivanchev: Силикатенъ огледникъ}}
 - {key: Tholian, class: subtype, labels: {en: Tholian, bg: Толианец, bg-ivanchev: Толианецъ}}
-- {key: Spatial Anomaly, class: card, labels: {en: Spatial Anomaly}}
-- {key: Species 8472, class: card, labels: {en: Species 8472}}
+- {key: Spatial Anomaly, class: card, labels: {en: Spatial Anomaly, bg: Пространствена чудесия, bg-ivanchev: Пространствена чудесия}}
+- {key: Species 8472, class: card, labels: {en: Species 8472, bg: Вид 8472, bg-ivanchev: Видъ 8472}}
 - {key: Insect, class: subtype, labels: {en: Insect, bg: Буболечка, bg-ivanchev: Буболечка}}
-- {key: 'Spock, Always Your Friend', class: card, labels: {en: 'Spock, Always Your Friend'}}
-- {key: Stable Wormhole, class: card, labels: {en: Stable Wormhole}}
-- {key: Starfleet Academy, class: card, labels: {en: Starfleet Academy}}
-- {key: Starfleet Security, class: card, labels: {en: Starfleet Security}}
-- {key: Starfleet Spanner Jockey, class: card, labels: {en: Starfleet Spanner Jockey}}
-- {key: Steam Vents, class: card, labels: {en: Steam Vents}}
-- {key: Stomping Ground, class: card, labels: {en: Stomping Ground}}
-- {key: Storied Veteran, class: card, labels: {en: Storied Veteran}}
-- {key: Stray from History, class: card, labels: {en: Stray from History}}
-- {key: Subcommander T'Pol, class: card, labels: {en: Subcommander T'Pol}}
-- {key: Subspace Anomaly, class: card, labels: {en: Subspace Anomaly}}
-- {key: 'Sulu, Space Swashbuckler', class: card, labels: {en: 'Sulu, Space Swashbuckler'}}
-- {key: Support Mission, class: card, labels: {en: Support Mission}}
-- {key: Suurok-Class Science Vessel, class: card, labels: {en: Suurok-Class Science Vessel}}
-- {key: Suus Mahna Practitioner, class: card, labels: {en: Suus Mahna Practitioner}}
-- {key: 'Sylvia Tilly, Joy of Discovery', class: card, labels: {en: 'Sylvia Tilly, Joy of Discovery'}}
-- {key: Syndicate Liquidators, class: card, labels: {en: Syndicate Liquidators}}
+- {key: 'Spock, Always Your Friend', class: card, labels: {en: 'Spock, Always Your Friend', bg: 'Спок, вечно твой приятел', bg-ivanchev: 'Спокъ, вечно твой приятель'}}
+- {key: Stable Wormhole, class: card, labels: {en: Stable Wormhole, bg: Устойчив червеев проход, bg-ivanchev: Устойчивъ червеевъ проходъ}}
+- {key: Starfleet Academy, class: card, labels: {en: Starfleet Academy, bg: Академията на Звездния флот, bg-ivanchev: Академията на Звѣздния флотъ}}
+- {key: Starfleet Security, class: card, labels: {en: Starfleet Security, bg: Охрана на Звездния флот, bg-ivanchev: Охрана на Звѣздния флотъ}}
+- {key: Starfleet Spanner Jockey, class: card, labels: {en: Starfleet Spanner Jockey, bg: Гаечник от Звездния флот, bg-ivanchev: Гаечникъ отъ Звѣздния флотъ}}
+- {key: Steam Vents, class: card, labels: {en: Steam Vents, bg: Парни отдушници, bg-ivanchev: Парни отдушници}}
+- {key: Stomping Ground, class: card, labels: {en: Stomping Ground, bg: Утъпкана земя, bg-ivanchev: Утѫпкана земя}}
+- {key: Storied Veteran, class: card, labels: {en: Storied Veteran, bg: Прочут ветеран, bg-ivanchev: Прочутъ ветеранъ}}
+- {key: Stray from History, class: card, labels: {en: Stray from History, bg: Отклони се от историята, bg-ivanchev: Отклони се отъ историята}}
+- {key: Subcommander T'Pol, class: card, labels: {en: Subcommander T'Pol, bg: Подкомандир Т'Пол, bg-ivanchev: Подкомандиръ Т'Полъ}}
+- {key: Subspace Anomaly, class: card, labels: {en: Subspace Anomaly, bg: Подпространствена чудесия, bg-ivanchev: Подпространствена чудесия}}
+- {key: 'Sulu, Space Swashbuckler', class: card, labels: {en: 'Sulu, Space Swashbuckler', bg: 'Сулу, звезден рубач', bg-ivanchev: 'Сулу, звѣзденъ рубачъ'}}
+- {key: Support Mission, class: card, labels: {en: Support Mission, bg: Мисия за подкрепа, bg-ivanchev: Мисия за подкрѣпа}}
+- {key: Suurok-Class Science Vessel, class: card, labels: {en: Suurok-Class Science Vessel, bg: Научна ладия от клас „Сурок“, bg-ivanchev: Научна ладия отъ класъ „Сурокъ“}}
+- {key: Suus Mahna Practitioner, class: card, labels: {en: Suus Mahna Practitioner, bg: Боец на сус махна, bg-ivanchev: Боецъ на сусъ махна}}
+- {key: 'Sylvia Tilly, Joy of Discovery', class: card, labels: {en: 'Sylvia Tilly, Joy of Discovery', bg: 'Силвия Тили, радостта на откритието', bg-ivanchev: 'Силвия Тили, радостьта на откритието'}}
+- {key: Syndicate Liquidators, class: card, labels: {en: Syndicate Liquidators, bg: Ликвидатори на Синдиката, bg-ivanchev: Ликвидатори на Синдиката}}
 - {key: Pirate, class: subtype, labels: {en: Pirate, bg: Пират, bg-ivanchev: Пиратъ}}
-- {key: Tactical Officer, class: card, labels: {en: Tactical Officer}}
-- {key: Tal Shiar Analyst, class: card, labels: {en: Tal Shiar Analyst}}
-- {key: Tal Shiar Operative, class: card, labels: {en: Tal Shiar Operative}}
-- {key: Targ Wrangler, class: card, labels: {en: Targ Wrangler}}
-- {key: 'Tasha Yar, Out of Time', class: card, labels: {en: 'Tasha Yar, Out of Time'}}
-- {key: 'Tea, Earl Grey, Hot', class: card, labels: {en: 'Tea, Earl Grey, Hot'}}
+- {key: Tactical Officer, class: card, labels: {en: Tactical Officer, bg: Боен офицер, bg-ivanchev: Боенъ офицеръ}}
+- {key: Tal Shiar Analyst, class: card, labels: {en: Tal Shiar Analyst, bg: Разбирач от Тал Шиар, bg-ivanchev: Разбирачъ отъ Талъ Шиаръ}}
+- {key: Tal Shiar Operative, class: card, labels: {en: Tal Shiar Operative, bg: Оръдие на Тал Шиар, bg-ivanchev: Орѫдие на Талъ Шиаръ}}
+- {key: Targ Wrangler, class: card, labels: {en: Targ Wrangler, bg: Укротител на тарги, bg-ivanchev: Укротитель на тарги}}
+- {key: 'Tasha Yar, Out of Time', class: card, labels: {en: 'Tasha Yar, Out of Time', bg: 'Таша Яр, извън времето', bg-ivanchev: 'Таша Яръ, извънъ врѣмето'}}
+- {key: 'Tea, Earl Grey, Hot', class: card, labels: {en: 'Tea, Earl Grey, Hot', bg: 'Чай, Ърл Грей, горещ', bg-ivanchev: 'Чай, Ърлъ Грей, горѣщъ'}}
 - {key: Food, class: subtype, labels: {en: Food, bg: Храна, bg-ivanchev: Храна}}
-- {key: Tell Me What You See, class: card, labels: {en: Tell Me What You See}}
-- {key: Temple Garden, class: card, labels: {en: Temple Garden}}
-- {key: Temporal Anomaly, class: card, labels: {en: Temporal Anomaly}}
-- {key: Temporal Conqueror, class: card, labels: {en: Temporal Conqueror}}
+- {key: Tell Me What You See, class: card, labels: {en: Tell Me What You See, bg: Кажи ми какво виждаш, bg-ivanchev: Кажи ми какво виждашъ}}
+- {key: Temple Garden, class: card, labels: {en: Temple Garden, bg: Храмова градина, bg-ivanchev: Храмова градина}}
+- {key: Temporal Anomaly, class: card, labels: {en: Temporal Anomaly, bg: Времева чудесия, bg-ivanchev: Врѣмева чудесия}}
+- {key: Temporal Conqueror, class: card, labels: {en: Temporal Conqueror, bg: Завоевател на времето, bg-ivanchev: Завоеватель на врѣмето}}
 - {key: Na'kuhl, class: subtype, labels: {en: Na'kuhl, bg: На'кул, bg-ivanchev: На'кулъ}}
-- {key: Tenacious Drone, class: card, labels: {en: Tenacious Drone}}
-- {key: Test of Conviction, class: card, labels: {en: Test of Conviction}}
-- {key: Test of Courage, class: card, labels: {en: Test of Courage}}
-- {key: Test of Identity, class: card, labels: {en: Test of Identity}}
-- {key: Test of Loyalty, class: card, labels: {en: Test of Loyalty}}
-- {key: Test of Priorities, class: card, labels: {en: Test of Priorities}}
-- {key: The Caretaker, class: card, labels: {en: The Caretaker}}
-- {key: The City on the Edge of Forever, class: card, labels: {en: The City on the Edge of Forever}}
-- {key: The Destruction of Praxis, class: card, labels: {en: The Destruction of Praxis}}
-- {key: 'The Doctor, EMH', class: card, labels: {en: 'The Doctor, EMH'}}
-- {key: The Duras Sisters, class: card, labels: {en: The Duras Sisters}}
-- {key: The Holodeck, class: card, labels: {en: The Holodeck}}
-- {key: The Inner Light, class: card, labels: {en: The Inner Light}}
-- {key: The Measure of a Man, class: card, labels: {en: The Measure of a Man}}
-- {key: The Naked Time, class: card, labels: {en: The Naked Time}}
-- {key: The Needs of the Many, class: card, labels: {en: The Needs of the Many}}
-- {key: The Traveler, class: card, labels: {en: The Traveler}}
-- {key: The Unicomplex, class: card, labels: {en: The Unicomplex}}
-- {key: The Wrath of Khan, class: card, labels: {en: The Wrath of Khan}}
-- {key: There's Coffee in that Nebula, class: card, labels: {en: There's Coffee in that Nebula}}
-- {key: Those Old Scientists, class: card, labels: {en: Those Old Scientists}}
-- {key: Transporter Malfunction, class: card, labels: {en: Transporter Malfunction}}
-- {key: Tricorder, class: card, labels: {en: Tricorder}}
-- {key: Troubling Tribbles, class: card, labels: {en: Troubling Tribbles}}
+- {key: Tenacious Drone, class: card, labels: {en: Tenacious Drone, bg: Упорит трутен, bg-ivanchev: Упоритъ трутенъ}}
+- {key: Test of Conviction, class: card, labels: {en: Test of Conviction, bg: Изпитание на убеждението, bg-ivanchev: Изпитание на убѣждението}}
+- {key: Test of Courage, class: card, labels: {en: Test of Courage, bg: Изпитание на храбростта, bg-ivanchev: Изпитание на храбростьта}}
+- {key: Test of Identity, class: card, labels: {en: Test of Identity, bg: Изпитание на самоличността, bg-ivanchev: Изпитание на самоличностьта}}
+- {key: Test of Loyalty, class: card, labels: {en: Test of Loyalty, bg: Изпитание на верността, bg-ivanchev: Изпитание на вѣрностьта}}
+- {key: Test of Priorities, class: card, labels: {en: Test of Priorities, bg: Изпитание на първенството, bg-ivanchev: Изпитание на първенството}}
+- {key: The Caretaker, class: card, labels: {en: The Caretaker, bg: Пазачът, bg-ivanchev: Пазачътъ}}
+- {key: The City on the Edge of Forever, class: card, labels: {en: The City on the Edge of Forever, bg: Градът на ръба на вечността, bg-ivanchev: Градътъ на рѫба на вечностьта}}
+- {key: The Destruction of Praxis, class: card, labels: {en: The Destruction of Praxis, bg: Гибелта на Праксис, bg-ivanchev: Гибельта на Праксисъ}}
+- {key: 'The Doctor, EMH', class: card, labels: {en: 'The Doctor, EMH', bg: 'Доктора, СЛХ', bg-ivanchev: 'Доктора, СЛХ'}}
+- {key: The Duras Sisters, class: card, labels: {en: The Duras Sisters, bg: Сестрите Дурас, bg-ivanchev: Сестритѣ Дурасъ}}
+- {key: The Holodeck, class: card, labels: {en: The Holodeck, bg: Холокамерата, bg-ivanchev: Холокамерата}}
+- {key: The Inner Light, class: card, labels: {en: The Inner Light, bg: Вътрешната светлина, bg-ivanchev: Вѫтрѣшната свѣтлина}}
+- {key: The Measure of a Man, class: card, labels: {en: The Measure of a Man, bg: Мярката на човека, bg-ivanchev: Мѣрката на човѣка}}
+- {key: The Naked Time, class: card, labels: {en: The Naked Time, bg: Голото време, bg-ivanchev: Голото врѣме}}
+- {key: The Needs of the Many, class: card, labels: {en: The Needs of the Many, bg: Нуждите на мнозина, bg-ivanchev: Нуждитѣ на мнозина}}
+- {key: The Traveler, class: card, labels: {en: The Traveler, bg: Пътникът, bg-ivanchev: Пѫтникътъ}}
+- {key: The Unicomplex, class: card, labels: {en: The Unicomplex, bg: Унисборът, bg-ivanchev: Унисборътъ}}
+- {key: The Wrath of Khan, class: card, labels: {en: The Wrath of Khan, bg: Гневът на Хан, bg-ivanchev: Гнѣвътъ на Ханъ}}
+- {key: There's Coffee in that Nebula, class: card, labels: {en: There's Coffee in that Nebula, bg: В тая мъглявина има кафе, bg-ivanchev: Въ тая мъглявина има кафе}}
+- {key: Those Old Scientists, class: card, labels: {en: Those Old Scientists, bg: Ония стари учени, bg-ivanchev: Ония стари учени}}
+- {key: Transporter Malfunction, class: card, labels: {en: Transporter Malfunction, bg: Повреда в преносителя, bg-ivanchev: Поврѣда въ прѣносителя}}
+- {key: Tricorder, class: card, labels: {en: Tricorder, bg: Трикордер, bg-ivanchev: Трикордеръ}}
+- {key: Troubling Tribbles, class: card, labels: {en: Troubling Tribbles, bg: Смутителни трибъли, bg-ivanchev: Смутителни трибъли}}
 - {key: Tribble, class: subtype, labels: {en: Tribble, bg: Трибъл, bg-ivanchev: Трибълъ}}
-- {key: Type-2 Phaser, class: card, labels: {en: Type-2 Phaser}}
-- {key: 'U.S.S. Cerritos, Following Up', class: card, labels: {en: 'U.S.S. Cerritos, Following Up'}}
-- {key: 'U.S.S. Discovery, at Black Alert', class: card, labels: {en: 'U.S.S. Discovery, at Black Alert'}}
-- {key: 'U.S.S. Enterprise-A, Free Spirit', class: card, labels: {en: 'U.S.S. Enterprise-A, Free Spirit'}}
-- {key: 'U.S.S. Enterprise-D, Galaxy-Class', class: card, labels: {en: 'U.S.S. Enterprise-D, Galaxy-Class'}}
-- {key: 'U.S.S. Excelsior, Cutting Edge', class: card, labels: {en: 'U.S.S. Excelsior, Cutting Edge'}}
-- {key: 'U.S.S. Reliant, From Hell''s Heart', class: card, labels: {en: 'U.S.S. Reliant, From Hell''s Heart'}}
-- {key: 'U.S.S. Voyager, Lone Wanderer', class: card, labels: {en: 'U.S.S. Voyager, Lone Wanderer'}}
-- {key: 'Una Chin-Riley, Number One', class: card, labels: {en: 'Una Chin-Riley, Number One'}}
+- {key: Type-2 Phaser, class: card, labels: {en: Type-2 Phaser, bg: Фазер тип 2, bg-ivanchev: Фазеръ типъ 2}}
+- {key: 'U.S.S. Cerritos, Following Up', class: card, labels: {en: 'U.S.S. Cerritos, Following Up', bg: 'U.S.S. „Серитос“, допълнителни задачи', bg-ivanchev: 'U.S.S. „Серитосъ“, допълнителни задачи'}}
+- {key: 'U.S.S. Discovery, at Black Alert', class: card, labels: {en: 'U.S.S. Discovery, at Black Alert', bg: 'U.S.S. „Дискавъри“, при черна тревога', bg-ivanchev: 'U.S.S. „Дискавъри“, при черна тревога'}}
+- {key: 'U.S.S. Enterprise-A, Free Spirit', class: card, labels: {en: 'U.S.S. Enterprise-A, Free Spirit', bg: 'U.S.S. „Ентърпрайз“-A, волен дух', bg-ivanchev: 'U.S.S. „Ентърпрайзъ“-A, воленъ духъ'}}
+- {key: 'U.S.S. Enterprise-D, Galaxy-Class', class: card, labels: {en: 'U.S.S. Enterprise-D, Galaxy-Class', bg: 'U.S.S. „Ентърпрайз“-D, клас „Галактика“', bg-ivanchev: 'U.S.S. „Ентърпрайзъ“-D, класъ „Галактика“'}}
+- {key: 'U.S.S. Excelsior, Cutting Edge', class: card, labels: {en: 'U.S.S. Excelsior, Cutting Edge', bg: 'U.S.S. „Екселсиор“, на острието', bg-ivanchev: 'U.S.S. „Екселсиоръ“, на острието'}}
+- {key: 'U.S.S. Reliant, From Hell''s Heart', class: card, labels: {en: 'U.S.S. Reliant, From Hell''s Heart', bg: 'U.S.S. „Релайънт“, от сърцето на пъкъла', bg-ivanchev: 'U.S.S. „Релайънтъ“, отъ сърдцето на пъкъла'}}
+- {key: 'U.S.S. Voyager, Lone Wanderer', class: card, labels: {en: 'U.S.S. Voyager, Lone Wanderer', bg: 'U.S.S. „Вояджър“, самотен скитник', bg-ivanchev: 'U.S.S. „Вояджъръ“, самотенъ скитникъ'}}
+- {key: 'Una Chin-Riley, Number One', class: card, labels: {en: 'Una Chin-Riley, Number One', bg: 'Уна Чин-Райли, Номер Едно', bg-ivanchev: 'Уна Чин-Райли, Номеръ Едно'}}
 - {key: Illyrian, class: subtype, labels: {en: Illyrian, bg: Илириец, bg-ivanchev: Илириецъ}}
-- {key: Unexplored Territory, class: card, labels: {en: Unexplored Territory}}
-- {key: 'Vash, Freelance Archaeologist', class: card, labels: {en: 'Vash, Freelance Archaeologist'}}
-- {key: Vengeance Mission, class: card, labels: {en: Vengeance Mission}}
-- {key: Vexing Drone, class: card, labels: {en: Vexing Drone}}
-- {key: 'V''Ger, the Intruder', class: card, labels: {en: 'V''Ger, the Intruder'}}
-- {key: Vulcan Mind-Meld, class: card, labels: {en: Vulcan Mind-Meld}}
-- {key: Warp Core, class: card, labels: {en: Warp Core}}
-- {key: Warp Speed, class: card, labels: {en: Warp Speed}}
-- {key: Watery Grave, class: card, labels: {en: Watery Grave}}
-- {key: 'Wesley Crusher, Starfleet Cadet', class: card, labels: {en: 'Wesley Crusher, Starfleet Cadet'}}
-- {key: 'Will Riker, First in the Field', class: card, labels: {en: 'Will Riker, First in the Field'}}
-- {key: 'Worf, Honor-Bound Warrior', class: card, labels: {en: 'Worf, Honor-Bound Warrior'}}
-- {key: 'Worf, Intelligence Contractor', class: card, labels: {en: 'Worf, Intelligence Contractor'}}
-- {key: Xenobotanist, class: card, labels: {en: Xenobotanist}}
-- {key: Xindi Surveyors, class: card, labels: {en: Xindi Surveyors}}
+- {key: Unexplored Territory, class: card, labels: {en: Unexplored Territory, bg: Непроучени земи, bg-ivanchev: Непроучени земи}}
+- {key: 'Vash, Freelance Archaeologist', class: card, labels: {en: 'Vash, Freelance Archaeologist', bg: 'Ваш, свободен старинар', bg-ivanchev: 'Вашъ, свободенъ старинаръ'}}
+- {key: Vengeance Mission, class: card, labels: {en: Vengeance Mission, bg: Мисия за отмъщение, bg-ivanchev: Мисия за отмъщение}}
+- {key: Vexing Drone, class: card, labels: {en: Vexing Drone, bg: Досаден трутен, bg-ivanchev: Досаденъ трутенъ}}
+- {key: 'V''Ger, the Intruder', class: card, labels: {en: 'V''Ger, the Intruder', bg: 'Ви''Джър, натрапникът', bg-ivanchev: 'Ви''Джъръ, натрапникътъ'}}
+- {key: Vulcan Mind-Meld, class: card, labels: {en: Vulcan Mind-Meld, bg: Вулканско умосливане, bg-ivanchev: Вулканско умосливане}}
+- {key: Warp Core, class: card, labels: {en: Warp Core, bg: Ядро на изкривяването, bg-ivanchev: Ядро на изкривяването}}
+- {key: Warp Speed, class: card, labels: {en: Warp Speed, bg: Свръхсветлинен бяг, bg-ivanchev: Свръхсвѣтлиненъ бѣгъ}}
+- {key: Watery Grave, class: card, labels: {en: Watery Grave, bg: Воден гроб, bg-ivanchev: Воденъ гробъ}}
+- {key: 'Wesley Crusher, Starfleet Cadet', class: card, labels: {en: 'Wesley Crusher, Starfleet Cadet', bg: 'Уесли Кръшър, юнкер на Звездния флот', bg-ivanchev: 'Уесли Кръшъръ, юнкеръ на Звѣздния флотъ'}}
+- {key: 'Will Riker, First in the Field', class: card, labels: {en: 'Will Riker, First in the Field', bg: 'Уил Райкър, пръв на бойното поле', bg-ivanchev: 'Уилъ Райкъръ, пръвъ на бойното поле'}}
+- {key: 'Worf, Honor-Bound Warrior', class: card, labels: {en: 'Worf, Honor-Bound Warrior', bg: 'Уорф, воин, обвързан с честта', bg-ivanchev: 'Уорфъ, воинъ, обвързанъ съ честьта'}}
+- {key: 'Worf, Intelligence Contractor', class: card, labels: {en: 'Worf, Intelligence Contractor', bg: 'Уорф, наемен лазутчик', bg-ivanchev: 'Уорфъ, наеменъ лазутчикъ'}}
+- {key: Xenobotanist, class: card, labels: {en: Xenobotanist, bg: Странобилкар, bg-ivanchev: Странобилкаръ}}
+- {key: Xindi Surveyors, class: card, labels: {en: Xindi Surveyors, bg: Ксиндийски огледници, bg-ivanchev: Ксиндийски огледници}}
 - {key: Xindi, class: subtype, labels: {en: Xindi, bg: Ксинди, bg-ivanchev: Ксинди}}
-- {key: Year of Hell, class: card, labels: {en: Year of Hell}}
-- {key: 'Zefram Cochrane, Warp Pioneer', class: card, labels: {en: 'Zefram Cochrane, Warp Pioneer'}}
-- {key: 'Zero, Incorporeal Sensate', class: card, labels: {en: 'Zero, Incorporeal Sensate'}}
+- {key: Year of Hell, class: card, labels: {en: Year of Hell, bg: Пъклена година, bg-ivanchev: Пъклена година}}
+- {key: 'Zefram Cochrane, Warp Pioneer', class: card, labels: {en: 'Zefram Cochrane, Warp Pioneer', bg: 'Зефрам Кокран, пионер на свръхсветлинния бяг', bg-ivanchev: 'Зефрамъ Кокранъ, пионеръ на свръхсвѣтлинния бѣгъ'}}
+- {key: 'Zero, Incorporeal Sensate', class: card, labels: {en: 'Zero, Incorporeal Sensate', bg: 'Зиро, безплътен съзерцател', bg-ivanchev: 'Зиро, безплътенъ съзерцатель'}}
 - {key: Medusan, class: subtype, labels: {en: Medusan, bg: Медузанец, bg-ivanchev: Медузанецъ}}
 - {key: Heartwood, class: token, labels: {en: Heartwood, bg: Сърцевина, bg-ivanchev: Сърдцевина}}
 - {key: Mowu, class: token, labels: {en: Mowu, bg: Моу, bg-ivanchev: Моу}}

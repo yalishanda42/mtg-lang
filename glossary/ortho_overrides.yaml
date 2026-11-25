@@ -41,6 +41,13 @@ words:
   изолинеен: изолинеенъ       # a loanword, no ѣ
   разрешава: разрѣшава        # рѣшение
   безверна: безвѣрна          # вѣра (the converter put ѣ in the prefix)
+  холокамера: холокамера      # камера — a loanword, no ѣ
+  холокамерата: холокамерата  # as above
+  континуумът: континуумътъ   # the article -ътъ, not ѫ
+  ръдърфорд: ръдърфордъ       # a name (Rutherford), not ѫ
+  леярна: леярна              # лея — no ѣ
+  червеев: червеевъ           # червей — no ѣ
+  пътникът: пѫтникътъ         # пѫть
 entries:
   "symbols:⤋": Смели                 # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
   "names:Jem'Hadar": Джем'Хадаръ     # one name: final ъ only at the end
@@ -50,5 +57,8 @@ entries:
   "names:Hungering Puppetbeast": Гладенъ звѣръ-кукла        # as above
   "names:Teyo, Lightshield Expert": Тейо, вѣщъ въ свѣтлия щитъ   # вѣщъ "skilled" (вѣдѣти), not вещь "thing"
   "names:DOT-7 Repair Squad": Поправителна дружина ДОТ-7          # an acronym takes no ъ
-  "names:H.M.S. Bounty, Unlikely Timeship": Н.В.К. „Баунти“, невѣроятенъ врѣмеплавъ   # abbreviation letters take no ъ; не- + вѣра
+  "names:H.M.S. Bounty, Unlikely Timeship": H.M.S. „Баунти“, невѣроятенъ врѣмеплавъ   # не- + вѣра (the converter put ѣ in the prefix)
   "names:Fugitive Listener": Бѣгълецъ-слушатель                  # both parts of the compound get their ending
+  "names:Lt. Cmdr. Geordi La Forge": Лейт.-ком. Джорди Ла Форжъ   # abbreviations take no ъ
+  "names:Ni'Var Science Academy": Научна академия на Ни'Варъ       # a name, not варь "lime"
+  "names:Shuttle Ace": Майсторъ-совалкаръ                          # both parts of the compound get their ending
