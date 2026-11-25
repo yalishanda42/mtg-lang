@@ -49,6 +49,7 @@ Run every command below from the repo root as `uv run mtglang <command>`. All co
 | `ortho` | Convert modern Bulgarian to the pre-1945 (Ivanchev) spelling, offline; maintain `bg-ivanchev` labels |
 | `en` | Print a card rendered into English from its AST |
 | `eval-en` | Compare AST → English with Oracle text for every line; write a report |
+| `bg` | Print a card rendered into Bulgarian (pre-1945 Ivanchev spelling; `--modern` adds today's spelling) |
 
 ### `fetch`
 
@@ -208,4 +209,15 @@ typographic quotes normalised, nothing else) and prints the exact-match rate per
 cause. `<out>/eval-en/index.html` lists every mismatch with a word diff; `report.json` has the same data.
 Deliberate differences are listed in `data/eval-en-accepted.yaml`. A test keeps the exact-match count from
 dropping (`tests/eval_en_baseline.json`).
+
+### `bg`
+
+```sh
+uv run mtglang bg fra/unsummon [--modern]
+```
+
+Renders a card into Bulgarian from the same clause plans as `en` (`mtglang/realize/bg.py`), with the words in
+the glossary's `lex.bg` data (gender, definite and count forms, adjective and verb forms) and the register of
+the `bg` labels. The modern text is converted to the Ivanchev spelling with `mtglang/ortho/`. For now this covers
+the sample in `data/bg-sample.txt`; those cards get a third, old-spelling card in the gallery.
 

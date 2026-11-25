@@ -1,9 +1,9 @@
 - {key: Treasure, class: subtype, labels: {en: Treasure, bg: Съкровище, bg-ivanchev: Съкровище}}
 - {key: Clue, class: subtype, labels: {en: Clue, bg: Следа, bg-ivanchev: Слѣда}}
 - {key: Lotus, class: token, labels: {en: Lotus, bg: Лотос, bg-ivanchev: Лотосъ}}
-- {key: Cadet, class: token, labels: {en: Cadet, bg: Юнкер, bg-note: 'cadet — „юнкер“, възпитаник на военно училище', bg-ivanchev: Юнкеръ}}
+- {key: Cadet, class: token, labels: {en: Cadet, bg: Юнкер, bg-note: 'cadet — „юнкер“, възпитаник на военно училище', bg-ivanchev: Юнкеръ}, lex: {bg: {gender: m}}}
 - {key: Porthos, class: token, labels: {en: Porthos, bg: Портос, bg-ivanchev: Портосъ}}
-- {key: Ajani's Pridemate, class: token, labels: {en: Ajani's Pridemate, bg: Аджаниев побратим, bg-ivanchev: Аджаниевъ побратимъ}}
+- {key: Ajani's Pridemate, class: token, labels: {en: Ajani's Pridemate, bg: Аджаниев побратим, bg-ivanchev: Аджаниевъ побратимъ}, lex: {bg: {gender: m}}}
 - {key: Reckless Behavior, class: flavor, labels: {en: Reckless Behavior, bg: Безразсъдство, bg-ivanchev: Безразсѫдство}}
 - {key: Hailing Frequencies, class: flavor, labels: {en: Hailing Frequencies, bg: Честоти за зов, bg-ivanchev: Честоти за зовъ}}
 - {key: Open a Channel, class: flavor, labels: {en: Open a Channel, bg: Отвори връзка, bg-ivanchev: Отвори връзка}}
@@ -13,7 +13,7 @@
 - {key: Sphinx, class: subtype, labels: {en: Sphinx, bg: Сфинкс, bg-ivanchev: Сфинксъ}}
 - {key: Afterthought Sentry, class: card, labels: {en: Afterthought Sentry, bg: Стражът на подирната мисъл, bg-ivanchev: Стражътъ на подирната мисъль}}
 - {key: Gargoyle, class: subtype, labels: {en: Gargoyle, bg: Каменник, bg-note: 'coined: gargoyle — каменен дух', bg-ivanchev: Каменникъ}}
-- {key: Ajani Resolute, class: card, labels: {en: Ajani Resolute, bg: Аджани Непоколебимия, bg-ivanchev: Аджани Непоколебимия}}
+- {key: Ajani Resolute, class: card, labels: {en: Ajani Resolute, bg: Аджани Непоколебимия, bg-ivanchev: Аджани Непоколебимия}, lex: {bg: {gender: m}}}
 - {key: Ajani, class: subtype, labels: {en: Ajani, bg: Аджани, bg-ivanchev: Аджани}}
 - {key: Ajani Unrelenting, class: card, labels: {en: Ajani Unrelenting, bg: Аджани Неотстъпния, bg-ivanchev: Аджани Неотстѫпния}}
 - {key: Ajani's Anguish, class: card, labels: {en: Ajani's Anguish, bg: Аджаниева скръб, bg-ivanchev: Аджаниева скръбь}}
@@ -22,7 +22,7 @@
 - {key: Arcane Amphisbaena, class: card, labels: {en: Arcane Amphisbaena, bg: Тайнствена амфисбена, bg-note: амфисбена — двуглава змия от старите бестиарии, bg-ivanchev: Тайнствена амфисбена}}
 - {key: Snake, class: subtype, labels: {en: Snake, bg: Змия, bg-ivanchev: Змия}}
 - {key: Archive Arbiter, class: card, labels: {en: Archive Arbiter, bg: Съдник на летописите, bg-ivanchev: Сѫдникъ на лѣтописитѣ}}
-- {key: 'Arni, Humble Scribe', class: card, labels: {en: 'Arni, Humble Scribe', bg: 'Арни, смирен книжовник', bg-ivanchev: 'Арни, смиренъ книжовникъ'}}
+- {key: 'Arni, Humble Scribe', class: card, labels: {en: 'Arni, Humble Scribe', bg: 'Арни, смирен книжовник', bg-ivanchev: 'Арни, смиренъ книжовникъ'}, lex: {bg: {gender: m}}}
 - {key: Human, class: subtype, labels: {en: Human, bg: Човек, bg-ivanchev: Човѣкъ}}
 - {key: Wizard, class: subtype, labels: {en: Wizard, bg: Вълшебник, bg-ivanchev: Вълшебникъ}}
 - {key: 'Arni, Renowned Champion', class: card, labels: {en: 'Arni, Renowned Champion', bg: 'Арни, прославен юнак', bg-ivanchev: 'Арни, прославенъ юнакъ'}}
@@ -97,7 +97,7 @@
 - {key: Dragon, class: subtype, labels: {en: Dragon, bg: Змей, bg-note: dragon — фолклорният змей, bg-ivanchev: Змей}}
 - {key: Eardrum Rattler, class: card, labels: {en: Eardrum Rattler, bg: Ушотресач, bg-ivanchev: Ушотресачъ}}
 - {key: Bard, class: subtype, labels: {en: Bard, bg: Гуслар, bg-note: bard — „гуслар“, bg-ivanchev: Гусларь}}
-- {key: 'Edgar, Ancient Bloodlord', class: card, labels: {en: 'Edgar, Ancient Bloodlord', bg: 'Едгар, древен кръвовладетел', bg-ivanchev: 'Едгаръ, древенъ кръвовладѣтель'}, lex: {en: {pron: he}}}
+- {key: 'Edgar, Ancient Bloodlord', class: card, labels: {en: 'Edgar, Ancient Bloodlord', bg: 'Едгар, древен кръвовладетел', bg-ivanchev: 'Едгаръ, древенъ кръвовладѣтель'}, lex: {en: {pron: he}, bg: {gender: m}}}
 - {key: Noble, class: subtype, labels: {en: Noble, bg: Болярин, bg-ivanchev: Боляринъ}}
 - {key: 'Edgar, Moonlit Sovereign', class: card, labels: {en: 'Edgar, Moonlit Sovereign', bg: 'Едгар, лунен самодържец', bg-ivanchev: 'Едгаръ, луненъ самодържецъ'}}
 - {key: Werewolf, class: subtype, labels: {en: Werewolf, bg: Върколак, bg-ivanchev: Върколакъ}}
@@ -122,7 +122,7 @@
 - {key: Homunculus, class: subtype, labels: {en: Homunculus, bg: Човечец, bg-ivanchev: Човѣчецъ}}
 - {key: 'Fblthp, Knows the Way', class: card, labels: {en: 'Fblthp, Knows the Way', bg: 'Фблтп, знае пътя', bg-ivanchev: 'Фблтпъ, знае пѫтя'}}
 - {key: Ferocity of the Hunt, class: card, labels: {en: Ferocity of the Hunt, bg: Свирепостта на лова, bg-ivanchev: Свирепостьта на лова}}
-- {key: Aura, class: subtype, labels: {en: Aura, bg: Сияние, bg-note: Aura (enchantment subtype), bg-ivanchev: Сияние}}
+- {key: Aura, class: subtype, labels: {en: Aura, bg: Сияние, bg-note: Aura (enchantment subtype), bg-ivanchev: Сияние}, lex: {bg: {gender: n}}}
 - {key: Flickering Hound, class: card, labels: {en: Flickering Hound, bg: Трепкащ хрът, bg-ivanchev: Трепкащъ хрътъ}}
 - {key: Dog, class: subtype, labels: {en: Dog, bg: Пес, bg-ivanchev: Песъ}}
 - {key: Flourishing Grapple, class: card, labels: {en: Flourishing Grapple, bg: Цъфтяща хватка, bg-ivanchev: Цъфтяща хватка}}
@@ -172,7 +172,7 @@
 - {key: Chimera, class: subtype, labels: {en: Chimera, bg: Химера, bg-ivanchev: Химера}}
 - {key: Hungering Puppetbeast, class: card, labels: {en: Hungering Puppetbeast, bg: Гладен звяр-кукла, bg-ivanchev: Гладенъ звѣръ-кукла}}
 - {key: Hunter's Axe, class: card, labels: {en: Hunter's Axe, bg: Ловджийска брадва, bg-ivanchev: Ловджийска брадва}}
-- {key: Equipment, class: subtype, labels: {en: Equipment, bg: Снаряжение, bg-ivanchev: Снаряжение}}
+- {key: Equipment, class: subtype, labels: {en: Equipment, bg: Снаряжение, bg-ivanchev: Снаряжение}, lex: {bg: {gender: n}}}
 - {key: Icy Reception, class: card, labels: {en: Icy Reception, bg: Леден прием, bg-ivanchev: Леденъ приемъ}}
 - {key: Identity Echo, class: card, labels: {en: Identity Echo, bg: Отглас на самоличността, bg-ivanchev: Отгласъ на самоличностьта}}
 - {key: Infinite Coursework, class: card, labels: {en: Infinite Coursework, bg: Безкрайна наука, bg-ivanchev: Безкрайна наука}}
@@ -398,7 +398,7 @@
 - {key: Officer, class: subtype, labels: {en: Officer, bg: Офицер, bg-ivanchev: Офицеръ}}
 - {key: Adversary by Algorithm, class: card, labels: {en: Adversary by Algorithm, bg: Противник по алгоритъм, bg-ivanchev: Противникъ по алгоритъмъ}}
 - {key: All Good Things..., class: card, labels: {en: All Good Things..., bg: Всичко хубаво..., bg-ivanchev: Всичко хубаво...}}
-- {key: Saga, class: subtype, labels: {en: Saga, bg: Сказание, bg-ivanchev: Сказание}}
+- {key: Saga, class: subtype, labels: {en: Saga, bg: Сказание, bg-ivanchev: Сказание}, lex: {bg: {gender: n}}}
 - {key: Amok Time, class: card, labels: {en: Amok Time, bg: Време на бяс, bg-note: amok time — вулканският „пон фар“, bg-ivanchev: Врѣме на бѣсъ}}
 - {key: Andoria, class: card, labels: {en: Andoria, bg: Андория, bg-ivanchev: Андория}}
 - {key: Planet, class: subtype, labels: {en: Planet, bg: Планета, bg-ivanchev: Планета}}
@@ -472,7 +472,7 @@
 - {key: Cybernetic Specialist, class: card, labels: {en: Cybernetic Specialist, bg: Кибернетичен майстор, bg-ivanchev: Кибернетиченъ майсторъ}}
 - {key: D-7 Battle Cruiser, class: card, labels: {en: D-7 Battle Cruiser, bg: Боен кръстосвач Д-7, bg-ivanchev: Боенъ кръстосвачъ Д-7}}
 - {key: Dahar Master, class: card, labels: {en: Dahar Master, bg: Дахарски майстор, bg-ivanchev: Дахарски майсторъ}}
-- {key: 'Dal R''El, Augment Orphan', class: card, labels: {en: 'Dal R''El, Augment Orphan', bg: 'Дал Р''Ел, подобрено сираче', bg-ivanchev: 'Далъ Р''Елъ, подобрено сираче'}}
+- {key: 'Dal R''El, Augment Orphan', class: card, labels: {en: 'Dal R''El, Augment Orphan', bg: 'Дал Р''Ел, подобрено сираче', bg-ivanchev: 'Далъ Р''Елъ, подобрено сираче'}, lex: {bg: {gender: m}}}
 - {key: Mutant, class: subtype, labels: {en: Mutant, bg: Мутант, bg-ivanchev: Мутантъ}}
 - {key: 'Daniels, Temporal Agent', class: card, labels: {en: 'Daniels, Temporal Agent', bg: 'Даниълс, временен пратеник', bg-ivanchev: 'Даниълсъ, врѣмененъ пратеникъ'}}
 - {key: 'Data, New Life', class: card, labels: {en: 'Data, New Life', bg: 'Дейта, нов живот', bg-ivanchev: 'Дейта, новъ животъ'}}
@@ -582,7 +582,7 @@
 - {key: Live Long and Prosper, class: card, labels: {en: Live Long and Prosper, bg: Живей дълго и благоденствай, bg-ivanchev: Живей дълго и благоденствай}}
 - {key: 'Locutus, the One Who Speaks', class: card, labels: {en: 'Locutus, the One Who Speaks', bg: 'Локутус, Онзи, който говори', bg-ivanchev: 'Локутусъ, Онзи, който говори'}}
 - {key: 'Lore, Positronic Provocateur', class: card, labels: {en: 'Lore, Positronic Provocateur', bg: 'Лор, позитронен подстрекател', bg-ivanchev: 'Лоръ, позитроненъ подстрѣкатель'}}
-- {key: 'L''Rell, Fierce Visionary', class: card, labels: {en: 'L''Rell, Fierce Visionary', bg: 'Л''Рел, люта прозорливка', bg-ivanchev: 'Л''Релъ, люта прозорливка'}}
+- {key: 'L''Rell, Fierce Visionary', class: card, labels: {en: 'L''Rell, Fierce Visionary', bg: 'Л''Рел, люта прозорливка', bg-ivanchev: 'Л''Релъ, люта прозорливка'}, lex: {bg: {gender: f}}}
 - {key: Lt. Cmdr. Geordi La Forge, class: card, labels: {en: Lt. Cmdr. Geordi La Forge, bg: Лейт.-ком. Джорди Ла Форж, bg-ivanchev: Лейт.-ком. Джорди Ла Форжъ}}
 - {key: 'Lwaxana Troi, Charming Guest', class: card, labels: {en: 'Lwaxana Troi, Charming Guest', bg: 'Луаксана Трой, пленителна гостенка', bg-ivanchev: 'Луаксана Трой, пленителна гостенка'}}
 - {key: MACO Strike Team, class: card, labels: {en: MACO Strike Team, bg: Ударна дружина на МАКО, bg-ivanchev: Ударна дружина на МАКО}}

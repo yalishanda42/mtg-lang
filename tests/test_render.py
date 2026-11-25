@@ -179,3 +179,28 @@ def test_render_site_face_headers_are_notation(tmp_path):
     hdr = card[card.index('<div class="hdr">'):]
     hdr = hdr[:hdr.index("</div>")]
     assert "«" in hdr and 'class="bad"' not in hdr and "Target creature" not in hdr
+
+
+def test_render_site_old_bulgarian_third_card(tmp_path):
+    from pathlib import Path
+    root = Path(__file__).parent.parent
+    page = render_site(root, tmp_path).read_text()
+
+    def card(ref):
+        c = page[page.index(f'id="{ref}"'):]
+        return c[:c.index('<div class="card"', 10)]
+    sample = card("fra/unsummon")
+    assert sample.count("<figure>") == 3
+    assert "Отзови" in sample and "стопанина ѝ" in sample
+    other = card("fra/ajanis-anguish")                     # not in the sample
+    assert other.count("<figure>") == 2
+
+
+def test_bulgarian_failure_does_not_break_gallery(fx_copy, tmp_path, monkeypatch):
+    from mtglang.realize import bg
+    (fx_copy / "data" / "bg-sample.txt").write_text("trk/dal-rel-augment-orphan\n")
+    def boom(*a, **k):
+        raise KeyError("adj_f")
+    monkeypatch.setattr(bg, "render_card", boom)
+    page = render_site(fx_copy, tmp_path).read_text()          # must not raise
+    assert "dal-rel-augment-orphan" in page

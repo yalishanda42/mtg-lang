@@ -27,6 +27,7 @@
 - {id: card, labels: {en: Card, bg: Карта}}
 - {id: cards, labels: {en: card(s), bg: карти}}
 - {id: original, labels: {en: Original, bg: Подлинник}}
+- {id: old_bulgarian, labels: {en: Bulgarian (old spelling), bg: Български (стар правопис)}}
 - {id: line_by_line, labels: {en: Line by line, bg: Ред по ред}}
 - {id: notation, labels: {en: Notation, bg: Запис}}
 - {id: oracle, labels: {en: Oracle, bg: Oracle}}

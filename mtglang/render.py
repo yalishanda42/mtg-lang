@@ -180,6 +180,17 @@ def card_view(card, doc, g: Glossary, lang: str, symbols: dict | None) -> dict |
             "pt": bool(doc.faces[0].stats) or bool(card.faces[0].power), "faces": faces}
 
 
+def bulgarian_view(view: dict, faces, symbols: dict | None) -> dict:
+    """The MTG-Lang card view with the old-spelling Bulgarian text in place of the notation."""
+    out = []
+    for vf, bf in zip(view["faces"], faces):
+        rows = [{"html": oracle_html(old, symbols), "oracle": modern}
+                for old, modern in zip(bf.old.lines, bf.lines)]
+        out.append(dict(vf, name=_e(bf.old.name), type=_e(bf.old.type_line), oracle_name=bf.name,
+                        oracle_type=bf.type_line, rows=rows))
+    return dict(view, faces=out)
+
+
 def _safe_ascii(text: str, g: Glossary) -> str:
     try:
         return to_ascii(text, g)
@@ -252,6 +263,8 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
     from mtglang.resolve import resolve_card
     from mtglang.semparse import SemParser, SemSyntaxError, build_card
     sem = SemParser(g)
+    from mtglang.realize import bg as BG
+    sample = set(BG.load_sample(root))
     sets = []
     (out / "ascii").mkdir(parents=True, exist_ok=True)
     o, c = g.role("name_open").glyph, g.role("name_close").glyph
@@ -264,14 +277,21 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                 ascii_parts.append(ascii_file(text, g))
             doc, _ = parse_card_file(path, parser)
             card = snap.get((code, path.stem))
-            english = None
+            english, resolved = None, None
             if doc is not None:
                 try:
-                    english = render_card(resolve_card(build_card(doc, sem), g)[0], g)
+                    resolved = resolve_card(build_card(doc, sem), g)[0]
+                    english = render_card(resolved, g)
                 except (SemSyntaxError, Exception):     # a card the AST or renderer can't handle shows no English
                     english = None
+            view = card_view(card, doc, g, lang, symbols)
             entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])],
-                     "view": card_view(card, doc, g, lang, symbols)}
+                     "view": view, "view_bg": None}
+            if view is not None and resolved is not None and f"{code}/{path.stem}" in sample:
+                try:
+                    entry["view_bg"] = bulgarian_view(view, BG.render_card(resolved, g, root), symbols)
+                except Exception:          # one card the Bulgarian side can't render never breaks the gallery
+                    entry["view_bg"] = None
             if doc is not None:
                 for fi, f in enumerate(doc.faces):
                     sf = card.faces[fi] if card and fi < len(card.faces) else None

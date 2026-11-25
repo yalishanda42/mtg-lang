@@ -179,6 +179,13 @@
       {{ bars(v.faces[0], 0) }}
       {% if v.kind == 'prepare' %}{{ bars(v.faces[1], 1) }}{% endif %}
     </div><figcaption>MTG-Lang</figcaption></figure>
+    {% if c.view_bg %}{% set b = c.view_bg %}
+    <figure><div class="cv {{ b.kind }}{% if b.pt and b.kind in ('normal', 'pw pw3', 'pw pw4') %} pt{% endif %}" style="--bar: {{ b.bar }}; --box: {{ b.box }}">
+      <img src="{{ b.image }}" loading="lazy" alt="">
+      {{ bars(b.faces[0], 0) }}
+      {% if b.kind == 'prepare' %}{{ bars(b.faces[1], 1) }}{% endif %}
+    </div><figcaption>{{ ui.old_bulgarian }}</figcaption></figure>
+    {% endif %}
   </div>
   <details><summary>{{ ui.line_by_line }}</summary>
   {% endif %}
