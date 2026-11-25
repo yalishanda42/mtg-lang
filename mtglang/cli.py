@@ -95,6 +95,31 @@ def cmd_en(args) -> int:
     return 0
 
 
+def cmd_bg(args) -> int:
+    from mtglang.realize.bg import render_card_bg
+    try:
+        faces = render_card_bg(Path(args.root), args.card)
+    except FileNotFoundError:
+        print(f"no card file for {args.card}")
+        return 1
+
+    def show(fs):
+        for k, f in enumerate(fs):
+            if k:
+                print("//")
+            print(f.name)
+            print(f.type_line)
+            if f.stats:
+                print(f.stats)
+            for line in f.lines:
+                print(line)
+    show([f.old for f in faces])
+    if args.modern:
+        print()
+        show(faces)
+    return 0
+
+
 def cmd_eval_en(args) -> int:
     from mtglang.evalen import evaluate, summary, write_report
     results = evaluate(Path(args.root), sets=args.set or None)
@@ -210,6 +235,11 @@ def build_parser() -> argparse.ArgumentParser:
     e.add_argument("card", help="<set>/<slug>, e.g. fra/academic-ascent")
     e.add_argument("--root", default=".")
     e.set_defaults(func=cmd_en)
+    bgp = sub.add_parser("bg", help="print a card rendered into Bulgarian (Ivanchev spelling) from its AST")
+    bgp.add_argument("card", help="<set>/<slug>")
+    bgp.add_argument("--root", default=".")
+    bgp.add_argument("--modern", action="store_true", help="also print the modern spelling")
+    bgp.set_defaults(func=cmd_bg)
     ee = sub.add_parser("eval-en", help="compare AST → English with Oracle text; write build/eval-en/")
     ee.add_argument("--root", default=".")
     ee.add_argument("--set", action="append", choices=list(scryfall.SETS))

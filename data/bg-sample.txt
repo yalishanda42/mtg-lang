@@ -1,0 +1,28 @@
+# Sample for the Bulgarian renderer: cards whose English already matches Oracle, chosen to cover
+# keywords, costs, triggers (once / repeated / at), modal, tokens, counters, durations, conditions,
+# a replacement, a Saga, a planeswalker, an Aura, a two-face card and a library search.
+fra/academic-ascent
+fra/afterthought-sentry
+fra/ajani-resolute
+fra/apex-witchstalker
+fra/archive-arbiter
+fra/arni-humble-scribe
+fra/bestial-incursion
+fra/blessed-ghoul
+fra/bloombrute
+fra/cast-away-doubt
+fra/charge-the-sanctum
+fra/craftwork-crusher
+fra/darklight-phoenix
+fra/edgar-ancient-bloodlord
+fra/greenhouse-propagator
+fra/mind-meanderer
+fra/unsummon
+fra/pompous-battlemage-improvised-act
+fra/carnivorous-cultivator-enroot
+trk/batleth
+trk/blood-crypt
+trk/amok-time
+trk/captains-tutelage
+trk/lrell-fierce-visionary
+trk/dal-rel-augment-orphan
