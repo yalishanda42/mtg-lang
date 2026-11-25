@@ -144,7 +144,7 @@
 - {key: Ghalta the Immovable, class: card, labels: {en: Ghalta the Immovable, bg: Галта Непоклатимия, bg-ivanchev: Галта Непоклатимия}}
 - {key: Dinosaur, class: subtype, labels: {en: Dinosaur, bg: Праящер, bg-ivanchev: Праящеръ}}
 - {key: Ghalta the Unstoppable, class: card, labels: {en: Ghalta the Unstoppable, bg: Галта Неудържимия, bg-ivanchev: Галта Неудържимия}}
-- {key: Gideon the Oathless, class: card, labels: {en: Gideon the Oathless, bg: Гедеон Безклетвения, bg-note: Gideon — старата библейска форма „Гедеон“, bg-ivanchev: Гедеонъ Безклетвения}}
+- {key: Gideon the Oathless, class: card, labels: {en: Gideon the Oathless, bg: Гедеон Безклетвения, bg-note: Gideon — старата библейска форма „Гедеон“, bg-ivanchev: Гедеонъ Безклетвения}, lex: {en: {short: Gideon}}}
 - {key: Mercenary, class: subtype, labels: {en: Mercenary, bg: Наемник, bg-ivanchev: Наемникъ}}
 - {key: Gideon's Memorial, class: card, labels: {en: Gideon's Memorial, bg: Гедеонов паметник, bg-ivanchev: Гедеоновъ паметникъ}}
 - {key: Graft Surgeon, class: card, labels: {en: Graft Surgeon, bg: Присадител, bg-ivanchev: Присадитель}}
@@ -191,7 +191,7 @@
 - {key: 'Karn, Gilded Guardian', class: card, labels: {en: 'Karn, Gilded Guardian', bg: 'Карн, позлатен пазител', bg-ivanchev: 'Карнъ, позлатенъ пазитель'}}
 - {key: Keeper of the Quiet Hour, class: card, labels: {en: Keeper of the Quiet Hour, bg: Пазител на тихия час, bg-ivanchev: Пазитель на тихия часъ}}
 - {key: Kindred Judgment, class: card, labels: {en: Kindred Judgment, bg: Съд над рода, bg-ivanchev: Сѫдъ надъ рода}}
-- {key: Kiora of Fire and Ashes, class: card, labels: {en: Kiora of Fire and Ashes, bg: Киора на огъня и пепелта, bg-ivanchev: Киора на огъня и пепельта}}
+- {key: Kiora of Fire and Ashes, class: card, labels: {en: Kiora of Fire and Ashes, bg: Киора на огъня и пепелта, bg-ivanchev: Киора на огъня и пепельта}, lex: {en: {short: Kiora}}}
 - {key: Kiora of Salt and Sand, class: card, labels: {en: Kiora of Salt and Sand, bg: Киора на солта и пясъка, bg-ivanchev: Киора на сольта и пѣсъка}}
 - {key: Konstrari Annex, class: card, labels: {en: Konstrari Annex, bg: Пристройка на Констрари, bg-ivanchev: Пристройка на Констрари}}
 - {key: Konstrari Charm, class: card, labels: {en: Konstrari Charm, bg: Муска на Констрари, bg-ivanchev: Муска на Констрари}}
@@ -203,7 +203,7 @@
 - {key: Last Gasp, class: card, labels: {en: Last Gasp, bg: Последен дъх, bg-ivanchev: Послѣденъ дъхъ}}
 - {key: Lich's Relic, class: card, labels: {en: Lich's Relic, bg: Кощеевата реликва, bg-note: lich — славянският Кощей Безсмъртни, bg-ivanchev: Кощеевата реликва}}
 - {key: Liliana the Faultless, class: card, labels: {en: Liliana the Faultless, bg: Лилиана Безгрешната, bg-ivanchev: Лилиана Безгрѣшната}}
-- {key: Liliana the Repentant, class: card, labels: {en: Liliana the Repentant, bg: Лилиана Разкаялата се, bg-ivanchev: Лилиана Разкаялата се}}
+- {key: Liliana the Repentant, class: card, labels: {en: Liliana the Repentant, bg: Лилиана Разкаялата се, bg-ivanchev: Лилиана Разкаялата се}, lex: {en: {short: Liliana}}}
 - {key: Living Library, class: card, labels: {en: Living Library, bg: Живо книгохранилище, bg-ivanchev: Живо книгохранилище}}
 - {key: Illusion, class: subtype, labels: {en: Illusion, bg: Привидение, bg-ivanchev: Привидение}}
 - {key: 'Loot, the Anomaly', class: card, labels: {en: 'Loot, the Anomaly', bg: 'Лут, чудесията', bg-ivanchev: 'Лутъ, чудесията'}}
@@ -435,11 +435,11 @@
 - {key: Cantankerous Captain, class: card, labels: {en: Cantankerous Captain, bg: Свадлив капитан, bg-ivanchev: Свадливъ капитанъ}}
 - {key: Tellarite, class: subtype, labels: {en: Tellarite, bg: Телларит, bg-ivanchev: Телларитъ}}
 - {key: Captain Benjamin Sisko, class: card, labels: {en: Captain Benjamin Sisko, bg: Капитан Бенджамин Сиско, bg-ivanchev: Капитанъ Бенджаминъ Сиско}}
-- {key: Captain James T. Kirk, class: card, labels: {en: Captain James T. Kirk, bg: Капитан Джеймс Т. Кърк, bg-ivanchev: Капитанъ Джеймсъ Т. Къркъ}}
+- {key: Captain James T. Kirk, class: card, labels: {en: Captain James T. Kirk, bg: Капитан Джеймс Т. Кърк, bg-ivanchev: Капитанъ Джеймсъ Т. Къркъ}, lex: {en: {short: Captain Kirk}}}
 - {key: Captain Jean-Luc Picard, class: card, labels: {en: Captain Jean-Luc Picard, bg: Капитан Жан-Люк Пикар, bg-ivanchev: Капитанъ Жанъ-Люкъ Пикаръ}}
-- {key: Captain Jonathan Archer, class: card, labels: {en: Captain Jonathan Archer, bg: Капитан Джонатан Арчър, bg-ivanchev: Капитанъ Джонатанъ Арчъръ}}
-- {key: Captain Kathryn Janeway, class: card, labels: {en: Captain Kathryn Janeway, bg: Капитан Катрин Джейнуей, bg-ivanchev: Капитанъ Катринъ Джейнуей}}
-- {key: Captain Michael Burnham, class: card, labels: {en: Captain Michael Burnham, bg: Капитан Майкъл Бърнам, bg-ivanchev: Капитанъ Майкълъ Бърнамъ}}
+- {key: Captain Jonathan Archer, class: card, labels: {en: Captain Jonathan Archer, bg: Капитан Джонатан Арчър, bg-ivanchev: Капитанъ Джонатанъ Арчъръ}, lex: {en: {short: Captain Archer}}}
+- {key: Captain Kathryn Janeway, class: card, labels: {en: Captain Kathryn Janeway, bg: Капитан Катрин Джейнуей, bg-ivanchev: Капитанъ Катринъ Джейнуей}, lex: {en: {short: Captain Janeway}}}
+- {key: Captain Michael Burnham, class: card, labels: {en: Captain Michael Burnham, bg: Капитан Майкъл Бърнам, bg-ivanchev: Капитанъ Майкълъ Бърнамъ}, lex: {en: {short: Captain Burnham}}}
 - {key: 'Captain Pike, Fullness of Time', class: card, labels: {en: 'Captain Pike, Fullness of Time', bg: 'Капитан Пайк, пълнота на времето', bg-ivanchev: 'Капитанъ Пайкъ, пълнота на врѣмето'}}
 - {key: Captain's Tutelage, class: card, labels: {en: Captain's Tutelage, bg: Капитанско наставничество, bg-ivanchev: Капитанско наставничество}}
 - {key: Cardassia Prime, class: card, labels: {en: Cardassia Prime, bg: Кардасия Прайм, bg-ivanchev: Кардасия Праймъ}}
@@ -460,7 +460,7 @@
 - {key: Communicator, class: subtype, labels: {en: Communicator, bg: Съобщител, bg-ivanchev: Съобщитель}}
 - {key: Command Decision, class: card, labels: {en: Command Decision, bg: Командно решение, bg-ivanchev: Командно рѣшение}}
 - {key: Command Subadjunct, class: card, labels: {en: Command Subadjunct, bg: Команден подпомагач, bg-ivanchev: Команденъ подпомагачъ}}
-- {key: Commander Raffi Musiker, class: card, labels: {en: Commander Raffi Musiker, bg: Командир Рафи Мюзикър, bg-ivanchev: Командиръ Рафи Мюзикъръ}}
+- {key: Commander Raffi Musiker, class: card, labels: {en: Commander Raffi Musiker, bg: Командир Рафи Мюзикър, bg-ivanchev: Командиръ Рафи Мюзикъръ}, lex: {en: {short: Commander Musiker}}}
 - {key: Common Goal, class: card, labels: {en: Common Goal, bg: Обща цел, bg-ivanchev: Обща цѣль}}
 - {key: Conquest Mission, class: card, labels: {en: Conquest Mission, bg: Завоевателна мисия, bg-ivanchev: Завоевателна мисия}}
 - {key: Consider the Prime Directive, class: card, labels: {en: Consider the Prime Directive, bg: Помни Първата повеля, bg-ivanchev: Помни Първата повеля}}
@@ -495,9 +495,9 @@
 - {key: Vorta, class: subtype, labels: {en: Vorta, bg: Ворта, bg-ivanchev: Ворта}}
 - {key: DOT-7 Repair Squad, class: card, labels: {en: DOT-7 Repair Squad, bg: Поправителна дружина ДОТ-7, bg-ivanchev: Поправителна дружина ДОТ-7}}
 - {key: Robot, class: subtype, labels: {en: Robot, bg: Робот, bg-ivanchev: Роботъ}}
-- {key: Dr. Beverly Crusher, class: card, labels: {en: Dr. Beverly Crusher, bg: Д-р Бевърли Кръшър, bg-ivanchev: Д-ръ Бевърли Кръшъръ}}
+- {key: Dr. Beverly Crusher, class: card, labels: {en: Dr. Beverly Crusher, bg: Д-р Бевърли Кръшър, bg-ivanchev: Д-ръ Бевърли Кръшъръ}, lex: {en: {short: Dr. Crusher}}}
 - {key: Dr. Joseph M'Benga, class: card, labels: {en: Dr. Joseph M'Benga, bg: Д-р Джоузеф М'Бенга, bg-ivanchev: Д-ръ Джоузефъ М'Бенга}}
-- {key: Dr. Leonard "Bones" McCoy, class: card, labels: {en: Dr. Leonard "Bones" McCoy, bg: Д-р Ленърд „Кокалчо“ Маккой, bg-ivanchev: Д-ръ Ленърдъ „Кокалчо“ Маккой}}
+- {key: Dr. Leonard "Bones" McCoy, class: card, labels: {en: Dr. Leonard "Bones" McCoy, bg: Д-р Ленърд „Кокалчо“ Маккой, bg-ivanchev: Д-ръ Ленърдъ „Кокалчо“ Маккой}, lex: {en: {short: Dr. McCoy}}}
 - {key: 'Dr. McCoy, Surly Surgeon', class: card, labels: {en: 'Dr. McCoy, Surly Surgeon', bg: 'Д-р Маккой, намусен хирург', bg-ivanchev: 'Д-ръ Маккой, намусенъ хирургъ'}}
 - {key: 'D''Vana Tendi, Optimistic Ensign', class: card, labels: {en: 'D''Vana Tendi, Optimistic Ensign', bg: 'Д''Вана Тенди, жизнерадостна мичманка', bg-ivanchev: 'Д''Вана Тенди, жизнерадостна мичманка'}}
 - {key: Orion, class: subtype, labels: {en: Orion, bg: Орионец, bg-ivanchev: Орионецъ}}
@@ -510,7 +510,7 @@
 - {key: Encounter the Unknown, class: card, labels: {en: Encounter the Unknown, bg: Срещни непознатото, bg-ivanchev: Срѣщни непознатото}}
 - {key: Energize, class: card, labels: {en: Energize, bg: Пренеси, bg-ivanchev: Прѣнеси}}
 - {key: Engineered Explosives, class: card, labels: {en: Engineered Explosives, bg: Майсторски взривове, bg-ivanchev: Майсторски взривове}}
-- {key: Ensign Pavel Chekov, class: card, labels: {en: Ensign Pavel Chekov, bg: Мичман Павел Чехов, bg-ivanchev: Мичманъ Павелъ Чеховъ}}
+- {key: Ensign Pavel Chekov, class: card, labels: {en: Ensign Pavel Chekov, bg: Мичман Павел Чехов, bg-ivanchev: Мичманъ Павелъ Чеховъ}, lex: {en: {short: Ensign Chekov}}}
 - {key: Pilot, class: subtype, labels: {en: Pilot, bg: Кормчия, bg-ivanchev: Кормчия}}
 - {key: Enterprise NX-01, class: card, labels: {en: Enterprise NX-01, bg: Ентърпрайз NX-01, bg-ivanchev: Ентърпрайзъ NX-01}}
 - {key: 'Erica Ortegas, Plucky Pilot', class: card, labels: {en: 'Erica Ortegas, Plucky Pilot', bg: 'Ерика Ортегас, смела кормчийка', bg-ivanchev: 'Ерика Ортегасъ, смѣла кормчийка'}}
