@@ -69,3 +69,23 @@ def test_edit_preserves_lex_bg(fx_copy):
     s = load_glossary(fx_copy / "glossary").symbols[i]
     apply_symbol_edits(fx_copy, [{"index": i, "orig": s.glyph, "glyph": s.glyph, "ascii": s.ascii, "label": "x"}])
     assert load_glossary(fx_copy / "glossary").symbols[i].lex == {"bg": {"imp": "изтегли", "gender": "f"}}
+
+
+def test_unhandled_ability_shows_marker(monkeypatch, capsys):
+    from mtglang.cli import main
+    from mtglang.realize import bg
+    monkeypatch.setattr(bg.Bg, "ab_keywords", lambda self, a: bg.gap("keywords"))
+    main(["bg", "fra/archive-arbiter", "--root", str(ROOT)])
+    assert "⟦keywords⟧" in capsys.readouterr().out
+    monkeypatch.setattr(bg.Bg, "ab_keywords", lambda self, a: 1 / 0)
+    faces = render_card_bg(ROOT, "fra/archive-arbiter")
+    assert faces[0].lines[0].startswith("⟦crash:ZeroDivisionError")
+    assert faces[0].lines[1].startswith("Когато")
+
+
+def test_plural_token_colour():
+    from mtglang.realize.bg import COLORS
+    import mtglang.realize.bg as bg
+    assert COLORS["{W}"][3] == "бели"
+    src = open(bg.__file__, encoding="utf-8").read()
+    assert 'color[:-1] + "и"' not in src

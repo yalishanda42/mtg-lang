@@ -795,7 +795,7 @@ class Bg:
 
     def token_np(self, p: PhrasePlan) -> Np:
         """«бяло подобие-твар 2/2 Котка Войник на име Аджаниев побратим»."""
-        color, pt, kind, subs = "", "", "", []
+        color_forms, pt, kind, subs = None, "", "", []
         for s, f in p.mods:
             if s != "filters":
                 continue
@@ -805,8 +805,8 @@ class Bg:
                         pt = self.pt(c)
                     elif isinstance(c, A.Characteristic) and c.char.glyph == "♦":
                         key = c.of.text if isinstance(c.of, A.Mana) else getattr(c.of, "glyph", "")
-                        forms = COLORS.get(key)
-                        color = forms[2] if forms else gap("color")
+                        forms = COLORS.get(key) or (gap("color"),) * 4
+                        color_forms = forms
                     elif isinstance(c, PhrasePlan):
                         for h in c.heads:
                             if isinstance(h, A.NameRef):
@@ -820,8 +820,8 @@ class Bg:
         words = []
         if plural:
             words.append(number_word(count.value, "n"))
-        if color:
-            words.append(color if not plural else color[:-1] + "и")
+        if color_forms:
+            words.append(color_forms[3] if plural else color_forms[2])
         words.append(f"{noun}-{kind}" if kind else noun)
         if pt:
             words.append(pt)

@@ -288,7 +288,10 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
             entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])],
                      "view": view, "view_bg": None}
             if view is not None and resolved is not None and f"{code}/{path.stem}" in sample:
-                entry["view_bg"] = bulgarian_view(view, BG.render_card(resolved, g, root), symbols)
+                try:
+                    entry["view_bg"] = bulgarian_view(view, BG.render_card(resolved, g, root), symbols)
+                except Exception:          # one card the Bulgarian side can't render never breaks the gallery
+                    entry["view_bg"] = None
             if doc is not None:
                 for fi, f in enumerate(doc.faces):
                     sf = card.faces[fi] if card and fi < len(card.faces) else None
