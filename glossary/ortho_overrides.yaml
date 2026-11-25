@@ -1,2 +1,14 @@
-words: {}
-entries: {}
+# Corrections to the Ivanchev spelling converter (mtglang.ortho), applied by `mtglang ortho --glossary`.
+# words:   lowercase modern word → old spelling, used everywhere (the reason follows each entry).
+# entries: a whole bg-ivanchev label for one glossary entry (context-dependent spellings).
+words:
+  белег: бѣлегъ              # ѣ only in the root бѣл-; converter's double-ѣ root list gives бѣлѣгъ
+  крилатост: крилатость      # abstract nouns in -ост are soft feminine (-ость); word not in the upstream list
+  живоносност: живоносность  # as above
+  кръстопът: кръстопѫть      # пѫть keeps ѫ in compounds; converter skips words ending in the homograph път
+  изправяне: изправяне       # я here is not from ѣ (verbal noun of изправям)
+  подменче: подмѣнче         # from подмѣна (ѣ in мѣн-)
+  споменат: споменатъ        # спомен has е from ѧ, not ѣ
+  променлива: промѣнлива     # from промѣна (ѣ in мѣн-)
+entries:
+  "symbols:⤋": Смели         # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
