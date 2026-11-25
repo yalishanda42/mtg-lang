@@ -349,3 +349,14 @@ typographic quotes. Each mismatch has a cause: `renderer`, `gap:<kind>` (a const
 `⟦kind⟧`), `ast` (the card doesn't parse), `align`, or one from `data/eval-en-accepted.yaml`: `style:<id>`
 (a category of Oracle wording no rule derives, with what was tried), `accepted` (a one-off) or a triage
 cause (`notation`, `ast`). The notation changes only for differences in meaning, never for English style.
+
+### 15.5 Bulgarian
+
+`mtglang/realize/bg.py` is the second realizer on the same plans. It reads the plan's decisions as Bulgarian
+grammar: `once` → *Когато … встъпи* vs *Щом … нападне*; `aspect` → *има* / *придобива*; `tense = past` →
+*са загинали*; `self_as` → *тая карта*; anaphors take the gender of their antecedent's head (*на нея*, *го*); a
+plural `all` subject is definite (*тварите, които владееш*). Its words are `lex.bg` (keys `gender`, `def`,
+`pl_def`, `cnt`, `adj_f`/`adj_n`/`adj_pl`, verb forms `imp`, `pr2`/`pr3`/`pr3pl` imperfective, `pf2`/`pf3`/`pf3pl`
+perfective, `part`/`part_pl`, `pasv*`, `state`/`state_pl`). Output is modern Bulgarian; the Ivanchev spelling is
+`to_ivanchev` over each finished line. Coverage grows from the sample in `data/bg-sample.txt`.
+
