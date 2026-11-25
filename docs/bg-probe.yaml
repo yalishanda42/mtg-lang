@@ -1,0 +1,85 @@
+# Bulgarian probe of the plan IR (English renderer plan, Task 11). Each Bulgarian line was written from the
+# plan dump (scripts/plan_dump.py) and the glossary's bg labels only — never from the English.
+# needs: the facts the Bulgarian needed and where they come from (plan = carried by the clause plan;
+# lexicon = a property of a word, for the future lex.bg data; fixed = was missing, added to the plan).
+- ref: fra/academic-ascent#0.0
+  bg: Нишанна твар получава +2/+2 и придобива Крилатост до края на хода.
+  needs:
+    - "plan: shared subject of the second clause (ellipsis «и придобива»)"
+    - "fixed: change vs state of ∋ (придобива, not има) — was decided in the English realizer; now ClausePlan.aspect"
+    - "lexicon: gender of твар (feminine) for «нишанна»"
+- ref: fra/afterthought-sentry#0.1
+  bg: Щом тая твар напада, заточи до една нишанна карта от някое гробище.
+  needs:
+    - "plan: self reference + card types (тая твар)"
+    - "plan: quantity up_to with bound 1"
+    - "fixed: repeated trigger (Щом … напада, imperfective) — was the English When/Whenever choice; now parts.once"
+    - "lexicon: gender of карта for «една», of твар for «тая»"
+- ref: fra/aerid-konstrari#0.1
+  bg: Когато Аерид Констрари встъпи или загине, сътвори подобие Сърцевина.
+  needs:
+    - "fixed: once-only trigger → perfective «встъпи / загине» (parts.once)"
+    - "plan: shared subject (ellipsis «или загине»)"
+    - "plan: legendary card → its name"
+- ref: fra/ingris-stingerquill#0.1
+  bg: Щом твар, която владееш, напада, речената твар нанася 1 щета на всеки противник.
+  needs:
+    - "plan: anaphor with its full antecedent (речената твар — the head noun comes from the antecedent)"
+    - "plan: person 2 of the controller in the relative clause (владееш)"
+    - "plan: quantity each on the destination"
+- ref: fra/geist-of-saint-thalia#0.1
+  bg: Нетварните заклинания, които изричаш, струват с {1} по-малко.
+  needs:
+    - "plan: quantity all, number pl → definite plural «заклинанията» in Bulgarian"
+    - "plan: negated type filter (нетварни) and the relative «които изричаш» (person 2)"
+- ref: fra/hapatra-the-desert-frost#0.0
+  bg: Когато Хапатра встъпи, за всеки противник наклони до една нишанна твар, която тоя играч владее. Сложи белег вцепенение на всяка от тия твари.
+  needs:
+    - "plan: for-each join and the anaphor to the player (тоя играч)"
+    - "plan: anaphor with quantity each over a plural antecedent (всяка от тия твари)"
+- ref: fra/darklight-phoenix#0.1
+  bg: В началото на битката през твоя ход, ако две или повече твари са загинали тоя ход, върни тая карта от гробището си на бойното поле.
+  needs:
+    - "fixed: past tense of the counted event (са загинали) — now ClausePlan.tense = past"
+    - "plan: self as a card in a zone (тая карта, not тая твар)"
+    - "plan: zone owner = the clause's (implicit) subject → reflexive «гробището си»"
+    - "lexicon: numeral form for a feminine noun (две твари)"
+- ref: fra/pompous-battlemage-improvised-act#1.0
+  bg: Можеш да отхвърлиш карта. Сториш ли го, изтегли карта.
+  needs:
+    - "plan: optional clause (можеш да …) and the if-you-do lead"
+- ref: fra/mind-meanderer#0.1
+  bg: Тая твар има Будност, докле владееш Мироходец Джейс.
+  needs:
+    - "fixed: state aspect (има) — ClausePlan.aspect"
+    - "plan: exists + control filter → «владееш …»"
+- ref: trk/blood-crypt#0.0
+  bg: Докато тая земя встъпва, можеш да платиш 2 точки живот. Не сториш ли го, тя встъпва наклонена.
+  needs:
+    - "plan: replacement of this object entering (Докато … встъпва)"
+    - "plan: the if-you-don't lead; pronoun for the second mention of self"
+    - "lexicon: gender of земя for «тя» and «наклонена»"
+- ref: fra/archive-arbiter#0.1
+  bg: Когато тая твар встъпи, избери едно —
+  needs:
+    - "plan: modal inside a trigger effect; once-only trigger"
+- ref: fra/craftwork-crusher#0.3
+  bg: • Сътвори безцветно подобие-твар 2/2 Вълшебник Войник на име Юнкер.
+  needs:
+    - "plan: token phrase with stats, colour, subtypes and name as separate modifiers (order is the realizer's)"
+    - "lexicon: gender of подобие (neuter) for «безцветно»"
+- ref: fra/charge-the-sanctum#0.2
+  bg: • Нишанна твар получава +2/+0 и придобива Пръв удар до края на хода. Сложи белег +1/+1 на нея.
+  needs:
+    - "plan: anaphor → antecedent head твар (feminine) → pronoun «нея»"
+- ref: fra/compel-brutality#0.1
+  bg: • Нишанна твар, която владееш, нанася щета, равна на силата ѝ, на нишанна твар или мироходец, които противник владее.
+  needs:
+    - "plan: characteristic of an anaphor → possessive clitic «ѝ» from the antecedent's gender"
+    - "plan: or-heads (твар или мироходец) → plural relative «които»"
+- ref: fra/solarium-sentry#0.0
+  bg: Щом противник изрече заклинание с мана-стойност 2 или по-малко, печелиш 2 точки живот.
+  needs:
+    - "plan: person 3 (противник) vs person 2 (печелиш)"
+    - "plan: comparison filter (с мана-стойност 2 или по-малко)"
+    - "open: «изрече» (perfective) after Щом — Bulgarian usage varies; a realizer choice, not a plan fact"

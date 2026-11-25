@@ -132,3 +132,18 @@ def test_editing_bg_label_regenerates_ivanchev(fx_copy):
     apply_symbol_edits(fx_copy, [_edit(k, "✋", "✋", "Dr", "Изтегли карта")], lang="bg")
     labels = load_glossary(fx_copy / "glossary").lookup["✋"].labels
     assert labels["bg"] == "Изтегли карта" and labels["bg-ivanchev"] == "Изтегли карта"
+
+
+def test_edit_preserves_lex(fx_copy):
+    p = fx_copy / "glossary" / "symbols.yaml"
+    lines = p.read_text().split("\n")
+    g = load_glossary(fx_copy / "glossary")
+    i = next(k for k, s in enumerate(g.symbols) if s.cls == "action")
+    entry_lines = [k for k, l in enumerate(lines) if l.startswith("- ")]
+    lines[entry_lines[i]] = lines[entry_lines[i]].rstrip()[:-1] + ", lex: {en: {verb: draw, s: draws}}}"
+    p.write_text("\n".join(lines))
+    s = load_glossary(fx_copy / "glossary").symbols[i]
+    apply_symbol_edits(fx_copy, [_edit(i, s.glyph, s.glyph, s.ascii, "a new label")])
+    after = load_glossary(fx_copy / "glossary").symbols[i]
+    assert after.labels["en"] == "a new label"
+    assert after.lex == {"en": {"verb": "draw", "s": "draws"}}

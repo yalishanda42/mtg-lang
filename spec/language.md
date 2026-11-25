@@ -303,3 +303,49 @@ established Bulgarian forms.
 are in `mtglang/ui_strings.yaml`. `check_glossary` warns (`G-LABEL-BG`) once any Bulgarian label exists and
 an entry still lacks one.
 
+
+## 15. Rendering
+
+`mtglang en` and `mtglang eval-en` turn the semantic AST into natural language in two layers:
+
+```
+resolved AST ──plan──► clause plans (language-neutral) ──realize(en)──► English
+```
+
+### 15.1 Clause plans
+
+`mtglang/planner.py` replaces the sentence- and phrase-level AST nodes with plan nodes
+(`mtglang/planir.py`) that hold the decisions every language needs; other phrase-level nodes (filters, zones,
+characteristics, P/T …) stay AST nodes with their child phrases converted. A plan holds no word of any
+language, and every choice keeps the information behind it, so a realizer may override it.
+
+| Node | Holds |
+|---|---|
+| `AbilityPlan` | shape (keywords, static, triggered, activated, modal, mode, chapter, threshold, labelled) and its parts; triggered: `once` — the event happens to an object once (enters, dies, is cast: English *When*, Bulgarian perfective *когато встъпи*) |
+| `SentencePlan` | clauses and the joins between them (sentence, and, or, if, unless, instead, while, as_though, until, during, for_each, where), or a lead (if_do, if_dont, instead) |
+| `ClausePlan` | predicate, subject, role-tagged arguments, optional, negated, passive, mood (imperative to the ability's controller / indicative), tense (`past` for a completed event in a condition: *if you've cast a spell this turn*), aspect of *has* (state in a permanent's static ability / change in an effect), `subject_shared` (same subject as the previous clause) |
+| `PhrasePlan` | heads, modifiers (quant, count, filters, name …), number, quantity, definite, ref (new / self / anaphor / you), the full antecedent of an anaphor, person, `pronoun` + `reason`, `self_as` (permanent / card in a hand, graveyard or library / spell) |
+
+### 15.2 Words
+
+English words come from the glossary: each symbol or name may have `lex: {<lang>: {…}}` with keys from
+`verb, s, ed, pp, ing, noun, pl, adj, prep, frame, word, short, poss, pron` (`G-LEX` checks them; `frame` may name
+argument slots only). Keywords fall back to `oracle`. `G-LEX-EN` warns about corpus symbols with no English
+words. Names get `lex.en.short` where Oracle shortens a legendary name in a way no rule derives (*Dr. Crusher*).
+
+### 15.3 Self-reference
+
+A permanent names itself *this <type>* (*this creature*, *this Saga*; subtypes Saga, Aura, Equipment,
+Spacecraft, Vehicle win over the card type), a legendary permanent by its short name (before the comma;
+planeswalkers by their planeswalker type; or `lex.en.short`), an instant or sorcery by its full name, any
+card *this card* in a hand, graveyard or library and *this spell* when cast or when its cost changes, and
+*this token* / *this emblem* inside a quoted ability granted to a token or emblem.
+
+### 15.4 Eval
+
+`mtglang eval-en` aligns ability *k* of each face with Oracle line *k* (a modal ability spans its *Choose …*
+line and one line per mode) and compares after stripping reminder text, collapsing whitespace and unifying
+typographic quotes. Each mismatch has a cause: `renderer`, `gap:<kind>` (a construct the renderer writes as
+`⟦kind⟧`), `ast` (the card doesn't parse), `align`, or one from `data/eval-en-accepted.yaml`: `style:<id>`
+(a category of Oracle wording no rule derives, with what was tried), `accepted` (a one-off) or a triage
+cause (`notation`, `ast`). The notation changes only for differences in meaning, never for English style.

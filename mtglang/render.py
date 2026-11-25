@@ -247,6 +247,11 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
             by_file[Path(i.file).resolve()].append(i)
 
     env = Environment(loader=PackageLoader("mtglang"), autoescape=select_autoescape(["html"]))
+    from mtglang.evalen import evaluate, normalize, write_report
+    from mtglang.realize.en import render_card
+    from mtglang.resolve import resolve_card
+    from mtglang.semparse import SemParser, SemSyntaxError, build_card
+    sem = SemParser(g)
     sets = []
     (out / "ascii").mkdir(parents=True, exist_ok=True)
     o, c = g.role("name_open").glyph, g.role("name_close").glyph
@@ -259,6 +264,12 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                 ascii_parts.append(ascii_file(text, g))
             doc, _ = parse_card_file(path, parser)
             card = snap.get((code, path.stem))
+            english = None
+            if doc is not None:
+                try:
+                    english = render_card(resolve_card(build_card(doc, sem), g)[0], g)
+                except (SemSyntaxError, Exception):     # a card the AST or renderer can't handle shows no English
+                    english = None
             entry = {"slug": path.stem, "faces": [], "issues": [str(i) for i in by_file.get(path.resolve(), [])],
                      "view": card_view(card, doc, g, lang, symbols)}
             if doc is not None:
@@ -267,10 +278,14 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                     olines = oracle_lines(sf) if sf else []
                     n = max(len(f.abilities), len(olines))
                     rows = []
+                    elines = english[fi].lines if english and fi < len(english) else ()
                     for k in range(n):
                         a = f.abilities[k].text if k < len(f.abilities) else ""
+                        en = elines[k] if k < len(elines) else ""
+                        ol = olines[k] if k < len(olines) else ""
                         rows.append({"notation": notation_html(a, g, lang, symbols), "ascii": ascii_html(a, g),
-                                     "oracle": oracle_html(olines[k], symbols) if k < len(olines) else ""})
+                                     "oracle": oracle_html(ol, symbols) if ol else "", "english": en,
+                                     "english_ok": normalize(en) == normalize(ol)})
                     header = notation_html(f"{o}{f.name}{c} {f.mana}".strip(), g, lang, symbols)
                     entry["faces"].append({"header": header, "type_line": notation_html(f.type_line, g, lang),
                                            "stats": notation_html(f.stats, g, lang) if f.stats else None,
@@ -295,4 +310,5 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
         icon_css=icon_css(root / "data" / "symbols", symbols)), encoding="utf-8")
     for stale in STALE_PAGES + tuple(f"{code}.html" for code in SETS):
         (out / stale).unlink(missing_ok=True)
+    write_report(evaluate(root), out)
     return page

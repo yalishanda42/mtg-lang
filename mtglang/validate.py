@@ -150,6 +150,17 @@ def check_resolution(doc, g: Glossary) -> list[Issue]:
     return out
 
 
+def check_lex_en(g: Glossary, used: set[int]) -> list[Issue]:
+    """G-LEX-EN (warning): symbols the corpus uses that have no English words (``lex.en`` or ``oracle``)."""
+    missing = [g.symbols[i].glyph for i in sorted(used)
+               if not g.symbols[i].lex.get("en") and not g.symbols[i].oracle]
+    if not missing:
+        return []
+    more = f" … (+{len(missing) - 10})" if len(missing) > 10 else ""
+    return [Issue("warning", "G-LEX-EN", f"{len(missing)} symbol(s) used in cards have no lex.en: "
+                                         f"{' '.join(missing[:10])}{more}")]
+
+
 def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: bool = False) -> tuple[list[Issue], dict]:
     root = Path(root)
     g = load_glossary(root / "glossary")
@@ -172,6 +183,7 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
         files = [p for p in files if p.parent.name in wanted]
     seen: set[tuple[str, str]] = set()
     pairs: list[tuple[str, str, str, int]] = []
+    used: set[int] = set()
     for path in files:
         doc, file_issues = parse_card_file(path, parser, sem)
         issues += file_issues
@@ -181,6 +193,9 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
         seen.add(key)
         stats["cards"] += 1
         for f in doc.faces:
+            for a in f.abilities:
+                if a.ast is not None:
+                    used.update(n.index for _, n in A.walk(a.ast) if isinstance(n, A.SymRef))
             stats["ability_lines"] += len(f.abilities)
             stats["ast_lines"] += sum(1 for a in f.abilities if a.ast is not None)
             for a in f.abilities:
@@ -206,6 +221,7 @@ def validate_all(root: Path, sets: Iterable[str] | None = None, only_existing: b
         for key in sorted(set(snap) - seen):
             issues.append(_err("V-MISSING", f"no card file for {key[0]}/{key[1]} ({snap[key].name})"))
     issues += check_consistency(pairs, g)
+    issues += check_lex_en(g, used)
     if stats["ability_lines"]:
         stats["named_effect_rate"] = stats["named_effect_lines"] / stats["ability_lines"]
     if stats["named_effect_rate"] >= EFFECT_RATE_LIMIT:

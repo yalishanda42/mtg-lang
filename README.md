@@ -47,6 +47,8 @@ Run every command below from the repo root as `uv run mtglang <command>`. All co
 | `backtrans` | Write a back-translation test bundle and its answer key |
 | `ast` | Print a card's semantic AST as JSON, or `--coverage` of the corpus |
 | `ortho` | Convert modern Bulgarian to the pre-1945 (Ivanchev) spelling, offline; maintain `bg-ivanchev` labels |
+| `en` | Print a card rendered into English from its AST |
+| `eval-en` | Compare AST → English with Oracle text for every line; write a report |
 
 ### `fetch`
 
@@ -108,7 +110,9 @@ uv run mtglang render [--out build] [--lang en]
 ```
 
 Writes `<out>/index.html`, a self-contained gallery with card views, notation painted over the card
-scans, and a Legend tab. It also writes the plain-ASCII notation to `<out>/ascii/<set>.txt`.
+scans, and a Legend tab. It also writes the plain-ASCII notation to `<out>/ascii/<set>.txt`. The
+line-by-line tables have an "English (rendered)" column (the AST rendered into English; cells that differ
+from Oracle are tinted), and the eval report is written to `<out>/eval-en/`.
 
 | Option | Meaning |
 |---|---|
@@ -187,3 +191,21 @@ output unless you pass `--overwrite`, which lists every label it replaces.
 The converter is a port of the engine behind [pravopis.osvedomitel.bg](https://pravopis.osvedomitel.bg/)
 ([Peshowe/converter-web-app](https://github.com/Peshowe/converter-web-app), © 2021 Petar Nedelev, MIT
 License); its word lists are vendored in `mtglang/ortho/data/` with the license and provenance.
+
+### `en` and `eval-en`
+
+```sh
+uv run mtglang en fra/academic-ascent
+uv run mtglang eval-en [--set fra] [--out build]
+```
+
+`en` renders a card into English from its AST: name, type line, stats and one line per Oracle line. The
+pipeline is AST → language-neutral clause plan (`mtglang/planner.py`) → English realizer
+(`mtglang/realize/en.py`), with the English words in the glossary's `lex.en` data (spec §15).
+
+`eval-en` renders every line of the corpus, compares it with Oracle (reminder text stripped, whitespace and
+typographic quotes normalised, nothing else) and prints the exact-match rate per set and the mismatches by
+cause. `<out>/eval-en/index.html` lists every mismatch with a word diff; `report.json` has the same data.
+Deliberate differences are listed in `data/eval-en-accepted.yaml`. A test keeps the exact-match count from
+dropping (`tests/eval_en_baseline.json`).
+

@@ -30,6 +30,7 @@
 - {id: line_by_line, labels: {en: Line by line, bg: Ред по ред}}
 - {id: notation, labels: {en: Notation, bg: Запис}}
 - {id: oracle, labels: {en: Oracle, bg: Oracle}}
+- {id: rendered_en, labels: {en: English (rendered), bg: Английски (изведен)}}
 - {id: tab_bulgarian, labels: {en: Bulgarian, bg: Български}}
 - {id: bg_hint, labels: {en: "The glossary in Bulgarian: pre-1945 (Ivanchev) spelling first, generated from the modern labels by `mtglang ortho --glossary`.", bg: "Речникът на български: първо в стария (Иванчевски) правопис, изведен от съвременния с `mtglang ortho --glossary`."}}
 - {id: ivanchev, labels: {en: Pre-1945 spelling, bg: Стар правопис}}

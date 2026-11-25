@@ -78,3 +78,28 @@ def export_ast(root: Path, out: Path) -> list[Path]:
         p.write_text(json.dumps(cards, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         written.append(p)
     return written
+
+
+def corpus_asts(root: Path, sets=None) -> list[tuple[str, str, "A.Card | None", str | None]]:
+    """``(set, slug, resolved card or None, error message or None)`` for every card file, sharing one glossary."""
+    from mtglang.resolve import resolve_card
+    ctx = _Ctx(root)
+    out = []
+    for path in ctx.files():
+        code, slug = path.parent.name, path.stem
+        if sets and code not in sets:
+            continue
+        doc, issues = parse_card_file(path, ctx.lp)
+        if doc is None:
+            out.append((code, slug, None, "; ".join(str(i) for i in issues) or "unreadable card file"))
+            continue
+        try:
+            card = resolve_card(build_card(doc, ctx.sem), ctx.g)[0]
+        except SemSyntaxError as e:
+            out.append((code, slug, None, f"line {getattr(e, 'line', '?')}: {e}"))
+            continue
+        except Exception as e:      # a parser / resolver bug on one card never stops a corpus run
+            out.append((code, slug, None, f"{type(e).__name__}: {e}"))
+            continue
+        out.append((code, slug, card, None))
+    return out

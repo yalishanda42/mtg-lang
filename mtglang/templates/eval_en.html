@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>MTG-Lang → English: eval</title>
+<style>
+body{font:14px/1.45 system-ui,sans-serif;margin:2em;max-width:1200px}
+table{border-collapse:collapse}td,th{padding:.2em .6em;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
+.ref{font:12px monospace;color:#666}.n{font-size:13px;color:#335}
+del{background:#fdd;text-decoration:none}ins{background:#dfd;text-decoration:none}
+details{margin:.4em 0}summary{cursor:pointer}h2{margin-top:1.5em}
+</style></head><body>
+<h1>MTG-Lang → English vs Oracle</h1>
+<p><b>{{ summary.exact }}</b> / {{ summary.lines }} lines match exactly
+({{ '%.1f' % (100 * summary.exact / summary.lines if summary.lines else 0) }}%);
+ability lines <b>{{ summary.abilities[0] }}</b> / {{ summary.abilities[1] }}.</p>
+<table><tr><th>set</th><th>exact</th><th>lines</th></tr>
+{% for code, v in summary.by_set.items() %}<tr><td>{{ code }}</td><td>{{ v[0] }}</td><td>{{ v[1] }}</td></tr>{% endfor %}
+</table>
+<h2>Mismatches by cause</h2>
+<table>{% for c, n in summary.by_cause.items() %}<tr><td><a href="#{{ c }}">{{ c }}</a></td><td>{{ n }}</td></tr>{% endfor %}</table>
+{% for cause, sigs in groups %}
+<h2 id="{{ cause }}">{{ cause }}</h2>
+{% for sig, items in sigs %}
+<details><summary>{{ items|length }} × <code>{{ sig }}</code></summary>
+<table>
+{% for it in items %}<tr><td class="ref">{{ it.r.ref }}</td><td>
+<div class="n">{{ it.r.notation }}</div>
+<div>{% for op, t in it.diff %}{% if op == '-' %}<del>{{ t }}</del>{% elif op == '+' %}<ins>{{ t }}</ins>{% else %}{{ t }}{% endif %} {% endfor %}</div>
+</td></tr>{% endfor %}
+</table></details>
+{% endfor %}
+{% endfor %}
+</body></html>
