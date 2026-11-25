@@ -682,7 +682,8 @@ class En:
                 out.append(self.w(a.pred, "ed"))
                 cnt = self.arg(a, "object")
                 if isinstance(cnt, PhrasePlan) and cnt.heads and self.op(cnt.heads[0]) == "counter":
-                    out.append(f"with {self.counter_np(cnt)} on it")
+                    it = self.self_pronoun("object") if getattr(c.args[0][1], "ref", "") == "self" else "it"
+                    out.append(f"with {self.counter_np(cnt)} on {it}")
             elif slot == "rel" and isinstance(a, A.Of) and self.op(a.rel) == "control":
                 out.append(f"under {self.possessive(a.of)} control")
             elif slot == "rel" and isinstance(a, A.SymRef) and self.op(a) == "control":
@@ -775,7 +776,7 @@ class En:
             return self.value(p)
         if p.ref == "self":
             if p.pronoun and p.self_as == "permanent":
-                return "it"
+                return self.self_pronoun(role)
             words = f"this {self.holder}" if self.holder else self_phrase(self.ctx, self.lex, p.self_as)
             z = self.from_zone(p) if moving else None
             return f"{words} from {self.zone(z)}" if z is not None else words
@@ -884,6 +885,15 @@ class En:
             return name
         return f"{self.possessive(ch.of)} {name}"
 
+    def self_pronoun(self, role: str, poss: bool = False) -> str:
+        """"it" — or "he"/"him"/"his", "she"/"her" for a legendary character whose name says so."""
+        pron = self.lex.name(self.ctx.name).get("pron") if self.ctx.legendary and not self.holder else None
+        if pron == "he":
+            return "his" if poss else ("he" if role == "subject" else "him")
+        if pron == "she":
+            return "her" if poss else ("she" if role == "subject" else "her")
+        return "its" if poss else "it"
+
     def possessive(self, x) -> str:
         if isinstance(x, PhrasePlan):
             if x.ref == "you":
@@ -894,7 +904,7 @@ class En:
                 words = self.anaphor(x)
                 return "its" if words == "it" else words + "'s"
             if x.ref == "self" and x.pronoun:
-                return "its"
+                return self.self_pronoun("object", poss=True)
             words = self.np(x)
             return words + ("'" if words.endswith("s") and x.number == "pl" else "'s")
         return gap("possessive")

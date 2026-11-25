@@ -28,7 +28,7 @@ ARG_SLOTS: frozenset[str] = frozenset({
     "player", "number", "value", "zone", "types", "filter", "with", "from", "of", "among", "as", "body",
 })
 LEX_KEYS: frozenset[str] = frozenset({"verb", "s", "ed", "ing", "noun", "pl", "adj", "prep", "frame", "word",
-                                     "short", "poss", "pp"})
+                                     "short", "poss", "pp", "pron"})
 _SLOT = re.compile(r"\{([^{}]*)\}")
 PARAM_KINDS: frozenset[str] = frozenset({"cost", "number", "filter", "name"})
 SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec", "op", "yields", "state"})

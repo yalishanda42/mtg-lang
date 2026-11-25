@@ -1,3 +1,21 @@
-categories: []
+# Deliberate differences between AST → English and Oracle (see spec §15.4).
+categories:
+  - id: join
+    description: >-
+      Oracle joins two sentences of one effect (notation ";") as ". ", ", then" or ". Then" with no difference
+      in meaning; the choice depends on editorial style that varies between sets and cards.
+    tried: >-
+      R1 search chains ("search …, put it …, then shuffle") and R2 two simple card-flow commands
+      ("draw a card, then discard a card") are derived and kept. R3 ". Then if" before a condition after a
+      command was measured: 1 line right, 31 wrong — dropped. "Then" before a clause with a new subject
+      (Aerid Konstrari) also appears without "Then" on other cards (Cast Away Doubt).
+    lines:
+      - fra/aerid-konstrari#0.2
+      - fra/command-the-stage#0.0
+      - fra/eye-of-jace#0.0
+      - fra/ingris-stingerquill#0.2
+      - fra/the-theorist-jace-beleren#0.3
+      - fra/vigorbloom-charm#0.3
+      - trk/all-good-things#0.0
 accepted: []
 triage: []
