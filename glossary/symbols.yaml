@@ -20,7 +20,7 @@
 - {glyph: ∀, ascii: Al, class: logic, syntax: {kind: quantifier, op: each}, labels: {en: each / all}}
 - {glyph: ◎, ascii: Tg, class: logic, syntax: {kind: quantifier, op: target}, labels: {en: target}}
 - {glyph: '?', ascii: '?', class: logic, syntax: {kind: marker, op: may}, labels: {en: may / can}}
-- {glyph: ⊻, ascii: Ch, class: logic, syntax: {kind: verb, args: [amount, object]}, labels: {en: choose}}
+- {glyph: ⊻, ascii: Ch, class: logic, syntax: {kind: verb, op: choose, args: [amount, object]}, labels: {en: choose}}
 - {glyph: ∧, ascii: '&', class: logic, syntax: {kind: infix, op: and}, labels: {en: and}}
 - {glyph: ∨, ascii: or, class: logic, syntax: {kind: infix, op: or}, labels: {en: or}}
 - {glyph: ¬, ascii: '~', class: logic, syntax: {kind: prefix, op: not}, labels: {en: not / non-}}

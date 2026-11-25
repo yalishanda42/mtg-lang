@@ -661,10 +661,13 @@ class SemParser:
                     node = post[i][1]
                     col = post[i][2]
                 sub_args = []
-                if i + 1 < len(post) and post[i + 1][0] in ("np", "value", "kw") and \
-                        any(x in self._frame(node, False) for x in ("object", "types", "amount")):
+                sub_free = self._frame(node, False)
+                while i + 1 < len(post) and post[i + 1][0] in ("np", "value", "kw", "group", "mana"):
+                    slot = self._slot(sub_free, post[i + 1][1], post[i + 1][0])
+                    if slot is None:
+                        break
                     i += 1
-                    sub_args.append(("object", post[i][1]))
+                    sub_args.append((slot, post[i][1]))
                 args.append(("state", A.Action(node, None, tuple(sub_args), negated=neg)))
             elif typ == "pt":
                 args.append(("pt", node))
@@ -1328,3 +1331,88 @@ class SemParser:
         if zone is None:
             return A.Zone(pos, owner, None, count, pos_alt, paren=0)
         return A.Zone(zone, owner, pos, count, pos_alt)
+
+
+# ---------------------------------------------------------------- card level
+
+def _find_choose(n, g: Glossary):
+    """First ⊻n action (choose without an object) in an ability — the head of a modal."""
+    import dataclasses
+    if isinstance(n, A.Action) and isinstance(n.verb, A.SymRef) \
+            and g.symbols[n.verb.index].syntax.get("op") == "choose" \
+            and not any(slot == "object" for slot, _ in n.args):
+        return n
+    if not isinstance(n, A.Node) or isinstance(n, (A.NP, A.Filter, A.Nested)):
+        return None
+    for f in dataclasses.fields(n):
+        v = getattr(n, f.name)
+        for x in (v if isinstance(v, tuple) else (v,)):
+            if isinstance(x, tuple) and len(x) == 2 and isinstance(x[1], A.Node):
+                x = x[1]
+            if isinstance(x, A.Node):
+                found = _find_choose(x, g)
+                if found is not None:
+                    return found
+    return None
+
+
+def _swap(n, old, new):
+    import dataclasses
+    if n is old:
+        return new
+    if not isinstance(n, A.Node):
+        return n
+    changes = {}
+    for f in dataclasses.fields(n):
+        v = getattr(n, f.name)
+        if isinstance(v, A.Node):
+            nv = _swap(v, old, new)
+            if nv is not v:
+                changes[f.name] = nv
+        elif isinstance(v, tuple):
+            nv = tuple((x[0], _swap(x[1], old, new)) if isinstance(x, tuple) else _swap(x, old, new) for x in v)
+            if any(a is not b for a, b in zip(nv, v)):
+                changes[f.name] = nv
+    return dataclasses.replace(n, **changes) if changes else n
+
+
+def group_modes(abilities: list, g: Glossary, lines: list[int] | None = None) -> list:
+    """Fold • mode lines into a Modal that replaces the preceding ⊻n action."""
+    out: list = []
+    chooser = None  # (index in out, choose action, modes list)
+    for k, ab in enumerate(abilities):
+        if isinstance(ab, A.Mode):
+            if chooser is None:
+                raise SemSyntaxError(1, "mode line without a preceding ⊻ choice")
+            chooser[2].append(ab)
+            i, act, modes = chooser
+            out[i] = (out[i][0], act, modes)
+            continue
+        act = _find_choose(ab, g)
+        out.append((ab, act, []))
+        chooser = (len(out) - 1, act, []) if act is not None else None
+        if chooser is not None:
+            out[-1] = (ab, act, chooser[2])
+    result = []
+    for ab, act, modes in out:
+        if act is not None and modes:
+            ab = _swap(ab, act, A.Modal(act, tuple(modes)))
+        result.append(ab)
+    return result
+
+
+def build_card(doc, p: SemParser) -> A.Card:
+    """CardDoc (from cardfile) → Card AST. Raises SemSyntaxError with ``.line`` set on failure."""
+    faces = []
+    for f in doc.faces:
+        abilities = []
+        for line in f.abilities:
+            try:
+                abilities.append(p.parse_ability(line.text))
+            except SemSyntaxError as e:
+                e.line = line.lineno
+                raise
+        stats = p.parse_stats(f.stats) if f.stats else None
+        faces.append(A.Face(A.NameRef(f.name), (A.Mana(f.mana),) if f.mana else (), p.parse_type_line(f.type_line),
+                            stats, tuple(group_modes(abilities, p.g))))
+    return A.Card(tuple(faces))

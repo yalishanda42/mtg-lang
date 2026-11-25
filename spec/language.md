@@ -175,3 +175,12 @@ forms, even mixed.
 | copies | `✚ ◌[❐☞] ∋↯` | create a token that's a copy of it, with haste |
 | counters | `2⊞+1/+1 → ◈`, `⊞✲`, `⊞◇`, `⊞✹`, `⊞✠`, `⊞⚐` | +1/+1, stun, loyalty, charge, finality, quest |
 | replacement inside an effect | `… ; C ⊃ ⤳ effect` | "…instead" |
+
+## 12. Notation changes in v0.2 (semantic AST)
+
+Each change removes a construct the semantic parser could not read unambiguously. All are scripted in
+`scripts/migrations/` (idempotent; run with `uv run python scripts/migrations/<file>.py`).
+
+| # | Before | After | Why |
+|---|---|---|---|
+| 1 | `● ✪ ∋ (…)` | `● ✚ ✪ ∋ (…)` | "You get an emblem with …" had two subjects and no verb; `✚` (create) makes the emblem the object |
