@@ -27,6 +27,9 @@ ARG_SLOTS: frozenset[str] = frozenset({
     "object", "amount", "recipient", "destination", "source", "subject", "counter", "ability", "cost", "mana",
     "player", "number", "value", "zone", "types", "filter", "with", "from", "of", "among", "as", "body",
 })
+LEX_KEYS: frozenset[str] = frozenset({"verb", "s", "ed", "ing", "noun", "pl", "adj", "prep", "frame", "word",
+                                     "short", "poss"})
+_SLOT = re.compile(r"\{([^{}]*)\}")
 PARAM_KINDS: frozenset[str] = frozenset({"cost", "number", "filter", "name"})
 SYNTAX_KEYS: frozenset[str] = frozenset({"kind", "args", "subject", "params", "prec", "op", "yields", "state"})
 _CLASS_SYNTAX: dict[str, dict] = {
@@ -54,6 +57,7 @@ class Symbol:
     oracle: str | None = None
     definition: str | None = None
     syntax: dict | None = None
+    lex: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         merged = default_syntax(self.cls)
@@ -66,6 +70,7 @@ class Name:
     key: str
     cls: str
     labels: dict[str, str]
+    lex: dict = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -113,9 +118,9 @@ def load_glossary(dir: Path) -> Glossary:
     dir = Path(dir)
     symbols = [Symbol(glyph=str(d["glyph"]), ascii=str(d["ascii"]), cls=d["class"], labels=d.get("labels") or {},
                       role=d.get("role"), oracle=d.get("oracle"), definition=d.get("definition"),
-                      syntax=d.get("syntax"))
+                      syntax=d.get("syntax"), lex=d.get("lex") or {})
                for d in _read_yaml(dir / "symbols.yaml")]
-    names = {str(d["key"]): Name(str(d["key"]), d["class"], d.get("labels") or {}) for d in _read_yaml(dir / "names.yaml")}
+    names = {str(d["key"]): Name(str(d["key"]), d["class"], d.get("labels") or {}, d.get("lex") or {}) for d in _read_yaml(dir / "names.yaml")}
     effects = {str(d["key"]): NamedEffect(str(d["key"]), d.get("card", ""), d.get("labels") or {})
                for d in _read_yaml(dir / "named_effects.yaml")}
     return Glossary(symbols, names, effects)
@@ -142,6 +147,9 @@ def check_glossary(g: Glossary) -> list[Issue]:
         if n != 1:
             issues.append(Issue("error", "G-ROLE", f"role {r!r} defined {n} times (need exactly 1)"))
     issues += _bg_coverage(g)
+    for owner_name, lex in [(s.glyph, s.lex) for s in g.symbols] + [(n.key, n.lex) for n in g.names.values()]:
+        for problem in _lex_problems(lex):
+            issues.append(Issue("error", "G-LEX", f"{owner_name!r}: {problem}"))
     for coll in (g.names.values(), g.effects.values()):
         for o in coll:
             if not o.labels.get("en"):
@@ -168,6 +176,24 @@ def _bg_coverage(g: Glossary) -> list[Issue]:
             out.append(Issue("warning", "G-LABEL-BG",
                              f"{fname}: {len(missing)} entr(y/ies) without bg / bg-ivanchev: "
                              f"{', '.join(missing[:5])}{more}"))
+    return out
+
+
+def _lex_problems(lex) -> list[str]:
+    """``lex`` is ``{lang: {key: word}}``; keys from LEX_KEYS; a ``frame`` names only argument slots."""
+    if not isinstance(lex, dict) or any(not isinstance(v, dict) for v in lex.values()):
+        return ["lex must be a map of language → map"]
+    out = []
+    for lang, entry in lex.items():
+        for k, v in entry.items():
+            if k not in LEX_KEYS:
+                out.append(f"lex.{lang}: unknown key {k!r}")
+            elif not isinstance(v, str):
+                out.append(f"lex.{lang}.{k} must be text")
+            elif k == "frame":
+                for slot in _SLOT.findall(v):
+                    if slot not in ARG_SLOTS:
+                        out.append(f"lex.{lang}.frame: unknown slot {{{slot}}}")
     return out
 
 
