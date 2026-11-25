@@ -62,6 +62,11 @@ MUST_MATCH = [
     "fra/chandra-chill-of-compliance#0.1",
     "fra/apex-witchstalker#0.2",
     "trk/blood-crypt#0.0",
+    # Task 10: long tail
+    "trk/erica-ortegas-plucky-pilot#0.1",
+    "fra/ajani-unrelenting#0.0",
+    "fra/fblthp-knows-the-way#0.1",
+    "fra/hapatra-the-desert-frost#0.0",
 ]
 
 

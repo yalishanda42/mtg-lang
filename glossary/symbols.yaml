@@ -70,9 +70,9 @@
 - {glyph: ↥, ascii: ^, class: action, syntax: {kind: verb, args: [with]}, labels: {en: enters (the battlefield), bg: встъпва (на бойното поле), bg-ivanchev: встѫпва (на бойното поле)}, lex: {en: {verb: enter, s: enters, ed: entered}}}
 - {glyph: ☠, ascii: Di, class: action, labels: {en: dies, bg: загива, bg-ivanchev: загива}, lex: {en: {verb: die, s: dies, ed: died}}}
 - {glyph: ➹, ascii: At, class: action, syntax: {state: true}, labels: {en: attacks, bg: напада, bg-ivanchev: напада}, lex: {en: {verb: attack, s: attacks, adj: attacking, ed: attacked, pp: attacked}}}
-- {glyph: ⛉, ascii: Bk, class: action, labels: {en: blocks, bg: препречва, bg-ivanchev: прѣпрѣчва}, lex: {en: {verb: block, s: blocks, adj: blocking}}}
+- {glyph: ⛉, ascii: Bk, class: action, labels: {en: blocks, bg: препречва, bg-ivanchev: прѣпрѣчва}, lex: {en: {verb: block, s: blocks, adj: blocking, ed: blocked, pp: blocked}}}
 - {glyph: ✷, ascii: Cs, class: action, syntax: {op: cast}, labels: {en: cast, bg: изречи, bg-ivanchev: изрѣчи}, lex: {en: {verb: cast, s: casts, ed: cast, pp: cast}}}
-- {glyph: ↷, ascii: Tp, class: action, syntax: {state: true}, labels: {en: tap / tapped, bg: наклони / наклонен, bg-ivanchev: наклони / наклоненъ}, lex: {en: {verb: tap, s: taps, ed: tapped}}}
+- {glyph: ↷, ascii: Tp, class: action, syntax: {state: true}, labels: {en: tap / tapped, bg: наклони / наклонен, bg-ivanchev: наклони / наклоненъ}, lex: {en: {verb: tap, s: taps, ed: tapped, pp: tapped}}}
 - {glyph: ↶, ascii: Un, class: action, labels: {en: untap, bg: изправи, bg-ivanchev: изправи}, lex: {en: {verb: untap, s: untaps, ed: untapped}}}
 - {glyph: ▶, ascii: Pl, class: action, labels: {en: play, bg: изиграй, bg-ivanchev: изиграй}, lex: {en: {verb: play, s: plays}}}
 - {glyph: ⤓, ascii: Dr, class: action, syntax: {yields: true}, labels: {en: draw, bg: изтегли, bg-ivanchev: изтегли}, lex: {en: {verb: draw, s: draws, noun: card, ed: drew, pp: drawn}}}
@@ -126,7 +126,7 @@
 - {glyph: ⊜, ascii: Af, class: keyword, labels: {en: Affinity, bg: Сродство, bg-ivanchev: Сродство}, oracle: Affinity}
 - {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate, bg: Погълни, bg-note: Assimilate (Borg) — „погълни“, bg-ivanchev: Погълни}, oracle: Assimilate, lex: {en: {verb: assimilate, s: assimilates}}}
 - {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристанъ}, oracle: Station}
-- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared, lex: {en: {ed: prepared}}}
+- {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared, lex: {en: {ed: prepared, verb: become prepared, s: becomes prepared}}}
 - {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma, bg: Изправи се пред кръстопът, bg-note: Face a dilemma, bg-ivanchev: Изправи се прѣдъ кръстопѫть}, oracle: Face a dilemma, lex: {en: {verb: face a dilemma, s: faces a dilemma, ed: faced a dilemma, pp: faced a dilemma}}}
 - {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace, bg: Дай мощ на Джейс, bg-ivanchev: Дай мощь на Джейсъ}, oracle: Empower Jace, lex: {en: {verb: empower Jace, s: empowers Jace}}}
 - {glyph: ⟐, ascii: Bh, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Behold, bg: Узри, bg-note: Behold — „узри“, bg-ivanchev: Узри}, oracle: Behold, lex: {en: {verb: behold, s: beholds}}}

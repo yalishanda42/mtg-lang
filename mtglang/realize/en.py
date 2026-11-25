@@ -66,7 +66,7 @@ def gap(kind: str) -> str:
 
 def fin(s: str) -> str:
     """End a sentence with a period, unless it ends in mode lines (which carry their own)."""
-    return s if "\n" in s else s + "."
+    return s if ("\n" in s or s.endswith('."')) else s + "."
 
 
 class En:
@@ -138,9 +138,14 @@ class En:
         if isinstance(ev, A.Time):
             head = "At"
         self._limit_kind = "trigger"
+        self._in_event = True
+        try:
+            ev_text = self.inline(ev)
+        finally:
+            self._in_event = False
         first, rest = self.split_first(a.parts["effect"])
         conds = "".join(f", if {self.inline(c)}" for c in a.parts["conds"])
-        out = f"{head} {self.inline(ev)}{conds}, {fin(first)}"
+        out = f"{head} {ev_text}{conds}, {fin(first)}"
         return out + "".join(f" {fin(cap(s))}" for s in rest)
 
     def _once(self, ev) -> bool:
@@ -148,13 +153,22 @@ class En:
         def once(c):
             if not (isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef)):
                 return False
-            if c.pred.glyph in ONCE_VERBS and c.subject is not None and c.subject.ref == "self":
+            if c.pred.glyph in ONCE_VERBS and c.subject is not None and (
+                    c.subject.ref == "self" or self._attached_to_self(c.subject)):
                 return True
             obj = self.arg(c, "object")
             return self.op(c.pred) == "cast" and isinstance(obj, PhrasePlan) and obj.ref == "self"
         return all(once(c) for c in clauses)
 
     _limit_kind = "activate"
+    _in_event = False
+
+    def _attached_to_self(self, p) -> bool:
+        if not isinstance(p, PhrasePlan):
+            return False
+        return any(isinstance(c, A.Rel) and isinstance(c.other, PhrasePlan) and c.other.ref == "self"
+                   and "adj" in self.lex.sym(c.rel.index)
+                   for slot, f in p.mods if slot == "filters" for flt in f for c in getattr(flt, "conds", ()))
 
     def ab_activated(self, a: AbilityPlan) -> str:
         self._limit_kind = "activate"
@@ -469,6 +483,15 @@ class En:
 
     def verb_phrase(self, c: ClausePlan, third: bool) -> str:
         v = c.pred
+        if self._in_event and v.glyph == "↷" and not c.args:
+            return f"{'becomes' if third else 'become'} {self.w(v, 'ed')}"
+        if c.negated and c.passive:
+            by = self.arg(c, "object") or self.arg(c, "by") or next((a for s, a in c.args if s != "time"), None)
+            out = f"can't be {self.w(v, 'pp', self.w(v, 'ed'))}"
+            return out + (f" by {self.np(by)}" if by is not None else "")
+        if c.negated:
+            rest = self.verb_phrase(dataclasses_replace(c, negated=False), False)
+            return f"can't {rest}"
         g = v.glyph
         op = self.op(v)
         if op == "transfer":
@@ -482,6 +505,13 @@ class En:
                 text = text[:-2] + '"'
             return f"{word} {text}"
         obj = self.arg(c, "object")
+        if v.glyph == "⊳" and isinstance(obj, PhrasePlan) and obj.heads and isinstance(obj.heads[0], A.SymRef) \
+                and self.g.symbols[obj.heads[0].index].syntax.get("kind") in ("stat", "keyword"):
+            what = self.w(obj.heads[0], "noun", self.g.symbols[obj.heads[0].index].oracle or "").lower()
+            return f"{self.verb(v, third)} {article(what)} {what} ability"
+        if v.glyph == "⌖":
+            z = self.arg(c, "zone")
+            return f"{self.verb(v, third)} {self.value(z)} for {self.np(obj)}"
         holder = None
         if isinstance(obj, PhrasePlan) and obj.heads and isinstance(obj.heads[0], A.SymRef):
             holder = {"◌": "token", "✪": "emblem"}.get(obj.heads[0].glyph)
@@ -550,6 +580,9 @@ class En:
             return m.text
         if isinstance(m, A.SymRef) and m.glyph == "◆":
             return f"one {self.w(m, 'noun')}"
+        if isinstance(m, PhrasePlan) and len(m.heads) == 1 and isinstance(m.heads[0], A.SymRef) \
+                and m.heads[0].glyph == "◆":
+            return f"one {self.w(m.heads[0], 'noun')}"
         if isinstance(m, A.Or):
             parts = [self.mana(x) for x in m.items]
             return " or ".join(parts) if len(parts) == 2 else ", ".join(parts[:-1]) + ", or " + parts[-1]
@@ -578,7 +611,8 @@ class En:
         if hop == "counter":
             return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest, role='destination')}"
         if isinstance(dest, A.Zone):
-            return self.move(obj, dest, third)
+            extra = self.move_extras(c)
+            return self.move(obj, dest, third) + (f" {extra}" if extra else "")
         return gap("transfer")
 
     def from_zone(self, obj) -> A.Zone | None:
@@ -592,11 +626,35 @@ class En:
                             return c
         return None
 
+    def _is_card(self, p) -> bool:
+        if isinstance(p, PhrasePlan) and p.ref == "anaphor":
+            p = p.antecedent
+        return isinstance(p, PhrasePlan) and any(isinstance(h, A.SymRef) and h.glyph == "▭" for h in p.heads)
+
+    def move_extras(self, c: ClausePlan) -> str:
+        """After a zone change: tapped, under its owner's control, with a +1/+1 counter on it."""
+        out = []
+        for slot, a in c.args:
+            if slot == "state" and isinstance(a, ClausePlan) and isinstance(a.pred, A.SymRef):
+                out.append(self.w(a.pred, "ed"))
+                cnt = self.arg(a, "object")
+                if isinstance(cnt, PhrasePlan) and cnt.heads and self.op(cnt.heads[0]) == "counter":
+                    out.append(f"with {self.counter_np(cnt)} on it")
+            elif slot == "rel" and isinstance(a, A.Of) and self.op(a.rel) == "control":
+                out.append(f"under {self.possessive(a.of)} control")
+            elif slot == "rel" and isinstance(a, A.SymRef) and self.op(a) == "control":
+                out.append("under your control")
+        return " ".join(out)
+
     def move(self, obj, dest: A.Zone, third: bool) -> str:
         """Zone changes: exile X / return X to … / put X into / onto / on top of …"""
         z = dest.zone.glyph
         src = self.from_zone(obj)
+        if src is None and isinstance(obj, PhrasePlan) and obj.ref == "anaphor":
+            src = self.from_zone(obj.antecedent)
         o = self.np(obj, moving=True)
+        if src is None and self._is_card(obj) and z in ("☚", "▦"):
+            src = A.Zone(zone=A.SymRef(index=0, glyph="▤"))     # a card not on the battlefield: "put"
         put = "puts" if third else "put"
         ret = "returns" if third else "return"
         if z == "⊘":
@@ -677,6 +735,8 @@ class En:
         if p.ref == "you":
             return "you"
         if p.ref == "anaphor":
+            if p.quantity == "each" and isinstance(p.antecedent, PhrasePlan) and p.antecedent.heads:
+                return f"each of those {self.head_words(dataclasses_replace(p.antecedent, number='pl', mods=()))}"
             return self.anaphor(p)
         if not p.heads and self._mod(p, "quant") is not None and self.op(self._mod(p, "quant")) == "target":
             return "any target"
@@ -697,6 +757,9 @@ class En:
         definite = any(w in ("enchanted", "equipped") for w in pre)
         pre = [w for w in pre if w != "another"]
         noun = self.premodified(pre, self.head_words(p))
+        for m in self._mod(p, "post") or ():
+            if isinstance(m, A.SymRef) and m.glyph == "≢":
+                post = f"with different names {post}".strip()
         name = self._mod(p, "name")
         if name is not None:
             post = f"named {self.value(name)} {post}".strip()
@@ -802,6 +865,8 @@ class En:
         if isinstance(a, PhrasePlan):
             if self.is_player(a):
                 return "that player"
+            if a.number == "pl" or a.quantity in ("up_to", "exactly", "all") and a.number == "pl":
+                return "them"
             quant = self._mod(a, "quant")
             if quant is not None and self.op(quant) == "target":
                 return "it"
