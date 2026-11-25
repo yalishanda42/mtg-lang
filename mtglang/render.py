@@ -211,6 +211,25 @@ def ui_strings(lang: str) -> dict[str, str]:
     return out
 
 
+def _bg_row(labels: dict) -> dict:
+    return {"iv": labels.get("bg-ivanchev", ""), "bg": labels.get("bg", ""), "en": labels.get("en", ""),
+            "note": labels.get("bg-note", "")}
+
+
+def bulgarian_glossary(g: Glossary) -> dict:
+    """Rows for the Legend's Bulgarian tab: symbols by class, named effects, names by class."""
+    symbols = defaultdict(list)
+    for i, sym in enumerate(g.symbols):
+        symbols[sym.cls].append({"i": i, "glyph": sym.glyph, **_bg_row(sym.labels)})
+    effects = [{"key": e.key, **_bg_row(e.labels)} for e in g.effects.values()]
+    names = defaultdict(list)
+    for n in sorted(g.names.values(), key=lambda n: n.key.casefold()):
+        names[n.cls].append({"key": n.key, **_bg_row(n.labels)})
+    order = ("subtype", "token", "flavor", "card")
+    return {"symbols": list(symbols.items()), "effects": effects,
+            "names": sorted(names.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else len(order))}
+
+
 STALE_PAGES = ("legend.html",)   # per-page outputs of earlier versions, superseded by the single index.html
 
 
@@ -267,10 +286,11 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                                 "role": sym.role or "", "oracle": sym.oracle,
                                 "definition": notation_html(sym.definition, g, lang) if sym.definition else ""})
     effects = [{"key": e.key, "card": e.card, "label": g.label(e, lang)} for e in g.effects.values()]
+    bg = bulgarian_glossary(g)
     page = out / "index.html"
     ui = ui_strings(lang)
     page.write_text(env.get_template("page.html").render(
-        sets=sets, lang=lang, groups=list(groups.items()), effects=effects, ui=ui,
+        sets=sets, lang=lang, groups=list(groups.items()), effects=effects, bg=bg, ui=ui,
         cls_label=lambda c: ui.get(f"class:{c}", c),
         icon_css=icon_css(root / "data" / "symbols", symbols)), encoding="utf-8")
     for stale in STALE_PAGES + tuple(f"{code}.html" for code in SETS):
