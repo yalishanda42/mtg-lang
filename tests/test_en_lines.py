@@ -18,6 +18,21 @@ MUST_MATCH = [
     "fra/chandra-torch-of-defiance#0.2",
     "fra/afterthought-sentry#0.0",
     "fra/afterthought-sentry#0.1",
+    # Task 6: events, triggers, references
+    "fra/aerid-konstrari#0.1",
+    "fra/apex-witchstalker#0.1",
+    "fra/archive-arbiter#0.1",
+    "fra/archive-arbiter#0.2",
+    "fra/archive-arbiter#0.3",
+    "fra/craftwork-crusher#0.4",
+    "fra/cast-away-doubt#0.0",
+    "fra/emrakul-the-exigent-doom#0.0",
+    "fra/ingris-stingerquill#0.1",
+    "fra/dedicated-commons#0.0",
+    "fra/gideons-memorial#0.0",
+    "fra/bloombrute#0.1",
+    "fra/ajanis-anguish#0.0",
+    "fra/charge-the-sanctum#0.2",
 ]
 
 

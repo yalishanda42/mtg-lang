@@ -131,7 +131,13 @@ class Planner:
         kind = "or" if self.op(n.op) == "or" else "and"
         clauses = []
         for i, x in enumerate(n.items):
-            clauses.append(self.sentence(x, f"{path}.items.{i}"))
+            c = self.sentence(x, f"{path}.items.{i}")
+            prev = clauses[-1] if clauses else None
+            if (isinstance(c, ClausePlan) and isinstance(prev, ClausePlan) and not c.subject_shared
+                    and c.subject is not None and prev.subject is not None
+                    and _same_phrase(c.subject, prev.subject)):
+                c = dataclasses.replace(c, subject_shared=True)
+            clauses.append(c)
         return SentencePlan(path, tuple(clauses), tuple(Join(kind) for _ in clauses[1:]))
 
     def _subject(self, n, path, prev_subject=None):
@@ -149,6 +155,11 @@ class Planner:
         args = tuple((slot, self.sentence(c, p) if type(c) in SENTENCE_KINDS else self.conv(c, p))
                      for slot, c, p in _pair_paths(n.args, f"{path}.args"))
         verb = self.conv(n.verb, f"{path}.verb") if n.verb is not None else None
+        vop = self.op(n.verb)
+        if vop == "cast":           # the object of "cast" is a spell
+            args = tuple((s, _as_spell(v)) if s == "object" else (s, v) for s, v in args)
+        if vop == "cost_change" and subject is not None:
+            subject = _as_spell(subject)
         return ClausePlan(path, verb, subject, args, optional=n.optional, negated=n.negated, passive=n.passive,
                           mood=mood, subject_shared=shared)
 
@@ -219,8 +230,12 @@ class Planner:
         if n.neg:
             mods.append(("neg", True))
         ref, person, definite, pronoun, reason, ante = "new", 3, False, False, "", None
+        self_as = "permanent"
         if head_ops == ["self"]:
             ref, definite = "self", True
+            if any(isinstance(c, A.Zone) and self.op(c.zone) is None and c.zone.glyph in CARD_ZONES
+                   for f in n.filters for c in getattr(f, "conds", ())):
+                self_as = "card"
             if self._self_seen:
                 pronoun, reason = True, "this object was mentioned earlier in the ability"
             self._self_seen = True
@@ -236,7 +251,8 @@ class Planner:
                 if isinstance(ante, PhrasePlan) and ante.ref == "anaphor" and ante.antecedent is not None:
                     ante = ante.antecedent
         return PhrasePlan(path, heads, tuple(mods), number=n.number or "sg", quantity=n.quantity or "one",
-                          definite=definite, ref=ref, antecedent=ante, person=person, pronoun=pronoun, reason=reason)
+                          definite=definite, ref=ref, antecedent=ante, person=person, pronoun=pronoun, reason=reason,
+                          self_as=self_as)
 
     def conv(self, v: Any, path: str):
         """Convert children generically: NPs → PhrasePlan, sentence nodes → plans, other nodes kept."""
@@ -259,6 +275,18 @@ class Planner:
         return dataclasses.replace(v, **changes) if changes else v
 
 
+def _same_phrase(a, b) -> bool:
+    return isinstance(a, PhrasePlan) and isinstance(b, PhrasePlan) and a.ref == b.ref and (
+        a.ref in ("self", "you") or (a.heads, a.mods) == (b.heads, b.mods)) and a.ref != "new"
+
+
+def _as_spell(p):
+    return dataclasses.replace(p, self_as="spell") if isinstance(p, PhrasePlan) and p.ref == "self" else p
+
+
+# zones where the object is a card, not a permanent or spell (hand, graveyard, library)
+CARD_ZONES = frozenset({"☚", "⚰", "▤"})
+
 ABILITY_KINDS = {A.Keywords: Planner.ab_keywords, A.Static: Planner.ab_static, A.Triggered: Planner.ab_triggered,
                  A.Activated: Planner.ab_activated, A.Labelled: Planner.ab_labelled, A.Chapter: Planner.ab_chapter,
                  A.Threshold: Planner.ab_threshold, A.Mode: Planner.ab_mode, A.Modal: Planner.ab_modal}
@@ -266,7 +294,7 @@ SENTENCE_KINDS = {A.Effects: Planner.s_effects, A.Coord: Planner.s_coord, A.Acti
                   A.Modify: Planner.s_modify, A.Conditional: Planner.s_cond, A.Replace: Planner.s_replace,
                   A.While: Planner.s_while, A.Until: Planner.s_until, A.Timed: Planner.s_timed,
                   A.ForEach: Planner.s_foreach, A.Bind: Planner.s_bind, A.Scoped: Planner.s_scoped,
-                  A.Nested: Planner.s_nested}
+                  A.Nested: Planner.s_nested, A.Modal: Planner.ab_modal}
 _VALUES = (A.NP, A.SymRef, A.NameRef, A.Mana, A.Num, A.Var, A.Characteristic, A.Count, A.Arith, A.PT, A.Zone)
 # phrase-level nodes that may stand where a sentence is expected (conditions, trigger events)
 PHRASE_ONLY = {A.Compare, A.NP, A.Not, A.And, A.Or, A.Time, A.Keyword, A.Keywords, A.Characteristic, A.Count}

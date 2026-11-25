@@ -71,7 +71,7 @@
 - {glyph: ☠, ascii: Di, class: action, labels: {en: dies, bg: загива, bg-ivanchev: загива}, lex: {en: {verb: die, s: dies}}}
 - {glyph: ➹, ascii: At, class: action, syntax: {state: true}, labels: {en: attacks, bg: напада, bg-ivanchev: напада}, lex: {en: {verb: attack, s: attacks, adj: attacking}}}
 - {glyph: ⛉, ascii: Bk, class: action, labels: {en: blocks, bg: препречва, bg-ivanchev: прѣпрѣчва}, lex: {en: {verb: block, s: blocks, adj: blocking}}}
-- {glyph: ✷, ascii: Cs, class: action, labels: {en: cast, bg: изречи, bg-ivanchev: изрѣчи}, lex: {en: {verb: cast, s: casts, ed: cast}}}
+- {glyph: ✷, ascii: Cs, class: action, syntax: {op: cast}, labels: {en: cast, bg: изречи, bg-ivanchev: изрѣчи}, lex: {en: {verb: cast, s: casts, ed: cast}}}
 - {glyph: ↷, ascii: Tp, class: action, syntax: {state: true}, labels: {en: tap / tapped, bg: наклони / наклонен, bg-ivanchev: наклони / наклоненъ}, lex: {en: {verb: tap, s: taps, ed: tapped}}}
 - {glyph: ↶, ascii: Un, class: action, labels: {en: untap, bg: изправи, bg-ivanchev: изправи}, lex: {en: {verb: untap, s: untaps, ed: untapped}}}
 - {glyph: ▶, ascii: Pl, class: action, labels: {en: play, bg: изиграй, bg-ivanchev: изиграй}, lex: {en: {verb: play, s: plays}}}
@@ -90,7 +90,7 @@
 - {glyph: ⌖, ascii: Se, class: action, syntax: {kind: verb, args: [zone, object]}, labels: {en: search, bg: потърси, bg-ivanchev: потърси}, lex: {en: {verb: search, s: searches}}}
 - {glyph: ◉, ascii: Rv, class: action, labels: {en: reveal, bg: покажи, bg-ivanchev: покажи}, lex: {en: {verb: reveal, s: reveals}}}
 - {glyph: ⟲, ascii: Sh, class: action, labels: {en: shuffle, bg: разбъркай, bg-ivanchev: разбъркай}, lex: {en: {verb: shuffle, s: shuffles}}}
-- {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}}
+- {glyph: ⊖, ascii: Rd, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs less, bg: струва по-малко, bg-ivanchev: струва по-малко}}
 - {glyph: ⊹, ascii: Ac, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: additional cost, bg: допълнителна цена, bg-ivanchev: допълнителна цѣна}}
 - {glyph: ⇄, ascii: Gc, class: action, labels: {en: gain control, bg: завладей, bg-ivanchev: завладѣй}}
 - {glyph: ★, ascii: Pv, class: counter_kind, labels: {en: promotion (counter), bg: повишение (белег), bg-ivanchev: повишение (бѣлѣгъ)}}
@@ -174,7 +174,7 @@
 - {glyph: ⦰, ascii: Fr, class: action, syntax: {kind: marker}, labels: {en: without paying its mana cost, bg: без да платиш цената ѝ в мана, bg-ivanchev: безъ да платишъ цѣната ѝ въ мана}}
 - {glyph: ⧖, ascii: SS, class: keyword, labels: {en: Split second, bg: Миг, bg-note: Split second, bg-ivanchev: Мигъ}, oracle: Split second}
 - {glyph: ◍, ascii: Mc, class: characteristic, labels: {en: mana cost, bg: цена в мана, bg-ivanchev: цѣна въ мана}}
-- {glyph: ⨁, ascii: Rs, class: action, syntax: {kind: verb, args: [cost]}, labels: {en: costs more, bg: струва повече, bg-ivanchev: струва повече}}
+- {glyph: ⨁, ascii: Rs, class: action, syntax: {kind: verb, args: [cost], op: cost_change}, labels: {en: costs more, bg: струва повече, bg-ivanchev: струва повече}}
 - {glyph: Σ, ascii: Sm, class: comparison, syntax: {kind: prefix, op: agg}, labels: {en: total, bg: общо, bg-ivanchev: общо}}
 - {glyph: ⁺, ascii: Xs, class: comparison, syntax: {kind: marker, op: excess}, labels: {en: excess, bg: излишък, bg-ivanchev: излишъкъ}}
 - {glyph: ⚐, ascii: Qs, class: counter_kind, labels: {en: quest (counter), bg: подвиг (белег), bg-ivanchev: подвигъ (бѣлѣгъ)}}

@@ -60,6 +60,7 @@ class PhrasePlan:
     implicit: bool = False          # an unwritten subject (the ability's controller)
     pronoun: bool = False           # default: refer back with a pronoun
     reason: str = ""
+    self_as: str = "permanent"      # for ref == "self": permanent / card (in a hand, graveyard, library) / spell
 
 
 @dataclass(frozen=True)

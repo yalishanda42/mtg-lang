@@ -74,6 +74,31 @@ def test_self_second_mention_is_pronoun():
     assert selfs[1].reason
 
 
+def test_coordinated_same_subject_is_shared():
+    ev = plan("fra/aerid-konstrari").faces[0].abilities[1].parts["event"]
+    assert [c.subject_shared for c in ev.clauses] == [False, True]
+    assert ev.clauses[1].subject.ref == "self"                  # the full subject is kept
+
+
+def test_self_as_spell_when_cast():
+    ev = plan("fra/emrakul-the-exigent-doom").faces[0].abilities[0].parts["event"]
+    (obj,) = [v for s, v in ev.args if s == "object"]
+    assert obj.ref == "self" and obj.self_as == "spell"
+
+
+def test_self_as_card_in_a_zone():
+    a = plan("fra/emrakul-the-exigent-doom").faces[0].abilities[3]   # {3}, exile this card from your hand
+    cost = a.parts["cost"][1]
+    (obj,) = [v for s, v in cost.args if s == "object"]
+    assert obj.self_as == "card"
+
+
+def test_modal_inside_effect():
+    eff = plan("fra/archive-arbiter").faces[0].abilities[1].parts["effect"]
+    (m,) = eff.clauses
+    assert isinstance(m, AbilityPlan) and m.shape == "modal" and len(m.parts["modes"]) == 2
+
+
 def test_bind_sentence_joins_with_where():
     a = plan("fra/aerid-konstrari").faces[0].abilities[2]      # …; X ≔ #⚙[⚑●]
     assert [j.kind for j in a.parts["effect"].joins] == ["sentence", "where"]
@@ -89,7 +114,7 @@ def test_unknown_kind_is_gap(monkeypatch):
 # str fields a plan may carry: AST spelling-free values, plan enums, and names (keys, not words)
 _ALLOWED_STR = {"path", "kind", "reason", "shape", "mood", "tense", "number", "quantity", "ref", "lead",
                 "name", "short", "cost", "glyph", "key", "sign", "op", "mode", "stat", "power", "toughness",
-                "value", "text", "dash", "implicit_subject"}
+                "value", "text", "dash", "implicit_subject", "self_as"}
 
 
 def test_no_english_in_plan():

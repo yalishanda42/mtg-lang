@@ -24,12 +24,12 @@ def ctx(ref, face=0):
     ("fra/ajani-resolute", 0, "Ajani"),
     ("fra/arni-humble-scribe", 0, "Arni"),
     ("fra/vigorbloom-vanguard-seed-suture", 0, "this creature"),
-    ("fra/vigorbloom-vanguard-seed-suture", 1, "this spell"),
+    ("fra/vigorbloom-vanguard-seed-suture", 1, "Seed Suture"),
     ("trk/dr-beverly-crusher", 0, "Dr. Crusher"),
     ("trk/captain-james-t-kirk", 0, "Captain Kirk"),
     ("trk/amok-time", 0, "this Saga"),
     ("trk/andoria", 0, "this land"),
-    ("fra/academic-ascent", 0, "this spell"),
+    ("fra/academic-ascent", 0, "Academic Ascent"),
 ])
 def test_self_phrase(ref, face, want):
     assert self_phrase(ctx(ref, face), LEX) == want

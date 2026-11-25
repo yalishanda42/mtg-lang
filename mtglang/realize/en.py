@@ -6,6 +6,8 @@ yet is written ``⟦kind⟧`` so the eval can count it.
 """
 from __future__ import annotations
 
+import re
+from dataclasses import replace as dataclasses_replace
 from pathlib import Path
 
 from mtglang import ast as A
@@ -15,6 +17,7 @@ from mtglang.planir import AbilityPlan, CardContext, CardPlan, ClausePlan, Gap, 
 # subtypes a card names itself by ("this Saga"); otherwise the card type decides ("this creature")
 SELF_SUBTYPES = ("Saga", "Aura", "Equipment", "Spacecraft", "Vehicle")
 SELF_TYPES = ("Creature", "Land", "Artifact", "Enchantment", "Planeswalker", "Battle")
+COLOR_WORDS = {"{W}": "white", "{U}": "blue", "{B}": "black", "{R}": "red", "{G}": "green", "{C}": "colorless"}
 NUM_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
              "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
 # events that happen to an object once: their triggers say "When", not "Whenever"
@@ -32,8 +35,10 @@ def self_phrase(ctx: CardContext, lex: Lexicon, as_: str = "permanent", in_token
         return "this token"
     if as_ == "card":
         return "this card"
-    if as_ == "spell" or ctx.is_spell:
+    if as_ == "spell":
         return "this spell"
+    if ctx.is_spell:
+        return ctx.name
     if ctx.legendary:
         return ctx.short
     for sub in SELF_SUBTYPES:
@@ -56,6 +61,11 @@ def article(word: str) -> str:
 
 def gap(kind: str) -> str:
     return f"⟦{kind}⟧"
+
+
+def fin(s: str) -> str:
+    """End a sentence with a period, unless it ends in mode lines (which carry their own)."""
+    return s if "\n" in s else s + "."
 
 
 class En:
@@ -121,13 +131,19 @@ class En:
         head = "When" if self._once(ev) else "Whenever"
         first, rest = self.split_first(a.parts["effect"])
         conds = "".join(f", if {self.inline(c)}" for c in a.parts["conds"])
-        out = f"{head} {self.inline(ev)}{conds}, {first}."
-        return out + "".join(f" {cap(s)}." for s in rest)
+        out = f"{head} {self.inline(ev)}{conds}, {fin(first)}"
+        return out + "".join(f" {fin(cap(s))}" for s in rest)
 
     def _once(self, ev) -> bool:
         clauses = ev.clauses if isinstance(ev, SentencePlan) else (ev,)
-        return all(isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef) and c.pred.glyph in ONCE_VERBS
-                   and c.subject is not None and c.subject.ref == "self" for c in clauses)
+        def once(c):
+            if not (isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef)):
+                return False
+            if c.pred.glyph in ONCE_VERBS and c.subject is not None and c.subject.ref == "self":
+                return True
+            obj = self.arg(c, "object")
+            return self.op(c.pred) == "cast" and isinstance(obj, PhrasePlan) and obj.ref == "self"
+        return all(once(c) for c in clauses)
 
     def ab_activated(self, a: AbilityPlan) -> str:
         costs = ", ".join(cap(self.cost(c)) for c in a.parts["cost"])
@@ -143,6 +159,20 @@ class En:
             sign = {"-": "−", "−": "−", "+": "+"}.get(c.sign, "")
             return f"{sign}{c.value}"
         return self.inline(c)
+
+    def ab_modal(self, a: AbilityPlan) -> str:
+        return cap(self.modal(a))
+
+    def modal(self, a: AbilityPlan) -> str:
+        choose = a.parts["choose"]
+        amount = self.arg(choose, "amount") if isinstance(choose, ClausePlan) else None
+        head = f"choose {self.number(amount) if amount is not None else gap('choose')} —"
+        return head + "".join(f"\n{self.ability(m)}" for m in a.parts["modes"])
+
+    def ab_mode(self, a: AbilityPlan) -> str:
+        inner = a.parts["ability"]
+        body = self.text(inner.parts["body"]) if getattr(inner, "shape", "") == "static" else self.ability(inner)
+        return f"• {body}"
 
     def ab_labelled(self, a: AbilityPlan) -> str:
         label = " ".join(self.label_word(x) for x in a.label)
@@ -175,7 +205,7 @@ class En:
 
     def text(self, p) -> str:
         """A full effect as text: capitalised sentences ending in periods."""
-        return " ".join(f"{cap(s)}." for s in self.sentences(p))
+        return " ".join(fin(cap(s)) for s in self.sentences(p))
 
     def inline(self, p) -> str:
         if isinstance(p, Gap):
@@ -188,6 +218,8 @@ class En:
             return self.np(p)
         if isinstance(p, A.Bind):
             return f"{p.var.name} is {self.value(p.value)}"
+        if isinstance(p, AbilityPlan):
+            return self.modal(p) if p.shape == "modal" else gap(f"ability:{p.shape}")
         return self.value(p)
 
     def sentence_plan(self, p: SentencePlan) -> str:
@@ -198,6 +230,9 @@ class En:
         kinds = {j.kind for j in p.joins}
         if kinds <= {"and", "or"} and len(kinds) == 1:
             word = kinds.pop()
+            merged = self.merge_objects(p, word)
+            if merged is not None:
+                return merged
             parts = [self.inline(c) for c in p.clauses]
             if len(parts) == 2:
                 return f"{parts[0]} {word} {parts[1]}"
@@ -216,6 +251,20 @@ class En:
             if j == "during":
                 return f"{a} {b}"
         return gap("join:" + "+".join(j.kind for j in p.joins))
+
+    def merge_objects(self, p: SentencePlan, word: str) -> str | None:
+        """"gains trample and lifelink": shared subject, same verb, one argument each, time only at the end."""
+        cs = p.clauses
+        if len(cs) != 2 or not all(isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef) for c in cs):
+            return None
+        a, b = cs
+        if not b.subject_shared or a.pred.index != b.pred.index or self.arg(a, "time") is not None:
+            return None
+        if self.op(a.pred) != "has":
+            return None
+        first = self.clause(a)
+        return f"{first} {word} {self.ability_arg(self.arg(b, 'ability'))}" + (
+            f" {self.trailing(b)}" if self.trailing(b) else "")
 
     # ------------------------------------------------------------ clauses
     def subject_text(self, c: ClausePlan) -> tuple[str, bool]:
@@ -283,6 +332,8 @@ class En:
                 words.append(self.counted(a, counted))
             elif slot == "mana":
                 words.append(self.mana(a))
+            elif slot == "state" and isinstance(a, ClausePlan) and isinstance(a.pred, A.SymRef) and not a.args:
+                words.append(self.w(a.pred, "ed"))
             else:
                 words.append(self.value(a))
         del g
@@ -294,6 +345,8 @@ class En:
         return gap("ability")
 
     def counted(self, n, noun: str) -> str:
+        if isinstance(n, A.Count):
+            return f"{article(noun)} {noun} for each {self.np(self._sg(n.of))}"
         if isinstance(n, A.Num) and n.value == 1:
             return f"{article(noun)} {noun}"
         return f"{self.number(n)} {noun}s"
@@ -312,7 +365,11 @@ class En:
         hop = self.op(head)
         if hop == "damage":
             amount = self._mod(obj, "count")
-            return f"{'deals' if third else 'deal'} {self.number(amount, word=False)} damage to {self.np(dest)}"
+            self._damage_dest = True
+            try:
+                return f"{'deals' if third else 'deal'} {self.number(amount, word=False)} damage to {self.np(dest)}"
+            finally:
+                self._damage_dest = False
         if hop == "counter":
             return f"{'puts' if third else 'put'} {self.counter_np(obj)} on {self.np(dest)}"
         if isinstance(dest, A.Zone) and dest.zone.glyph == "⊘":
@@ -352,6 +409,11 @@ class En:
         return self.value(n)
 
     # ------------------------------------------------------------ phrases
+    @staticmethod
+    def _sg(p):
+        import dataclasses
+        return dataclasses.replace(p, number="sg", quantity="kind") if isinstance(p, PhrasePlan) else p
+
     def _mod(self, p: PhrasePlan, slot: str):
         for s, v in p.mods:
             if s == slot:
@@ -364,14 +426,24 @@ class En:
         if not isinstance(p, PhrasePlan):
             return self.value(p)
         if p.ref == "self":
-            return "it" if p.pronoun else self_phrase(self.ctx, self.lex)
+            return "it" if p.pronoun and p.self_as == "permanent" else self_phrase(self.ctx, self.lex, p.self_as)
         if p.ref == "you":
             return "you"
         if p.ref == "anaphor":
-            return "it"
-        noun = self.head_words(p)
-        post = self.filters(p, moving)
+            return self.anaphor(p)
+        if not p.heads and self._mod(p, "quant") is not None and self.op(self._mod(p, "quant")) == "target":
+            return "any target"
         q = p.quantity
+        if q == "exists":
+            ctl = self.control_rel(p)
+            if ctl is not None:
+                who = ctl.other
+                rest = dataclasses_replace(p, mods=self._without(p.mods, ctl), quantity="one")
+                verb = "control" if (isinstance(who, PhrasePlan) and (who.ref == "you" or who.number == "pl")) \
+                    else "controls"
+                return f"{self.np(who, role='subject')} {verb} {self.np(rest)}"
+        pre, post = self.modifiers(p, moving)
+        noun = self.premodified(pre, self.head_words(p))
         quant = self._mod(p, "quant")
         target = quant is not None and self.op(quant) == "target"
         core = f"target {noun}" if target else noun
@@ -382,13 +454,67 @@ class En:
         elif q == "one":
             out = core if target else f"{article(core)} {core}"
         elif q == "each":
-            out = f"each {core}"
+            out = f"each {core}" if role == "subject" or self.is_player(p) or self._damage_dest else \
+                f"all {self.head_words(dataclasses_replace(p, number='pl'))}"
+        elif q == "exists":
+            out = f"{article(core)} {core}"
         else:
             out = core
         return f"{out} {post}".strip()
 
+    def control_rel(self, p: PhrasePlan):
+        for slot, f in p.mods:
+            if slot == "filters":
+                for flt in f:
+                    for c in getattr(flt, "conds", ()):
+                        if isinstance(c, A.Rel) and self.op(c.rel) == "control":
+                            return c
+        return None
+
+    @staticmethod
+    def _without(mods: tuple, cond) -> tuple:
+        out = []
+        for slot, v in mods:
+            if slot == "filters":
+                v = tuple(dataclasses_replace(f, conds=tuple(c for c in f.conds if c is not cond)) for f in v)
+                v = tuple(f for f in v if f.conds)
+                if not v:
+                    continue
+            out.append((slot, v))
+        return tuple(out)
+
+    @staticmethod
+    def premodified(pre: list[str], noun: str) -> str:
+        """Premodifiers before the noun; consecutive "non-" words are separated by commas."""
+        out = ""
+        for i, w in enumerate(pre):
+            if i:
+                out += ", " if (w.startswith("non") and pre[i - 1].startswith("non")) else " "
+            out += w
+        return f"{out} {noun}".strip()
+
+    def is_player(self, p) -> bool:
+        return isinstance(p, PhrasePlan) and any(
+            isinstance(h, A.SymRef) and self.g.symbols[h.index].syntax.get("kind") == "player" for h in p.heads)
+
+    _damage_dest = False
+
+    def anaphor(self, p: PhrasePlan) -> str:
+        """"it" for a target or a just-named object; "that player" for players; "that <noun>" for a trigger's
+        subject."""
+        a = p.antecedent
+        if isinstance(a, PhrasePlan):
+            if self.is_player(a):
+                return "that player"
+            quant = self._mod(a, "quant")
+            if quant is not None and self.op(quant) == "target":
+                return "it"
+            if ".event." in a.path + "." and a.heads:
+                return f"that {self.head_words(dataclasses_replace(a, number='sg', mods=()))}"
+        return "it"
+
     def head_words(self, p: PhrasePlan) -> str:
-        words, token = [], False
+        words, token = [], any(isinstance(h, A.SymRef) and h.glyph == "◌" for h in p.heads)
         heads = list(p.heads)
         for i, h in enumerate(heads):
             last = i == len(heads) - 1
@@ -397,11 +523,10 @@ class En:
             elif isinstance(h, A.SymRef):
                 lx = self.lex.sym(h.index)
                 if h.glyph == "◌":
-                    token = True
                     continue
                 if "adj" in lx and "noun" not in lx:
                     words.append(lx["adj"])
-                elif last and p.number == "pl":
+                elif last and p.number == "pl" and not token:
                     words.append(lx.get("pl") or gap(f"{h.glyph}.pl"))
                 else:
                     words.append(lx.get("noun") or gap(f"{h.glyph}.noun"))
@@ -411,15 +536,46 @@ class En:
             words.append("tokens" if p.number == "pl" else "token")
         return " ".join(words)
 
-    def filters(self, p: PhrasePlan, moving: bool) -> str:
-        out = []
+    def modifiers(self, p: PhrasePlan, moving: bool) -> tuple[list[str], str]:
+        """(premodifier words, postmodifier text) from the phrase's filters."""
+        pre, post = [], []
         for slot, f in p.mods:
             if slot != "filters":
                 continue
             for flt in f:
                 for cond in getattr(flt, "conds", ()):
-                    out.append(self.filter_cond(cond, p, moving))
-        return " ".join(out)
+                    word = self.premodifier(cond)
+                    if word is not None:
+                        pre.append(word)
+                    else:
+                        post.append(self.filter_cond(cond, p, moving))
+        return pre, " ".join(post)
+
+    def premodifier(self, cond) -> str | None:
+        """A filter condition written before the noun (non-creature, 2/2, white, legendary), else None."""
+        if isinstance(cond, A.Not) and isinstance(cond.item, PhrasePlan) and cond.item.quantity == "kind":
+            return "non" + self.head_words(cond.item)
+        if isinstance(cond, PhrasePlan) and cond.quantity == "kind" and cond.ref == "new" and not cond.mods:
+            return self.head_words(cond)
+        if isinstance(cond, A.PT):
+            return self.pt(cond)
+        if isinstance(cond, A.Characteristic) and cond.char.glyph == "♦" and cond.of is not None:
+            return self.color(cond.of)
+        if isinstance(cond, A.SymRef):
+            lx = self.lex.sym(cond.index)
+            if "adj" in lx:
+                return lx["adj"]
+        return None
+
+    def color(self, v) -> str:
+        if isinstance(v, A.Mana):
+            words = [COLOR_WORDS.get(m, gap(f"color:{m}")) for m in re.findall(r"\{[^}]*\}", v.text)]
+            return " and ".join(words)
+        if isinstance(v, A.SymRef) and v.glyph == "∅":
+            return "colorless"
+        if isinstance(v, A.And):
+            return " and ".join(self.color(x) for x in v.items)
+        return gap("color")
 
     def filter_cond(self, cond, p: PhrasePlan, moving: bool) -> str:
         if isinstance(cond, A.Rel) and self.op(cond.rel) == "control":
