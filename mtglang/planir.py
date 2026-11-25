@@ -73,8 +73,9 @@ class ClausePlan:
     negated: bool = False
     passive: bool = False
     mood: str = "indicative"        # imperative (to the ability's controller) / indicative
-    tense: str = "present"
+    tense: str = "present"          # past: a completed event in a condition ("… this turn")
     subject_shared: bool = False    # same subject as the previous clause
+    aspect: str = "event"           # for "has": state (a permanent's static ability) / change (an effect)
 
 
 @dataclass(frozen=True)

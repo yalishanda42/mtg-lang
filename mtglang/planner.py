@@ -64,13 +64,21 @@ class Planner:
         return AbilityPlan(path, "keywords", {"items": self.conv(n.items, f"{path}.items")})
 
     def ab_static(self, n: A.Static, path):
-        return AbilityPlan(path, "static", {"body": self.sentence(n.body, f"{path}.body")})
+        saved, self._static = self._static, True
+        try:
+            return AbilityPlan(path, "static", {"body": self.sentence(n.body, f"{path}.body")})
+        finally:
+            self._static = saved
+
+    _static = False
+    _spell = False
 
     def ab_triggered(self, n: A.Triggered, path):
         parts = {"event": self.sentence(n.event, f"{path}.event"),
-                 "conds": tuple(self.sentence(c, f"{path}.conds.{i}") for i, c in enumerate(n.conds)),
+                 "conds": tuple(self.condition(c, f"{path}.conds.{i}") for i, c in enumerate(n.conds)),
                  "while_": self.sentence(n.while_, f"{path}.while_") if n.while_ is not None else None,
                  "effect": self.sentence(n.effect, f"{path}.effect")}
+        parts["once"] = _once(parts["event"])
         return AbilityPlan(path, "triggered", parts)
 
     def ab_activated(self, n: A.Activated, path):
@@ -99,7 +107,17 @@ class Planner:
         return AbilityPlan(path, "threshold", {"n": n.n, "ability": self.ability(n.ability, f"{path}.ability")})
 
     def ab_mode(self, n: A.Mode, path):
-        return AbilityPlan(path, "mode", {"ability": self.ability(n.ability, f"{path}.ability")})
+        """A mode's body is an effect, not a static ability, even when written like one."""
+        if isinstance(n.ability, A.Static):
+            saved, self._static = self._static, False
+            try:
+                inner = AbilityPlan(f"{path}.ability", "static",
+                                    {"body": self.sentence(n.ability.body, f"{path}.ability.body")})
+            finally:
+                self._static = saved
+        else:
+            inner = self.ability(n.ability, f"{path}.ability")
+        return AbilityPlan(path, "mode", {"ability": inner})
 
     def ab_modal(self, n: A.Modal, path):
         return AbilityPlan(path, "modal", {
@@ -156,12 +174,16 @@ class Planner:
                      for slot, c, p in _pair_paths(n.args, f"{path}.args"))
         verb = self.conv(n.verb, f"{path}.verb") if n.verb is not None else None
         vop = self.op(n.verb)
+        aspect = "event"
+        if vop == "has":
+            timed = any(s == "time" for s, _ in n.args)
+            aspect = "state" if self._static and not self._spell and not timed else "change"
         if vop == "cast":           # the object of "cast" is a spell
             args = tuple((s, _as_spell(v)) if s == "object" else (s, v) for s, v in args)
         if vop == "cost_change" and subject is not None:
             subject = _as_spell(subject)
         return ClausePlan(path, verb, subject, args, optional=n.optional, negated=n.negated, passive=n.passive,
-                          mood=mood, subject_shared=shared)
+                          mood=mood, subject_shared=shared, aspect=aspect)
 
     def s_modify(self, n: A.Modify, path):
         subject, mood, shared = self._subject(n, path)
@@ -169,11 +191,15 @@ class Planner:
         return ClausePlan(path, self.conv(n.change, f"{path}.change"), subject, args, optional=n.optional,
                           negated=n.negated, mood=mood, subject_shared=shared)
 
+    def condition(self, node, path):
+        """A condition: a completed event in it ("… this turn") is in the past tense."""
+        return _past(self.sentence(node, path))
+
     def s_cond(self, n: A.Conditional, path):
         then = self.sentence(n.then, f"{path}.then")
         if n.mode in ("if_do", "if_dont"):
             return SentencePlan(path, (then,), (), lead=n.mode)
-        cond = self.sentence(n.cond, f"{path}.cond")
+        cond = self.condition(n.cond, f"{path}.cond")
         if n.mode == "unless":
             return SentencePlan(path, (then, cond), (Join("unless"),))
         return SentencePlan(path, (cond, then), (Join("if"),))
@@ -186,7 +212,7 @@ class Planner:
 
     def s_while(self, n: A.While, path):
         kind = "as_though" if self.op(n.op) == "as_though" else "while"
-        return SentencePlan(path, (self.sentence(n.body, f"{path}.body"), self.sentence(n.cond, f"{path}.cond")),
+        return SentencePlan(path, (self.sentence(n.body, f"{path}.body"), self.condition(n.cond, f"{path}.cond")),
                             (Join(kind),))
 
     def s_until(self, n: A.Until, path):
@@ -280,6 +306,50 @@ class Planner:
         return dataclasses.replace(v, **changes) if changes else v
 
 
+# events that can happen to an object only once (enters, dies, leaves) and the attachments that follow it
+ONCE_VERBS = frozenset({"↥", "☠", "↧"})
+ATTACHED = frozenset({"⚭", "⚒"})
+
+
+def _attached_to_self(p) -> bool:
+    return isinstance(p, PhrasePlan) and any(
+        isinstance(c, A.Rel) and getattr(c.rel, "glyph", "") in ATTACHED and isinstance(c.other, PhrasePlan)
+        and c.other.ref == "self"
+        for slot, f in p.mods if slot == "filters" for flt in f for c in getattr(flt, "conds", ()))
+
+
+def _once(ev) -> bool:
+    """A trigger on something that happens once to this object (it enters, dies, is cast) — English "When",
+    Bulgarian perfective "когато встъпи" — versus a repeatable event ("Whenever", "щом встъпва")."""
+    clauses = ev.clauses if isinstance(ev, SentencePlan) else (ev,)
+
+    def once(c):
+        if not (isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef)):
+            return False
+        if c.pred.glyph in ONCE_VERBS and c.subject is not None and (
+                c.subject.ref == "self" or _attached_to_self(c.subject)):
+            return True
+        obj = next((v for s, v in c.args if s == "object"), None)
+        return isinstance(obj, PhrasePlan) and obj.ref == "self" and obj.self_as == "spell"
+    return all(once(c) for c in clauses)
+
+
+def _this_turn(c) -> bool:
+    return any(s == "time" and isinstance(v, A.Time) and [getattr(x, "glyph", None) for x in v.items] == ["◷"]
+               for s, v in c.args)
+
+
+def _past(p):
+    """Mark clauses that report something done this turn as past (also under ¬ and inside "the number of")."""
+    if isinstance(p, ClausePlan):
+        return dataclasses.replace(p, tense="past") if _this_turn(p) else p
+    if isinstance(p, A.Not):
+        return dataclasses.replace(p, item=_past(p.item))
+    if isinstance(p, SentencePlan):
+        return dataclasses.replace(p, clauses=tuple(_past(c) for c in p.clauses))
+    return p
+
+
 def _same_phrase(a, b) -> bool:
     return isinstance(a, PhrasePlan) and isinstance(b, PhrasePlan) and a.ref == b.ref and (
         a.ref in ("self", "you") or (a.heads, a.mods) == (b.heads, b.mods)) and a.ref != "new"
@@ -309,6 +379,7 @@ def plan_card(card: A.Card, ctxs: list[CardContext], g: Glossary) -> CardPlan:
     p = Planner(g, card)
     faces = []
     for fi, f in enumerate(card.faces):
+        p._spell = ctxs[fi].is_spell
         abilities = []
         for ai, a in enumerate(f.abilities):
             p._self_seen = False

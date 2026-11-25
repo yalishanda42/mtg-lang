@@ -114,7 +114,7 @@ def test_unknown_kind_is_gap(monkeypatch):
 # str fields a plan may carry: AST spelling-free values, plan enums, and names (keys, not words)
 _ALLOWED_STR = {"path", "kind", "reason", "shape", "mood", "tense", "number", "quantity", "ref", "lead",
                 "name", "short", "cost", "glyph", "key", "sign", "op", "mode", "stat", "power", "toughness",
-                "value", "text", "dash", "implicit_subject", "self_as"}
+                "value", "text", "dash", "implicit_subject", "self_as", "aspect"}
 
 
 def test_no_english_in_plan():
@@ -133,3 +133,37 @@ def test_cost_action_is_imperative():
     a = plan("trk/dal-rel-augment-orphan").faces[0].abilities[1]      # {3}, ✝⛰ : ⤓1
     sac = a.parts["cost"][1]
     assert sac.mood == "imperative" and sac.subject.implicit
+
+
+def test_has_in_static_ability_of_permanent_is_state():
+    a = plan("fra/ferocity-of-the-hunt").faces[0].abilities[2]      # Enchanted creature gets +1/+0 and has deathtouch.
+    has = [n for n in nodes(a) if isinstance(n, ClausePlan) and getattr(n.pred, "glyph", "") == "∋"]
+    assert has and all(c.aspect == "state" for c in has)
+
+
+def test_gains_with_duration_is_change():
+    a = plan("fra/academic-ascent").faces[0].abilities[0]           # … gains flying until end of turn (instant)
+    has = [n for n in nodes(a) if isinstance(n, ClausePlan) and getattr(n.pred, "glyph", "") == "∋"]
+    assert has and all(c.aspect == "change" for c in has)
+
+
+def test_condition_this_turn_is_past():
+    a = plan("fra/traxos-academy-guardian").faces[0].abilities[0]   # … if you've cast a noncreature spell this turn
+    cond = a.parts["body"].clauses[0].clauses[0] if isinstance(a.parts["body"].clauses[0], SentencePlan) \
+        else a.parts["body"].clauses[0]
+    past = [n for n in nodes(a) if isinstance(n, ClausePlan) and n.tense == "past"]
+    assert past and getattr(past[0].pred, "glyph", "") == "✷"
+    del cond
+
+
+def test_mode_body_is_an_effect():
+    a = plan("fra/fateshaper-aspirant")                             # • … It gains vigilance and indestructible …
+    has = [n for n in nodes(a) if isinstance(n, ClausePlan) and getattr(n.pred, "glyph", "") == "∋"]
+    assert has and all(c.aspect == "change" for c in has)
+
+
+def test_trigger_once_vs_repeated():
+    assert plan("fra/aerid-konstrari").faces[0].abilities[1].parts["once"] is True        # enters or dies
+    assert plan("fra/afterthought-sentry").faces[0].abilities[1].parts["once"] is False   # attacks
+    assert plan("fra/emrakul-the-exigent-doom").faces[0].abilities[0].parts["once"] is True  # cast this spell
+    assert plan("fra/ferocity-of-the-hunt").faces[0].abilities[3].parts["once"] is True   # enchanted creature dies

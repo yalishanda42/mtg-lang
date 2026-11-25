@@ -21,8 +21,6 @@ ROMAN = ("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
 COLOR_WORDS = {"{W}": "white", "{U}": "blue", "{B}": "black", "{R}": "red", "{G}": "green", "{C}": "colorless"}
 NUM_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
              "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
-# events that happen to an object once: their triggers say "When", not "Whenever"
-ONCE_VERBS = frozenset({"↥", "☠", "↧"})
 
 
 def _type_noun(lex: Lexicon, index: int) -> str:
@@ -134,7 +132,7 @@ class En:
 
     def ab_triggered(self, a: AbilityPlan) -> str:
         ev = a.parts["event"]
-        head = "When" if self._once(ev) else "Whenever"
+        head = "When" if a.parts.get("once") else "Whenever"
         if isinstance(ev, A.Time):
             head = "At"
         self._limit_kind = "trigger"
@@ -148,27 +146,8 @@ class En:
         out = f"{head} {ev_text}{conds}, {fin(first)}"
         return out + "".join(f" {fin(cap(s))}" for s in rest)
 
-    def _once(self, ev) -> bool:
-        clauses = ev.clauses if isinstance(ev, SentencePlan) else (ev,)
-        def once(c):
-            if not (isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef)):
-                return False
-            if c.pred.glyph in ONCE_VERBS and c.subject is not None and (
-                    c.subject.ref == "self" or self._attached_to_self(c.subject)):
-                return True
-            obj = self.arg(c, "object")
-            return self.op(c.pred) == "cast" and isinstance(obj, PhrasePlan) and obj.ref == "self"
-        return all(once(c) for c in clauses)
-
     _limit_kind = "activate"
     _in_event = False
-
-    def _attached_to_self(self, p) -> bool:
-        if not isinstance(p, PhrasePlan):
-            return False
-        return any(isinstance(c, A.Rel) and isinstance(c.other, PhrasePlan) and c.other.ref == "self"
-                   and "adj" in self.lex.sym(c.rel.index)
-                   for slot, f in p.mods if slot == "filters" for flt in f for c in getattr(flt, "conds", ()))
 
     def ab_activated(self, a: AbilityPlan) -> str:
         self._limit_kind = "activate"
@@ -203,10 +182,8 @@ class En:
                 inner = self.past_clause(c.item, base=True)
                 return f"you didn't {inner}"
             return gap("not")
-        if isinstance(c, ClausePlan) and isinstance(c.pred, (A.SymRef, A.Or, A.Delta)):
-            t = self.arg(c, "time")
-            if t is not None and [getattr(x, "glyph", None) for x in t.items] == ["◷"]:
-                return self.past_clause(c)
+        if isinstance(c, ClausePlan) and c.tense == "past" and isinstance(c.pred, (A.SymRef, A.Or, A.Delta)):
+            return self.past_clause(c)
         return self.inline(c)
 
     def past_clause(self, c: ClausePlan, base: bool = False) -> str:
@@ -541,7 +518,7 @@ class En:
         if op == "transfer":
             return self.transfer(c, third)
         if op == "has":
-            state = self.static and not self.ctx.is_spell and self.arg(c, "time") is None
+            state = c.aspect == "state"
             word = ("has" if third else "have") if state else self.verb(v, third)
             ab = self.arg(c, "ability")
             text = self.ability_arg(ab)
