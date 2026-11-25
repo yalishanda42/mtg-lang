@@ -55,6 +55,8 @@ def cap(s: str) -> str:
 
 
 def article(word: str) -> str:
+    if re.match(r"(8|11|18)(\D|$)", word):
+        return "an"
     return "an" if word[:1].lower() in "aeiou" else "a"
 
 
@@ -176,6 +178,13 @@ class En:
         """A condition clause: perfect / past tense for things that happened ("you've scried this turn")."""
         if isinstance(c, A.Compare):
             return self.compare(c)
+        if isinstance(c, A.Not) and isinstance(c.item, PhrasePlan) and c.item.quantity == "exists":
+            ctl = self.control_rel(c.item)
+            if ctl is not None:
+                rest = dataclasses_replace(c.item, mods=self._without(c.item.mods, ctl), quantity="one")
+                who = ctl.other
+                third = isinstance(who, PhrasePlan) and who.ref != "you" and who.number == "sg"
+                return f"{self.np(who, role='subject')} {'doesn' if third else 'don'}'t control {self.np(rest)}"
         if isinstance(c, A.Not) and isinstance(c.item, ClausePlan):
             past = self.condition(c.item)
             if past.startswith("you've "):
@@ -215,9 +224,10 @@ class En:
     def cost(self, c) -> str:
         if isinstance(c, A.Mana):
             return c.text
-        if isinstance(c, A.Num):
+        if isinstance(c, (A.Num, A.Var)):
             sign = {"-": "−", "−": "−", "+": "+"}.get(c.sign, "")
-            return f"[{sign}{c.value}]" if self.in_quotes else f"{sign}{c.value}"
+            v = c.value if isinstance(c, A.Num) else c.name
+            return f"[{sign}{v}]" if self.in_quotes else f"{sign}{v}"
         return self.inline(c)
 
     def ab_modal(self, a: AbilityPlan) -> str:
@@ -456,7 +466,9 @@ class En:
         subj, third = self.subject_text(c)
         if not c.subject_shared:
             self._shared_3sg = third
-        if isinstance(c.pred, A.PT):
+        if isinstance(c.pred, A.PT) and c.pred.base is not None:
+            body = f"{'has' if third else 'have'} {self.w(c.pred.base, 'word')} {self.pt(c.pred)}"
+        elif isinstance(c.pred, A.PT):
             body = f"{'gets' if third else 'get'} {self.pt(c.pred)}"
         elif isinstance(c.pred, A.Delta):
             body = self.delta(c.pred, third)
@@ -628,6 +640,12 @@ class En:
             finally:
                 self._damage_dest = False
             verb = "deals" if third else "deal"
+            if c.subject is None and c.mood == "indicative" and self._in_event:
+                who = self.np(dest, role="subject")
+                if isinstance(dest, PhrasePlan) and dest.quantity == "at_least":
+                    who = "one or more " + self.head_words(dataclasses_replace(dest, number="pl"))
+                    return f"{who} {self._mods_text(dest)}are dealt {dmg}".replace("  ", " ")
+                return f"{who} is dealt {dmg}"
             if amount is None:
                 return f"{verb} {dmg} to {d}"
             if isinstance(amount, (A.Num, A.Var)):
@@ -696,6 +714,10 @@ class En:
             where = "on top of" if dest.pos.glyph == "⌃" else "on the bottom of"
             return f"{put} {o} {where} {self.zone(dest, obj, bare=True)}"
         return f"{put} {o} into {self.zone(dest, obj)}"
+
+    def _mods_text(self, p) -> str:
+        pre, post = self.modifiers(p, False)
+        return f"{post} " if post else ""
 
     def damage_kind(self, h) -> str:
         if isinstance(h, A.SymRef) and h.glyph == "⨯":
@@ -899,7 +921,7 @@ class En:
                 return f"that {self.head_words(dataclasses_replace(a, number='sg', mods=()))}"
         return "it"
 
-    def head_words(self, p: PhrasePlan) -> str:
+    def head_words(self, p: PhrasePlan, keep_types: bool = False) -> str:
         words, token = [], any(isinstance(h, A.SymRef) and h.glyph == "◌" for h in p.heads)
         def rank(h):
             if isinstance(h, A.NameRef):
@@ -908,10 +930,15 @@ class En:
                 return 2
             return 1
         heads = sorted(p.heads, key=rank)
+        has_name = any(isinstance(h, A.NameRef) for h in heads)
+        has_object = any(rank(h) == 2 for h in heads)
+        if has_name and not has_object and not keep_types:   # "a Plains you control", "each Angel you control"
+            heads = [h for h in heads if not (isinstance(h, A.SymRef) and h.glyph in ("♞", "⛰"))]
         for i, h in enumerate(heads):
             last = i == len(heads) - 1
             if isinstance(h, A.NameRef):
-                words.append(h.key)
+                pl = last and p.number == "pl" and not token
+                words.append(self.name_plural(h.key) if pl else h.key)
             elif isinstance(h, A.SymRef):
                 lx = self.lex.sym(h.index)
                 if h.glyph == "◌":
@@ -931,6 +958,14 @@ class En:
         if token:
             words.append("tokens" if p.number == "pl" else "token")
         return " ".join(words)
+
+    def name_plural(self, key: str) -> str:
+        lx = self.lex.name(key)
+        if "pl" in lx:
+            return lx["pl"]
+        if key.endswith(("s", "x", "ch", "sh")):
+            return key if key.endswith("s") else key + "es"
+        return key + "s"
 
     def modifiers(self, p: PhrasePlan, moving: bool) -> tuple[list[str], str]:
         """(premodifier words, postmodifier text) from the phrase's filters."""
@@ -960,7 +995,7 @@ class En:
         if isinstance(cond, A.Not) and isinstance(cond.item, PhrasePlan) and cond.item.quantity == "kind":
             return "non" + self.head_words(cond.item)
         if isinstance(cond, PhrasePlan) and cond.quantity == "kind" and cond.ref == "new" and not cond.mods:
-            return self.head_words(cond)
+            return self.head_words(cond, keep_types=True)
         if isinstance(cond, A.PT):
             return self.pt(cond)
         if isinstance(cond, A.Characteristic) and cond.char.glyph == "♦" and cond.of is not None:
@@ -997,6 +1032,9 @@ class En:
             who = cond.other
             if isinstance(who, PhrasePlan) and who.ref == "you":
                 return "you control"
+            if isinstance(who, PhrasePlan) and p.quantity in ("each", "all") and who.ref == "new" \
+                    and who.heads and getattr(who.heads[0], "glyph", "") == "○" and not who.mods:
+                return "your opponents control"
             return f"{self.np(who, role='subject')} {'controls' if getattr(who, 'number', 'sg') == 'sg' else 'control'}"
         if isinstance(cond, A.Zone):
             return f"{'from' if moving else 'in'} {self.zone(cond)}"
@@ -1006,6 +1044,10 @@ class En:
             who = cond.other           # ✷● "you cast", ⌂● "you own"
             third = who.ref != "you" and who.number == "sg"
             return f"{self.np(who, role='subject')} {self.verb(cond.rel, third)}"
+        if isinstance(cond, PhrasePlan) and cond.heads and self.op(cond.heads[0]) == "counter":
+            return f"with {self.counter_np(cond)} on {'them' if p.number == 'pl' and p.quantity != 'each' else 'it'}"
+        if isinstance(cond, PhrasePlan) and cond.ref == "anaphor":
+            return "from among them"
         if isinstance(cond, PhrasePlan):
             quant = self._mod(cond, "quant")
             if quant is not None and self.op(quant) == "target":     # a spell that targets …
@@ -1197,6 +1239,11 @@ class En:
             return self.compare(v)
         if isinstance(v, A.NameRef):
             return v.key
+        if isinstance(v, A.SymRef):
+            lx = self.lex.sym(v.index)
+            return lx.get("word") or lx.get("noun") or gap(v.glyph)
+        if isinstance(v, A.Rel) and getattr(v.rel, "glyph", "") == "→":
+            return self.np(v.other, role="destination")
         if isinstance(v, A.Characteristic):
             return self.characteristic(v)
         if isinstance(v, A.Delta) and v.char is not None and v.char.glyph == "♥" and v.amount is not None:

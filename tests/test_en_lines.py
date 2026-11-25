@@ -70,6 +70,11 @@ MUST_MATCH = [
     "fra/geist-of-saint-thalia#0.1",
     "fra/traxos-academy-guardian#0.0",
     "fra/gallia-the-merrymaker#0.2",
+    "fra/lyra-archangel-of-dawn#0.1",
+    "fra/koth-of-the-homestead#0.1",
+    "fra/multiply-by-zero#0.0",
+    "fra/fulminous-forte#0.1",
+    "fra/kiora-of-salt-and-sand#0.1",
 ]
 
 

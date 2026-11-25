@@ -107,7 +107,9 @@ class Planner:
         return AbilityPlan(path, "threshold", {"n": n.n, "ability": self.ability(n.ability, f"{path}.ability")})
 
     def ab_mode(self, n: A.Mode, path):
-        """A mode's body is an effect, not a static ability, even when written like one."""
+        """A mode's body is an effect, not a static ability, even when written like one. Each mode is read
+        on its own, so a mention of this object in an earlier mode doesn't make it "it"."""
+        self._self_seen = False
         if isinstance(n.ability, A.Static):
             saved, self._static = self._static, False
             try:
@@ -182,6 +184,8 @@ class Planner:
             args = tuple((s, _as_spell(v)) if s == "object" else (s, v) for s, v in args)
         if vop == "cost_change" and subject is not None:
             subject = _as_spell(subject)
+        if vop == "discard":        # what you discard is a card in your hand
+            args = tuple((s, _as_card(v)) if s == "object" else (s, v) for s, v in args)
         return ClausePlan(path, verb, subject, args, optional=n.optional, negated=n.negated, passive=n.passive,
                           mood=mood, subject_shared=shared, aspect=aspect)
 
@@ -353,6 +357,10 @@ def _past(p):
 def _same_phrase(a, b) -> bool:
     return isinstance(a, PhrasePlan) and isinstance(b, PhrasePlan) and a.ref == b.ref and (
         a.ref in ("self", "you") or (a.heads, a.mods) == (b.heads, b.mods)) and a.ref != "new"
+
+
+def _as_card(p):
+    return dataclasses.replace(p, self_as="card") if isinstance(p, PhrasePlan) and p.ref == "self" else p
 
 
 def _as_spell(p):
