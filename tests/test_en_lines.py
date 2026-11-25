@@ -67,6 +67,9 @@ MUST_MATCH = [
     "fra/ajani-unrelenting#0.0",
     "fra/fblthp-knows-the-way#0.1",
     "fra/hapatra-the-desert-frost#0.0",
+    "fra/geist-of-saint-thalia#0.1",
+    "fra/traxos-academy-guardian#0.0",
+    "fra/gallia-the-merrymaker#0.2",
 ]
 
 

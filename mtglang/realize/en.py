@@ -144,7 +144,7 @@ class En:
         finally:
             self._in_event = False
         first, rest = self.split_first(a.parts["effect"])
-        conds = "".join(f", if {self.inline(c)}" for c in a.parts["conds"])
+        conds = "".join(f", if {self.condition(c)}" for c in a.parts["conds"])
         out = f"{head} {ev_text}{conds}, {fin(first)}"
         return out + "".join(f" {fin(cap(s))}" for s in rest)
 
@@ -197,7 +197,43 @@ class En:
         """A condition clause: perfect / past tense for things that happened ("you've scried this turn")."""
         if isinstance(c, A.Compare):
             return self.compare(c)
+        if isinstance(c, A.Not) and isinstance(c.item, ClausePlan):
+            past = self.condition(c.item)
+            if past.startswith("you've "):
+                inner = self.past_clause(c.item, base=True)
+                return f"you didn't {inner}"
+            return gap("not")
+        if isinstance(c, ClausePlan) and isinstance(c.pred, (A.SymRef, A.Or, A.Delta)):
+            t = self.arg(c, "time")
+            if t is not None and [getattr(x, "glyph", None) for x in t.items] == ["◷"]:
+                return self.past_clause(c)
         return self.inline(c)
+
+    def past_clause(self, c: ClausePlan, base: bool = False) -> str:
+        """Something that happened this turn: "you've cast a noncreature spell this turn", "you gained life
+        this turn"; ``base``: "cast a spell this turn" (for "you didn't …")."""
+        rest = " ".join(self.np(a) if isinstance(a, PhrasePlan) else self.value(a)
+                        for s_, a in c.args if s_ != "time")
+        rest = f" {rest}" if rest else ""
+        if isinstance(c.pred, A.Delta) and c.pred.char is not None and c.pred.char.glyph == "♥":
+            gain = c.pred.sign not in ("-", "−")
+            verb = ("gain" if gain else "lose") if base else ("gained" if gain else "lost")
+            subj = "" if base else (self.np(c.subject, role="subject") + " " if c.subject is not None else "")
+            return f"{subj}{verb} life this turn"
+        if base:
+            return f"{self.verbs_of(c.pred, 'verb')}{rest} this turn"
+        if c.subject is not None and c.subject.ref == "you":
+            return f"you've {self.verbs_of(c.pred, 'pp')}{rest} this turn"
+        subj = self.np(c.subject, role="subject") if c.subject is not None else ""
+        return f"{subj} {self.verbs_of(c.pred, 'ed')}{rest} this turn".strip()
+
+    def verbs_of(self, pred, key: str) -> str:
+        """A verb form; "scried or surveilled" for a disjunction of verbs."""
+        if isinstance(pred, A.Or):
+            return " or ".join(self.verbs_of(x, key) for x in pred.items)
+        if key == "pp":
+            return self.w(pred, "pp", self.w(pred, "ed"))
+        return self.w(pred, key)
 
     def cost(self, c) -> str:
         if isinstance(c, A.Mana):
@@ -365,6 +401,12 @@ class En:
                 return self.replacement(p)
             if j == "for_each":
                 return f"for each {self.np(self._sg(p.clauses[0]))}, {self.inline(p.clauses[1])}"
+            if j == "if":
+                cond, then = p.clauses
+                a, b = self.condition(cond), self.inline(then)
+                if isinstance(then, ClausePlan) and self.op(then.pred) == "cost_change":
+                    return f"{b} if {a}"
+                return f"if {a}, {b}"
             a, b = (self.inline(c) for c in p.clauses)
             if j == "while":
                 return f"{a} as long as {self.condition(p.clauses[1])}"
@@ -445,6 +487,8 @@ class En:
             body = self.verb_phrase(c, third)
         elif isinstance(c.pred, A.EffectRef):
             body = self.value(c.pred)
+        elif isinstance(c.pred, A.Or) and all(isinstance(x, A.SymRef) for x in c.pred.items):
+            body = self.verbs_of(c.pred, "s" if third else "verb")
         else:
             body = gap(f"pred:{type(c.pred).__name__}")
         rest = self.trailing(c)
@@ -509,6 +553,10 @@ class En:
                 and self.g.symbols[obj.heads[0].index].syntax.get("kind") in ("stat", "keyword"):
             what = self.w(obj.heads[0], "noun", self.g.symbols[obj.heads[0].index].oracle or "").lower()
             return f"{self.verb(v, third)} {article(what)} {what} ability"
+        if self.op(v) == "cost_change":
+            cost = self.arg(c, "cost")
+            more = "more" if "more" in self.w(v, "verb") else "less"
+            return f"{'costs' if third else 'cost'} {self.value(cost)} {more} to cast"
         if v.glyph == "⌖":
             z = self.arg(c, "zone")
             return f"{self.verb(v, third)} {self.value(z)} for {self.np(obj)}"
@@ -944,6 +992,14 @@ class En:
             lx = self.lex.sym(cond.index)
             if "adj" in lx:
                 return lx["adj"]
+        if isinstance(cond, ClausePlan) and isinstance(cond.pred, A.SymRef) and not cond.args \
+                and cond.subject is None and ("adj" in self.lex.sym(cond.pred.index)
+                                              or "ed" in self.lex.sym(cond.pred.index)):
+            lx = self.lex.sym(cond.pred.index)
+            return lx.get("adj") or lx["ed"]
+        if isinstance(cond, A.Not) and isinstance(cond.item, ClausePlan) and isinstance(cond.item.pred, A.SymRef) \
+                and not cond.item.args and "ed" in self.lex.sym(cond.item.pred.index):
+            return "un" + self.lex.sym(cond.item.pred.index)["ed"]
         if isinstance(cond, A.Not) and isinstance(cond.item, A.Time) and len(cond.item.items) == 1 \
                 and getattr(cond.item.items[0], "glyph", "") == "⨯":
             return "noncombat"
@@ -969,6 +1025,25 @@ class En:
             return f"{'from' if moving else 'in'} {self.zone(cond)}"
         if isinstance(cond, A.Compare):
             return self.compare(cond, in_filter=True)
+        if isinstance(cond, A.Rel) and "verb" in self.lex.sym(cond.rel.index) and isinstance(cond.other, PhrasePlan):
+            who = cond.other           # ✷● "you cast", ⌂● "you own"
+            third = who.ref != "you" and who.number == "sg"
+            return f"{self.np(who, role='subject')} {self.verb(cond.rel, third)}"
+        if isinstance(cond, PhrasePlan):
+            quant = self._mod(cond, "quant")
+            if quant is not None and self.op(quant) == "target":     # a spell that targets …
+                bare = dataclasses_replace(cond, mods=tuple((s_, v) for s_, v in cond.mods if s_ != "quant"))
+                return f"that targets {self.np(bare)}"
+            if self.op(p.heads[0]) == "counter" if p.heads else False:
+                return f"on {self.np(cond)}"
+            return gap("filter:phrase")
+        if isinstance(cond, ClausePlan) and isinstance(cond.pred, A.SymRef):
+            t = self.arg(cond, "time")
+            if t is None and not cond.args:
+                return gap("filter:state")
+            rest = " ".join(self.value(a) for s_, a in cond.args if s_ != "time")
+            when = f" {self.time(t)}" if t is not None else ""
+            return f"that {self.w(cond.pred, 'ed')}{(' ' + rest) if rest else ''}{when}"
         return gap(f"filter:{getattr(cond, 'kind', type(cond).__name__)}")
 
     def zone(self, z: A.Zone, obj=None, bare: bool = False) -> str:
