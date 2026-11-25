@@ -282,10 +282,10 @@ def render_site(root: Path, out: Path, lang: str = "en") -> Path:
                     for k in range(n):
                         a = f.abilities[k].text if k < len(f.abilities) else ""
                         en = elines[k] if k < len(elines) else ""
-                        o = olines[k] if k < len(olines) else ""
+                        ol = olines[k] if k < len(olines) else ""
                         rows.append({"notation": notation_html(a, g, lang, symbols), "ascii": ascii_html(a, g),
-                                     "oracle": oracle_html(o, symbols) if o else "", "english": en,
-                                     "english_ok": bool(en) and normalize(en) == normalize(o)})
+                                     "oracle": oracle_html(ol, symbols) if ol else "", "english": en,
+                                     "english_ok": normalize(en) == normalize(ol)})
                     header = notation_html(f"{o}{f.name}{c} {f.mana}".strip(), g, lang, symbols)
                     entry["faces"].append({"header": header, "type_line": notation_html(f.type_line, g, lang),
                                            "stats": notation_html(f.stats, g, lang) if f.stats else None,

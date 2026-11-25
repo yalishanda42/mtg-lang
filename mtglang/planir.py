@@ -25,8 +25,8 @@ LEADS = frozenset({"if_do", "if_dont", "instead"})
 class CardContext:
     """What a realizer needs to know about the card to refer to it."""
     name: str                       # full name (a names.yaml key)
-    short: str                      # how the card names itself when legendary
     legendary: bool
+    planeswalker: bool
     type_syms: tuple[int, ...]      # glossary indexes of the card types (♞, ⚙ …)
     subtype_keys: tuple[str, ...]   # names.yaml keys of the subtypes
     face: int

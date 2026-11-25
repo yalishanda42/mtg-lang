@@ -168,3 +168,14 @@ def test_render_site_rendered_english_column(tmp_path):
     assert '<td class="en">Target creature gets +2/+2 and gains flying until end of turn.</td>' in card
     assert re.search(r'<td class="en mismatch">[^<]+</td>', page)
     assert (tmp_path / "eval-en" / "index.html").exists()
+
+
+def test_render_site_face_headers_are_notation(tmp_path):
+    from pathlib import Path
+    root = Path(__file__).parent.parent
+    page = render_site(root, tmp_path).read_text()
+    card = page[page.index('id="fra/academic-ascent"'):]
+    card = card[:card.index('<div class="card"', 10)]
+    hdr = card[card.index('<div class="hdr">'):]
+    hdr = hdr[:hdr.index("</div>")]
+    assert "«" in hdr and 'class="bad"' not in hdr and "Target creature" not in hdr

@@ -90,3 +90,33 @@ def test_cli_eval_en(tmp_path, capsys):
     assert main(["eval-en", "--root", str(ROOT), "--set", "fra", "--out", str(tmp_path)]) == 0
     assert "exact" in capsys.readouterr().out
     assert (tmp_path / "eval-en" / "index.html").exists()
+
+
+def test_ability_crash_is_isolated(monkeypatch):
+    from mtglang.realize import en
+    def boom(self, a):
+        raise RuntimeError("kaboom")
+    monkeypatch.setattr(en.En, "ab_keywords", boom)
+    faces = en.render_card_en(ROOT, "fra/aerid-konstrari")
+    assert faces[0].name == "Aerid Konstrari"
+    assert faces[0].lines[0].startswith("⟦crash:RuntimeError")
+    assert faces[0].lines[1].startswith("When Aerid Konstrari enters")
+
+
+def test_subject_that_is_not_a_phrase_does_not_crash():
+    rs = by_ref(corpus())
+    assert not any(r.cause == "gap:crash" for r in corpus())
+    assert rs["fra/clash-of-elements#0.name"].match
+
+
+def test_unexpected_ast_error_is_ast_cause(fx_copy, monkeypatch):
+    import mtglang.resolve as R
+    real = R.resolve_card
+    def flaky(card, g):
+        if card.faces and card.faces[0].name.key.startswith("Dal"):
+            raise RuntimeError("resolver bug")
+        return real(card, g)
+    monkeypatch.setattr(R, "resolve_card", flaky)
+    rs = evaluate(fx_copy)
+    dal = [r for r in rs if r.ref.startswith("trk/dal-rel-augment-orphan#") and r.field == "ability"]
+    assert dal and all(r.cause == "ast" for r in dal)

@@ -329,7 +329,7 @@ language, and every choice keeps the information behind it, so a realizer may ov
 ### 15.2 Words
 
 English words come from the glossary: each symbol or name may have `lex: {<lang>: {…}}` with keys from
-`verb, s, ed, pp, ing, noun, pl, adj, prep, frame, word, short, poss` (`G-LEX` checks them; `frame` may name
+`verb, s, ed, pp, ing, noun, pl, adj, prep, frame, word, short, poss, pron` (`G-LEX` checks them; `frame` may name
 argument slots only). Keywords fall back to `oracle`. `G-LEX-EN` warns about corpus symbols with no English
 words. Names get `lex.en.short` where Oracle shortens a legendary name in a way no rule derives (*Dr. Crusher*).
 

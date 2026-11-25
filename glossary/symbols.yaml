@@ -51,10 +51,10 @@
 - {glyph: ⚙, ascii: Ar, class: type, labels: {en: Artifact, bg: Изделие, bg-ivanchev: Издѣлие}, lex: {en: {noun: artifact, pl: artifacts}}}
 - {glyph: ✧, ascii: Nc, class: type, labels: {en: Enchantment, bg: Омая, bg-ivanchev: Омая}, lex: {en: {noun: enchantment, pl: enchantments}}}
 - {glyph: ⛰, ascii: Ld, class: type, labels: {en: Land, bg: Земя, bg-ivanchev: Земя}, lex: {en: {noun: land, pl: lands}}}
-- {glyph: ⚝, ascii: Wk, class: type, labels: {en: Planeswalker, bg: Мироходец, bg-note: 'coined: „ходещ из мировете“ (Planeswalker)', bg-ivanchev: Мироходецъ}, lex: {en: {noun: planeswalker, pl: planeswalkers}}}
-- {glyph: ϟ, ascii: In, class: type, labels: {en: Instant, bg: Мигновение, bg-note: църковнослав. „мигновение“ — миг (Instant), bg-ivanchev: Мигновение}, lex: {en: {noun: instant, pl: instants}}}
-- {glyph: ✎, ascii: So, class: type, labels: {en: Sorcery, bg: Чародейство, bg-ivanchev: Чародѣйство}, lex: {en: {noun: sorcery, pl: sorceries}}}
-- {glyph: ⚜, ascii: Lg, class: type, labels: {en: Legendary, bg: Прочут, bg-note: Legendary — „прочут“ вм. заемката „легендарен“, bg-ivanchev: Прочутъ}, lex: {en: {adj: legendary}}}
+- {glyph: ⚝, ascii: Wk, class: type, syntax: {op: planeswalker}, labels: {en: Planeswalker, bg: Мироходец, bg-note: 'coined: „ходещ из мировете“ (Planeswalker)', bg-ivanchev: Мироходецъ}, lex: {en: {noun: planeswalker, pl: planeswalkers}}}
+- {glyph: ϟ, ascii: In, class: type, syntax: {op: instant}, labels: {en: Instant, bg: Мигновение, bg-note: църковнослав. „мигновение“ — миг (Instant), bg-ivanchev: Мигновение}, lex: {en: {noun: instant, pl: instants}}}
+- {glyph: ✎, ascii: So, class: type, syntax: {op: sorcery}, labels: {en: Sorcery, bg: Чародейство, bg-ivanchev: Чародѣйство}, lex: {en: {noun: sorcery, pl: sorceries}}}
+- {glyph: ⚜, ascii: Lg, class: type, syntax: {op: legendary}, labels: {en: Legendary, bg: Прочут, bg-note: Legendary — „прочут“ вм. заемката „легендарен“, bg-ivanchev: Прочутъ}, lex: {en: {adj: legendary}}}
 - {glyph: ⊡, ascii: Bs, class: type, labels: {en: Basic, bg: Основен, bg-ivanchev: Основенъ}, lex: {en: {adj: basic}}}
 - {glyph: ◌, ascii: Tk, class: object, syntax: {kind: object, op: token}, labels: {en: token, bg: подобие, bg-note: 'token — „подобие“ (образ, сянка на нещо)', bg-ivanchev: подобие}, lex: {en: {noun: token, pl: tokens}}}
 - {glyph: ▭, ascii: Cd, class: object, labels: {en: card, bg: карта, bg-ivanchev: карта}, lex: {en: {noun: card, pl: cards}}}

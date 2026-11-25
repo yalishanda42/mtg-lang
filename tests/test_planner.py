@@ -113,7 +113,7 @@ def test_unknown_kind_is_gap(monkeypatch):
 
 # str fields a plan may carry: AST spelling-free values, plan enums, and names (keys, not words)
 _ALLOWED_STR = {"path", "kind", "reason", "shape", "mood", "tense", "number", "quantity", "ref", "lead",
-                "name", "short", "cost", "glyph", "key", "sign", "op", "mode", "stat", "power", "toughness",
+                "name", "cost", "glyph", "key", "sign", "op", "mode", "stat", "power", "toughness",
                 "value", "text", "dash", "implicit_subject", "self_as", "aspect"}
 
 
@@ -167,3 +167,34 @@ def test_trigger_once_vs_repeated():
     assert plan("fra/afterthought-sentry").faces[0].abilities[1].parts["once"] is False   # attacks
     assert plan("fra/emrakul-the-exigent-doom").faces[0].abilities[0].parts["once"] is True  # cast this spell
     assert plan("fra/ferocity-of-the-hunt").faces[0].abilities[3].parts["once"] is True   # enchanted creature dies
+
+
+def test_card_context_holds_no_english(fx_copy):
+    from dataclasses import fields as dfields
+    from mtglang.planir import CardContext
+    assert "short" not in {f.name for f in dfields(CardContext)}
+
+
+def test_card_context_ignores_label_edits(tmp_path):
+    import shutil
+    root = tmp_path / "r"
+    shutil.copytree(ROOT / "glossary", root / "glossary")
+    p = root / "glossary" / "symbols.yaml"
+    p.write_text(p.read_text().replace("labels: {en: Legendary,", "labels: {en: Famous,"))
+    g2 = load_glossary(root / "glossary")
+    c = card_ast(ROOT, "fra/aerid-konstrari")
+    assert planner.context_for(c, 0, g2).legendary
+
+
+def test_glyph_literals_in_code_exist_in_glossary():
+    """The planner and the English realizer still name some symbols by glyph (see the review notes). A glyph
+    renamed in the glossary editor must fail loudly here instead of silently degrading the English."""
+    import re
+    glyphs = {s.glyph for s in G.symbols}
+    missing = {}
+    for f in ("mtglang/planner.py", "mtglang/realize/en.py"):
+        src = (ROOT / f).read_text(encoding="utf-8")
+        for lit in re.findall(r'"([^\x00-\x7f"]{1,2})"', src):
+            if lit not in glyphs and lit not in ("—", "−", "“", "”", "’", "⟦", "⟧"):
+                missing.setdefault(f, set()).add(lit)
+    assert not missing, missing

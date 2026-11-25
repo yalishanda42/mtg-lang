@@ -98,5 +98,8 @@ def corpus_asts(root: Path, sets=None) -> list[tuple[str, str, "A.Card | None", 
         except SemSyntaxError as e:
             out.append((code, slug, None, f"line {getattr(e, 'line', '?')}: {e}"))
             continue
+        except Exception as e:      # a parser / resolver bug on one card never stops a corpus run
+            out.append((code, slug, None, f"{type(e).__name__}: {e}"))
+            continue
         out.append((code, slug, card, None))
     return out

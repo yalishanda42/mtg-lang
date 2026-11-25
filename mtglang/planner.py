@@ -27,21 +27,13 @@ def _pair_paths(pairs: tuple, base: str):
 
 
 def context_for(card: A.Card, face: int, g: Glossary) -> CardContext:
+    """Card facts by glossary op, never by label text (labels are editable words)."""
     f = card.faces[face]
     types = tuple(t.index for t in f.types.types if isinstance(t, A.SymRef))
     subs = tuple(t.key for t in f.types.subtypes if isinstance(t, A.NameRef))
-    words = {g.symbols[i].labels.get("en", "") for i in types}
-    legendary = "Legendary" in words
-    is_spell = bool(words & {"Instant", "Sorcery"})
-    name = f.name.key
-    short = g.names[name].lex.get("en", {}).get("short") if name in g.names else None
-    if not short:
-        if "Planeswalker" in words and subs:
-            short = subs[0]
-        else:
-            short = name.split(",", 1)[0]
-    return CardContext(name=name, short=short, legendary=legendary, type_syms=types, subtype_keys=subs,
-                       face=face, is_spell=is_spell)
+    ops = {g.symbols[i].syntax.get("op") for i in types}
+    return CardContext(name=f.name.key, legendary="legendary" in ops, planeswalker="planeswalker" in ops,
+                       type_syms=types, subtype_keys=subs, face=face, is_spell=bool(ops & {"instant", "sorcery"}))
 
 
 class Planner:
@@ -330,7 +322,7 @@ def _once(ev) -> bool:
     def once(c):
         if not (isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef)):
             return False
-        if c.pred.glyph in ONCE_VERBS and c.subject is not None and (
+        if c.pred.glyph in ONCE_VERBS and isinstance(c.subject, PhrasePlan) and (
                 c.subject.ref == "self" or _attached_to_self(c.subject)):
             return True
         obj = next((v for s, v in c.args if s == "object"), None)

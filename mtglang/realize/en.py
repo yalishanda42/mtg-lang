@@ -39,7 +39,7 @@ def self_phrase(ctx: CardContext, lex: Lexicon, as_: str = "permanent", in_token
     if ctx.is_spell:
         return ctx.name
     if ctx.legendary:
-        return ctx.short
+        return short_name(ctx, lex)
     for sub in SELF_SUBTYPES:
         if sub in ctx.subtype_keys:
             return f"this {sub}"
@@ -48,6 +48,17 @@ def self_phrase(ctx: CardContext, lex: Lexicon, as_: str = "permanent", in_token
         if t in labels:
             return f"this {_type_noun(lex, labels[t])}"
     return "this permanent"
+
+
+def short_name(ctx: CardContext, lex: Lexicon) -> str:
+    """How a legendary card names itself: ``lex.short`` if given, a planeswalker by its planeswalker type,
+    otherwise the name before the first comma."""
+    short = lex.name(ctx.name).get("short")
+    if short:
+        return short
+    if ctx.planeswalker and ctx.subtype_keys:
+        return ctx.subtype_keys[0]
+    return ctx.name.split(",", 1)[0]
 
 
 def cap(s: str) -> str:
@@ -310,7 +321,7 @@ class En:
 
     def _simple(self, c) -> bool:
         return isinstance(c, ClausePlan) and isinstance(c.pred, A.SymRef) and (c.mood == "imperative" or (
-            c.subject is not None and c.subject.ref in ("you", "anaphor")))
+            isinstance(c.subject, PhrasePlan) and c.subject.ref in ("you", "anaphor")))
 
     CARD_FLOW = frozenset({"⤓", "⌫", "⤋", "⌕", "◓"})
 
@@ -1306,8 +1317,15 @@ class FaceText:
 def realize_card(plan: CardPlan, lex: Lexicon) -> list[FaceText]:
     out = []
     for f in plan.faces:
-        en = En(lex, f.ctx)
-        lines = tuple(line for a in f.abilities for line in en.ability(a).split("\n"))
+        lines = []
+        for a in f.abilities:
+            en = En(lex, f.ctx)          # fresh per ability: no state carries over between abilities
+            try:
+                text = en.ability(a)
+            except Exception as e:       # one ability the realizer can't handle never blanks the card
+                text = f"⟦crash:{type(e).__name__}: {e}⟧"
+            lines.extend(text.split("\n"))
+        lines = tuple(lines)
         out.append(FaceText(f.name, english_type_line(f.types, lex.g), stats_text(f.stats), lines))
     return out
 
