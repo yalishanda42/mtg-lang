@@ -1,0 +1,82 @@
+# NB: a word override matches one exact word form; inflected forms (спешен / спешна) need their own line.
+# Corrections to the Ivanchev spelling converter (mtglang.ortho), applied by `mtglang ortho --glossary`.
+#   words   — lowercase modern word → old spelling, used everywhere (the reason follows each line)
+#   entries — a whole bg-ivanchev label for one glossary entry (context-dependent spellings)
+words:
+  крилатост: крилатость       # abstract nouns in -ост are soft feminine (-ость); not in the upstream list
+  живоносност: живоносность   # as above
+  кръстопът: кръстопѫть       # пѫть keeps ѫ in compounds; converter skips words ending in the homograph път
+  изправяне: изправяне        # я here is not from ѣ (verbal noun of изправям)
+  подменче: подмѣнче          # from подмѣна (ѣ in мѣн-)
+  споменат: споменатъ         # спомен has е from ѧ, not ѣ
+  променлива: промѣнлива      # from промѣна (ѣ in мѣн-)
+  растение: растение          # рас-т-ение, no ѣ (converter matches a ѣ root inside)
+  химера: химера              # Greek loan, no ѣ
+  голем: големъ               # Golem — not голѣмъ "big"
+  левиатан: левиатанъ         # Hebrew loan, no ѣ (converter reads лѣвъ "left")
+  съобщител: съобщитель       # agent nouns in -тель are soft
+  старейшина: старѣйшина      # from the comparative старѣй-
+  цветозвяр: цвѣтозвѣръ       # цвѣтъ "flower"
+  семенен: сѣмененъ           # сѣме — ѣ in the root, not the suffix
+  светилището: светилището    # свѧт- "holy" (ѧ → е), not свѣтъ "light"
+  посветен: посветенъ         # as above (свѧт- "holy")
+  сметки: смѣтки              # смѣтка
+  гостенин: гостенинъ         # гость — no ѣ
+  спешен: спѣшенъ             # спѣхъ
+  припевник: припѣвникъ       # пѣя
+  кощеевата: кощеевата        # Кощей — no ѣ
+  пресметни: прѣсмѣтни        # смѣтка
+  белерен: белеренъ           # a name (Beleren), no ѣ
+  метамаг: метамагъ           # Greek meta-, no ѣ
+  стеймътс: стеймътсъ         # a name (Stamets): ъ is a plain vowel, not ѫ
+  маркъс: маркъсъ             # a name (Marcus): as above
+  дейта: дейта                # a name (Data), no ѣ
+  дейвид: дейвидъ             # a name (David), no ѣ
+  ортегас: ортегасъ           # a name (Ortegas), no ѣ
+  полеви: полеви              # поле — no ѣ
+  светилище: светилище        # свѧт- "holy" (ѧ → е)
+  осветен: осветенъ           # as above
+  изолинеен: изолинеенъ       # a loanword, no ѣ
+  разрешава: разрѣшава        # рѣшение
+  безверна: безвѣрна          # вѣра (the converter put ѣ in the prefix)
+  холокамера: холокамера      # камера — a loanword, no ѣ
+  холокамерата: холокамерата  # as above
+  континуумът: континуумътъ   # the article -ътъ, not ѫ
+  ръдърфорд: ръдърфордъ       # a name (Rutherford), not ѫ
+  леярна: леярна              # лея — no ѣ
+  червеев: червеевъ           # червей — no ѣ
+  пътникът: пѫтникътъ         # пѫть
+  лекар: лѣкарь               # лѣкъ "cure" — the upstream exclusion лека hides the root
+  лечител: лѣчитель           # as above
+  лечителя: лѣчителя          # as above (word overrides only match this exact form)
+  билколечител: билколѣчитель # as above
+  лечебница: лѣчебница        # as above
+  лечебна: лѣчебна            # as above
+  вечен: вѣченъ               # вѣкъ
+  вечно: вѣчно                # вѣкъ
+  вечността: вѣчностьта       # вѣкъ
+  людоед: людоѣдъ             # ѣмъ / ѣдя "eat"
+  месояден: месоѣденъ         # as above
+  мера: мера                  # мера "common pasture" (Turkish mera), not мѣра "measure"
+  извисено: извисено          # from високъ, no ѣ
+  спешна: спѣшна              # спѣхъ (the спешен override doesn't cover this form)
+  совалкар: совалкарь         # agent nouns in -ар are soft (рибарь, градинарь)
+  дърворезбар: дърворезбарь   # as above
+  бойнорезбар: бойнорезбарь   # as above
+  старинар: старинарь         # as above
+  странобилкар: странобилкарь # as above
+  д-р: д-ръ                   # abbreviation of докторъ, written with ъ in the period
+  г-н: г-нъ                   # abbreviation of господинъ
+entries:
+  "symbols:⤋": Смели                 # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
+  "names:Jem'Hadar": Джем'Хадаръ     # one name: final ъ only at the end
+  "names:Vau-N'Akat": Вау-Н'Акатъ    # one name: final ъ only at the end
+  "names:Geist of Saint Thalia": Духътъ на света Талия      # света = "saint" (свѧт-), not свѣта "the world"
+  "names:Fateshaper Aspirant": Ученикъ-сѫдбоковачъ          # both parts of the compound end in ъ
+  "names:Hungering Puppetbeast": Гладенъ звѣръ-кукла        # as above
+  "names:Teyo, Lightshield Expert": Тейо, вѣщъ въ свѣтлия щитъ   # вѣщъ "skilled" (вѣдѣти), not вещь "thing"
+  "names:DOT-7 Repair Squad": Поправителна дружина ДОТ-7          # an acronym takes no ъ
+  "names:H.M.S. Bounty, Unlikely Timeship": H.M.S. „Баунти“, невѣроятенъ врѣмеплавъ   # не- + вѣра (the converter put ѣ in the prefix)
+  "names:Fugitive Listener": Бѣгълецъ-слушатель                  # both parts of the compound get their ending
+  "names:Lt. Cmdr. Geordi La Forge": Лейт.-ком. Джорди Ла Форжъ   # abbreviations take no ъ
+  "names:Ni'Var Science Academy": Научна академия на Ни'Варъ       # a name, not варь "lime"

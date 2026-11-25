@@ -101,6 +101,12 @@ def _dump_entry(entry: dict) -> str:
                                  width=10_000).strip()
 
 
+def _ivanchev(root: Path, glyph: str, bg: str) -> str:
+    from mtglang.ortho.glossary import generated, load_overrides
+    words, entries = load_overrides(root)
+    return generated(bg, f"symbols:{glyph}", words, entries)
+
+
 def apply_symbol_edits(root: Path, edits: list[dict], lang: str = "en") -> dict:
     """Apply ``[{index, orig, glyph, ascii, label}]`` to glossary/symbols.yaml and migrate all card files.
 
@@ -131,10 +137,14 @@ def apply_symbol_edits(root: Path, edits: list[dict], lang: str = "en") -> dict:
         labels = dict(old.symbols[i].labels)
         if label:
             labels[lang] = label
+            if lang == "bg":           # keep the generated old spelling in step with the edited modern label
+                labels["bg-ivanchev"] = _ivanchev(root, glyph, label)
         symbols[i] = replace(old.symbols[i], glyph=glyph, ascii=ascii_, labels=labels)
         entry = dict(entries[i])
         entry["glyph"], entry["ascii"] = glyph, ascii_
         entry["labels"] = dict(entry.get("labels") or {}, **({lang: label} if label else {}))
+        if label and lang == "bg":
+            entry["labels"]["bg-ivanchev"] = labels["bg-ivanchev"]
         entries[i] = entry
         touched.add(i)
     if errors:

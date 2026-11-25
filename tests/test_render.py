@@ -135,3 +135,24 @@ def test_render_site_card_view(tmp_path):
     assert '<div class="cv normal pt" style="--bar: #d0bc84;' in s
     assert 'title="{3}, Sacrifice a land: Draw a card."' in s             # oracle line on hover
     assert '<details><summary>Line by line</summary>' in s
+
+
+def test_render_ui_strings_follow_language(fx_copy, tmp_path):
+    p = fx_copy / "glossary/symbols.yaml"
+    p.write_text(p.read_text().replace('labels: {en: "draw"}', 'labels: {en: "draw", bg: "Изтегли"}'))
+    html = render_site(fx_copy, tmp_path / "bg", lang="bg").read_text(encoding="utf-8")
+    assert "<h1>Легенда</h1>" in html and 'title="Изтегли"' in html
+    en = render_site(fx_copy, tmp_path / "xx", lang="xx").read_text(encoding="utf-8")
+    assert "<h1>Legend</h1>" in en
+
+
+def test_legend_bulgarian_tab(fx_copy, tmp_path):
+    p = fx_copy / "glossary" / "names.yaml"
+    p.write_text(p.read_text().replace('labels: {en: "Human"}',
+                                       'labels: {en: "Human", bg: "Човек", bg-ivanchev: "Човѣкъ", bg-note: "бележка"}'))
+    render_site(fx_copy, tmp_path / "out")
+    s = _page(tmp_path / "out")
+    assert 'data-tab="mtgl"' in s and 'data-tab="bg"' in s
+    assert '<div class="tab" id="legend-bg" hidden>' in s
+    assert "<td class=\"iv\">Човѣкъ</td><td>Човек</td><td>Human</td><td class=\"note\">бележка</td>" in s
+    assert '<td class="g"><span data-s="0">⇒</span></td><td class="iv"></td>' in s   # glyphs follow live edits

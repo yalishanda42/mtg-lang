@@ -76,6 +76,46 @@ def cmd_ast(args) -> int:
     return 0
 
 
+def cmd_ortho(args) -> int:
+    try:
+        return _ortho(args)
+    except ValueError as e:
+        print(f"error: {e}")
+        return 1
+
+
+def _ortho(args) -> int:
+    import sys
+    from mtglang.ortho.glossary import load_overrides, regenerate, review_markdown
+    from mtglang.ortho.ivanchev import to_ivanchev
+    root = Path(args.root)
+    if args.glossary:
+        ow = args.overwrite if args.overwrite is None else (True if args.overwrite == [] else args.overwrite)
+        r = regenerate(root, overwrite=ow if ow is not None else False)
+        for key, old, new in r.overwritten:
+            print(f"overwrote {key}: {old} → {new}")
+        if r.conflicts:
+            print("not written: these bg-ivanchev labels differ from what bg + the overrides give now — a hand edit, "
+                  "or a label left from an earlier bg / converter. Keep a hand edit by moving it into "
+                  "glossary/ortho_overrides.yaml → entries; replace stale ones with --overwrite KEY … "
+                  "(or --overwrite alone for all):")
+            for k in r.conflicts:
+                print(f"  {k}")
+            return 1
+        print(f"updated {r.changed} bg-ivanchev label(s)")
+        return 0
+    if args.review:
+        out = root / "docs" / "bg-review.md"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(review_markdown(root) + "\n", encoding="utf-8")
+        print(f"wrote {out}")
+        return 0
+    text = args.text if args.text is not None else sys.stdin.read()
+    words = load_overrides(root)[0] if (root / "glossary").exists() else {}
+    print(to_ivanchev(text, words).rstrip("\n"))
+    return 0
+
+
 def cmd_sync_names(args) -> int:
     from mtglang.glossary import sync_names
     print(f"added {sync_names(Path(args.root))} name(s)")
@@ -131,6 +171,14 @@ def build_parser() -> argparse.ArgumentParser:
     a.add_argument("--root", default=".")
     a.add_argument("--coverage", action="store_true", help="count lines that parse and round-trip")
     a.set_defaults(func=cmd_ast)
+    o = sub.add_parser("ortho", help="convert modern Bulgarian to Ivanchev (pre-1945) spelling, offline")
+    o.add_argument("text", nargs="?", help="text to convert (default: read stdin)")
+    o.add_argument("--root", default=".")
+    o.add_argument("--glossary", action="store_true", help="regenerate every bg-ivanchev label from bg")
+    o.add_argument("--overwrite", nargs="*", metavar="KEY",
+                   help="with --glossary: replace differing labels — only the KEYs given, or all if none")
+    o.add_argument("--review", action="store_true", help="write docs/bg-review.md")
+    o.set_defaults(func=cmd_ortho)
     n = sub.add_parser("sync-names", help="add snapshot card names and subtypes to glossary/names.yaml")
     n.add_argument("--root", default=".")
     n.set_defaults(func=cmd_sync_names)

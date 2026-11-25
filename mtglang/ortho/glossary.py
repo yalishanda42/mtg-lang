@@ -1,0 +1,152 @@
+"""Glossary tooling for Bulgarian labels: generate ``bg-ivanchev`` from ``bg``, and the review file.
+
+Entry keys (used in ``glossary/ortho_overrides.yaml`` → ``entries``): ``symbols:<glyph>``, ``names:<key>``,
+``effects:<key>``.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from pathlib import Path
+
+import yaml
+
+from mtglang.ortho.ivanchev import to_ivanchev
+
+FILES = (("symbols", "symbols.yaml", "glyph"), ("names", "names.yaml", "key"), ("effects", "named_effects.yaml", "key"))
+BG, OLD, NOTE = "bg", "bg-ivanchev", "bg-note"
+
+
+@dataclass
+class RegenResult:
+    changed: int = 0
+    conflicts: list[str] = field(default_factory=list)
+    overwritten: list[tuple[str, str, str]] = field(default_factory=list)   # (key, old label, new label)
+
+
+def load_overrides(root: Path) -> tuple[dict[str, str], dict[str, str]]:
+    p = Path(root) / "glossary" / "ortho_overrides.yaml"
+    try:
+        data = yaml.safe_load(p.read_text(encoding="utf-8")) if p.exists() else None
+    except yaml.YAMLError as e:
+        raise ValueError(f"{p}: not valid YAML ({e.problem}, line {e.problem_mark.line + 1})") from None
+    data = data or {}
+    if not isinstance(data, dict) or any(not isinstance(data.get(k) or {}, dict) for k in ("words", "entries")):
+        raise ValueError(f"{p}: expected two maps, `words:` and `entries:`")
+    for section in ("words", "entries"):
+        empty = [str(k) for k, v in (data.get(section) or {}).items() if v is None or not str(v).strip()]
+        if empty:
+            raise ValueError(f"{p}: {section} without a value: {', '.join(empty)}")
+    words = {str(k).lower(): str(v) for k, v in (data.get("words") or {}).items()}
+    entries = {str(k): str(v) for k, v in (data.get("entries") or {}).items()}
+    return words, entries
+
+
+def _dump(entry: dict) -> str:
+    return "- " + yaml.safe_dump(entry, allow_unicode=True, sort_keys=False, default_flow_style=True,
+                                 width=10_000).strip()
+
+
+def _entries(path: Path):
+    """(line index, parsed entry) for every ``- {…}`` line."""
+    lines = path.read_text(encoding="utf-8").split("\n") if path.exists() else []
+    out = []
+    for k, line in enumerate(lines):
+        if line.startswith("- "):
+            parsed = (yaml.safe_load(line) or [None])[0]
+            if isinstance(parsed, dict):
+                out.append((k, parsed))
+    return lines, out
+
+
+def generated(bg: str, key: str, words: dict, entries: dict) -> str:
+    return entries.get(key) or to_ivanchev(bg, words)
+
+
+def regenerate(root: Path, overwrite: bool | list[str] = False) -> RegenResult:
+    """Set ``bg-ivanchev`` on every entry with ``bg``. Writes nothing if a hand-edited label would be lost,
+    unless ``overwrite`` (then every replaced label is reported in ``overwritten``)."""
+    root = Path(root)
+    words, entries = load_overrides(root)
+    plan: list[tuple[Path, list[str], dict[int, str]]] = []
+    result = RegenResult()
+    for kind, fname, keyfield in FILES:
+        path = root / "glossary" / fname
+        lines, parsed = _entries(path)
+        changes: dict[int, str] = {}
+        for k, e in parsed:
+            labels = e.get("labels") or {}
+            bg = labels.get(BG)
+            if not bg:
+                continue
+            key = f"{kind}:{e[keyfield]}"
+            want = generated(str(bg), key, words, entries)
+            have = labels.get(OLD)
+            if have == want:
+                continue
+            # a stored label that isn't converter output (with or without the word overrides) is a hand edit:
+            # never overwrite it — it must be moved into `entries` first
+            # a stored label that is neither the entry override nor converter output (with or without the word
+            # overrides) is a hand edit — or a label left over from an older bg / converter
+            known = {to_ivanchev(str(bg), words), to_ivanchev(str(bg))} | ({entries[key]} if key in entries else set())
+            if have and have not in known:
+                allowed = overwrite is True or (isinstance(overwrite, list) and key in overwrite)
+                if not allowed:
+                    result.conflicts.append(key)
+                    continue
+                result.overwritten.append((key, str(have), want))
+            e["labels"] = dict(labels, **{OLD: want})
+            changes[k] = _dump(e)
+        plan.append((path, lines, changes))
+    if result.conflicts:
+        return result
+    for path, lines, changes in plan:
+        if changes:
+            for k, text in changes.items():
+                lines[k] = text
+            path.write_text("\n".join(lines), encoding="utf-8")
+            result.changed += len(changes)
+    return result
+
+
+def review_markdown(root: Path) -> str:
+    root = Path(root)
+    words, entries = load_overrides(root)
+    out = ["# Bulgarian labels — review", "",
+           "Generated by `mtglang ortho --review`. `bg` is modern spelling; `bg-ivanchev` is generated from it "
+           "(Ivanchev orthography, pre-1945) with the overrides in `glossary/ortho_overrides.yaml`.", ""]
+    missing: list[str] = []
+    for kind, fname, keyfield in FILES:
+        _, parsed = _entries(root / "glossary" / fname)
+        groups: dict[str, list[dict]] = {}
+        for _, e in parsed:
+            labels = e.get("labels") or {}
+            key = f"{kind}:{e[keyfield]}"
+            if not labels.get(BG):
+                missing.append(key)
+                continue
+            group = e.get("class", "effect") if kind != "effects" else "effect"
+            if kind == "names" and group == "card":
+                group = "card"
+            groups.setdefault(group, []).append(e)
+        for group, items in groups.items():
+            out += [f"## {kind.capitalize()} — {group}", "", "| en | bg | bg-ivanchev | note |", "|---|---|---|---|"]
+            for e in items:
+                labels = e["labels"]
+                key = f"{kind}:{e[keyfield]}"
+                notes = []
+                if key in entries:
+                    notes.append("entry override")
+                used = sorted({w for w in str(labels[BG]).lower().replace("-", " ").split() if w.strip("«»,.") in words})
+                notes += [f"override: {w}→{words[w.strip('«»,.')]}" for w in used]
+                if labels.get(NOTE):
+                    notes.append(str(labels[NOTE]))
+                en = labels.get("en", "")
+                out.append(f"| {_cell(en)} | {_cell(labels[BG])} | {_cell(labels.get(OLD, ''))} | {_cell('; '.join(notes))} |")
+            out.append("")
+    if missing:
+        out += [f"## Missing `bg` ({len(missing)})", "", ", ".join(f"`{m}`" for m in missing), ""]
+    return "\n".join(out)
+
+
+def _cell(s) -> str:
+    return str(s).replace("|", "\\|").replace("\n", " ")

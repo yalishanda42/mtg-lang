@@ -141,11 +141,34 @@ def check_glossary(g: Glossary) -> list[Issue]:
         n = sum(1 for s in g.symbols if s.role == r)
         if n != 1:
             issues.append(Issue("error", "G-ROLE", f"role {r!r} defined {n} times (need exactly 1)"))
+    issues += _bg_coverage(g)
     for coll in (g.names.values(), g.effects.values()):
         for o in coll:
             if not o.labels.get("en"):
                 issues.append(Issue("error", "G-LABEL", f"{o.key!r} has no 'en' label"))
     return issues
+
+
+BG_LANGS = ("bg", "bg-ivanchev")
+
+
+def _bg_coverage(g: Glossary) -> list[Issue]:
+    """G-LABEL-BG (warning): once any Bulgarian label exists, report entries still missing one — one summary
+    per glossary file."""
+    groups = (("symbols.yaml", [(s.glyph, s.labels) for s in g.symbols]),
+              ("names.yaml", [(n.key, n.labels) for n in g.names.values()]),
+              ("named_effects.yaml", [(e.key, e.labels) for e in g.effects.values()]))
+    if not any(lang in labels for _, items in groups for _, labels in items for lang in BG_LANGS):
+        return []
+    out = []
+    for fname, items in groups:
+        missing = [k for k, labels in items if not all(labels.get(lang) for lang in BG_LANGS)]
+        if missing:
+            more = f" … (+{len(missing) - 5})" if len(missing) > 5 else ""
+            out.append(Issue("warning", "G-LABEL-BG",
+                             f"{fname}: {len(missing)} entr(y/ies) without bg / bg-ivanchev: "
+                             f"{', '.join(missing[:5])}{more}"))
+    return out
 
 
 def _syntax_problems(syn: dict) -> list[str]:
