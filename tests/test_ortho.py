@@ -66,3 +66,8 @@ ACCURACY = 0.986  # 2026-11-25: owords1 100%, owords2 99.9%, owords3 95.9% (alre
 
 def test_inner_capitals_kept():
     assert to_ivanchev("Ел-Ауриец") == "Ел-Ауриецъ"
+
+
+def test_soft_agent_and_abstract_nouns():
+    assert to_ivanchev("лечител присадителят лютост лютостта") == "лечитель присадительтъ лютость лютостьта"
+    assert to_ivanchev("хвост мост прост") == "хвостъ мостъ простъ"     # short words keep the hard ending

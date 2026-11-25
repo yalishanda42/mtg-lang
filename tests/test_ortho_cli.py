@@ -81,3 +81,13 @@ def test_broken_overrides_file_is_a_clear_error(tmp_path, capsys):
     (root / "glossary" / "ortho_overrides.yaml").write_text("words: [\n", encoding="utf-8")
     assert main(["ortho", "--glossary", "--root", str(root)]) == 1
     assert "not valid YAML" in capsys.readouterr().out
+
+
+def test_overwrite_replaces_listed_conflicts(tmp_path, capsys):
+    from mtglang.cli import main
+    root = _glossary(tmp_path, '- {key: Bell, class: card, labels: {en: Bell, bg: Звън, bg-ivanchev: Звѫнъ}}\n')
+    assert main(["ortho", "--glossary", "--root", str(root)]) == 1
+    assert main(["ortho", "--glossary", "--overwrite", "--root", str(root)]) == 0
+    out = capsys.readouterr().out
+    assert "overwrote names:Bell: Звѫнъ →" in out
+    assert _labels(root, "names.yaml")[2]["bg-ivanchev"] != "Звѫнъ"

@@ -90,10 +90,13 @@ def _ortho(args) -> int:
     from mtglang.ortho.ivanchev import to_ivanchev
     root = Path(args.root)
     if args.glossary:
-        r = regenerate(root)
+        r = regenerate(root, overwrite=args.overwrite)
+        for key, old, new in r.overwritten:
+            print(f"overwrote {key}: {old} → {new}")
         if r.conflicts:
-            print("not written: these bg-ivanchev labels were edited by hand; move them into "
-                  "glossary/ortho_overrides.yaml → entries first:")
+            print("not written: these bg-ivanchev labels differ from the converter's output (a hand edit, or an "
+                  "older converter); move hand edits into glossary/ortho_overrides.yaml → entries, or rerun with "
+                  "--overwrite to replace them:")
             for k in r.conflicts:
                 print(f"  {k}")
             return 1
@@ -170,6 +173,7 @@ def build_parser() -> argparse.ArgumentParser:
     o.add_argument("text", nargs="?", help="text to convert (default: read stdin)")
     o.add_argument("--root", default=".")
     o.add_argument("--glossary", action="store_true", help="regenerate every bg-ivanchev label from bg")
+    o.add_argument("--overwrite", action="store_true", help="with --glossary: replace labels that differ (listed)")
     o.add_argument("--review", action="store_true", help="write docs/bg-review.md")
     o.set_defaults(func=cmd_ortho)
     n = sub.add_parser("sync-names", help="add snapshot card names and subtypes to glossary/names.yaml")

@@ -16,7 +16,21 @@ words:
   левиатан: левиатанъ         # Hebrew loan, no ѣ (converter reads лѣвъ "left")
   съобщител: съобщитель       # agent nouns in -тель are soft
   старейшина: старѣйшина      # from the comparative старѣй-
+  цветозвяр: цвѣтозвѣръ       # цвѣтъ "flower"
+  семенен: сѣмененъ           # сѣме — ѣ in the root, not the suffix
+  светилището: светилището    # свѧт- "holy" (ѧ → е), not свѣтъ "light"
+  посветен: посветенъ         # as above (свѧт- "holy")
+  сметки: смѣтки              # смѣтка
+  белязан: бѣлязанъ           # ѣ only in бѣл-
+  гостенин: гостенинъ         # гость — no ѣ
+  спешен: спѣшенъ             # спѣхъ
+  припевник: припѣвникъ       # пѣя
+  пристан: пристань           # пристань is soft feminine
+  кощеевата: кощеевата        # Кощей — no ѣ
 entries:
   "symbols:⤋": Смели                 # mill = смели (grind, мелѭ, no ѣ); the converter reads смѣлъ "brave"
   "names:Jem'Hadar": Джем'Хадаръ     # one name: final ъ only at the end
   "names:Vau-N'Akat": Вау-Н'Акатъ    # one name: final ъ only at the end
+  "names:Geist of Saint Thalia": Духътъ на света Талия      # света = "saint" (свѧт-), not свѣта "the world"
+  "names:Fateshaper Aspirant": Ученикъ-сѫдбоковачъ          # both parts of the compound end in ъ
+  "names:Hungering Puppetbeast": Гладенъ звѣръ-кукла        # as above

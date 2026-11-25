@@ -125,7 +125,7 @@
 - {glyph: ⁜, ascii: Pf, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Proliferate, bg: Размножи, bg-ivanchev: Размножи}, oracle: Proliferate}
 - {glyph: ⊜, ascii: Af, class: keyword, labels: {en: Affinity, bg: Сродство, bg-ivanchev: Сродство}, oracle: Affinity}
 - {glyph: ⊛, ascii: As, class: keyword, syntax: {kind: verb, args: [object]}, labels: {en: Assimilate, bg: Погълни, bg-note: Assimilate (Borg) — „погълни“, bg-ivanchev: Погълни}, oracle: Assimilate}
-- {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристанъ}, oracle: Station}
+- {glyph: ⛭, ascii: St, class: keyword, labels: {en: Station, bg: Пристан, bg-note: Station (Spacecraft) — „пристан“, bg-ivanchev: Пристань}, oracle: Station}
 - {glyph: ⧉, ascii: Pr, class: keyword, syntax: {kind: verb, args: [], state: true}, labels: {en: Prepared, bg: Наготове, bg-ivanchev: Наготове}, oracle: Prepared}
 - {glyph: ⋔, ascii: FD, class: keyword, syntax: {kind: verb, args: []}, labels: {en: Face a dilemma, bg: Изправи се пред кръстопът, bg-note: Face a dilemma, bg-ivanchev: Изправи се прѣдъ кръстопѫть}, oracle: Face a dilemma}
 - {glyph: ⟁, ascii: EJ, class: keyword, syntax: {kind: verb, args: [amount]}, labels: {en: Empower Jace, bg: Дай мощ на Джейс, bg-ivanchev: Дай мощь на Джейсъ}, oracle: Empower Jace}

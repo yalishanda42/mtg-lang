@@ -7,221 +7,221 @@
 - {key: Reckless Behavior, class: flavor, labels: {en: Reckless Behavior, bg: Безразсъдство, bg-ivanchev: Безразсѫдство}}
 - {key: Hailing Frequencies, class: flavor, labels: {en: Hailing Frequencies, bg: Честоти за зов, bg-ivanchev: Честоти за зовъ}}
 - {key: Open a Channel, class: flavor, labels: {en: Open a Channel, bg: Отвори връзка, bg-ivanchev: Отвори връзка}}
-- {key: Academic Ascent, class: card, labels: {en: Academic Ascent}}
-- {key: Aerid Konstrari, class: card, labels: {en: Aerid Konstrari}}
+- {key: Academic Ascent, class: card, labels: {en: Academic Ascent, bg: Възход на учения, bg-ivanchev: Възходъ на учения}}
+- {key: Aerid Konstrari, class: card, labels: {en: Aerid Konstrari, bg: Аерид Констрари, bg-ivanchev: Аеридъ Констрари}}
 - {key: Elder, class: subtype, labels: {en: Elder, bg: Старейшина, bg-ivanchev: Старѣйшина}}
 - {key: Sphinx, class: subtype, labels: {en: Sphinx, bg: Сфинкс, bg-ivanchev: Сфинксъ}}
-- {key: Afterthought Sentry, class: card, labels: {en: Afterthought Sentry}}
+- {key: Afterthought Sentry, class: card, labels: {en: Afterthought Sentry, bg: Стражът на подирната мисъл, bg-ivanchev: Стражътъ на подирната мисъль}}
 - {key: Gargoyle, class: subtype, labels: {en: Gargoyle, bg: Каменник, bg-note: 'coined: gargoyle — каменен дух', bg-ivanchev: Каменникъ}}
-- {key: Ajani Resolute, class: card, labels: {en: Ajani Resolute}}
+- {key: Ajani Resolute, class: card, labels: {en: Ajani Resolute, bg: Аджани Непоколебимия, bg-ivanchev: Аджани Непоколебимия}}
 - {key: Ajani, class: subtype, labels: {en: Ajani, bg: Аджани, bg-ivanchev: Аджани}}
-- {key: Ajani Unrelenting, class: card, labels: {en: Ajani Unrelenting}}
-- {key: Ajani's Anguish, class: card, labels: {en: Ajani's Anguish}}
-- {key: Apex Witchstalker, class: card, labels: {en: Apex Witchstalker}}
+- {key: Ajani Unrelenting, class: card, labels: {en: Ajani Unrelenting, bg: Аджани Неотстъпния, bg-ivanchev: Аджани Неотстѫпния}}
+- {key: Ajani's Anguish, class: card, labels: {en: Ajani's Anguish, bg: Аджаниева скръб, bg-ivanchev: Аджаниева скръбь}}
+- {key: Apex Witchstalker, class: card, labels: {en: Apex Witchstalker, bg: Върховен ловец на вещици, bg-ivanchev: Върховенъ ловецъ на вѣщици}}
 - {key: Wolf, class: subtype, labels: {en: Wolf, bg: Вълк, bg-ivanchev: Вълкъ}}
-- {key: Arcane Amphisbaena, class: card, labels: {en: Arcane Amphisbaena}}
+- {key: Arcane Amphisbaena, class: card, labels: {en: Arcane Amphisbaena, bg: Тайнствена амфисбена, bg-note: амфисбена — двуглава змия от старите бестиарии, bg-ivanchev: Тайнствена амфисбена}}
 - {key: Snake, class: subtype, labels: {en: Snake, bg: Змия, bg-ivanchev: Змия}}
-- {key: Archive Arbiter, class: card, labels: {en: Archive Arbiter}}
-- {key: 'Arni, Humble Scribe', class: card, labels: {en: 'Arni, Humble Scribe'}}
+- {key: Archive Arbiter, class: card, labels: {en: Archive Arbiter, bg: Съдник на летописите, bg-ivanchev: Сѫдникъ на лѣтописитѣ}}
+- {key: 'Arni, Humble Scribe', class: card, labels: {en: 'Arni, Humble Scribe', bg: 'Арни, смирен книжовник', bg-ivanchev: 'Арни, смиренъ книжовникъ'}}
 - {key: Human, class: subtype, labels: {en: Human, bg: Човек, bg-ivanchev: Човѣкъ}}
 - {key: Wizard, class: subtype, labels: {en: Wizard, bg: Вълшебник, bg-ivanchev: Вълшебникъ}}
-- {key: 'Arni, Renowned Champion', class: card, labels: {en: 'Arni, Renowned Champion'}}
+- {key: 'Arni, Renowned Champion', class: card, labels: {en: 'Arni, Renowned Champion', bg: 'Арни, прославен юнак', bg-ivanchev: 'Арни, прославенъ юнакъ'}}
 - {key: Berserker, class: subtype, labels: {en: Berserker, bg: Бесняк, bg-note: berserker — „бесняк“, bg-ivanchev: Бѣснякъ}}
-- {key: Artifist Acumen, class: card, labels: {en: Artifist Acumen}}
-- {key: Avatar of Burgeoning Echoes, class: card, labels: {en: Avatar of Burgeoning Echoes}}
+- {key: Artifist Acumen, class: card, labels: {en: Artifist Acumen, bg: Майсторска прозорливост, bg-ivanchev: Майсторска прозорливость}}
+- {key: Avatar of Burgeoning Echoes, class: card, labels: {en: Avatar of Burgeoning Echoes, bg: Въплъщение на нарастващите отгласи, bg-ivanchev: Въплъщение на нарастващитѣ отгласи}}
 - {key: Avatar, class: subtype, labels: {en: Avatar, bg: Въплъщение, bg-ivanchev: Въплъщение}}
-- {key: Awaken the Inferno, class: card, labels: {en: Awaken the Inferno}}
-- {key: Bestial Incursion, class: card, labels: {en: Bestial Incursion}}
-- {key: Blazing Crescendo, class: card, labels: {en: Blazing Crescendo}}
-- {key: Blessed Ghoul, class: card, labels: {en: Blessed Ghoul}}
+- {key: Awaken the Inferno, class: card, labels: {en: Awaken the Inferno, bg: Събуди пъкъла, bg-ivanchev: Събуди пъкъла}}
+- {key: Bestial Incursion, class: card, labels: {en: Bestial Incursion, bg: Зверско нашествие, bg-ivanchev: Звѣрско нашествие}}
+- {key: Blazing Crescendo, class: card, labels: {en: Blazing Crescendo, bg: Пламнал разгар, bg-ivanchev: Пламналъ разгаръ}}
+- {key: Blessed Ghoul, class: card, labels: {en: Blessed Ghoul, bg: Благословен таласъм, bg-note: ghoul — народното „таласъм“, bg-ivanchev: Благословенъ таласъмъ}}
 - {key: Zombie, class: subtype, labels: {en: Zombie, bg: Мъртвец, bg-ivanchev: Мъртвецъ}}
 - {key: Cleric, class: subtype, labels: {en: Cleric, bg: Духовник, bg-ivanchev: Духовникъ}}
-- {key: Bloodline Recollector, class: card, labels: {en: Bloodline Recollector}}
-- {key: Ancestral Craving, class: card, labels: {en: Ancestral Craving}}
+- {key: Bloodline Recollector, class: card, labels: {en: Bloodline Recollector, bg: Помнител на рода, bg-ivanchev: Помнитель на рода}}
+- {key: Ancestral Craving, class: card, labels: {en: Ancestral Craving, bg: Прадедовска жажда, bg-ivanchev: Прадѣдовска жажда}}
 - {key: Vampire, class: subtype, labels: {en: Vampire, bg: Вампир, bg-ivanchev: Вампиръ}}
 - {key: Warlock, class: subtype, labels: {en: Warlock, bg: Чернокнижник, bg-ivanchev: Чернокнижникъ}}
-- {key: Bloombrute, class: card, labels: {en: Bloombrute}}
+- {key: Bloombrute, class: card, labels: {en: Bloombrute, bg: Цветозвяр, bg-ivanchev: Цвѣтозвѣръ}}
 - {key: Plant, class: subtype, labels: {en: Plant, bg: Растение, bg-ivanchev: Растение}}
 - {key: Elemental, class: subtype, labels: {en: Elemental, bg: Стихиал, bg-note: coined from „стихия“, bg-ivanchev: Стихиалъ}}
-- {key: Blossom-Blessed Angel, class: card, labels: {en: Blossom-Blessed Angel}}
-- {key: Seed Suture, class: card, labels: {en: Seed Suture}}
+- {key: Blossom-Blessed Angel, class: card, labels: {en: Blossom-Blessed Angel, bg: Цветоблагословен ангел, bg-ivanchev: Цвѣтоблагословенъ ангелъ}}
+- {key: Seed Suture, class: card, labels: {en: Seed Suture, bg: Семенен шев, bg-ivanchev: Сѣмененъ шевъ}}
 - {key: Angel, class: subtype, labels: {en: Angel, bg: Ангел, bg-ivanchev: Ангелъ}}
-- {key: Break Under Pressure, class: card, labels: {en: Break Under Pressure}}
-- {key: Budding Insurgent, class: card, labels: {en: Budding Insurgent}}
+- {key: Break Under Pressure, class: card, labels: {en: Break Under Pressure, bg: Пречупи се под гнет, bg-ivanchev: Прѣчупи се подъ гнетъ}}
+- {key: Budding Insurgent, class: card, labels: {en: Budding Insurgent, bg: Напъпил бунтовник, bg-ivanchev: Напѫпилъ бунтовникъ}}
 - {key: Dryad, class: subtype, labels: {en: Dryad, bg: Самодива, bg-note: dryad — българската горска самодива, bg-ivanchev: Самодива}}
 - {key: Scout, class: subtype, labels: {en: Scout, bg: Съглядвач, bg-ivanchev: Съглядвачъ}}
-- {key: Campus Crier, class: card, labels: {en: Campus Crier}}
+- {key: Campus Crier, class: card, labels: {en: Campus Crier, bg: Училищен глашатай, bg-ivanchev: Училищенъ глашатай}}
 - {key: Advisor, class: subtype, labels: {en: Advisor, bg: Съветник, bg-ivanchev: Съвѣтникъ}}
-- {key: Carnivorous Cultivator, class: card, labels: {en: Carnivorous Cultivator}}
-- {key: Enroot, class: card, labels: {en: Enroot}}
+- {key: Carnivorous Cultivator, class: card, labels: {en: Carnivorous Cultivator, bg: Месояден градинар, bg-ivanchev: Месояденъ градинарь}}
+- {key: Enroot, class: card, labels: {en: Enroot, bg: Вкорени, bg-ivanchev: Вкорени}}
 - {key: Elf, class: subtype, labels: {en: Elf, bg: Горянин, bg-note: elf — горски народ, bg-ivanchev: Горянинъ}}
-- {key: Cast Away Doubt, class: card, labels: {en: Cast Away Doubt}}
-- {key: 'Chandra, Chill of Compliance', class: card, labels: {en: 'Chandra, Chill of Compliance'}}
+- {key: Cast Away Doubt, class: card, labels: {en: Cast Away Doubt, bg: Пропъди съмнението, bg-ivanchev: Пропѫди съмнѣнието}}
+- {key: 'Chandra, Chill of Compliance', class: card, labels: {en: 'Chandra, Chill of Compliance', bg: 'Чандра, хлад на покорството', bg-ivanchev: 'Чандра, хладъ на покорството'}}
 - {key: Chandra, class: subtype, labels: {en: Chandra, bg: Чандра, bg-ivanchev: Чандра}}
-- {key: 'Chandra, Torch of Defiance', class: card, labels: {en: 'Chandra, Torch of Defiance'}}
-- {key: Chandra's Emberling, class: card, labels: {en: Chandra's Emberling}}
+- {key: 'Chandra, Torch of Defiance', class: card, labels: {en: 'Chandra, Torch of Defiance', bg: 'Чандра, факел на непокорството', bg-ivanchev: 'Чандра, факелъ на непокорството'}}
+- {key: Chandra's Emberling, class: card, labels: {en: Chandra's Emberling, bg: Чандрино въгленче, bg-ivanchev: Чандрино вѫгленче}}
 - {key: Gremlin, class: subtype, labels: {en: Gremlin, bg: Пакостник, bg-ivanchev: Пакостникъ}}
-- {key: Charge the Sanctum, class: card, labels: {en: Charge the Sanctum}}
-- {key: Clash of Elements, class: card, labels: {en: Clash of Elements}}
-- {key: 'Codie, Ravenous Codex', class: card, labels: {en: 'Codie, Ravenous Codex'}}
+- {key: Charge the Sanctum, class: card, labels: {en: Charge the Sanctum, bg: Нападни светилището, bg-ivanchev: Нападни светилището}}
+- {key: Clash of Elements, class: card, labels: {en: Clash of Elements, bg: Сблъсък на стихиите, bg-ivanchev: Сблъсъкъ на стихиитѣ}}
+- {key: 'Codie, Ravenous Codex', class: card, labels: {en: 'Codie, Ravenous Codex', bg: 'Коди, ненаситният ръкопис', bg-ivanchev: 'Коди, ненаситниятъ рѫкописъ'}}
 - {key: Book, class: subtype, labels: {en: Book, bg: Книга, bg-ivanchev: Книга}}
 - {key: Construct, class: subtype, labels: {en: Construct, bg: Творение, bg-ivanchev: Творение}}
-- {key: Command the Stage, class: card, labels: {en: Command the Stage}}
-- {key: Compel Brutality, class: card, labels: {en: Compel Brutality}}
-- {key: Countersculpt, class: card, labels: {en: Countersculpt}}
-- {key: Craftwork Crusher, class: card, labels: {en: Craftwork Crusher}}
+- {key: Command the Stage, class: card, labels: {en: Command the Stage, bg: Завладей сцената, bg-ivanchev: Завладѣй сцената}}
+- {key: Compel Brutality, class: card, labels: {en: Compel Brutality, bg: Подтикни към лютост, bg-ivanchev: Подтикни къмъ лютость}}
+- {key: Countersculpt, class: card, labels: {en: Countersculpt, bg: Противоизваяние, bg-ivanchev: Противоизваяние}}
+- {key: Craftwork Crusher, class: card, labels: {en: Craftwork Crusher, bg: Майсторски трошач, bg-ivanchev: Майсторски трошачъ}}
 - {key: Boar, class: subtype, labels: {en: Boar, bg: Глиган, bg-ivanchev: Глиганъ}}
-- {key: Craterclaw Colossus, class: card, labels: {en: Craterclaw Colossus}}
+- {key: Craterclaw Colossus, class: card, labels: {en: Craterclaw Colossus, bg: Кратероног исполин, bg-ivanchev: Кратероногъ исполинъ}}
 - {key: Beast, class: subtype, labels: {en: Beast, bg: Звяр, bg-ivanchev: Звѣръ}}
-- {key: Cruel Calculations, class: card, labels: {en: Cruel Calculations}}
-- {key: Cryotheory Adept, class: card, labels: {en: Cryotheory Adept}}
-- {key: Curse-Marred Demon, class: card, labels: {en: Curse-Marred Demon}}
+- {key: Cruel Calculations, class: card, labels: {en: Cruel Calculations, bg: Жестоки сметки, bg-ivanchev: Жестоки смѣтки}}
+- {key: Cryotheory Adept, class: card, labels: {en: Cryotheory Adept, bg: Посветен в мразоучението, bg-ivanchev: Посветенъ въ мразоучението}}
+- {key: Curse-Marred Demon, class: card, labels: {en: Curse-Marred Demon, bg: Белязан от клетва бяс, bg-ivanchev: Бѣлязанъ отъ клетва бѣсъ}}
 - {key: Demon, class: subtype, labels: {en: Demon, bg: Бяс, bg-note: demon — народното „бяс“, bg-ivanchev: Бѣсъ}}
-- {key: 'Danitha, Spear of Agony', class: card, labels: {en: 'Danitha, Spear of Agony'}}
+- {key: 'Danitha, Spear of Agony', class: card, labels: {en: 'Danitha, Spear of Agony', bg: 'Данита, копие на мъката', bg-ivanchev: 'Данита, копие на мѫката'}}
 - {key: Knight, class: subtype, labels: {en: Knight, bg: Витяз, bg-note: knight — славянското „витяз“, bg-ivanchev: Витязъ}}
-- {key: 'Danitha, Sword of Hope', class: card, labels: {en: 'Danitha, Sword of Hope'}}
-- {key: Dark Matter Manipulator, class: card, labels: {en: Dark Matter Manipulator}}
-- {key: Darklight Phoenix, class: card, labels: {en: Darklight Phoenix}}
+- {key: 'Danitha, Sword of Hope', class: card, labels: {en: 'Danitha, Sword of Hope', bg: 'Данита, меч на надеждата', bg-ivanchev: 'Данита, мечъ на надеждата'}}
+- {key: Dark Matter Manipulator, class: card, labels: {en: Dark Matter Manipulator, bg: Повелител на тъмната материя, bg-ivanchev: Повелитель на тъмната материя}}
+- {key: Darklight Phoenix, class: card, labels: {en: Darklight Phoenix, bg: Мракосветен феникс, bg-ivanchev: Мракосвѣтенъ фениксъ}}
 - {key: Phoenix, class: subtype, labels: {en: Phoenix, bg: Феникс, bg-ivanchev: Фениксъ}}
-- {key: Dedicated Commons, class: card, labels: {en: Dedicated Commons}}
-- {key: Denzilore Fatehold, class: card, labels: {en: Denzilore Fatehold}}
-- {key: Deserted Beach, class: card, labels: {en: Deserted Beach}}
-- {key: Desperate Futurescribe, class: card, labels: {en: Desperate Futurescribe}}
+- {key: Dedicated Commons, class: card, labels: {en: Dedicated Commons, bg: Предана мера, bg-note: commons — общинската мера, bg-ivanchev: Прѣдана мѣра}}
+- {key: Denzilore Fatehold, class: card, labels: {en: Denzilore Fatehold, bg: Дензилор от Съдбокрепост, bg-note: Fatehold — „Съдбокрепост“ (училище в света на картите), bg-ivanchev: Дензилоръ отъ Сѫдбокрѣпость}}
+- {key: Deserted Beach, class: card, labels: {en: Deserted Beach, bg: Пуст бряг, bg-ivanchev: Пустъ брѣгъ}}
+- {key: Desperate Futurescribe, class: card, labels: {en: Desperate Futurescribe, bg: Отчаян летописец на бъдното, bg-ivanchev: Отчаянъ лѣтописецъ на бѫдното}}
 - {key: Kor, class: subtype, labels: {en: Kor, bg: Кор, bg-ivanchev: Коръ}}
-- {key: Diviner of Victory, class: card, labels: {en: Diviner of Victory}}
-- {key: Unwind History, class: card, labels: {en: Unwind History}}
+- {key: Diviner of Victory, class: card, labels: {en: Diviner of Victory, bg: Гадател на победата, bg-ivanchev: Гадатель на побѣдата}}
+- {key: Unwind History, class: card, labels: {en: Unwind History, bg: Развий летописа, bg-ivanchev: Развий лѣтописа}}
 - {key: Dwarf, class: subtype, labels: {en: Dwarf, bg: Джудже, bg-ivanchev: Джудже}}
-- {key: Divining Duelist, class: card, labels: {en: Divining Duelist}}
+- {key: Divining Duelist, class: card, labels: {en: Divining Duelist, bg: Гадаещ двубойник, bg-ivanchev: Гадаещъ двубойникъ}}
 - {key: Merfolk, class: subtype, labels: {en: Merfolk, bg: Морянин, bg-ivanchev: Морянинъ}}
-- {key: Draconic Visitor, class: card, labels: {en: Draconic Visitor}}
+- {key: Draconic Visitor, class: card, labels: {en: Draconic Visitor, bg: Змейски гостенин, bg-ivanchev: Змейски гостенинъ}}
 - {key: Dragon, class: subtype, labels: {en: Dragon, bg: Змей, bg-note: dragon — фолклорният змей, bg-ivanchev: Змей}}
-- {key: Eardrum Rattler, class: card, labels: {en: Eardrum Rattler}}
+- {key: Eardrum Rattler, class: card, labels: {en: Eardrum Rattler, bg: Ушотресач, bg-ivanchev: Ушотресачъ}}
 - {key: Bard, class: subtype, labels: {en: Bard, bg: Гуслар, bg-note: bard — „гуслар“, bg-ivanchev: Гусларь}}
-- {key: 'Edgar, Ancient Bloodlord', class: card, labels: {en: 'Edgar, Ancient Bloodlord'}}
+- {key: 'Edgar, Ancient Bloodlord', class: card, labels: {en: 'Edgar, Ancient Bloodlord', bg: 'Едгар, древен кръвовладетел', bg-ivanchev: 'Едгаръ, древенъ кръвовладѣтель'}}
 - {key: Noble, class: subtype, labels: {en: Noble, bg: Болярин, bg-ivanchev: Боляринъ}}
-- {key: 'Edgar, Moonlit Sovereign', class: card, labels: {en: 'Edgar, Moonlit Sovereign'}}
+- {key: 'Edgar, Moonlit Sovereign', class: card, labels: {en: 'Edgar, Moonlit Sovereign', bg: 'Едгар, лунен самодържец', bg-ivanchev: 'Едгаръ, луненъ самодържецъ'}}
 - {key: Werewolf, class: subtype, labels: {en: Werewolf, bg: Върколак, bg-ivanchev: Върколакъ}}
-- {key: Emergency Phytomedic, class: card, labels: {en: Emergency Phytomedic}}
-- {key: 'Emrakul, the Exigent Doom', class: card, labels: {en: 'Emrakul, the Exigent Doom'}}
+- {key: Emergency Phytomedic, class: card, labels: {en: Emergency Phytomedic, bg: Спешен билколечител, bg-ivanchev: Спѣшенъ билколечитель}}
+- {key: 'Emrakul, the Exigent Doom', class: card, labels: {en: 'Emrakul, the Exigent Doom', bg: 'Емракул, неумолимата гибел', bg-ivanchev: 'Емракулъ, неумолимата гибель'}}
 - {key: Eldrazi, class: subtype, labels: {en: Eldrazi, bg: Елдрази, bg-ivanchev: Елдрази}}
-- {key: Enlightened Confidant, class: card, labels: {en: Enlightened Confidant}}
-- {key: Entrust the Spark, class: card, labels: {en: Entrust the Spark}}
-- {key: Essence Burn, class: card, labels: {en: Essence Burn}}
-- {key: Extended Absence, class: card, labels: {en: Extended Absence}}
-- {key: Extrapolate the Impossible, class: card, labels: {en: Extrapolate the Impossible}}
-- {key: Eye of Jace, class: card, labels: {en: Eye of Jace}}
-- {key: Face Yourself, class: card, labels: {en: Face Yourself}}
-- {key: Fatehold Annex, class: card, labels: {en: Fatehold Annex}}
-- {key: Fatehold Charm, class: card, labels: {en: Fatehold Charm}}
-- {key: Fatehold Chronologist, class: card, labels: {en: Fatehold Chronologist}}
-- {key: Peer Review, class: card, labels: {en: Peer Review}}
+- {key: Enlightened Confidant, class: card, labels: {en: Enlightened Confidant, bg: Просветен довереник, bg-ivanchev: Просвѣтенъ довѣреникъ}}
+- {key: Entrust the Spark, class: card, labels: {en: Entrust the Spark, bg: Повери искрата, bg-ivanchev: Повѣри искрата}}
+- {key: Essence Burn, class: card, labels: {en: Essence Burn, bg: Изгаряне на същината, bg-ivanchev: Изгаряне на сѫщината}}
+- {key: Extended Absence, class: card, labels: {en: Extended Absence, bg: Продължително отсъствие, bg-ivanchev: Продължително отсѫтствие}}
+- {key: Extrapolate the Impossible, class: card, labels: {en: Extrapolate the Impossible, bg: Предскажи невъзможното, bg-ivanchev: Прѣдскажи невъзможното}}
+- {key: Eye of Jace, class: card, labels: {en: Eye of Jace, bg: Окото на Джейс, bg-ivanchev: Окото на Джейсъ}}
+- {key: Face Yourself, class: card, labels: {en: Face Yourself, bg: Изправи се срещу себе си, bg-ivanchev: Изправи се срѣщу себе си}}
+- {key: Fatehold Annex, class: card, labels: {en: Fatehold Annex, bg: Пристройка на Съдбокрепост, bg-ivanchev: Пристройка на Сѫдбокрѣпость}}
+- {key: Fatehold Charm, class: card, labels: {en: Fatehold Charm, bg: Муска на Съдбокрепост, bg-note: 'charm — „муска“, амулет', bg-ivanchev: Муска на Сѫдбокрѣпость}}
+- {key: Fatehold Chronologist, class: card, labels: {en: Fatehold Chronologist, bg: Летописец на Съдбокрепост, bg-ivanchev: Лѣтописецъ на Сѫдбокрѣпость}}
+- {key: Peer Review, class: card, labels: {en: Peer Review, bg: Съд на равните, bg-ivanchev: Сѫдъ на равнитѣ}}
 - {key: Bird, class: subtype, labels: {en: Bird, bg: Птица, bg-ivanchev: Птица}}
-- {key: Fateshaper Aspirant, class: card, labels: {en: Fateshaper Aspirant}}
+- {key: Fateshaper Aspirant, class: card, labels: {en: Fateshaper Aspirant, bg: Ученик-съдбоковач, bg-ivanchev: Ученикъ-сѫдбоковачъ}}
 - {key: Rhino, class: subtype, labels: {en: Rhino, bg: Носорог, bg-ivanchev: Носорогъ}}
-- {key: 'Fblthp, Impossibly Lost', class: card, labels: {en: 'Fblthp, Impossibly Lost'}}
+- {key: 'Fblthp, Impossibly Lost', class: card, labels: {en: 'Fblthp, Impossibly Lost', bg: 'Фблтп, невъзможно изгубен', bg-ivanchev: 'Фблтпъ, невъзможно изгубенъ'}}
 - {key: Homunculus, class: subtype, labels: {en: Homunculus, bg: Човечец, bg-ivanchev: Човѣчецъ}}
-- {key: 'Fblthp, Knows the Way', class: card, labels: {en: 'Fblthp, Knows the Way'}}
-- {key: Ferocity of the Hunt, class: card, labels: {en: Ferocity of the Hunt}}
+- {key: 'Fblthp, Knows the Way', class: card, labels: {en: 'Fblthp, Knows the Way', bg: 'Фблтп, знае пътя', bg-ivanchev: 'Фблтпъ, знае пѫтя'}}
+- {key: Ferocity of the Hunt, class: card, labels: {en: Ferocity of the Hunt, bg: Свирепостта на лова, bg-ivanchev: Свирепостьта на лова}}
 - {key: Aura, class: subtype, labels: {en: Aura, bg: Сияние, bg-note: Aura (enchantment subtype), bg-ivanchev: Сияние}}
-- {key: Flickering Hound, class: card, labels: {en: Flickering Hound}}
+- {key: Flickering Hound, class: card, labels: {en: Flickering Hound, bg: Трепкащ хрът, bg-ivanchev: Трепкащъ хрътъ}}
 - {key: Dog, class: subtype, labels: {en: Dog, bg: Пес, bg-ivanchev: Песъ}}
-- {key: Flourishing Grapple, class: card, labels: {en: Flourishing Grapple}}
-- {key: Forest, class: card, labels: {en: Forest}}
-- {key: Formidable Commons, class: card, labels: {en: Formidable Commons}}
-- {key: Frostbite Pyromental, class: card, labels: {en: Frostbite Pyromental}}
-- {key: Fulminous Forte, class: card, labels: {en: Fulminous Forte}}
-- {key: 'Gallia, the Merrymaker', class: card, labels: {en: 'Gallia, the Merrymaker'}}
+- {key: Flourishing Grapple, class: card, labels: {en: Flourishing Grapple, bg: Цъфтяща хватка, bg-ivanchev: Цъфтяща хватка}}
+- {key: Forest, class: card, labels: {en: Forest, bg: Гора, bg-ivanchev: Гора}}
+- {key: Formidable Commons, class: card, labels: {en: Formidable Commons, bg: Страховита мера, bg-ivanchev: Страховита мѣра}}
+- {key: Frostbite Pyromental, class: card, labels: {en: Frostbite Pyromental, bg: Измръзнал огнедух, bg-ivanchev: Измръзналъ огнедухъ}}
+- {key: Fulminous Forte, class: card, labels: {en: Fulminous Forte, bg: Гръмовен връх, bg-ivanchev: Гръмовенъ връхъ}}
+- {key: 'Gallia, the Merrymaker', class: card, labels: {en: 'Gallia, the Merrymaker', bg: 'Галия, веселата', bg-ivanchev: 'Галия, веселата'}}
 - {key: Satyr, class: subtype, labels: {en: Satyr, bg: Сатир, bg-ivanchev: Сатиръ}}
-- {key: 'Gallia, Tragic Host', class: card, labels: {en: 'Gallia, Tragic Host'}}
-- {key: Gardenize, class: card, labels: {en: Gardenize}}
-- {key: 'Garruk, Curse Breaker', class: card, labels: {en: 'Garruk, Curse Breaker'}}
+- {key: 'Gallia, Tragic Host', class: card, labels: {en: 'Gallia, Tragic Host', bg: 'Галия, злочеста домакиня', bg-ivanchev: 'Галия, злочеста домакиня'}}
+- {key: Gardenize, class: card, labels: {en: Gardenize, bg: Озелени, bg-ivanchev: Озелени}}
+- {key: 'Garruk, Curse Breaker', class: card, labels: {en: 'Garruk, Curse Breaker', bg: 'Гарук, разваляч на клетви', bg-ivanchev: 'Гарукъ, развалячъ на клетви'}}
 - {key: Garruk, class: subtype, labels: {en: Garruk, bg: Гарук, bg-ivanchev: Гарукъ}}
-- {key: 'Garruk, Veiled Butcher', class: card, labels: {en: 'Garruk, Veiled Butcher'}}
-- {key: Geist of Saint Thalia, class: card, labels: {en: Geist of Saint Thalia}}
+- {key: 'Garruk, Veiled Butcher', class: card, labels: {en: 'Garruk, Veiled Butcher', bg: 'Гарук, забуленият касапин', bg-ivanchev: 'Гарукъ, забулениятъ касапинъ'}}
+- {key: Geist of Saint Thalia, class: card, labels: {en: Geist of Saint Thalia, bg: Духът на света Талия, bg-ivanchev: Духътъ на света Талия}}
 - {key: Spirit, class: subtype, labels: {en: Spirit, bg: Дух, bg-ivanchev: Духъ}}
-- {key: Generous Revival, class: card, labels: {en: Generous Revival}}
-- {key: Germinate Recruits, class: card, labels: {en: Germinate Recruits}}
-- {key: Ghalta the Immovable, class: card, labels: {en: Ghalta the Immovable}}
+- {key: Generous Revival, class: card, labels: {en: Generous Revival, bg: Щедро възкресение, bg-ivanchev: Щедро възкресение}}
+- {key: Germinate Recruits, class: card, labels: {en: Germinate Recruits, bg: Покълни новобранци, bg-ivanchev: Покълни новобранци}}
+- {key: Ghalta the Immovable, class: card, labels: {en: Ghalta the Immovable, bg: Галта Непоклатимия, bg-ivanchev: Галта Непоклатимия}}
 - {key: Dinosaur, class: subtype, labels: {en: Dinosaur, bg: Праящер, bg-ivanchev: Праящеръ}}
-- {key: Ghalta the Unstoppable, class: card, labels: {en: Ghalta the Unstoppable}}
-- {key: Gideon the Oathless, class: card, labels: {en: Gideon the Oathless}}
+- {key: Ghalta the Unstoppable, class: card, labels: {en: Ghalta the Unstoppable, bg: Галта Неудържимия, bg-ivanchev: Галта Неудържимия}}
+- {key: Gideon the Oathless, class: card, labels: {en: Gideon the Oathless, bg: Гедеон Безклетвения, bg-note: Gideon — старата библейска форма „Гедеон“, bg-ivanchev: Гедеонъ Безклетвения}}
 - {key: Mercenary, class: subtype, labels: {en: Mercenary, bg: Наемник, bg-ivanchev: Наемникъ}}
-- {key: Gideon's Memorial, class: card, labels: {en: Gideon's Memorial}}
-- {key: Graft Surgeon, class: card, labels: {en: Graft Surgeon}}
-- {key: Greenhouse Propagator, class: card, labels: {en: Greenhouse Propagator}}
+- {key: Gideon's Memorial, class: card, labels: {en: Gideon's Memorial, bg: Гедеонов паметник, bg-ivanchev: Гедеоновъ паметникъ}}
+- {key: Graft Surgeon, class: card, labels: {en: Graft Surgeon, bg: Присадител, bg-ivanchev: Присадитель}}
+- {key: Greenhouse Propagator, class: card, labels: {en: Greenhouse Propagator, bg: Разсадник от парника, bg-ivanchev: Разсадникъ отъ парника}}
 - {key: Cat, class: subtype, labels: {en: Cat, bg: Котка, bg-ivanchev: Котка}}
 - {key: Druid, class: subtype, labels: {en: Druid, bg: Друид, bg-ivanchev: Друидъ}}
-- {key: Grim Repriser, class: card, labels: {en: Grim Repriser}}
-- {key: Guiding Hydra, class: card, labels: {en: Guiding Hydra}}
+- {key: Grim Repriser, class: card, labels: {en: Grim Repriser, bg: Мрачен припевник, bg-ivanchev: Мраченъ припѣвникъ}}
+- {key: Guiding Hydra, class: card, labels: {en: Guiding Hydra, bg: Водеща ламя, bg-ivanchev: Водеща ламя}}
 - {key: Hydra, class: subtype, labels: {en: Hydra, bg: Ламя, bg-note: hydra — многоглавата ламя, bg-ivanchev: Ламя}}
 - {key: Horror, class: subtype, labels: {en: Horror, bg: Изрод, bg-ivanchev: Изродъ}}
-- {key: Hall of Echoes, class: card, labels: {en: Hall of Echoes}}
-- {key: Hallway Heckler, class: card, labels: {en: Hallway Heckler}}
-- {key: Vicious Verse, class: card, labels: {en: Vicious Verse}}
+- {key: Hall of Echoes, class: card, labels: {en: Hall of Echoes, bg: Палата на ехото, bg-ivanchev: Палата на ехото}}
+- {key: Hallway Heckler, class: card, labels: {en: Hallway Heckler, bg: Коридорен присмехулник, bg-ivanchev: Коридоренъ присмѣхулникъ}}
+- {key: Vicious Verse, class: card, labels: {en: Vicious Verse, bg: Зъл стих, bg-ivanchev: Зълъ стихъ}}
 - {key: Sorcerer, class: subtype, labels: {en: Sorcerer, bg: Чародей, bg-ivanchev: Чародѣй}}
-- {key: 'Hapatra, the Desert Fang', class: card, labels: {en: 'Hapatra, the Desert Fang'}}
-- {key: 'Hapatra, the Desert Frost', class: card, labels: {en: 'Hapatra, the Desert Frost'}}
-- {key: Haunted Ridge, class: card, labels: {en: Haunted Ridge}}
-- {key: Heartstring Puller, class: card, labels: {en: Heartstring Puller}}
-- {key: Heartwood Crafter, class: card, labels: {en: Heartwood Crafter}}
-- {key: Soul Tether, class: card, labels: {en: Soul Tether}}
+- {key: 'Hapatra, the Desert Fang', class: card, labels: {en: 'Hapatra, the Desert Fang', bg: 'Хапатра, пустинният зъб', bg-ivanchev: 'Хапатра, пустинниятъ зѫбъ'}}
+- {key: 'Hapatra, the Desert Frost', class: card, labels: {en: 'Hapatra, the Desert Frost', bg: 'Хапатра, пустинният мраз', bg-ivanchev: 'Хапатра, пустинниятъ мразъ'}}
+- {key: Haunted Ridge, class: card, labels: {en: Haunted Ridge, bg: Призрачен рид, bg-ivanchev: Призраченъ ридъ}}
+- {key: Heartstring Puller, class: card, labels: {en: Heartstring Puller, bg: Дърпач на сърдечни струни, bg-ivanchev: Дърпачъ на сърдечни струни}}
+- {key: Heartwood Crafter, class: card, labels: {en: Heartwood Crafter, bg: Майстор на сърцевината, bg-ivanchev: Майсторъ на сърдцевината}}
+- {key: Soul Tether, class: card, labels: {en: Soul Tether, bg: Душевна връв, bg-ivanchev: Душевна връвь}}
 - {key: Artificer, class: subtype, labels: {en: Artificer, bg: Майстор, bg-ivanchev: Майсторъ}}
-- {key: Hexhaven Battalion, class: card, labels: {en: Hexhaven Battalion}}
-- {key: Hexhaven Dueling Arena, class: card, labels: {en: Hexhaven Dueling Arena}}
-- {key: Hexhaven Invigorator, class: card, labels: {en: Hexhaven Invigorator}}
+- {key: Hexhaven Battalion, class: card, labels: {en: Hexhaven Battalion, bg: Дружина от Чародейна пристан, bg-note: Hexhaven — „Чародейна пристан“, bg-ivanchev: Дружина отъ Чародѣйна пристань}}
+- {key: Hexhaven Dueling Arena, class: card, labels: {en: Hexhaven Dueling Arena, bg: Двубойно поле на Чародейна пристан, bg-ivanchev: Двубойно поле на Чародѣйна пристань}}
+- {key: Hexhaven Invigorator, class: card, labels: {en: Hexhaven Invigorator, bg: Ободрител от Чародейна пристан, bg-ivanchev: Ободритель отъ Чародѣйна пристань}}
 - {key: Chimera, class: subtype, labels: {en: Chimera, bg: Химера, bg-ivanchev: Химера}}
-- {key: Hungering Puppetbeast, class: card, labels: {en: Hungering Puppetbeast}}
-- {key: Hunter's Axe, class: card, labels: {en: Hunter's Axe}}
+- {key: Hungering Puppetbeast, class: card, labels: {en: Hungering Puppetbeast, bg: Гладен звяр-кукла, bg-ivanchev: Гладенъ звѣръ-кукла}}
+- {key: Hunter's Axe, class: card, labels: {en: Hunter's Axe, bg: Ловджийска брадва, bg-ivanchev: Ловджийска брадва}}
 - {key: Equipment, class: subtype, labels: {en: Equipment, bg: Снаряжение, bg-ivanchev: Снаряжение}}
-- {key: Icy Reception, class: card, labels: {en: Icy Reception}}
-- {key: Identity Echo, class: card, labels: {en: Identity Echo}}
-- {key: Infinite Coursework, class: card, labels: {en: Infinite Coursework}}
-- {key: Ingris Stingerquill, class: card, labels: {en: Ingris Stingerquill}}
-- {key: Innovative Commons, class: card, labels: {en: Innovative Commons}}
-- {key: Inspired Tethermage, class: card, labels: {en: Inspired Tethermage}}
+- {key: Icy Reception, class: card, labels: {en: Icy Reception, bg: Леден прием, bg-ivanchev: Леденъ приемъ}}
+- {key: Identity Echo, class: card, labels: {en: Identity Echo, bg: Отглас на самоличността, bg-ivanchev: Отгласъ на самоличностьта}}
+- {key: Infinite Coursework, class: card, labels: {en: Infinite Coursework, bg: Безкрайна наука, bg-ivanchev: Безкрайна наука}}
+- {key: Ingris Stingerquill, class: card, labels: {en: Ingris Stingerquill, bg: Ингрис Жилоперо, bg-ivanchev: Ингрисъ Жилоперо}}
+- {key: Innovative Commons, class: card, labels: {en: Innovative Commons, bg: Изобретателна мера, bg-ivanchev: Изобретателна мѣра}}
+- {key: Inspired Tethermage, class: card, labels: {en: Inspired Tethermage, bg: Вдъхновен връзкомаг, bg-ivanchev: Вдъхновенъ връзкомагъ}}
 - {key: Warrior, class: subtype, labels: {en: Warrior, bg: Воин, bg-ivanchev: Воинъ}}
-- {key: Island, class: card, labels: {en: Island}}
-- {key: 'Jace, Reality Sculptor', class: card, labels: {en: 'Jace, Reality Sculptor'}}
+- {key: Island, class: card, labels: {en: Island, bg: Остров, bg-ivanchev: Островъ}}
+- {key: 'Jace, Reality Sculptor', class: card, labels: {en: 'Jace, Reality Sculptor', bg: 'Джейс, ваятел на действителността', bg-ivanchev: 'Джейсъ, ваятель на дѣйствителностьта'}}
 - {key: Jace, class: subtype, labels: {en: Jace, bg: Джейс, bg-ivanchev: Джейсъ}}
-- {key: Jace's Machinations, class: card, labels: {en: Jace's Machinations}}
-- {key: 'Jiang Yanggu, Alone', class: card, labels: {en: 'Jiang Yanggu, Alone'}}
-- {key: 'Jiang Yanggu, Never Alone', class: card, labels: {en: 'Jiang Yanggu, Never Alone'}}
-- {key: 'Karn, Argent Defender', class: card, labels: {en: 'Karn, Argent Defender'}}
+- {key: Jace's Machinations, class: card, labels: {en: Jace's Machinations, bg: Джейсови кроежи, bg-ivanchev: Джейсови кроежи}}
+- {key: 'Jiang Yanggu, Alone', class: card, labels: {en: 'Jiang Yanggu, Alone', bg: 'Дзян Янгу, самичък', bg-ivanchev: 'Дзянъ Янгу, самичъкъ'}}
+- {key: 'Jiang Yanggu, Never Alone', class: card, labels: {en: 'Jiang Yanggu, Never Alone', bg: 'Дзян Янгу, никога самичък', bg-ivanchev: 'Дзянъ Янгу, никога самичъкъ'}}
+- {key: 'Karn, Argent Defender', class: card, labels: {en: 'Karn, Argent Defender', bg: 'Карн, сребърен защитник', bg-ivanchev: 'Карнъ, сребъренъ защитникъ'}}
 - {key: Golem, class: subtype, labels: {en: Golem, bg: Голем, bg-ivanchev: Големъ}}
-- {key: 'Karn, Gilded Guardian', class: card, labels: {en: 'Karn, Gilded Guardian'}}
-- {key: Keeper of the Quiet Hour, class: card, labels: {en: Keeper of the Quiet Hour}}
-- {key: Kindred Judgment, class: card, labels: {en: Kindred Judgment}}
-- {key: Kiora of Fire and Ashes, class: card, labels: {en: Kiora of Fire and Ashes}}
-- {key: Kiora of Salt and Sand, class: card, labels: {en: Kiora of Salt and Sand}}
-- {key: Konstrari Annex, class: card, labels: {en: Konstrari Annex}}
-- {key: Konstrari Charm, class: card, labels: {en: Konstrari Charm}}
-- {key: Konstrari Improviser, class: card, labels: {en: Konstrari Improviser}}
-- {key: Koth of the Homestead, class: card, labels: {en: Koth of the Homestead}}
+- {key: 'Karn, Gilded Guardian', class: card, labels: {en: 'Karn, Gilded Guardian', bg: 'Карн, позлатен пазител', bg-ivanchev: 'Карнъ, позлатенъ пазитель'}}
+- {key: Keeper of the Quiet Hour, class: card, labels: {en: Keeper of the Quiet Hour, bg: Пазител на тихия час, bg-ivanchev: Пазитель на тихия часъ}}
+- {key: Kindred Judgment, class: card, labels: {en: Kindred Judgment, bg: Съд над рода, bg-ivanchev: Сѫдъ надъ рода}}
+- {key: Kiora of Fire and Ashes, class: card, labels: {en: Kiora of Fire and Ashes, bg: Киора на огъня и пепелта, bg-ivanchev: Киора на огъня и пепельта}}
+- {key: Kiora of Salt and Sand, class: card, labels: {en: Kiora of Salt and Sand, bg: Киора на солта и пясъка, bg-ivanchev: Киора на сольта и пѣсъка}}
+- {key: Konstrari Annex, class: card, labels: {en: Konstrari Annex, bg: Пристройка на Констрари, bg-ivanchev: Пристройка на Констрари}}
+- {key: Konstrari Charm, class: card, labels: {en: Konstrari Charm, bg: Муска на Констрари, bg-ivanchev: Муска на Констрари}}
+- {key: Konstrari Improviser, class: card, labels: {en: Konstrari Improviser, bg: Констрарийски сръчник, bg-ivanchev: Констрарийски срѫчникъ}}
+- {key: Koth of the Homestead, class: card, labels: {en: Koth of the Homestead, bg: Кот от бащиния, bg-ivanchev: Котъ отъ бащиния}}
 - {key: Citizen, class: subtype, labels: {en: Citizen, bg: Гражданин, bg-ivanchev: Гражданинъ}}
-- {key: 'Koth, the Geomancer', class: card, labels: {en: 'Koth, the Geomancer'}}
-- {key: Kwia Vigorbloom, class: card, labels: {en: Kwia Vigorbloom}}
-- {key: Last Gasp, class: card, labels: {en: Last Gasp}}
-- {key: Lich's Relic, class: card, labels: {en: Lich's Relic}}
-- {key: Liliana the Faultless, class: card, labels: {en: Liliana the Faultless}}
-- {key: Liliana the Repentant, class: card, labels: {en: Liliana the Repentant}}
-- {key: Living Library, class: card, labels: {en: Living Library}}
+- {key: 'Koth, the Geomancer', class: card, labels: {en: 'Koth, the Geomancer', bg: 'Кот, земегадателят', bg-note: geomancer — „земегадател“, bg-ivanchev: 'Котъ, земегадательтъ'}}
+- {key: Kwia Vigorbloom, class: card, labels: {en: Kwia Vigorbloom, bg: Куия Силноцвет, bg-ivanchev: Куия Силноцвѣтъ}}
+- {key: Last Gasp, class: card, labels: {en: Last Gasp, bg: Последен дъх, bg-ivanchev: Послѣденъ дъхъ}}
+- {key: Lich's Relic, class: card, labels: {en: Lich's Relic, bg: Кощеевата реликва, bg-note: lich — славянският Кощей Безсмъртни, bg-ivanchev: Кощеевата реликва}}
+- {key: Liliana the Faultless, class: card, labels: {en: Liliana the Faultless, bg: Лилиана Безгрешната, bg-ivanchev: Лилиана Безгрѣшната}}
+- {key: Liliana the Repentant, class: card, labels: {en: Liliana the Repentant, bg: Лилиана Разкаялата се, bg-ivanchev: Лилиана Разкаялата се}}
+- {key: Living Library, class: card, labels: {en: Living Library, bg: Живо книгохранилище, bg-ivanchev: Живо книгохранилище}}
 - {key: Illusion, class: subtype, labels: {en: Illusion, bg: Привидение, bg-ivanchev: Привидение}}
-- {key: 'Loot, the Anomaly', class: card, labels: {en: 'Loot, the Anomaly'}}
-- {key: 'Loot, the Nexus', class: card, labels: {en: 'Loot, the Nexus'}}
-- {key: Loyal Tutor, class: card, labels: {en: Loyal Tutor}}
-- {key: 'Lyra, Archangel of Dawn', class: card, labels: {en: 'Lyra, Archangel of Dawn'}}
-- {key: 'Lyra, Tolarian Archangel', class: card, labels: {en: 'Lyra, Tolarian Archangel'}}
-- {key: 'Mabel, Bitter Recluse', class: card, labels: {en: 'Mabel, Bitter Recluse'}}
+- {key: 'Loot, the Anomaly', class: card, labels: {en: 'Loot, the Anomaly', bg: 'Лут, чудесията', bg-ivanchev: 'Лутъ, чудесията'}}
+- {key: 'Loot, the Nexus', class: card, labels: {en: 'Loot, the Nexus', bg: 'Лут, възелът', bg-ivanchev: 'Лутъ, вѫзелътъ'}}
+- {key: Loyal Tutor, class: card, labels: {en: Loyal Tutor, bg: Верен наставник, bg-ivanchev: Вѣренъ наставникъ}}
+- {key: 'Lyra, Archangel of Dawn', class: card, labels: {en: 'Lyra, Archangel of Dawn', bg: 'Лира, архангел на зората', bg-ivanchev: 'Лира, архангелъ на зората'}}
+- {key: 'Lyra, Tolarian Archangel', class: card, labels: {en: 'Lyra, Tolarian Archangel', bg: 'Лира, толарийски архангел', bg-ivanchev: 'Лира, толарийски архангелъ'}}
+- {key: 'Mabel, Bitter Recluse', class: card, labels: {en: 'Mabel, Bitter Recluse', bg: 'Мейбъл, горчива отшелница', bg-ivanchev: 'Мейбълъ, горчива отшелница'}}
 - {key: Mouse, class: subtype, labels: {en: Mouse, bg: Мишка, bg-ivanchev: Мишка}}
-- {key: 'Mabel, Valley Hero', class: card, labels: {en: 'Mabel, Valley Hero'}}
+- {key: 'Mabel, Valley Hero', class: card, labels: {en: 'Mabel, Valley Hero', bg: 'Мейбъл, юнакиня на долината', bg-ivanchev: 'Мейбълъ, юнакиня на долината'}}
 - {key: Soldier, class: subtype, labels: {en: Soldier, bg: Войник, bg-ivanchev: Войникъ}}
-- {key: 'Marwyn, the Clearcutter', class: card, labels: {en: 'Marwyn, the Clearcutter'}}
-- {key: 'Marwyn, the Preserver', class: card, labels: {en: 'Marwyn, the Preserver'}}
-- {key: 'Massacre Girl, Most Wanted', class: card, labels: {en: 'Massacre Girl, Most Wanted'}}
+- {key: 'Marwyn, the Clearcutter', class: card, labels: {en: 'Marwyn, the Clearcutter', bg: 'Маруин, сечникът', bg-ivanchev: 'Маруинъ, сѣчникътъ'}}
+- {key: 'Marwyn, the Preserver', class: card, labels: {en: 'Marwyn, the Preserver', bg: 'Маруин, опазителят', bg-ivanchev: 'Маруинъ, опазительтъ'}}
+- {key: 'Massacre Girl, Most Wanted', class: card, labels: {en: 'Massacre Girl, Most Wanted', bg: 'Кланичарката, най-търсената', bg-ivanchev: 'Кланичарката, най-търсената'}}
 - {key: Assassin, class: subtype, labels: {en: Assassin, bg: Кръвник, bg-note: assassin — „кръвник“, bg-ivanchev: Кръвникъ}}
-- {key: Master of Barbs, class: card, labels: {en: Master of Barbs}}
+- {key: Master of Barbs, class: card, labels: {en: Master of Barbs, bg: Майстор на бодлите, bg-ivanchev: Майсторъ на бодлитѣ}}
 - {key: Lizard, class: subtype, labels: {en: Lizard, bg: Гущер, bg-ivanchev: Гущеръ}}
-- {key: Medic's Kitesail, class: card, labels: {en: Medic's Kitesail}}
+- {key: Medic's Kitesail, class: card, labels: {en: Medic's Kitesail, bg: Хвърчилото на лечителя, bg-ivanchev: Хвърчилото на лечителя}}
 - {key: Memory Trap, class: card, labels: {en: Memory Trap}}
 - {key: Meticulous Commons, class: card, labels: {en: Meticulous Commons}}
 - {key: Mind Meanderer, class: card, labels: {en: Mind Meanderer}}

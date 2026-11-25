@@ -10,7 +10,9 @@ A dependency-free port of the converter behind https://pravopis.osvedomitel.bg/ 
 - ``override`` pairs (lowercase modern → old) are applied per word before the rules;
 - words already in old spelling (containing ѣ / ѫ, or ending in ъ / ь) are left as they are, so conversion is
   idempotent;
-- the second-vowel ѫ roots (гълъб, жълъд) use an offset from the root, not an absolute index (upstream bug).
+- the second-vowel ѫ roots (гълъб, жълъд) use an offset from the root, not an absolute index (upstream bug);
+- extension: nouns in -тел and -ост (6+ letters) are soft (-тель, -ость; учительтъ, радостьта), so coined and
+  rarer words not in the upstream lists come out right.
 """
 from __future__ import annotations
 
@@ -90,9 +92,20 @@ def _place_yat(word: str, current: str) -> str:
     return "".join(out)
 
 
+_SOFT_SUFFIXES = ("тел", "ост")   # agent nouns (учитель) and abstract nouns (радость) are soft — extension
+
+
+def _soft_by_suffix(cur: str) -> bool:
+    return len(cur) >= 6 and cur.endswith(_SOFT_SUFFIXES)
+
+
 def _ending(word: str, cur: str, v: dict) -> str:
+    if cur[-2:] == "ят" and len(cur) >= 7 and cur[:-2].endswith("тел"):
+        return word[:-2] + "ьтъ"           # учителят → учительтъ
     if cur[-1] not in CONS:
         return word
+    if _soft_by_suffix(cur) and cur not in v["abbreviations"]:
+        return word + "ь"
     if cur in v["abbreviations"]:
         return word
     if cur in EXPANDED_VS:
@@ -175,7 +188,7 @@ def _yat(word: str, cur: str, v: dict) -> str:
 def _feminine_the(word: str, cur: str, v: dict) -> str:
     if any(cur.endswith(x) for x in FEMININE_THE_ENDINGS):
         return word[:-2] + "ь" + word[-2:]
-    if cur.endswith("та") and cur[:-2] in v["soft_fem"]:
+    if cur.endswith("та") and (cur[:-2] in v["soft_fem"] or (len(cur) >= 7 and cur.endswith("остта"))):
         return word[:-2] + "ьта"
     return word
 

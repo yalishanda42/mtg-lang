@@ -20,6 +20,7 @@ BG, OLD, NOTE = "bg", "bg-ivanchev", "bg-note"
 class RegenResult:
     changed: int = 0
     conflicts: list[str] = field(default_factory=list)
+    overwritten: list[tuple[str, str, str]] = field(default_factory=list)   # (key, old label, new label)
 
 
 def load_overrides(root: Path) -> tuple[dict[str, str], dict[str, str]]:
@@ -57,8 +58,9 @@ def generated(bg: str, key: str, words: dict, entries: dict) -> str:
     return entries.get(key) or to_ivanchev(bg, words)
 
 
-def regenerate(root: Path) -> RegenResult:
-    """Set ``bg-ivanchev`` on every entry with ``bg``. Writes nothing if a hand-edited label would be lost."""
+def regenerate(root: Path, overwrite: bool = False) -> RegenResult:
+    """Set ``bg-ivanchev`` on every entry with ``bg``. Writes nothing if a hand-edited label would be lost,
+    unless ``overwrite`` (then every replaced label is reported in ``overwritten``)."""
     root = Path(root)
     words, entries = load_overrides(root)
     plan: list[tuple[Path, list[str], dict[int, str]]] = []
@@ -80,8 +82,10 @@ def regenerate(root: Path) -> RegenResult:
             # a stored label that isn't converter output (with or without the word overrides) is a hand edit:
             # never overwrite it — it must be moved into `entries` first
             if have and key not in entries and have not in (to_ivanchev(str(bg), words), to_ivanchev(str(bg))):
-                result.conflicts.append(key)
-                continue
+                if not overwrite:
+                    result.conflicts.append(key)
+                    continue
+                result.overwritten.append((key, str(have), want))
             e["labels"] = dict(labels, **{OLD: want})
             changes[k] = _dump(e)
         plan.append((path, lines, changes))
