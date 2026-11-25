@@ -184,3 +184,9 @@ Each change removes a construct the semantic parser could not read unambiguously
 | # | Before | After | Why |
 |---|---|---|---|
 | 1 | `● ✪ ∋ (…)` | `● ✚ ✪ ∋ (…)` | "You get an emblem with …" had two subjects and no verb; `✚` (create) makes the emblem the object |
+| 2 | `◈ ⊖{1} ∵ ◈ ◎ ♞[➹]` | `◈ ⊖{1} ∵ ♞[➹] ∈ ◎ ◈` | "If it targets an attacking creature": same form as `◈ ∈ ◎ ○`; the old clause had no verb |
+| 3 | `⊢☾ ∧ ▣[▦ → ☚●] ◷ ⇒` | `⊢☾ ∧ ∃▣[▦ → ☚● ◷] ⇒` | "If a permanent was returned … this turn": a condition needs ∃, and the time belongs inside the filter (as in `∃♞☠◷`) |
+| 4 | `(○ ✷ ✦ ∨ ○ ⊳ ▣)[ⁿ = ☞]` | `○ ✷ ✦[ⁿ = ☞] ∨ ○ ⊳ ▣[ⁿ = ☞]` | A filter narrows a phrase, not a pair of clauses |
+| 5 | `● ? ◈ ❐ (⚙ ∨ ♞)[▦] ∧ ¬⚜` | `● ? (◈ ❐ (⚙ ∨ ♞)[▦] ∧ ¬⚜)` | "You may have this enter as a copy …": a parenthesised body gives the second subject its own clause (as in `◎○ ? (● ⤓1)`) |
+| 6 | `∀▭[⊘ ☞] : ☞⚑ ? ▶☞ …` | `(∀▭[⊘ ☞]) ☞⚑ ? ▶☞ …` | `:` is the cost separator; "for each" is `(∀…)` everywhere else |
+| 7 | `◌[«Planet» ⛰]↷ «New Planet»` | `◌[«Planet» ⛰] «New Planet»↷` | The token's name belongs to the token phrase; after `↷` it read as the thing being tapped |
